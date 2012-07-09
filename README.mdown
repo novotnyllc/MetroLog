@@ -1,0 +1,38 @@
+Overview
+===
+MetroLog is a lightweight logging framework designed for Metro-style apps. Although the API is based on
+NLog and log4net, the intention is that it's a very basic logging system. 
+
+The need for it to be basic comes from the fact that Metro-style is intentionally limited for very specific 
+applications. This project came out of the fact that porting NLog to Metro-style is difficult because of it's 
+incredibly rich feature set, most of which is not workable in Metro-style.
+
+Out-of-the-box, logging operations are intended to send all log levels to `Debug.WriteLine`, and Error and Fatal
+levels to a file in the app's `LocalState` folder.
+
+Documentation
+===
+The intention is that MetroLog is mostly compatible with NLog. Both the surface area and internal construction
+should just about match.
+
+One difference is that as well as using `LogManager.GetLogger`, you can add `ILoggable` to your class and 
+extension methods will add logging support. For example:
+
+	public class TestLoggable : ILoggable
+	{
+		public void DoMagic()
+		{
+			this.Info("In this case, Info is an extension method...");
+
+			var buf = "like this";
+			this.Warn("You can also use formatting, {0}", buf);
+		}
+	}
+
+Meta
+===
+
+This is an open source project that welcomes contributions/suggestions/bug reports from those who use it. 
+If you have any ideas on how to improve the library, please contact [https://twitter.com/mbrit @mbrit].
+
+ 
