@@ -102,8 +102,13 @@ namespace MetroLog
             return LogInternal(logLevel, message, ps, null, true);
         }
 
-        private LogEventInfo LogInternal(LogLevel logLevel, string message, string[] ps, Exception ex, bool doFormat)
+        private LogEventInfo LogInternal(LogLevel level, string message, string[] ps, Exception ex, bool doFormat)
         {
+            var targets = this.ResolvedConfiguration.GetTargets(level);
+            if(!(targets.Any()))
+                return null;
+
+            // format?
             if (doFormat)
             {
                 try
@@ -118,28 +123,21 @@ namespace MetroLog
             }
 
             // create an event entry and pass it through...
-            var entry = new LogEventInfo(logLevel, this.Name, message, ex);
-            Log(entry);
-
-            // return...
-            return entry;
-        }
-
-        private void Log(LogEventInfo entry)
-        {
-            // get the targets from the config...
-            var targets = this.ResolvedConfiguration.GetTargets(entry.Level);
+            var entry = new LogEventInfo(level, this.Name, message, ex);
             foreach (var target in targets)
             {
                 try
                 {
                     target.Write(entry);
                 }
-                catch (Exception ex)
+                catch (Exception writeEx)
                 {
-                    LogManager.LogInternal(string.Format("Failed to write to target '{0}'.", target), ex);
+                    LogManager.LogInternal(string.Format("Failed to write to target '{0}'.", target), writeEx);
                 }
             }
+
+            // return...
+            return entry;
         }
 
         public bool IsTraceEnabled
