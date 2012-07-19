@@ -15,7 +15,7 @@ namespace MetroLog.Tests
     public class FileSnapshotTests
     {
         [TestMethod]
-        public void TestFileSnapshot()
+        public async Task TestFileSnapshot()
         {
             LogManager.Reset();
             LogManager.DefaultConfiguration.ClearTargets();
@@ -23,25 +23,15 @@ namespace MetroLog.Tests
 
             // send through a log entry...
             var loggable = new TestLoggable();
-            var op = loggable.Fatal("Testing file write...", new InvalidOperationException("An exception message..."));
+            var op = await loggable.Fatal("Testing file write...", new InvalidOperationException("An exception message..."));
 
-            // wait...
-            op.Task.Wait();
-
-            // get the file...
-            var task = Task<string>.Run(async () =>
-            {
-                var folder = await FileSnapshotTarget.EnsureInitializedAsync();
-                var files = await folder.GetFilesAsync();
-                var file = files.Where(v => v.Name.Contains(op.Entry.SequenceID.ToString())).First();
-
-                // return...
-                return await FileIO.ReadTextAsync(file);
-            });
-            task.Wait();
+            // load the file...
+            var folder = await FileSnapshotTarget.EnsureInitializedAsync();
+            var files = await folder.GetFilesAsync();
+            var file = files.Where(v => v.Name.Contains(op[0].Entry.SequenceID.ToString())).First();
+            string contents = await FileIO.ReadTextAsync(file);
 
             // check...
-            string contents = task.Result;
             Assert.IsTrue(contents.Contains("Testing file write..."));
             Assert.IsTrue(contents.Contains("An exception message..."));
         }

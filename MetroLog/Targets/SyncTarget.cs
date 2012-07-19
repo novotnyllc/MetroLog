@@ -14,6 +14,20 @@ namespace MetroLog.Targets
         {
         }
 
-        protected internal abstract void WriteSync(LogEventInfo entry);
+        protected internal override sealed Task<LogWriteOperation> WriteAsync(LogEventInfo entry)
+        {
+            try
+            {
+                this.Write(entry);
+                return Task.FromResult<LogWriteOperation>(new LogWriteOperation(this, entry, true));
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogInternal(string.Format("Failed to write to target '{0}'.", this), ex);
+                return Task.FromResult<LogWriteOperation>(new LogWriteOperation(this, entry, false));
+            }
+        }
+
+        protected abstract void Write(LogEventInfo entry);
     }
 }

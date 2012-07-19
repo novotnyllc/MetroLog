@@ -15,7 +15,6 @@ namespace MetroLog
         public Exception Exception { get; private set; }
         public long SequenceID { get; private set; }
         public DateTime TimeStamp { get; private set; }
-        public Task Task { get; private set; }
 
         private static long _globalSequenceId;
 
@@ -27,18 +26,6 @@ namespace MetroLog
             this.Exception = ex;
             this.TimeStamp = LogManager.GetDateTime();
             this.SequenceID = Interlocked.Increment(ref _globalSequenceId);
-        }
-
-        public void SetTask(Task task)
-        {
-            this.Task = task;
-        }
-
-        public void WaitUntilWritten()
-        {
-            // assume that if we don't have a task, we write in sync mode...
-            if (this.Task != null)
-                this.Task.Wait();
         }
 
         internal LogEventInfo Clone()

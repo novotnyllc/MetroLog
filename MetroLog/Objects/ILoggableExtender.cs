@@ -8,73 +8,73 @@ namespace MetroLog
 {
     public static class ILoggableExtender
     {
-        public static LogWriteOperation Trace(this ILoggable loggable, string message, Exception ex = null)
+        public static Task<LogWriteOperation[]> Trace(this ILoggable loggable, string message, Exception ex = null)
         {
             var logger = loggable.GetLogger();
             return logger.Log(LogLevel.Trace, message, ex);
         }
 
-        public static LogWriteOperation Trace(this ILoggable loggable, string message, params string[] ps)
+        public static Task<LogWriteOperation[]> Trace(this ILoggable loggable, string message, params string[] ps)
         {
             var logger = loggable.GetLogger();
             return logger.Log(LogLevel.Trace, message, ps);
         }
 
-        public static LogWriteOperation Debug(this ILoggable loggable, string message, Exception ex = null)
+        public static Task<LogWriteOperation[]> Debug(this ILoggable loggable, string message, Exception ex = null)
         {
             var logger = loggable.GetLogger();
             return logger.Log(LogLevel.Debug, message, ex);
         }
 
-        public static LogWriteOperation Debug(this ILoggable loggable, string message, params string[] ps)
+        public static Task<LogWriteOperation[]> Debug(this ILoggable loggable, string message, params string[] ps)
         {
             var logger = loggable.GetLogger();
             return logger.Log(LogLevel.Debug, message, ps);
         }
 
-        public static LogWriteOperation Info(this ILoggable loggable, string message, Exception ex = null)
+        public static Task<LogWriteOperation[]> Info(this ILoggable loggable, string message, Exception ex = null)
         {
             var logger = loggable.GetLogger();
             return logger.Log(LogLevel.Info, message, ex);
         }
 
-        public static LogWriteOperation Info(this ILoggable loggable, string message, params string[] ps)
+        public static Task<LogWriteOperation[]> Info(this ILoggable loggable, string message, params string[] ps)
         {
             var logger = loggable.GetLogger();
             return logger.Log(LogLevel.Info, message, ps);
         }
 
-        public static LogWriteOperation Warn(this ILoggable loggable, string message, Exception ex = null)
+        public static Task<LogWriteOperation[]> Warn(this ILoggable loggable, string message, Exception ex = null)
         {
             var logger = loggable.GetLogger();
             return logger.Log(LogLevel.Warn, message, ex);
         }
 
-        public static LogWriteOperation Warn(this ILoggable loggable, string message, params string[] ps)
+        public static Task<LogWriteOperation[]> Warn(this ILoggable loggable, string message, params string[] ps)
         {
             var logger = loggable.GetLogger();
             return logger.Log(LogLevel.Warn, message, ps);
         }
 
-        public static LogWriteOperation Error(this ILoggable loggable, string message, Exception ex = null)
+        public static Task<LogWriteOperation[]> Error(this ILoggable loggable, string message, Exception ex = null)
         {
             var logger = loggable.GetLogger();
             return logger.Log(LogLevel.Error, message, ex);
         }
 
-        public static LogWriteOperation Error(this ILoggable loggable, string message, params string[] ps)
+        public static Task<LogWriteOperation[]> Error(this ILoggable loggable, string message, params string[] ps)
         {
             var logger = loggable.GetLogger();
             return logger.Log(LogLevel.Error, message, ps);
         }
 
-        public static LogWriteOperation Fatal(this ILoggable loggable, string message, Exception ex = null)
+        public static Task<LogWriteOperation[]> Fatal(this ILoggable loggable, string message, Exception ex = null)
         {
             var logger = loggable.GetLogger();
             return logger.Log(LogLevel.Fatal, message, ex);
         }
 
-        public static LogWriteOperation Fatal(this ILoggable loggable, string message, params string[] ps)
+        public static Task<LogWriteOperation[]> Fatal(this ILoggable loggable, string message, params string[] ps)
         {
             var logger = loggable.GetLogger();
             return logger.Log(LogLevel.Fatal, message, ps);

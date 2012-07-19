@@ -20,7 +20,7 @@ namespace MetroLog.Targets
         {
         }
 
-        protected internal override void WriteSync(LogEventInfo entry)
+        protected override void Write(LogEventInfo entry)
         {
             string message = this.Layout.GetFormattedString(entry);
             Debug.WriteLine(message);

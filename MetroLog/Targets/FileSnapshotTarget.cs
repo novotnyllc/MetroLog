@@ -71,11 +71,11 @@ namespace MetroLog.Targets
             // no-op - just preventing compile warnings...
         }
 
-        protected internal override async Task WriteAsync(LogEventInfo entry)
+        protected internal override async Task<LogWriteOperation> WriteAsync(LogEventInfo entry)
         {
             var folder = await EnsureInitializedAsync();
             if (folder == null)
-                return;
+                return new LogWriteOperation(this, entry, false);
 
             // create the file...
             var filename = string.Format("Log - {0} - {1} - {2} - {3}.log", entry.Logger, entry.Level, 
@@ -85,6 +85,9 @@ namespace MetroLog.Targets
             // write...
             string buf = this.Layout.GetFormattedString(entry);
             await FileIO.WriteTextAsync(file, buf);
+
+            // return...
+            return new LogWriteOperation(this, entry, true);
         }
     }
 }

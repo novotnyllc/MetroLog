@@ -30,7 +30,7 @@ namespace MetroLog.Tests
 			}
 		}
 
-        protected override void WriteSync(LogEventInfo entry)
+        protected override void Write(LogEventInfo entry)
         {
             this.NumWritten++;
             this.LastWritten = entry;

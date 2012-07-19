@@ -15,7 +15,7 @@ namespace MetroLog.Tests
         {
         }
 
-        protected override void WriteSync(LogEventInfo entry)
+        protected override void Write(LogEventInfo entry)
         {
             // broken...
             throw new NotImplementedException();

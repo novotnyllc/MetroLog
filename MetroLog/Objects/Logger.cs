@@ -33,134 +33,105 @@ namespace MetroLog
             }
         }
 
-        public LogWriteOperation Trace(string message, Exception ex = null)
+        public Task<LogWriteOperation[]> Trace(string message, Exception ex = null)
         {
             return Log(LogLevel.Trace, message, ex);
         }
 
-        public LogWriteOperation Trace(string message, params string[] ps)
+        public Task<LogWriteOperation[]> Trace(string message, params string[] ps)
         {
             return Log(LogLevel.Trace, message, ps);
         }
 
-        public LogWriteOperation Debug(string message, Exception ex = null)
+        public Task<LogWriteOperation[]> Debug(string message, Exception ex = null)
         {
             return Log(LogLevel.Debug, message, ex);
         }
 
-        public LogWriteOperation Debug(string message, params string[] ps)
+        public Task<LogWriteOperation[]> Debug(string message, params string[] ps)
         {
             return Log(LogLevel.Debug, message, ps);
         }
 
-        public LogWriteOperation Info(string message, Exception ex = null)
+        public Task<LogWriteOperation[]> Info(string message, Exception ex = null)
         {
             return Log(LogLevel.Info, message, ex);
         }
 
-        public LogWriteOperation Info(string message, params string[] ps)
+        public Task<LogWriteOperation[]> Info(string message, params string[] ps)
         {
             return Log(LogLevel.Info, message, ps);
         }
 
-        public LogWriteOperation Warn(string message, Exception ex = null)
+        public Task<LogWriteOperation[]> Warn(string message, Exception ex = null)
         {
             return Log(LogLevel.Warn, message, ex);
         }
 
-        public LogWriteOperation Warn(string message, params string[] ps)
+        public Task<LogWriteOperation[]> Warn(string message, params string[] ps)
         {
             return Log(LogLevel.Warn, message, ps);
         }
 
-        public LogWriteOperation Error(string message, Exception ex = null)
+        public Task<LogWriteOperation[]> Error(string message, Exception ex = null)
         {
             return Log(LogLevel.Error, message, ex);
         }
 
-        public LogWriteOperation Error(string message, params string[] ps)
+        public Task<LogWriteOperation[]> Error(string message, params string[] ps)
         {
             return Log(LogLevel.Error, message, ps);
         }
 
-        public LogWriteOperation Fatal(string message, Exception ex = null)
+        public Task<LogWriteOperation[]> Fatal(string message, Exception ex = null)
         {
             return Log(LogLevel.Fatal, message, ex);
         }
 
-        public LogWriteOperation Fatal(string message, params string[] ps)
+        public Task<LogWriteOperation[]> Fatal(string message, params string[] ps)
         {
             return Log(LogLevel.Fatal, message, ps);
         }
 
-        public LogWriteOperation Log(LogLevel logLevel, string message, Exception ex)
+        public Task<LogWriteOperation[]> Log(LogLevel logLevel, string message, Exception ex)
         {
             return LogInternal(logLevel, message, null, ex, false);
         }
 
-        public LogWriteOperation Log(LogLevel logLevel, string message, params string[] ps)
+        public Task<LogWriteOperation[]> Log(LogLevel logLevel, string message, params string[] ps)
         {
             return LogInternal(logLevel, message, ps, null, true);
         }
 
-        private LogWriteOperation LogInternal(LogLevel level, string message, string[] ps, Exception ex, bool doFormat)
+        private Task<LogWriteOperation[]> LogInternal(LogLevel level, string message, string[] ps, Exception ex, bool doFormat)
         {
-            var targets = this.ResolvedConfiguration.GetTargets(level);
-            if(!(targets.Any()))
-                return null;
-
-            // format?
-            if (doFormat)
+            try
             {
-                try
-                {
-                    message = string.Format(message, ps);
-                }
-                catch (Exception formatEx)
-                {
-                    LogManager.LogInternal(string.Format("Failed to format message with format '{0}'.", message), formatEx);
+                var targets = this.ResolvedConfiguration.GetTargets(level);
+                if (!(targets.Any()))
                     return null;
-                }
+
+                // format?
+                if (doFormat)
+                    message = string.Format(message, ps);
+
+                // create an event entry and pass it through...
+                var entry = new LogEventInfo(level, this.Name, message, ex);
+
+                // do the sync ones...
+                var tasks = new List<Task<LogWriteOperation>>();
+                foreach (var target in targets)
+                    tasks.Add(target.WriteAsync(entry));
+
+                // group...
+                var group = Task.WhenAll<LogWriteOperation>(tasks);
+                return group;
             }
-
-            // create an event entry and pass it through...
-            var entry = new LogEventInfo(level, this.Name, message, ex);
-
-            // do the sync ones...
-            var asyncTargets = new List<AsyncTarget>();
-            foreach (var target in targets)
+            catch (Exception logEx)
             {
-                try
-                {
-                    if(target is AsyncTarget)
-                        asyncTargets.Add((AsyncTarget)target);
-                    else if(target is SyncTarget)
-                        ((SyncTarget)target).WriteSync(entry);
-                    else
-                        throw new NotSupportedException(string.Format("Cannot handle '{0}'.", target.GetType()));
-                }
-                catch (Exception writeEx)
-                {
-                    LogManager.LogInternal(string.Format("Failed to write to target '{0}'.", target), writeEx);
-                }
+                LogManager.LogInternal("Logging operation failed.", logEx);
+                return Task.FromResult<LogWriteOperation[]>(new LogWriteOperation[] {});
             }
-
-            // spin up async targets?
-            if (asyncTargets.Any())
-            {
-                var task = Task.Run(async () =>
-                {
-                    var tasks = new List<Task>();
-                    foreach (var asyncTarget in asyncTargets)
-                        tasks.Add(asyncTarget.WriteAsync(entry));
-
-                    // walk...
-                    await Task.WhenAll(tasks);
-                });
-                return new LogWriteOperation(entry, task);
-            }
-            else
-                return new LogWriteOperation(entry);
         }
 
         public bool IsTraceEnabled

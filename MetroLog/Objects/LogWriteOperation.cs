@@ -3,32 +3,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MetroLog.Targets;
 
 namespace MetroLog
 {
-    public class LogWriteOperation
+    public struct LogWriteOperation
     {
-        public LogEventInfo Entry { get; private set; }
-        private Task _task;
+        private Target _target;
+        private LogEventInfo _entry;
+        private bool _success;
 
-        internal LogWriteOperation(LogEventInfo entry)
+        internal LogWriteOperation(Target target, LogEventInfo entry, bool success)
         {
-            this.Entry = entry;
+            _target = target;
+            _entry = entry;
+            _success = success;
         }
 
-        internal LogWriteOperation(LogEventInfo entry, Task task)
-            : this(entry)
-        {
-            _task = task;
-        }
-
-        public Task Task
+        public Target Target
         {
             get
             {
-                if (_task == null)
-                    _task = Task.FromResult<bool>(true);
-                return _task;
+                return _target;
+            }
+        }
+
+        public LogEventInfo Entry
+        {
+            get
+            {
+                return _entry;
+            }
+        }
+
+        public bool Success
+        {
+            get
+            {
+                return _success;
             }
         }
     }
