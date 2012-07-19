@@ -8,7 +8,7 @@ using MetroLog.Layouts;
 
 namespace MetroLog.Targets
 {
-    public class DebugTarget : Target
+    public class DebugTarget : SyncTarget
     {
         public DebugTarget()
             : this(new SingleLineLayout())
@@ -20,7 +20,7 @@ namespace MetroLog.Targets
         {
         }
 
-        protected internal override void Write(LogEventInfo entry)
+        protected internal override void WriteSync(LogEventInfo entry)
         {
             string message = this.Layout.GetFormattedString(entry);
             Debug.WriteLine(message);

@@ -113,7 +113,9 @@
     <Compile Include="Objects\LoggingConfiguration.cs" />
     <Compile Include="Objects\LogLevel.cs" />
     <Compile Include="Objects\LogManager.cs" />
+    <Compile Include="Objects\LogWriteOperation.cs" />
     <Compile Include="Targets\AsyncTarget.cs" />
+    <Compile Include="Targets\SyncTarget.cs" />
     <Compile Include="Targets\TargetBinding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Targets\DebugTarget.cs" />

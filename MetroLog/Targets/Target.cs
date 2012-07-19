@@ -15,7 +15,5 @@ namespace MetroLog.Targets
         {
             this.Layout = layout;
         }
-
-        protected internal abstract void Write(LogEventInfo entry);
     }
 }

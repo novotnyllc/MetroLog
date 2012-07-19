@@ -7,13 +7,13 @@ using MetroLog.Layouts;
 
 namespace MetroLog.Targets
 {
-    public abstract class AsyncTarget : Target
+    public abstract class SyncTarget : Target
     {
-        protected AsyncTarget(Layout layout)
+        protected SyncTarget(Layout layout)
             : base(layout)
         {
         }
 
-        protected internal abstract Task WriteAsync(LogEventInfo entry);
+        protected internal abstract void WriteSync(LogEventInfo entry);
     }
 }

@@ -15,6 +15,8 @@ namespace MetroLog.Layouts
             builder.Append("|");
             builder.Append(info.Level.ToString().ToUpper());
             builder.Append("|");
+            builder.Append(Environment.CurrentManagedThreadId);
+            builder.Append("|");
             builder.Append(info.Logger);
             builder.Append("|");
             builder.Append(info.Message);

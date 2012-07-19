@@ -17,6 +17,8 @@ namespace MetroLog.Layouts
             builder.Append(info.TimeStamp.ToString(LogManager.DateTimeFormat));
             builder.Append("\r\nLevel: ");
             builder.Append(info.Level.ToString().ToUpper());
+            builder.Append("\r\nThread: ");
+            builder.Append(Environment.CurrentManagedThreadId);
             builder.Append("\r\nLogger: ");
             builder.Append(info.Logger);
             builder.Append("\r\n------------------------\r\n");

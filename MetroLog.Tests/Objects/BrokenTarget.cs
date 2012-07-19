@@ -8,14 +8,14 @@ using MetroLog.Targets;
 
 namespace MetroLog.Tests
 {
-    internal class BrokenTarget : Target
+    internal class BrokenTarget : SyncTarget
     {
         internal BrokenTarget()
             : base(new SingleLineLayout())
         {
         }
 
-        protected override void Write(LogEventInfo entry)
+        protected override void WriteSync(LogEventInfo entry)
         {
             // broken...
             throw new NotImplementedException();

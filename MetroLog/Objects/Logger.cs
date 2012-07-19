@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MetroLog.Targets;
 
 namespace MetroLog
 {
@@ -32,77 +33,77 @@ namespace MetroLog
             }
         }
 
-        public void Trace(string message, Exception ex = null)
+        public LogWriteOperation Trace(string message, Exception ex = null)
         {
-            Log(LogLevel.Trace, message, ex);
+            return Log(LogLevel.Trace, message, ex);
         }
 
-        public void Trace(string message, params string[] ps)
+        public LogWriteOperation Trace(string message, params string[] ps)
         {
-            Log(LogLevel.Trace, message, ps);
+            return Log(LogLevel.Trace, message, ps);
         }
 
-        public void Debug(string message, Exception ex = null)
+        public LogWriteOperation Debug(string message, Exception ex = null)
         {
-            Log(LogLevel.Debug, message, ex);
+            return Log(LogLevel.Debug, message, ex);
         }
 
-        public void Debug(string message, params string[] ps)
+        public LogWriteOperation Debug(string message, params string[] ps)
         {
-            Log(LogLevel.Debug, message, ps);
+            return Log(LogLevel.Debug, message, ps);
         }
 
-        public void Info(string message, Exception ex = null)
+        public LogWriteOperation Info(string message, Exception ex = null)
         {
-            Log(LogLevel.Info, message, ex);
+            return Log(LogLevel.Info, message, ex);
         }
 
-        public void Info(string message, params string[] ps)
+        public LogWriteOperation Info(string message, params string[] ps)
         {
-            Log(LogLevel.Info, message, ps);
+            return Log(LogLevel.Info, message, ps);
         }
 
-        public void Warn(string message, Exception ex = null)
+        public LogWriteOperation Warn(string message, Exception ex = null)
         {
-            Log(LogLevel.Warn, message, ex);
+            return Log(LogLevel.Warn, message, ex);
         }
 
-        public void Warn(string message, params string[] ps)
+        public LogWriteOperation Warn(string message, params string[] ps)
         {
-            Log(LogLevel.Warn, message, ps);
+            return Log(LogLevel.Warn, message, ps);
         }
 
-        public void Error(string message, Exception ex = null)
+        public LogWriteOperation Error(string message, Exception ex = null)
         {
-            Log(LogLevel.Error, message, ex);
+            return Log(LogLevel.Error, message, ex);
         }
 
-        public void Error(string message, params string[] ps)
+        public LogWriteOperation Error(string message, params string[] ps)
         {
-            Log(LogLevel.Error, message, ps);
+            return Log(LogLevel.Error, message, ps);
         }
 
-        public void Fatal(string message, Exception ex = null)
+        public LogWriteOperation Fatal(string message, Exception ex = null)
         {
-            Log(LogLevel.Fatal, message, ex);
+            return Log(LogLevel.Fatal, message, ex);
         }
 
-        public void Fatal(string message, params string[] ps)
+        public LogWriteOperation Fatal(string message, params string[] ps)
         {
-            Log(LogLevel.Fatal, message, ps);
+            return Log(LogLevel.Fatal, message, ps);
         }
 
-        public LogEventInfo Log(LogLevel logLevel, string message, Exception ex)
+        public LogWriteOperation Log(LogLevel logLevel, string message, Exception ex)
         {
             return LogInternal(logLevel, message, null, ex, false);
         }
 
-        public LogEventInfo Log(LogLevel logLevel, string message, params string[] ps)
+        public LogWriteOperation Log(LogLevel logLevel, string message, params string[] ps)
         {
             return LogInternal(logLevel, message, ps, null, true);
         }
 
-        private LogEventInfo LogInternal(LogLevel level, string message, string[] ps, Exception ex, bool doFormat)
+        private LogWriteOperation LogInternal(LogLevel level, string message, string[] ps, Exception ex, bool doFormat)
         {
             var targets = this.ResolvedConfiguration.GetTargets(level);
             if(!(targets.Any()))
@@ -124,11 +125,19 @@ namespace MetroLog
 
             // create an event entry and pass it through...
             var entry = new LogEventInfo(level, this.Name, message, ex);
+
+            // do the sync ones...
+            var asyncTargets = new List<AsyncTarget>();
             foreach (var target in targets)
             {
                 try
                 {
-                    target.Write(entry);
+                    if(target is AsyncTarget)
+                        asyncTargets.Add((AsyncTarget)target);
+                    else if(target is SyncTarget)
+                        ((SyncTarget)target).WriteSync(entry);
+                    else
+                        throw new NotSupportedException(string.Format("Cannot handle '{0}'.", target.GetType()));
                 }
                 catch (Exception writeEx)
                 {
@@ -136,8 +145,22 @@ namespace MetroLog
                 }
             }
 
-            // return...
-            return entry;
+            // spin up async targets?
+            if (asyncTargets.Any())
+            {
+                var task = Task.Run(async () =>
+                {
+                    var tasks = new List<Task>();
+                    foreach (var asyncTarget in asyncTargets)
+                        tasks.Add(asyncTarget.WriteAsync(entry));
+
+                    // walk...
+                    await Task.WhenAll(tasks);
+                });
+                return new LogWriteOperation(entry, task);
+            }
+            else
+                return new LogWriteOperation(entry);
         }
 
         public bool IsTraceEnabled

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MetroLog.Targets;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using Windows.Storage;
 
 namespace MetroLog.Tests
 {
@@ -20,34 +21,27 @@ namespace MetroLog.Tests
             LogManager.DefaultConfiguration.ClearTargets();
             LogManager.DefaultConfiguration.AddTarget(LogLevel.Fatal, new FileSnapshotTarget());
 
-            // wait until the setup is finished...
-            FileSnapshotTarget.BlockUntilSetup();
-
             // send through a log entry...
             var loggable = new TestLoggable();
-            var entry = loggable.Fatal("Testing file write...", new InvalidOperationException("An exception message..."));
+            var op = loggable.Fatal("Testing file write...", new InvalidOperationException("An exception message..."));
 
-            // wait until it's finished...
-            entry.WaitUntilWritten();
+            // wait...
+            op.Task.Wait();
 
             // get the file...
-            var folder = FileSnapshotTarget.LogFolder;
-            var filesTask = folder.GetFilesAsync().AsTask();
-            filesTask.Wait();
-            var files = filesTask.Result;
-            var file = files.Where(v => v.Name.Contains(entry.SequenceID.ToString())).First();
-
-            // get the contents...
-            var streamTask = file.OpenStreamForWriteAsync();
-            streamTask.Wait();
-            string contents = null;
-            using (var stream = streamTask.Result)
+            var task = Task<string>.Run(async () =>
             {
-                var reader = new StreamReader(stream);
-                contents = reader.ReadToEnd();
-            }
+                var folder = await FileSnapshotTarget.EnsureInitializedAsync();
+                var files = await folder.GetFilesAsync();
+                var file = files.Where(v => v.Name.Contains(op.Entry.SequenceID.ToString())).First();
+
+                // return...
+                return await FileIO.ReadTextAsync(file);
+            });
+            task.Wait();
 
             // check...
+            string contents = task.Result;
             Assert.IsTrue(contents.Contains("Testing file write..."));
             Assert.IsTrue(contents.Contains("An exception message..."));
         }

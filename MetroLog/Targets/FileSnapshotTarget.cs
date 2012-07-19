@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using MetroLog.Layouts;
 using Windows.Storage;
@@ -11,8 +12,7 @@ namespace MetroLog.Targets
 {
     public class FileSnapshotTarget : AsyncTarget
     {
-        private static Task _setupTask;
-        public static StorageFolder LogFolder { get; private set; }
+        public static StorageFolder _logFolder = null;
 
         private const string LogFolderName = "MetroLogs";
 
@@ -26,67 +26,65 @@ namespace MetroLog.Targets
         {
         }
 
-        // *only* use this method from the unit test library...
-        public static void BlockUntilSetup()
+        public static async Task<StorageFolder> EnsureInitializedAsync()
         {
-            _setupTask.Wait();
-        }
-
-        static FileSnapshotTarget()
-        {
-            // create a task to load the folder...
-            _setupTask = Task<Task<StorageFolder>>.Factory.StartNew(async () =>
+            var folder = _logFolder;
+            if(folder == null)
             {
-                // get...
+                StorageFolder logFolder = null;
                 var root = ApplicationData.Current.LocalFolder;
                 try
                 {
-                    await root.CreateFolderAsync(LogFolderName);
+                    logFolder = await root.GetFolderAsync(LogFolderName);
                 }
                 catch (FileNotFoundException ex)
                 {
                     SinkException(ex);
                 }
 
-                // load...
-                return await root.GetFolderAsync(LogFolderName);
+                // if...
+                if (logFolder == null)
+                {
+                    try
+                    {
+                        logFolder = await root.CreateFolderAsync(LogFolderName);
+                    }
+                    catch (Exception ex)
+                    {
+                        SinkException(ex);
+                    }
 
-            }).ContinueWith(async (t, args) =>
-            {
-                // set...
-                LogFolder = await t.Result;
+                    // if we get into trouble here, try and load it again... (something else should have created it)...
+                    if (logFolder == null)
+                        logFolder = await root.GetFolderAsync(LogFolderName);
+                }
 
-            }, TaskContinuationOptions.OnlyOnRanToCompletion);
+                // store it - but only if we have one...
+                if(logFolder != null)
+                    Interlocked.CompareExchange<StorageFolder>(ref _logFolder, logFolder, null);
+            }
+            return _logFolder;
         }
 
-        private static void SinkException(FileNotFoundException ex)
+        private static void SinkException(Exception ex)
         {
             // no-op - just preventing compile warnings...
         }
 
-        protected internal override void WriteAsync(LogEventInfo entry)
+        protected internal override async Task WriteAsync(LogEventInfo entry)
         {
-            StorageFolder folder = LogFolder;
+            var folder = await EnsureInitializedAsync();
             if (folder == null)
                 return;
 
             // create the file...
             var filename = string.Format("Log - {0} - {1} - {2} - {3}.log", entry.Logger, entry.Level, 
                 entry.TimeStamp.ToString("yyyyMMdd HHmmss"), entry.SequenceID);
-            var fileTask = folder.CreateFileAsync(filename).AsTask();
-            fileTask.Wait();
-            var file = fileTask.Result;
-
+            var file = await folder.CreateFileAsync(filename).AsTask();
+            
             // write...
             string buf = this.Layout.GetFormattedString(entry);
-            var streamTask = file.OpenStreamForWriteAsync();
-            streamTask.Wait();
-            using (var stream = streamTask.Result)
-            {
-                var writer = new StreamWriter(stream);
-                writer.Write(buf);
-                writer.Flush();
-            }
+            await FileIO.WriteTextAsync(file, buf);
         }
     }
 }
