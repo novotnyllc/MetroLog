@@ -9,7 +9,7 @@ namespace MetroLog
     public class LogWriteOperation
     {
         public LogEventInfo Entry { get; private set; }
-        public Task Task { get; private set; }
+        private Task _task;
 
         internal LogWriteOperation(LogEventInfo entry)
         {
@@ -19,7 +19,17 @@ namespace MetroLog
         internal LogWriteOperation(LogEventInfo entry, Task task)
             : this(entry)
         {
-            this.Task = task;
+            _task = task;
+        }
+
+        public Task Task
+        {
+            get
+            {
+                if (_task == null)
+                    _task = Task.FromResult<bool>(true);
+                return _task;
+            }
         }
     }
 }
