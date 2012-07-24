@@ -47,7 +47,7 @@ namespace MetroLog.Targets
                 {
                     try
                     {
-                        logFolder = await root.CreateFolderAsync(LogFolderName);
+                        logFolder = await root.CreateFolderAsync(LogFolderName, CreationCollisionOption.OpenIfExists);
                     }
                     catch (Exception ex)
                     {
