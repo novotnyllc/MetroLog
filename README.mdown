@@ -34,8 +34,7 @@ extension methods will add logging support. For example:
 
 Meta
 ===
-
 This is an open source project that welcomes contributions/suggestions/bug reports from those who use it. 
 If you have any ideas on how to improve the library, please contact [https://twitter.com/mbrit @mbrit].
 
- 
+MetroLog is distributed under the MIT license. 
