@@ -38,7 +38,7 @@ namespace MetroLog
             return logger.Log(LogLevel.Info, message, ex);
         }
 
-        public static Task<LogWriteOperation[]> Info(this ILoggable loggable, string message, params string[] ps)
+        public static Task<LogWriteOperation[]> Info(this ILoggable loggable, string message, params object[] ps)
         {
             var logger = loggable.GetLogger();
             return logger.Log(LogLevel.Info, message, ps);

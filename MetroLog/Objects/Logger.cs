@@ -98,12 +98,12 @@ namespace MetroLog
             return LogInternal(logLevel, message, null, ex, false);
         }
 
-        public Task<LogWriteOperation[]> Log(LogLevel logLevel, string message, params string[] ps)
+        public Task<LogWriteOperation[]> Log(LogLevel logLevel, string message, params object[] ps)
         {
             return LogInternal(logLevel, message, ps, null, true);
         }
 
-        private Task<LogWriteOperation[]> LogInternal(LogLevel level, string message, string[] ps, Exception ex, bool doFormat)
+        private Task<LogWriteOperation[]> LogInternal(LogLevel level, string message, object[] ps, Exception ex, bool doFormat)
         {
             try
             {
