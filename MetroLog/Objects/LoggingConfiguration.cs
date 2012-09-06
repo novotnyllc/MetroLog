@@ -28,18 +28,10 @@ namespace MetroLog
                 this.Bindings.Add(new TargetBinding(min, max, target));
         }
 
-        internal LoggingConfiguration Clone()
-        {
-            throw new NotImplementedException();
-        }
-
         internal IEnumerable<Target> GetTargets(LogLevel level)
         {
-            var results = new List<Target>();
-            foreach (var binding in this.Bindings.Where(v => v.SupportsLevel(level)))
-                results.Add(binding.Target);
-
-            return results;
+            lock(_bindingsLock)
+                return this.Bindings.Where(v => v.SupportsLevel(level)).Select(binding => binding.Target).ToList();
         }
 
         public void ClearTargets()

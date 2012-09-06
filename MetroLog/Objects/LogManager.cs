@@ -14,7 +14,7 @@ namespace MetroLog
         public static LoggingConfiguration DefaultConfiguration { get; set; }
 
         private static Dictionary<string, Logger> Loggers { get; set; }
-        private static object _loggersLock = new object();
+        private static readonly object _loggersLock = new object();
 
         internal const string DateTimeFormat = "dd/MMM/yyyy HH:mm:ss";
 
@@ -38,15 +38,17 @@ namespace MetroLog
             }
         }
 
-        public static void Reset()
+        public static void Reset(LoggingConfiguration configuration = null)
         {
             Loggers = new Dictionary<string, Logger>(StringComparer.OrdinalIgnoreCase);
 
-            // default logging config...
-            var config = new LoggingConfiguration();
-            config.AddTarget(LogLevel.Trace, LogLevel.Fatal, new DebugTarget());
-            config.AddTarget(LogLevel.Error, LogLevel.Fatal, new FileSnapshotTarget());
-            DefaultConfiguration = config;
+            if (configuration == null)
+            {
+                // default logging config...
+                configuration = new LoggingConfiguration();
+                configuration.AddTarget(LogLevel.Trace, LogLevel.Fatal, new DebugTarget());
+            }
+            DefaultConfiguration = configuration;
         }
 
         // logs problems with the framework to Debug...
@@ -58,10 +60,10 @@ namespace MetroLog
                 Debug.WriteLine("{0}|INTERNAL|(null)|{1}", GetDateTime().ToString(DateTimeFormat), message);
         }
 
-        internal static DateTime GetDateTime()
+        internal static DateTimeOffset GetDateTime()
         {
             // NLog has a high efficiency version of this...
-            return DateTime.Now;
+            return DateTimeOffset.UtcNow;
         }
     }
 }

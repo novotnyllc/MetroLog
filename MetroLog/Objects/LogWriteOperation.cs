@@ -9,11 +9,11 @@ namespace MetroLog
 {
     public struct LogWriteOperation
     {
-        private Target _target;
-        private LogEventInfo _entry;
-        private bool _success;
+        private readonly Target _target;
+        private readonly LogEventInfo _entry;
+        private readonly bool _success;
 
-        internal LogWriteOperation(Target target, LogEventInfo entry, bool success)
+        public LogWriteOperation(Target target, LogEventInfo entry, bool success)
         {
             _target = target;
             _entry = entry;

@@ -12,6 +12,6 @@ namespace MetroLog.Layouts
         {
         }
 
-        protected internal abstract string GetFormattedString(LogEventInfo info);
+        public abstract string GetFormattedString(LogEventInfo info);
     }
 }

@@ -8,7 +8,7 @@ namespace MetroLog.Layouts
 {
     public class SingleLineLayout : Layout
     {
-        protected internal override string GetFormattedString(LogEventInfo info)
+        public override string GetFormattedString(LogEventInfo info)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append(info.TimeStamp.ToString(LogManager.DateTimeFormat));

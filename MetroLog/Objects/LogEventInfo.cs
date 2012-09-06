@@ -14,7 +14,7 @@ namespace MetroLog
         public string Message { get; private set; }
         public Exception Exception { get; private set; }
         public long SequenceID { get; private set; }
-        public DateTime TimeStamp { get; private set; }
+        public DateTimeOffset TimeStamp { get; private set; }
 
         private static long _globalSequenceId;
 

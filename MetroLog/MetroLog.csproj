@@ -13,7 +13,9 @@
     <AssemblyName>MetroLog</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile7</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -99,15 +101,16 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Layouts\FileSnapshotLayout.cs" />
     <Compile Include="Layouts\Layout.cs" />
     <Compile Include="Layouts\SingleLineLayout.cs" />
     <Compile Include="Objects\FrameworkLogger.cs" />
     <Compile Include="Objects\ILoggable.cs" />
     <Compile Include="Objects\ILoggableExtender.cs" />
+    <Compile Include="Objects\ILogManager.cs" />
     <Compile Include="Objects\LogEventInfo.cs" />
     <Compile Include="Objects\Logger.cs" />
     <Compile Include="Objects\LoggingConfiguration.cs" />
@@ -119,13 +122,23 @@
     <Compile Include="Targets\TargetBinding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Targets\DebugTarget.cs" />
-    <Compile Include="Targets\FileSnapshotTarget.cs" />
     <Compile Include="Targets\Target.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\MetroLog.snk">
+      <Link>MetroLog.snk</Link>
+    </None>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\MetroLog.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

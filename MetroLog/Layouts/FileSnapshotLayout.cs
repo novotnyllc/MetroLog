@@ -8,7 +8,7 @@ namespace MetroLog.Layouts
 {
     public class FileSnapshotLayout : Layout
     {
-        protected internal override string GetFormattedString(LogEventInfo info)
+        public override string GetFormattedString(LogEventInfo info)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append("Sequence: ");

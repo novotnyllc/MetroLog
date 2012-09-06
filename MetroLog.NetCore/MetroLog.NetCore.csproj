@@ -6,15 +6,14 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{DA25A63D-03A0-4866-84FF-48A2A8CF9101}</ProjectGuid>
+    <ProjectGuid>{429EE5FC-46FE-4249-BB40-8DC6D9023A04}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MetroLog.Tests</RootNamespace>
-    <AssemblyName>MetroLog.Tests</AssemblyName>
+    <RootNamespace>MetroLog</RootNamespace>
+    <AssemblyName>MetroLog.NetCore</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>MetroLog.Tests_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -99,65 +98,40 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup>
-    <AppXPackage>True</AppXPackage>
-    <AppxPackageIncludePrivateSymbols>true</AppxPackageIncludePrivateSymbols>
-  </PropertyGroup>
   <ItemGroup>
-    <!--A reference to the entire .Net Framework and Windows SDK are automatically included-->
-    <SDKReference Include="MSTestFramework, Version=11.0" />
-    <SDKReference Include="TestPlatform, Version=11.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Objects\BrokenTarget.cs" />
-    <Compile Include="Objects\TestLoggable.cs" />
-    <Compile Include="Objects\TestTarget.cs" />
-    <Compile Include="Tests\BrokenTargetTests.cs" />
-    <Compile Include="Tests\FileSnapshotTests.cs" />
-    <Compile Include="Tests\ILoggableTests.cs" />
-    <Compile Include="Tests\LevelTests.cs" />
-    <Compile Include="Tests\LoggerTests.cs" />
-    <Compile Include="Tests\LogManagerTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <AppxManifest Include="Package.appxmanifest">
-      <SubType>Designer</SubType>
-    </AppxManifest>
-    <None Include="MetroLog.Tests_TemporaryKey.pfx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Images\UnitTestLogo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\UnitTestSmallLogo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\UnitTestSplashScreen.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\UnitTestStoreLogo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MetroLog.NetCore\MetroLog.NetCore.csproj">
-      <Project>{429ee5fc-46fe-4249-bb40-8dc6d9023a04}</Project>
-      <Name>MetroLog.NetCore</Name>
-    </ProjectReference>
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <ProjectReference Include="..\MetroLog\MetroLog.csproj">
       <Project>{65e2062e-aac2-4054-aae6-d6764040c769}</Project>
       <Name>MetroLog</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="FileSnapshotTarget.cs" />
+    <Compile Include="LogConfig.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\MetroLog.snk">
+      <Link>MetroLog.snk</Link>
+    </None>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\MetroLog.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
-  </Target>  
+  </Target>
   <Target Name="AfterBuild">
   </Target>
   -->

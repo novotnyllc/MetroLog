@@ -17,8 +17,7 @@ namespace MetroLog
             this.Name = name;
 
             // add a target...
-            if (config != null)
-                this.Configuration = config.Clone();
+            this.Configuration = config;
         }
 
         private LoggingConfiguration ResolvedConfiguration
