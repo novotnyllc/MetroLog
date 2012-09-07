@@ -18,23 +18,10 @@ Documentation
 The intention is that MetroLog is mostly compatible with NLog. Both the surface area and internal construction
 should just about match.
 
-One difference is that as well as using `LogManager.GetLogger`, you can add `ILoggable` to your class and 
-extension methods will add logging support. For example:
-
-	public class TestLoggable : ILoggable
-	{
-		public void DoMagic()
-		{
-			this.Info("In this case, Info is an extension method...");
-
-			var buf = "like this";
-			this.Warn("You can also use formatting, {0}", buf);
-		}
-	}
-
 Meta
 ===
 This is an open source project that welcomes contributions/suggestions/bug reports from those who use it. 
-If you have any ideas on how to improve the library, please contact [https://twitter.com/mbrit @mbrit].
+If you have any ideas on how to improve the library, please contact [https://twitter.com/mbrit @mbrit] or 
+[https://twitter.com/onovotny @onovotny].
 
 MetroLog is distributed under the MIT license. 
