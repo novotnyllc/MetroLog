@@ -81,6 +81,10 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MetroLog.Fakes">
+      <HintPath>FakesAssemblies\MetroLog.Fakes.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -98,6 +102,7 @@
     <Compile Include="Tests\BrokenTargetTests.cs" />
     <Compile Include="Tests\LevelTests.cs" />
     <Compile Include="Tests\LoggerTests.cs" />
+    <Compile Include="Tests\LogManagerFactoryTests.cs" />
     <Compile Include="Tests\LogManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -105,6 +110,7 @@
     <None Include="..\MetroLog.snk">
       <Link>MetroLog.snk</Link>
     </None>
+    <Fakes Include="Fakes\MetroLog.fakes" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
