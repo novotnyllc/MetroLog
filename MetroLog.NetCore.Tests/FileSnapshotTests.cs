@@ -6,15 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MetroLog.Targets;
-using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using Windows.Storage;
+using Xunit;
 
-namespace MetroLog.Tests
+namespace MetroLog.NetCore.Tests
 {
-    [TestClass]
+    
     public class FileSnapshotTests
     {
-        [TestMethod]
+        [Fact]
         public async Task TestFileSnapshot()
         {
             var target = new FileSnapshotTarget();
@@ -31,8 +31,8 @@ namespace MetroLog.Tests
             string contents = await FileIO.ReadTextAsync(file);
 
             // check...
-            Assert.IsTrue(contents.Contains("Testing file write..."));
-            Assert.IsTrue(contents.Contains("An exception message..."));
+            Assert.True(contents.Contains("Testing file write..."));
+            Assert.True(contents.Contains("An exception message..."));
         }
     }
 }

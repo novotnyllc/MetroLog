@@ -110,7 +110,7 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="FileSnapshotTarget.cs" />
-    <Compile Include="LogConfig.cs" />
+    <Compile Include="LogManagerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

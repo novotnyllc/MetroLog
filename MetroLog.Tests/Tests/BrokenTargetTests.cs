@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using Xunit;
 
 namespace MetroLog.Tests
 {
-    [TestClass]
     public class BrokenTargetTests
     {
 
-        [TestMethod]
+        [Fact]
         public async Task TestBrokenTarget()
         {
             var testTarget = new TestTarget();
@@ -27,9 +26,9 @@ namespace MetroLog.Tests
             await logger.TraceAsync("Hello, world.");
 
             // check...
-            Assert.AreEqual(1, testTarget.NumWritten);
-            Assert.AreEqual(LogLevel.Trace, testTarget.LastWritten.Level);
-            Assert.IsNull(testTarget.LastWritten.Exception);
+            Assert.Equal(1, testTarget.NumWritten);
+            Assert.Equal(LogLevel.Trace, testTarget.LastWritten.Level);
+            Assert.Null(testTarget.LastWritten.Exception);
         }
     }
 }

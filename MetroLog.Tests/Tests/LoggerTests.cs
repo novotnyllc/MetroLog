@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using Xunit;
 
 namespace MetroLog.Tests
 {
-    [TestClass]
     public class LoggerTests
     {
         private static Tuple<Logger, TestTarget> CreateTarget()
@@ -19,7 +18,7 @@ namespace MetroLog.Tests
             return Tuple.Create(new Logger("Foobar", config), testTarget);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestTrace()
         {
             // run...
@@ -27,12 +26,12 @@ namespace MetroLog.Tests
             await logger.Item1.TraceAsync("Hello, world.");
 
             // check...
-            Assert.AreEqual(1, logger.Item2.NumWritten);
-            Assert.AreEqual(LogLevel.Trace, logger.Item2.LastWritten.Level);
-            Assert.IsNull(logger.Item2.LastWritten.Exception);
+            Assert.Equal(1, logger.Item2.NumWritten);
+            Assert.Equal(LogLevel.Trace, logger.Item2.LastWritten.Level);
+            Assert.Null(logger.Item2.LastWritten.Exception);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestLog()
         {
             // run...
@@ -40,13 +39,13 @@ namespace MetroLog.Tests
             await logger.Item1.LogAsync(LogLevel.Trace, "Hello, world.");
 
             // check...
-            Assert.AreEqual(1, logger.Item2.NumWritten);
-            Assert.AreEqual(LogLevel.Trace, logger.Item2.LastWritten.Level);
-            Assert.IsNull(logger.Item2.LastWritten.Exception);
+            Assert.Equal(1, logger.Item2.NumWritten);
+            Assert.Equal(LogLevel.Trace, logger.Item2.LastWritten.Level);
+            Assert.Null(logger.Item2.LastWritten.Exception);
         }
 
 
-        [TestMethod]
+        [Fact]
         public async Task TestDebug()
         {
             // run...
@@ -54,12 +53,12 @@ namespace MetroLog.Tests
             await logger.Item1.DebugAsync("Hello, world.");
 
             // check...
-            Assert.AreEqual(1, logger.Item2.NumWritten);
-            Assert.AreEqual(LogLevel.Debug, logger.Item2.LastWritten.Level);
-            Assert.IsNull(logger.Item2.LastWritten.Exception);
+            Assert.Equal(1, logger.Item2.NumWritten);
+            Assert.Equal(LogLevel.Debug, logger.Item2.LastWritten.Level);
+            Assert.Null(logger.Item2.LastWritten.Exception);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestInfo()
         {
             // run...
@@ -67,12 +66,12 @@ namespace MetroLog.Tests
             await logger.Item1.InfoAsync("Hello, world.");
 
             // check...
-            Assert.AreEqual(1, logger.Item2.NumWritten);
-            Assert.AreEqual(LogLevel.Info, logger.Item2.LastWritten.Level);
-            Assert.IsNull(logger.Item2.LastWritten.Exception);
+            Assert.Equal(1, logger.Item2.NumWritten);
+            Assert.Equal(LogLevel.Info, logger.Item2.LastWritten.Level);
+            Assert.Null(logger.Item2.LastWritten.Exception);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestWarn()
         {
             // run...
@@ -80,12 +79,12 @@ namespace MetroLog.Tests
             await logger.Item1.WarnAsync("Hello, world.");
 
             // check...
-            Assert.AreEqual(1, logger.Item2.NumWritten);
-            Assert.AreEqual(LogLevel.Warn, logger.Item2.LastWritten.Level);
-            Assert.IsNull(logger.Item2.LastWritten.Exception);
+            Assert.Equal(1, logger.Item2.NumWritten);
+            Assert.Equal(LogLevel.Warn, logger.Item2.LastWritten.Level);
+            Assert.Null(logger.Item2.LastWritten.Exception);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestError()
         {
             // run...
@@ -93,12 +92,12 @@ namespace MetroLog.Tests
             await logger.Item1.ErrorAsync("Hello, world.");
 
             // check...
-            Assert.AreEqual(1, logger.Item2.NumWritten);
-            Assert.AreEqual(LogLevel.Error, logger.Item2.LastWritten.Level);
-            Assert.IsNull(logger.Item2.LastWritten.Exception);
+            Assert.Equal(1, logger.Item2.NumWritten);
+            Assert.Equal(LogLevel.Error, logger.Item2.LastWritten.Level);
+            Assert.Null(logger.Item2.LastWritten.Exception);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestFatal()
         {
             // run...
@@ -106,12 +105,12 @@ namespace MetroLog.Tests
             await logger.Item1.FatalAsync("Hello, world.");
 
             // check...
-            Assert.AreEqual(1, logger.Item2.NumWritten);
-            Assert.AreEqual(LogLevel.Fatal, logger.Item2.LastWritten.Level);
-            Assert.IsNull(logger.Item2.LastWritten.Exception);
+            Assert.Equal(1, logger.Item2.NumWritten);
+            Assert.Equal(LogLevel.Fatal, logger.Item2.LastWritten.Level);
+            Assert.Null(logger.Item2.LastWritten.Exception);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestTraceWithException()
         {
             // run...
@@ -119,12 +118,12 @@ namespace MetroLog.Tests
             await logger.Item1.TraceAsync("Hello, world.", new InvalidOperationException("Foobar"));
 
             // check...
-            Assert.AreEqual(1, logger.Item2.NumWritten);
-            Assert.AreEqual(LogLevel.Trace, logger.Item2.LastWritten.Level);
-            Assert.IsNotNull(logger.Item2.LastWritten.Exception);
+            Assert.Equal(1, logger.Item2.NumWritten);
+            Assert.Equal(LogLevel.Trace, logger.Item2.LastWritten.Level);
+            Assert.NotNull(logger.Item2.LastWritten.Exception);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestLogWithException()
         {
             // run...
@@ -132,12 +131,12 @@ namespace MetroLog.Tests
             await logger.Item1.LogAsync(LogLevel.Trace, "Hello, world.", new InvalidOperationException("Foobar"));
 
             // check...
-            Assert.AreEqual(1, logger.Item2.NumWritten);
-            Assert.AreEqual(LogLevel.Trace, logger.Item2.LastWritten.Level);
-            Assert.IsNotNull(logger.Item2.LastWritten.Exception);
+            Assert.Equal(1, logger.Item2.NumWritten);
+            Assert.Equal(LogLevel.Trace, logger.Item2.LastWritten.Level);
+            Assert.NotNull(logger.Item2.LastWritten.Exception);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestDebugWithException()
         {
             // run...
@@ -145,12 +144,12 @@ namespace MetroLog.Tests
             await logger.Item1.DebugAsync("Hello, world.", new InvalidOperationException("Foobar"));
 
             // check...
-            Assert.AreEqual(1, logger.Item2.NumWritten);
-            Assert.AreEqual(LogLevel.Debug, logger.Item2.LastWritten.Level);
-            Assert.IsNotNull(logger.Item2.LastWritten.Exception);
+            Assert.Equal(1, logger.Item2.NumWritten);
+            Assert.Equal(LogLevel.Debug, logger.Item2.LastWritten.Level);
+            Assert.NotNull(logger.Item2.LastWritten.Exception);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestInfoWithException()
         {
             // run...
@@ -158,12 +157,12 @@ namespace MetroLog.Tests
             await logger.Item1.InfoAsync("Hello, world.", new InvalidOperationException("Foobar"));
 
             // check...
-            Assert.AreEqual(1, logger.Item2.NumWritten);
-            Assert.AreEqual(LogLevel.Info, logger.Item2.LastWritten.Level);
-            Assert.IsNotNull(logger.Item2.LastWritten.Exception);
+            Assert.Equal(1, logger.Item2.NumWritten);
+            Assert.Equal(LogLevel.Info, logger.Item2.LastWritten.Level);
+            Assert.NotNull(logger.Item2.LastWritten.Exception);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestWarnWithException()
         {
             // run...
@@ -171,12 +170,12 @@ namespace MetroLog.Tests
             await logger.Item1.WarnAsync("Hello, world.", new InvalidOperationException("Foobar"));
 
             // check...
-            Assert.AreEqual(1, logger.Item2.NumWritten);
-            Assert.AreEqual(LogLevel.Warn, logger.Item2.LastWritten.Level);
-            Assert.IsNotNull(logger.Item2.LastWritten.Exception);
+            Assert.Equal(1, logger.Item2.NumWritten);
+            Assert.Equal(LogLevel.Warn, logger.Item2.LastWritten.Level);
+            Assert.NotNull(logger.Item2.LastWritten.Exception);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestErrorWithException()
         {
             // run...
@@ -184,12 +183,12 @@ namespace MetroLog.Tests
             await logger.Item1.ErrorAsync("Hello, world.", new InvalidOperationException("Foobar"));
 
             // check...
-            Assert.AreEqual(1, logger.Item2.NumWritten);
-            Assert.AreEqual(LogLevel.Error, logger.Item2.LastWritten.Level);
-            Assert.IsNotNull(logger.Item2.LastWritten.Exception);
+            Assert.Equal(1, logger.Item2.NumWritten);
+            Assert.Equal(LogLevel.Error, logger.Item2.LastWritten.Level);
+            Assert.NotNull(logger.Item2.LastWritten.Exception);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestFatalWithException()
         {
             // run...
@@ -197,12 +196,12 @@ namespace MetroLog.Tests
             await logger.Item1.FatalAsync("Hello, world.", new InvalidOperationException("Foobar"));
 
             // check...
-            Assert.AreEqual(1, logger.Item2.NumWritten);
-            Assert.AreEqual(LogLevel.Fatal, logger.Item2.LastWritten.Level);
-            Assert.IsNotNull(logger.Item2.LastWritten.Exception);
+            Assert.Equal(1, logger.Item2.NumWritten);
+            Assert.Equal(LogLevel.Fatal, logger.Item2.LastWritten.Level);
+            Assert.NotNull(logger.Item2.LastWritten.Exception);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestTraceWithFormat()
         {
             // run...
@@ -211,13 +210,13 @@ namespace MetroLog.Tests
             
 
             // check...
-            Assert.AreEqual(1, logger.Item2.NumWritten);
-            Assert.AreEqual(LogLevel.Trace, logger.Item2.LastWritten.Level);
-            Assert.IsNull(logger.Item2.LastWritten.Exception);
-            Assert.AreNotEqual(-1, logger.Item2.LastWritten.Message.IndexOf("**foo**"));
+            Assert.Equal(1, logger.Item2.NumWritten);
+            Assert.Equal(LogLevel.Trace, logger.Item2.LastWritten.Level);
+            Assert.Null(logger.Item2.LastWritten.Exception);
+            Assert.NotEqual(-1, logger.Item2.LastWritten.Message.IndexOf("**foo**"));
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestDebugWithFormat()
         {
             // run...
@@ -225,13 +224,13 @@ namespace MetroLog.Tests
             await logger.Item1.DebugAsync("Hello, {0}.", "**foo**");
 
             // check...
-            Assert.AreEqual(1, logger.Item2.NumWritten);
-            Assert.AreEqual(LogLevel.Debug, logger.Item2.LastWritten.Level);
-            Assert.IsNull(logger.Item2.LastWritten.Exception);
-            Assert.AreNotEqual(-1, logger.Item2.LastWritten.Message.IndexOf("**foo**"));
+            Assert.Equal(1, logger.Item2.NumWritten);
+            Assert.Equal(LogLevel.Debug, logger.Item2.LastWritten.Level);
+            Assert.Null(logger.Item2.LastWritten.Exception);
+            Assert.NotEqual(-1, logger.Item2.LastWritten.Message.IndexOf("**foo**"));
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestInfoWithFormat()
         {
             // run...
@@ -239,13 +238,13 @@ namespace MetroLog.Tests
             await logger.Item1.InfoAsync("Hello, {0}.", "**foo**");
 
             // check...
-            Assert.AreEqual(1, logger.Item2.NumWritten);
-            Assert.AreEqual(LogLevel.Info, logger.Item2.LastWritten.Level);
-            Assert.IsNull(logger.Item2.LastWritten.Exception);
-            Assert.AreNotEqual(-1, logger.Item2.LastWritten.Message.IndexOf("**foo**"));
+            Assert.Equal(1, logger.Item2.NumWritten);
+            Assert.Equal(LogLevel.Info, logger.Item2.LastWritten.Level);
+            Assert.Null(logger.Item2.LastWritten.Exception);
+            Assert.NotEqual(-1, logger.Item2.LastWritten.Message.IndexOf("**foo**"));
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestWarnWithFormat()
         {
             // run...
@@ -253,13 +252,13 @@ namespace MetroLog.Tests
             await logger.Item1.WarnAsync("Hello, {0}.", "**foo**");
 
             // check...
-            Assert.AreEqual(1, logger.Item2.NumWritten);
-            Assert.AreEqual(LogLevel.Warn, logger.Item2.LastWritten.Level);
-            Assert.IsNull(logger.Item2.LastWritten.Exception);
-            Assert.AreNotEqual(-1, logger.Item2.LastWritten.Message.IndexOf("**foo**"));
+            Assert.Equal(1, logger.Item2.NumWritten);
+            Assert.Equal(LogLevel.Warn, logger.Item2.LastWritten.Level);
+            Assert.Null(logger.Item2.LastWritten.Exception);
+            Assert.NotEqual(-1, logger.Item2.LastWritten.Message.IndexOf("**foo**"));
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestErrorWithFormat()
         {
             // run...
@@ -267,13 +266,13 @@ namespace MetroLog.Tests
             await logger.Item1.ErrorAsync("Hello, {0}.", "**foo**");
 
             // check...
-            Assert.AreEqual(1, logger.Item2.NumWritten);
-            Assert.AreEqual(LogLevel.Error, logger.Item2.LastWritten.Level);
-            Assert.IsNull(logger.Item2.LastWritten.Exception);
-            Assert.AreNotEqual(-1, logger.Item2.LastWritten.Message.IndexOf("**foo**"));
+            Assert.Equal(1, logger.Item2.NumWritten);
+            Assert.Equal(LogLevel.Error, logger.Item2.LastWritten.Level);
+            Assert.Null(logger.Item2.LastWritten.Exception);
+            Assert.NotEqual(-1, logger.Item2.LastWritten.Message.IndexOf("**foo**"));
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestFatalWithFormat()
         {
             // run...
@@ -281,10 +280,10 @@ namespace MetroLog.Tests
             await logger.Item1.FatalAsync("Hello, {0}.", "**foo**");
 
             // check...
-            Assert.AreEqual(1, logger.Item2.NumWritten);
-            Assert.AreEqual(LogLevel.Fatal, logger.Item2.LastWritten.Level);
-            Assert.IsNull(logger.Item2.LastWritten.Exception);
-            Assert.AreNotEqual(-1, logger.Item2.LastWritten.Message.IndexOf("**foo**"));
+            Assert.Equal(1, logger.Item2.NumWritten);
+            Assert.Equal(LogLevel.Fatal, logger.Item2.LastWritten.Level);
+            Assert.Null(logger.Item2.LastWritten.Exception);
+            Assert.NotEqual(-1, logger.Item2.LastWritten.Message.IndexOf("**foo**"));
         }
     }
 }

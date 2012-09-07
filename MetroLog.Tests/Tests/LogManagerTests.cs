@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using Xunit;
 
 namespace MetroLog.Tests
 {
-    [TestClass]
     public class LogManagerTests
     {
-        [TestMethod]
+        [Fact]
         public void TestGetLogger()
         {
-            var target = new LogManager();
+            var target = new LogManager(new LoggingConfiguration());
 
             var logger = target.GetLogger("Foobar");
-            Assert.IsNotNull(logger);
+            Assert.NotNull(logger);
         }
     }
 }

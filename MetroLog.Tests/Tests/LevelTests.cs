@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using Xunit;
 
 namespace MetroLog.Tests
 {
-    [TestClass]
     public class LevelTests
     {
         private Tuple<ILogManager, TestTarget> CreateWithLevel(LogLevel min, LogLevel max)
@@ -20,7 +19,7 @@ namespace MetroLog.Tests
             return Tuple.Create<ILogManager, TestTarget>(new LogManager(config), testTarget);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestIsTraceEnabled()
         {
             
@@ -30,15 +29,15 @@ namespace MetroLog.Tests
             var logger = target.Item1.GetLogger("foo");
 
             // check...
-            Assert.IsFalse(logger.IsTraceEnabled);
-            Assert.IsTrue(logger.IsDebugEnabled);
-            Assert.IsTrue(logger.IsInfoEnabled);
-            Assert.IsTrue(logger.IsWarnEnabled);
-            Assert.IsTrue(logger.IsErrorEnabled);
-            Assert.IsTrue(logger.IsFatalEnabled);
+            Assert.False(logger.IsTraceEnabled);
+            Assert.True(logger.IsDebugEnabled);
+            Assert.True(logger.IsInfoEnabled);
+            Assert.True(logger.IsWarnEnabled);
+            Assert.True(logger.IsErrorEnabled);
+            Assert.True(logger.IsFatalEnabled);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestTraceIgnored()
         {
             var target = CreateWithLevel(LogLevel.Debug, LogLevel.Fatal);
@@ -50,10 +49,10 @@ namespace MetroLog.Tests
             await logger.TraceAsync("Foobar");
 
             // check...
-            Assert.AreEqual(0, target.Item2.NumWritten);
+            Assert.Equal(0, target.Item2.NumWritten);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestIsDebugEnabled()
         {
             var target = CreateWithLevel(LogLevel.Info, LogLevel.Fatal);
@@ -62,15 +61,15 @@ namespace MetroLog.Tests
             var logger = target.Item1.GetLogger("foo");
 
             // check...
-            Assert.IsFalse(logger.IsTraceEnabled);
-            Assert.IsFalse(logger.IsDebugEnabled);
-            Assert.IsTrue(logger.IsInfoEnabled);
-            Assert.IsTrue(logger.IsWarnEnabled);
-            Assert.IsTrue(logger.IsErrorEnabled);
-            Assert.IsTrue(logger.IsFatalEnabled);
+            Assert.False(logger.IsTraceEnabled);
+            Assert.False(logger.IsDebugEnabled);
+            Assert.True(logger.IsInfoEnabled);
+            Assert.True(logger.IsWarnEnabled);
+            Assert.True(logger.IsErrorEnabled);
+            Assert.True(logger.IsFatalEnabled);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestDebugIgnored()
         {
             var target = CreateWithLevel(LogLevel.Info, LogLevel.Fatal);
@@ -82,10 +81,10 @@ namespace MetroLog.Tests
             await logger.DebugAsync("Foobar");
 
             // check...
-            Assert.AreEqual(0, target.Item2.NumWritten);
+            Assert.Equal(0, target.Item2.NumWritten);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestIsInfoEnabled()
         {
             var target = CreateWithLevel(LogLevel.Warn, LogLevel.Fatal);
@@ -94,15 +93,15 @@ namespace MetroLog.Tests
             var logger = target.Item1.GetLogger("foo");
 
             // check...
-            Assert.IsFalse(logger.IsTraceEnabled);
-            Assert.IsFalse(logger.IsDebugEnabled);
-            Assert.IsFalse(logger.IsInfoEnabled);
-            Assert.IsTrue(logger.IsWarnEnabled);
-            Assert.IsTrue(logger.IsErrorEnabled);
-            Assert.IsTrue(logger.IsFatalEnabled);
+            Assert.False(logger.IsTraceEnabled);
+            Assert.False(logger.IsDebugEnabled);
+            Assert.False(logger.IsInfoEnabled);
+            Assert.True(logger.IsWarnEnabled);
+            Assert.True(logger.IsErrorEnabled);
+            Assert.True(logger.IsFatalEnabled);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestInfoIgnored()
         {
             var target = CreateWithLevel(LogLevel.Warn, LogLevel.Fatal);
@@ -114,10 +113,10 @@ namespace MetroLog.Tests
             await logger.InfoAsync("Foobar");
 
             // check...
-            Assert.AreEqual(0, target.Item2.NumWritten);
+            Assert.Equal(0, target.Item2.NumWritten);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestIsWarnEnabled()
         {
             var target = CreateWithLevel(LogLevel.Error, LogLevel.Fatal);
@@ -126,15 +125,15 @@ namespace MetroLog.Tests
             var logger = target.Item1.GetLogger("foo");
 
             // check...
-            Assert.IsFalse(logger.IsTraceEnabled);
-            Assert.IsFalse(logger.IsDebugEnabled);
-            Assert.IsFalse(logger.IsInfoEnabled);
-            Assert.IsFalse(logger.IsWarnEnabled);
-            Assert.IsTrue(logger.IsErrorEnabled);
-            Assert.IsTrue(logger.IsFatalEnabled);
+            Assert.False(logger.IsTraceEnabled);
+            Assert.False(logger.IsDebugEnabled);
+            Assert.False(logger.IsInfoEnabled);
+            Assert.False(logger.IsWarnEnabled);
+            Assert.True(logger.IsErrorEnabled);
+            Assert.True(logger.IsFatalEnabled);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestWarnIgnored()
         {
             var target = CreateWithLevel(LogLevel.Error, LogLevel.Fatal);
@@ -146,10 +145,10 @@ namespace MetroLog.Tests
             await logger.WarnAsync("Foobar");
             
             // check...
-            Assert.AreEqual(0, target.Item2.NumWritten);
+            Assert.Equal(0, target.Item2.NumWritten);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestIsErrorEnabled()
         {
             var target = CreateWithLevel(LogLevel.Fatal, LogLevel.Fatal);
@@ -158,15 +157,15 @@ namespace MetroLog.Tests
             var logger = target.Item1.GetLogger("foo");
 
             // check...
-            Assert.IsFalse(logger.IsTraceEnabled);
-            Assert.IsFalse(logger.IsDebugEnabled);
-            Assert.IsFalse(logger.IsInfoEnabled);
-            Assert.IsFalse(logger.IsErrorEnabled);
-            Assert.IsFalse(logger.IsErrorEnabled);
-            Assert.IsTrue(logger.IsFatalEnabled);
+            Assert.False(logger.IsTraceEnabled);
+            Assert.False(logger.IsDebugEnabled);
+            Assert.False(logger.IsInfoEnabled);
+            Assert.False(logger.IsErrorEnabled);
+            Assert.False(logger.IsErrorEnabled);
+            Assert.True(logger.IsFatalEnabled);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task TestErrorIgnored()
         {
             var target = CreateWithLevel(LogLevel.Fatal, LogLevel.Fatal);
@@ -178,10 +177,10 @@ namespace MetroLog.Tests
             await logger.ErrorAsync("Foobar");
 
             // check...
-            Assert.AreEqual(0, target.Item2.NumWritten);
+            Assert.Equal(0, target.Item2.NumWritten);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestIsFatalEnabled()
         {
             var target = new LogManager(new LoggingConfiguration());
@@ -190,15 +189,15 @@ namespace MetroLog.Tests
             var logger = target.GetLogger("foo");
 
             // check...
-            Assert.IsFalse(logger.IsTraceEnabled);
-            Assert.IsFalse(logger.IsDebugEnabled);
-            Assert.IsFalse(logger.IsInfoEnabled);
-            Assert.IsFalse(logger.IsErrorEnabled);
-            Assert.IsFalse(logger.IsErrorEnabled);
-            Assert.IsFalse(logger.IsFatalEnabled);
+            Assert.False(logger.IsTraceEnabled);
+            Assert.False(logger.IsDebugEnabled);
+            Assert.False(logger.IsInfoEnabled);
+            Assert.False(logger.IsErrorEnabled);
+            Assert.False(logger.IsErrorEnabled);
+            Assert.False(logger.IsFatalEnabled);
         }
 
-        //[TestMethod]
+        //[Fact]
         //public void TestIsTraceEnabledForLoggable()
         //{
         //    LogManager.Reset();
@@ -209,15 +208,15 @@ namespace MetroLog.Tests
         //    var loggable = new TestLoggable();
 
         //    // check...
-        //    Assert.IsFalse(loggable.IsTraceEnabled());
-        //    Assert.IsTrue(loggable.IsDebugEnabled());
-        //    Assert.IsTrue(loggable.IsInfoEnabled());
-        //    Assert.IsTrue(loggable.IsWarnEnabled());
-        //    Assert.IsTrue(loggable.IsErrorEnabled());
-        //    Assert.IsTrue(loggable.IsFatalEnabled());
+        //    Assert.False(loggable.IsTraceEnabled());
+        //    Assert.True(loggable.IsDebugEnabled());
+        //    Assert.True(loggable.IsInfoEnabled());
+        //    Assert.True(loggable.IsWarnEnabled());
+        //    Assert.True(loggable.IsErrorEnabled());
+        //    Assert.True(loggable.IsFatalEnabled());
         //}
 
-        //[TestMethod]
+        //[Fact]
         //public void TestIsDebugEnabledForLoggable()
         //{
         //    LogManager.Reset();
@@ -228,15 +227,15 @@ namespace MetroLog.Tests
         //    var loggable = new TestLoggable();
 
         //    // check...
-        //    Assert.IsFalse(loggable.IsTraceEnabled());
-        //    Assert.IsFalse(loggable.IsDebugEnabled());
-        //    Assert.IsTrue(loggable.IsInfoEnabled());
-        //    Assert.IsTrue(loggable.IsWarnEnabled());
-        //    Assert.IsTrue(loggable.IsErrorEnabled());
-        //    Assert.IsTrue(loggable.IsFatalEnabled());
+        //    Assert.False(loggable.IsTraceEnabled());
+        //    Assert.False(loggable.IsDebugEnabled());
+        //    Assert.True(loggable.IsInfoEnabled());
+        //    Assert.True(loggable.IsWarnEnabled());
+        //    Assert.True(loggable.IsErrorEnabled());
+        //    Assert.True(loggable.IsFatalEnabled());
         //}
 
-        //[TestMethod]
+        //[Fact]
         //public void TestIsInfoEnabledForLoggable()
         //{
         //    LogManager.Reset();
@@ -247,15 +246,15 @@ namespace MetroLog.Tests
         //    var loggable = new TestLoggable();
 
         //    // check...
-        //    Assert.IsFalse(loggable.IsTraceEnabled());
-        //    Assert.IsFalse(loggable.IsDebugEnabled());
-        //    Assert.IsFalse(loggable.IsInfoEnabled());
-        //    Assert.IsTrue(loggable.IsWarnEnabled());
-        //    Assert.IsTrue(loggable.IsErrorEnabled());
-        //    Assert.IsTrue(loggable.IsFatalEnabled());
+        //    Assert.False(loggable.IsTraceEnabled());
+        //    Assert.False(loggable.IsDebugEnabled());
+        //    Assert.False(loggable.IsInfoEnabled());
+        //    Assert.True(loggable.IsWarnEnabled());
+        //    Assert.True(loggable.IsErrorEnabled());
+        //    Assert.True(loggable.IsFatalEnabled());
         //}
 
-        //[TestMethod]
+        //[Fact]
         //public void TestIsWarnEnabledForLoggable()
         //{
         //    LogManager.Reset();
@@ -266,15 +265,15 @@ namespace MetroLog.Tests
         //    var loggable = new TestLoggable();
 
         //    // check...
-        //    Assert.IsFalse(loggable.IsTraceEnabled());
-        //    Assert.IsFalse(loggable.IsDebugEnabled());
-        //    Assert.IsFalse(loggable.IsInfoEnabled());
-        //    Assert.IsFalse(loggable.IsWarnEnabled());
-        //    Assert.IsTrue(loggable.IsErrorEnabled());
-        //    Assert.IsTrue(loggable.IsFatalEnabled());
+        //    Assert.False(loggable.IsTraceEnabled());
+        //    Assert.False(loggable.IsDebugEnabled());
+        //    Assert.False(loggable.IsInfoEnabled());
+        //    Assert.False(loggable.IsWarnEnabled());
+        //    Assert.True(loggable.IsErrorEnabled());
+        //    Assert.True(loggable.IsFatalEnabled());
         //}
 
-        //[TestMethod]
+        //[Fact]
         //public void TestIsErrorEnabledForLoggable()
         //{
         //    LogManager.Reset();
@@ -287,15 +286,15 @@ namespace MetroLog.Tests
         //    var loggable = new TestLoggable();
 
         //    // check...
-        //    Assert.IsFalse(loggable.IsTraceEnabled());
-        //    Assert.IsFalse(loggable.IsDebugEnabled());
-        //    Assert.IsFalse(loggable.IsInfoEnabled());
-        //    Assert.IsFalse(loggable.IsWarnEnabled());
-        //    Assert.IsFalse(loggable.IsErrorEnabled());
-        //    Assert.IsTrue(loggable.IsFatalEnabled());
+        //    Assert.False(loggable.IsTraceEnabled());
+        //    Assert.False(loggable.IsDebugEnabled());
+        //    Assert.False(loggable.IsInfoEnabled());
+        //    Assert.False(loggable.IsWarnEnabled());
+        //    Assert.False(loggable.IsErrorEnabled());
+        //    Assert.True(loggable.IsFatalEnabled());
         //}
 
-        //[TestMethod]
+        //[Fact]
         //public void TestIsFatalEnabledForLoggable()
         //{
         //    LogManager.Reset();
@@ -305,12 +304,12 @@ namespace MetroLog.Tests
         //    var loggable = new TestLoggable();
 
         //    // check...
-        //    Assert.IsFalse(loggable.IsTraceEnabled());
-        //    Assert.IsFalse(loggable.IsDebugEnabled());
-        //    Assert.IsFalse(loggable.IsInfoEnabled());
-        //    Assert.IsFalse(loggable.IsWarnEnabled());
-        //    Assert.IsFalse(loggable.IsErrorEnabled());
-        //    Assert.IsFalse(loggable.IsFatalEnabled());
+        //    Assert.False(loggable.IsTraceEnabled());
+        //    Assert.False(loggable.IsDebugEnabled());
+        //    Assert.False(loggable.IsInfoEnabled());
+        //    Assert.False(loggable.IsWarnEnabled());
+        //    Assert.False(loggable.IsErrorEnabled());
+        //    Assert.False(loggable.IsFatalEnabled());
         //}
     }
 }

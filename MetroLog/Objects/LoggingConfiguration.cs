@@ -33,11 +33,5 @@ namespace MetroLog
             lock(_bindingsLock)
                 return _bindings.Where(v => v.SupportsLevel(level)).Select(binding => binding.Target).ToList();
         }
-
-        public void ClearTargets()
-        {
-            lock (_bindingsLock)
-                _bindings.Clear();
-        }
     }
 }

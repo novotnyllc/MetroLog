@@ -21,14 +21,8 @@ namespace MetroLog.Tests
 
         protected override void Write(LogEventInfo entry)
         {
-            this.NumWritten++;
-            this.LastWritten = entry;
-        }
-
-        internal void Reset()
-        {
-            this.NumWritten = 0;
-            this.LastWritten = null;
+            NumWritten++;
+            LastWritten = entry;
         }
     }
 }

@@ -16,16 +16,13 @@ namespace MetroLog
 
         internal const string DateTimeFormat = "o";
 
-        public LogManager(LoggingConfiguration configuration = null)
+        public LogManager(LoggingConfiguration configuration)
         {
+            if (configuration == null)
+                throw new ArgumentNullException("configuration");
+
             _loggers = new Dictionary<string, Logger>(StringComparer.OrdinalIgnoreCase);
 
-            if (configuration == null)
-            {
-                // default logging config...
-                configuration = new LoggingConfiguration();
-                configuration.AddTarget(LogLevel.Trace, LogLevel.Fatal, new DebugTarget());
-            }
             DefaultConfiguration = configuration;
         }
 
