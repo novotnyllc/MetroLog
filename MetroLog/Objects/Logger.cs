@@ -3,101 +3,89 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MetroLog.Targets;
 
 namespace MetroLog
 {
-    public class Logger
+    internal class Logger : ILogger
     {
-        private string Name { get; set; }
-        private LoggingConfiguration Configuration { get; set; }
+        public string Name { get; private set; }
+        private readonly LoggingConfiguration _configuration;
 
         internal Logger(string name, LoggingConfiguration config)
         {
-            this.Name = name;
+            Name = name;
 
             // add a target...
-            this.Configuration = config;
+            _configuration = config;
         }
 
-        private LoggingConfiguration ResolvedConfiguration
+
+        internal Task<LogWriteOperation[]> TraceAsync(string message, Exception ex = null)
         {
-            get
-            {
-                // do we have one?
-                if (this.Configuration != null)
-                    return this.Configuration;
-                else
-                    return LogManager.DefaultConfiguration;
-            }
+            return LogAsync(LogLevel.Trace, message, ex);
         }
 
-        public Task<LogWriteOperation[]> Trace(string message, Exception ex = null)
+        internal Task<LogWriteOperation[]> TraceAsync(string message, params object[] ps)
         {
-            return Log(LogLevel.Trace, message, ex);
+            return LogAsync(LogLevel.Trace, message, ps);
         }
 
-        public Task<LogWriteOperation[]> Trace(string message, params string[] ps)
+        internal Task<LogWriteOperation[]> DebugAsync(string message, Exception ex = null)
         {
-            return Log(LogLevel.Trace, message, ps);
+            return LogAsync(LogLevel.Debug, message, ex);
         }
 
-        public Task<LogWriteOperation[]> Debug(string message, Exception ex = null)
+        internal Task<LogWriteOperation[]> DebugAsync(string message, params object[] ps)
         {
-            return Log(LogLevel.Debug, message, ex);
+            return LogAsync(LogLevel.Debug, message, ps);
         }
 
-        public Task<LogWriteOperation[]> Debug(string message, params string[] ps)
+        internal Task<LogWriteOperation[]> InfoAsync(string message, Exception ex = null)
         {
-            return Log(LogLevel.Debug, message, ps);
+            return LogAsync(LogLevel.Info, message, ex);
         }
 
-        public Task<LogWriteOperation[]> Info(string message, Exception ex = null)
+        internal Task<LogWriteOperation[]> InfoAsync(string message, params object[] ps)
         {
-            return Log(LogLevel.Info, message, ex);
+            return LogAsync(LogLevel.Info, message, ps);
         }
 
-        public Task<LogWriteOperation[]> Info(string message, params string[] ps)
+        internal Task<LogWriteOperation[]> WarnAsync(string message, Exception ex = null)
         {
-            return Log(LogLevel.Info, message, ps);
+            return LogAsync(LogLevel.Warn, message, ex);
         }
 
-        public Task<LogWriteOperation[]> Warn(string message, Exception ex = null)
+        internal Task<LogWriteOperation[]> WarnAsync(string message, params object[] ps)
         {
-            return Log(LogLevel.Warn, message, ex);
+            return LogAsync(LogLevel.Warn, message, ps);
         }
 
-        public Task<LogWriteOperation[]> Warn(string message, params string[] ps)
+        internal Task<LogWriteOperation[]> ErrorAsync(string message, Exception ex = null)
         {
-            return Log(LogLevel.Warn, message, ps);
+            return LogAsync(LogLevel.Error, message, ex);
         }
 
-        public Task<LogWriteOperation[]> Error(string message, Exception ex = null)
+        internal Task<LogWriteOperation[]> ErrorAsync(string message, params object[] ps)
         {
-            return Log(LogLevel.Error, message, ex);
+            return LogAsync(LogLevel.Error, message, ps);
         }
 
-        public Task<LogWriteOperation[]> Error(string message, params string[] ps)
+        internal Task<LogWriteOperation[]> FatalAsync(string message, Exception ex = null)
         {
-            return Log(LogLevel.Error, message, ps);
+            return LogAsync(LogLevel.Fatal, message, ex);
         }
 
-        public Task<LogWriteOperation[]> Fatal(string message, Exception ex = null)
+        internal Task<LogWriteOperation[]> FatalAsync(string message, params object[] ps)
         {
-            return Log(LogLevel.Fatal, message, ex);
+            return LogAsync(LogLevel.Fatal, message, ps);
         }
 
-        public Task<LogWriteOperation[]> Fatal(string message, params string[] ps)
-        {
-            return Log(LogLevel.Fatal, message, ps);
-        }
-
-        public Task<LogWriteOperation[]> Log(LogLevel logLevel, string message, Exception ex)
+        internal Task<LogWriteOperation[]> LogAsync(LogLevel logLevel, string message, Exception ex)
         {
             return LogInternal(logLevel, message, null, ex, false);
         }
 
-        public Task<LogWriteOperation[]> Log(LogLevel logLevel, string message, params object[] ps)
+        internal Task<LogWriteOperation[]> LogAsync(LogLevel logLevel, string message, params object[] ps)
         {
             return LogInternal(logLevel, message, ps, null, true);
         }
@@ -106,30 +94,28 @@ namespace MetroLog
         {
             try
             {
-                var targets = this.ResolvedConfiguration.GetTargets(level);
+                var targets = _configuration.GetTargets(level);
                 if (!(targets.Any()))
-                    return null;
+                    return Task.FromResult(new LogWriteOperation[] { });
 
                 // format?
                 if (doFormat)
                     message = string.Format(message, ps);
 
                 // create an event entry and pass it through...
-                var entry = new LogEventInfo(level, this.Name, message, ex);
+                var entry = new LogEventInfo(level, Name, message, ex);
 
-                // do the sync ones...
-                var tasks = new List<Task<LogWriteOperation>>();
-                foreach (var target in targets)
-                    tasks.Add(target.WriteAsync(entry));
+                var writeTasks = from target in targets
+                                 select target.WriteAsync(entry);
 
                 // group...
-                var group = Task.WhenAll<LogWriteOperation>(tasks);
+                var group = Task.WhenAll(writeTasks);
                 return group;
             }
             catch (Exception logEx)
             {
                 LogManager.LogInternal("Logging operation failed.", logEx);
-                return Task.FromResult<LogWriteOperation[]>(new LogWriteOperation[] {});
+                return Task.FromResult(new LogWriteOperation[] {});
             }
         }
 
@@ -181,9 +167,79 @@ namespace MetroLog
             }
         }
 
+        public void Trace(string message, Exception ex = null)
+        {
+            TraceAsync(message, ex);
+        }
+
+        public void Trace(string message, params object[] ps)
+        {
+            TraceAsync(message, ps);
+        }
+
+        public void Debug(string message, Exception ex = null)
+        {
+            DebugAsync(message, ex);
+        }
+
+        public void Debug(string message, params object[] ps)
+        {
+            DebugAsync(message, ps);
+        }
+
+        public void Info(string message, Exception ex = null)
+        {
+            InfoAsync(message, ex);
+        }
+
+        public void Info(string message, params object[] ps)
+        {
+            InfoAsync(message, ps);
+        }
+
+        public void Warn(string message, Exception ex = null)
+        {
+            WarnAsync(message, ex);
+        }
+
+        public void Warn(string message, params object[] ps)
+        {
+            WarnAsync(message, ps);
+        }
+
+        public void Error(string message, Exception ex = null)
+        {
+            ErrorAsync(message, ex);
+        }
+
+        public void Error(string message, params object[] ps)
+        {
+            ErrorAsync(message, ps);
+        }
+
+        public void Fatal(string message, Exception ex = null)
+        {
+            FatalAsync(message, ex);
+        }
+
+        public void Fatal(string message, params object[] ps)
+        {
+            FatalAsync(message, ps);
+        }
+
+        public void Log(LogLevel logLevel, string message, Exception ex)
+        {
+            LogAsync(logLevel, message, ex);
+        }
+
+        public void Log(LogLevel logLevel, string message, params object[] ps)
+        {
+            LogAsync(logLevel, message, ps);
+        }
+
         public bool IsEnabled(LogLevel level)
         {
-            return this.ResolvedConfiguration.GetTargets(level).Any();
+            return _configuration.GetTargets(level).Any();
         }
     }
 }

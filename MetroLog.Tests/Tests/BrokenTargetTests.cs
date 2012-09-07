@@ -10,29 +10,26 @@ namespace MetroLog.Tests
     [TestClass]
     public class BrokenTargetTests
     {
-        [TestInitialize]
-        public void Initialize()
-        {
-            LogManager.Reset();
-
-            // add a broken target, then the normal target...
-            LogManager.DefaultConfiguration.AddTarget(LogLevel.Trace, LogLevel.Fatal, new BrokenTarget());
-            LogManager.DefaultConfiguration.AddTarget(LogLevel.Trace, LogLevel.Fatal, TestTarget.Current);
-        }
 
         [TestMethod]
-        public void TestBrokenTarget()
+        public async Task TestBrokenTarget()
         {
-            TestTarget.Current.Reset();
+            var testTarget = new TestTarget();
+
+            var config = new LoggingConfiguration();
+            config.AddTarget(LogLevel.Trace, LogLevel.Fatal, new BrokenTarget());
+            config.AddTarget(LogLevel.Trace, LogLevel.Fatal, testTarget);
+
+            var target = new LogManager(config);
 
             // this should ignore errors in the broken target and flip down to the working target...
-            var logger = LogManager.GetLogger("Foobar");
-            logger.Trace("Hello, world.");
+            var logger = (Logger)target.GetLogger("Foobar");
+            await logger.TraceAsync("Hello, world.");
 
             // check...
-            Assert.AreEqual(1, TestTarget.Current.NumWritten);
-            Assert.AreEqual(LogLevel.Trace, TestTarget.Current.LastWritten.Level);
-            Assert.IsNull(TestTarget.Current.LastWritten.Exception);
+            Assert.AreEqual(1, testTarget.NumWritten);
+            Assert.AreEqual(LogLevel.Trace, testTarget.LastWritten.Level);
+            Assert.IsNull(testTarget.LastWritten.Exception);
         }
     }
 }

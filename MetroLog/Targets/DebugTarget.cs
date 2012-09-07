@@ -22,7 +22,7 @@ namespace MetroLog.Targets
 
         protected override void Write(LogEventInfo entry)
         {
-            string message = this.Layout.GetFormattedString(entry);
+            var message = Layout.GetFormattedString(entry);
             Debug.WriteLine(message);
         }
     }

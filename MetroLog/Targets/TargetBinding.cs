@@ -8,15 +8,15 @@ namespace MetroLog.Targets
 {
     internal class TargetBinding
     {
-        internal LogLevel MinLevel { get; private set; }
-        internal LogLevel MaxLevel { get; private set; }
+        private LogLevel MinLevel { get; set; }
+        private LogLevel MaxLevel { get; set; }
         internal Target Target { get; private set; }
 
         internal TargetBinding(LogLevel min, LogLevel max, Target target)
         {
-            this.MinLevel = min;
-            this.MaxLevel = max;
-            this.Target = target;
+            MinLevel = min;
+            MaxLevel = max;
+            Target = target;
         }
 
         internal bool SupportsLevel(LogLevel level)

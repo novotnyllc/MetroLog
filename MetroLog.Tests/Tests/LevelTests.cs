@@ -10,15 +10,24 @@ namespace MetroLog.Tests
     [TestClass]
     public class LevelTests
     {
+        private Tuple<ILogManager, TestTarget> CreateWithLevel(LogLevel min, LogLevel max)
+        {
+            var testTarget = new TestTarget();
+
+            var config = new LoggingConfiguration();
+            config.AddTarget(min, max, testTarget);
+
+            return Tuple.Create<ILogManager, TestTarget>(new LogManager(config), testTarget);
+        }
+
         [TestMethod]
         public void TestIsTraceEnabled()
         {
-            LogManager.Reset();
-            LogManager.DefaultConfiguration.ClearTargets();
-            LogManager.DefaultConfiguration.AddTarget(LogLevel.Debug, LogLevel.Fatal, TestTarget.Current);
+            
+            var target = CreateWithLevel(LogLevel.Debug, LogLevel.Fatal);
 
             // get a logger...
-            var logger = LogManager.GetLogger("foo");
+            var logger = target.Item1.GetLogger("foo");
 
             // check...
             Assert.IsFalse(logger.IsTraceEnabled);
@@ -30,32 +39,27 @@ namespace MetroLog.Tests
         }
 
         [TestMethod]
-        public void TestTraceIgnored()
+        public async Task TestTraceIgnored()
         {
-            LogManager.Reset();
-            LogManager.DefaultConfiguration.ClearTargets();
-            LogManager.DefaultConfiguration.AddTarget(LogLevel.Debug, LogLevel.Fatal, TestTarget.Current);
+            var target = CreateWithLevel(LogLevel.Debug, LogLevel.Fatal);
 
             // get a logger...
-            var logger = LogManager.GetLogger("foo");
+            var logger = (Logger)target.Item1.GetLogger("foo");
 
             // run...
-            TestTarget.Current.Reset();
-            logger.Trace("Foobar");
+            await logger.TraceAsync("Foobar");
 
             // check...
-            Assert.AreEqual(0, TestTarget.Current.NumWritten);
+            Assert.AreEqual(0, target.Item2.NumWritten);
         }
 
         [TestMethod]
         public void TestIsDebugEnabled()
         {
-            LogManager.Reset();
-            LogManager.DefaultConfiguration.ClearTargets();
-            LogManager.DefaultConfiguration.AddTarget(LogLevel.Info, LogLevel.Fatal, TestTarget.Current);
+            var target = CreateWithLevel(LogLevel.Info, LogLevel.Fatal);
 
             // get a logger...
-            var logger = LogManager.GetLogger("foo");
+            var logger = target.Item1.GetLogger("foo");
 
             // check...
             Assert.IsFalse(logger.IsTraceEnabled);
@@ -67,32 +71,27 @@ namespace MetroLog.Tests
         }
 
         [TestMethod]
-        public void TestDebugIgnored()
+        public async Task TestDebugIgnored()
         {
-            LogManager.Reset();
-            LogManager.DefaultConfiguration.ClearTargets();
-            LogManager.DefaultConfiguration.AddTarget(LogLevel.Info, LogLevel.Fatal, TestTarget.Current);
+            var target = CreateWithLevel(LogLevel.Info, LogLevel.Fatal);
 
             // get a logger...
-            var logger = LogManager.GetLogger("foo");
+            var logger = (Logger)target.Item1.GetLogger("foo");
 
             // run...
-            TestTarget.Current.Reset();
-            logger.Debug("Foobar");
+            await logger.DebugAsync("Foobar");
 
             // check...
-            Assert.AreEqual(0, TestTarget.Current.NumWritten);
+            Assert.AreEqual(0, target.Item2.NumWritten);
         }
 
         [TestMethod]
         public void TestIsInfoEnabled()
         {
-            LogManager.Reset();
-            LogManager.DefaultConfiguration.ClearTargets();
-            LogManager.DefaultConfiguration.AddTarget(LogLevel.Warn, LogLevel.Fatal, TestTarget.Current);
+            var target = CreateWithLevel(LogLevel.Warn, LogLevel.Fatal);
 
             // get a logger...
-            var logger = LogManager.GetLogger("foo");
+            var logger = target.Item1.GetLogger("foo");
 
             // check...
             Assert.IsFalse(logger.IsTraceEnabled);
@@ -104,32 +103,27 @@ namespace MetroLog.Tests
         }
 
         [TestMethod]
-        public void TestInfoIgnored()
+        public async Task TestInfoIgnored()
         {
-            LogManager.Reset();
-            LogManager.DefaultConfiguration.ClearTargets();
-            LogManager.DefaultConfiguration.AddTarget(LogLevel.Warn, LogLevel.Fatal, TestTarget.Current);
+            var target = CreateWithLevel(LogLevel.Warn, LogLevel.Fatal);
 
             // get a logger...
-            var logger = LogManager.GetLogger("foo");
+            var logger = (Logger)target.Item1.GetLogger("foo");
 
             // run...
-            TestTarget.Current.Reset();
-            logger.Info("Foobar");
+            await logger.InfoAsync("Foobar");
 
             // check...
-            Assert.AreEqual(0, TestTarget.Current.NumWritten);
+            Assert.AreEqual(0, target.Item2.NumWritten);
         }
 
         [TestMethod]
         public void TestIsWarnEnabled()
         {
-            LogManager.Reset();
-            LogManager.DefaultConfiguration.ClearTargets();
-            LogManager.DefaultConfiguration.AddTarget(LogLevel.Error, LogLevel.Fatal, TestTarget.Current);
+            var target = CreateWithLevel(LogLevel.Error, LogLevel.Fatal);
 
             // get a logger...
-            var logger = LogManager.GetLogger("foo");
+            var logger = target.Item1.GetLogger("foo");
 
             // check...
             Assert.IsFalse(logger.IsTraceEnabled);
@@ -141,32 +135,27 @@ namespace MetroLog.Tests
         }
 
         [TestMethod]
-        public void TestWarnIgnored()
+        public async Task TestWarnIgnored()
         {
-            LogManager.Reset();
-            LogManager.DefaultConfiguration.ClearTargets();
-            LogManager.DefaultConfiguration.AddTarget(LogLevel.Error, LogLevel.Fatal, TestTarget.Current);
+            var target = CreateWithLevel(LogLevel.Error, LogLevel.Fatal);
 
             // get a logger...
-            var logger = LogManager.GetLogger("foo");
+            var logger = (Logger)target.Item1.GetLogger("foo");
 
             // run...
-            TestTarget.Current.Reset();
-            logger.Warn("Foobar");
-
+            await logger.WarnAsync("Foobar");
+            
             // check...
-            Assert.AreEqual(0, TestTarget.Current.NumWritten);
+            Assert.AreEqual(0, target.Item2.NumWritten);
         }
 
         [TestMethod]
         public void TestIsErrorEnabled()
         {
-            LogManager.Reset();
-            LogManager.DefaultConfiguration.ClearTargets();
-            LogManager.DefaultConfiguration.AddTarget(LogLevel.Fatal, TestTarget.Current);
+            var target = CreateWithLevel(LogLevel.Fatal, LogLevel.Fatal);
 
             // get a logger...
-            var logger = LogManager.GetLogger("foo");
+            var logger = target.Item1.GetLogger("foo");
 
             // check...
             Assert.IsFalse(logger.IsTraceEnabled);
@@ -178,31 +167,27 @@ namespace MetroLog.Tests
         }
 
         [TestMethod]
-        public void TestErrorIgnored()
+        public async Task TestErrorIgnored()
         {
-            LogManager.Reset();
-            LogManager.DefaultConfiguration.ClearTargets();
-            LogManager.DefaultConfiguration.AddTarget(LogLevel.Fatal, TestTarget.Current);
+            var target = CreateWithLevel(LogLevel.Fatal, LogLevel.Fatal);
 
             // get a logger...
-            var logger = LogManager.GetLogger("foo");
+            var logger = (Logger)target.Item1.GetLogger("foo");
 
             // run...
-            TestTarget.Current.Reset();
-            logger.Error("Foobar");
+            await logger.ErrorAsync("Foobar");
 
             // check...
-            Assert.AreEqual(0, TestTarget.Current.NumWritten);
+            Assert.AreEqual(0, target.Item2.NumWritten);
         }
 
         [TestMethod]
         public void TestIsFatalEnabled()
         {
-            LogManager.Reset();
-            LogManager.DefaultConfiguration.ClearTargets();
+            var target = new LogManager(new LoggingConfiguration());
 
             // get a logger...
-            var logger = LogManager.GetLogger("foo");
+            var logger = target.GetLogger("foo");
 
             // check...
             Assert.IsFalse(logger.IsTraceEnabled);
@@ -213,117 +198,119 @@ namespace MetroLog.Tests
             Assert.IsFalse(logger.IsFatalEnabled);
         }
 
-        [TestMethod]
-        public void TestIsTraceEnabledForLoggable()
-        {
-            LogManager.Reset();
-            LogManager.DefaultConfiguration.ClearTargets();
-            LogManager.DefaultConfiguration.AddTarget(LogLevel.Debug, LogLevel.Fatal, TestTarget.Current);
+        //[TestMethod]
+        //public void TestIsTraceEnabledForLoggable()
+        //{
+        //    LogManager.Reset();
+        //    LogManager.DefaultConfiguration.ClearTargets();
+        //    LogManager.DefaultConfiguration.AddTarget(LogLevel.Debug, LogLevel.Fatal, TestTarget.Current);
 
-            // get a loggable...
-            var loggable = new TestLoggable();
+        //    // get a loggable...
+        //    var loggable = new TestLoggable();
 
-            // check...
-            Assert.IsFalse(loggable.IsTraceEnabled());
-            Assert.IsTrue(loggable.IsDebugEnabled());
-            Assert.IsTrue(loggable.IsInfoEnabled());
-            Assert.IsTrue(loggable.IsWarnEnabled());
-            Assert.IsTrue(loggable.IsErrorEnabled());
-            Assert.IsTrue(loggable.IsFatalEnabled());
-        }
+        //    // check...
+        //    Assert.IsFalse(loggable.IsTraceEnabled());
+        //    Assert.IsTrue(loggable.IsDebugEnabled());
+        //    Assert.IsTrue(loggable.IsInfoEnabled());
+        //    Assert.IsTrue(loggable.IsWarnEnabled());
+        //    Assert.IsTrue(loggable.IsErrorEnabled());
+        //    Assert.IsTrue(loggable.IsFatalEnabled());
+        //}
 
-        [TestMethod]
-        public void TestIsDebugEnabledForLoggable()
-        {
-            LogManager.Reset();
-            LogManager.DefaultConfiguration.ClearTargets();
-            LogManager.DefaultConfiguration.AddTarget(LogLevel.Info, LogLevel.Fatal, TestTarget.Current);
+        //[TestMethod]
+        //public void TestIsDebugEnabledForLoggable()
+        //{
+        //    LogManager.Reset();
+        //    LogManager.DefaultConfiguration.ClearTargets();
+        //    LogManager.DefaultConfiguration.AddTarget(LogLevel.Info, LogLevel.Fatal, TestTarget.Current);
 
-            // get a loggable...
-            var loggable = new TestLoggable();
+        //    // get a loggable...
+        //    var loggable = new TestLoggable();
 
-            // check...
-            Assert.IsFalse(loggable.IsTraceEnabled());
-            Assert.IsFalse(loggable.IsDebugEnabled());
-            Assert.IsTrue(loggable.IsInfoEnabled());
-            Assert.IsTrue(loggable.IsWarnEnabled());
-            Assert.IsTrue(loggable.IsErrorEnabled());
-            Assert.IsTrue(loggable.IsFatalEnabled());
-        }
+        //    // check...
+        //    Assert.IsFalse(loggable.IsTraceEnabled());
+        //    Assert.IsFalse(loggable.IsDebugEnabled());
+        //    Assert.IsTrue(loggable.IsInfoEnabled());
+        //    Assert.IsTrue(loggable.IsWarnEnabled());
+        //    Assert.IsTrue(loggable.IsErrorEnabled());
+        //    Assert.IsTrue(loggable.IsFatalEnabled());
+        //}
 
-        [TestMethod]
-        public void TestIsInfoEnabledForLoggable()
-        {
-            LogManager.Reset();
-            LogManager.DefaultConfiguration.ClearTargets();
-            LogManager.DefaultConfiguration.AddTarget(LogLevel.Warn, LogLevel.Fatal, TestTarget.Current);
+        //[TestMethod]
+        //public void TestIsInfoEnabledForLoggable()
+        //{
+        //    LogManager.Reset();
+        //    LogManager.DefaultConfiguration.ClearTargets();
+        //    LogManager.DefaultConfiguration.AddTarget(LogLevel.Warn, LogLevel.Fatal, TestTarget.Current);
 
-            // get a loggable...
-            var loggable = new TestLoggable();
+        //    // get a loggable...
+        //    var loggable = new TestLoggable();
 
-            // check...
-            Assert.IsFalse(loggable.IsTraceEnabled());
-            Assert.IsFalse(loggable.IsDebugEnabled());
-            Assert.IsFalse(loggable.IsInfoEnabled());
-            Assert.IsTrue(loggable.IsWarnEnabled());
-            Assert.IsTrue(loggable.IsErrorEnabled());
-            Assert.IsTrue(loggable.IsFatalEnabled());
-        }
+        //    // check...
+        //    Assert.IsFalse(loggable.IsTraceEnabled());
+        //    Assert.IsFalse(loggable.IsDebugEnabled());
+        //    Assert.IsFalse(loggable.IsInfoEnabled());
+        //    Assert.IsTrue(loggable.IsWarnEnabled());
+        //    Assert.IsTrue(loggable.IsErrorEnabled());
+        //    Assert.IsTrue(loggable.IsFatalEnabled());
+        //}
 
-        [TestMethod]
-        public void TestIsWarnEnabledForLoggable()
-        {
-            LogManager.Reset();
-            LogManager.DefaultConfiguration.ClearTargets();
-            LogManager.DefaultConfiguration.AddTarget(LogLevel.Error, LogLevel.Fatal, TestTarget.Current);
+        //[TestMethod]
+        //public void TestIsWarnEnabledForLoggable()
+        //{
+        //    LogManager.Reset();
+        //    LogManager.DefaultConfiguration.ClearTargets();
+        //    LogManager.DefaultConfiguration.AddTarget(LogLevel.Error, LogLevel.Fatal, TestTarget.Current);
 
-            // get a loggable...
-            var loggable = new TestLoggable();
+        //    // get a loggable...
+        //    var loggable = new TestLoggable();
 
-            // check...
-            Assert.IsFalse(loggable.IsTraceEnabled());
-            Assert.IsFalse(loggable.IsDebugEnabled());
-            Assert.IsFalse(loggable.IsInfoEnabled());
-            Assert.IsFalse(loggable.IsWarnEnabled());
-            Assert.IsTrue(loggable.IsErrorEnabled());
-            Assert.IsTrue(loggable.IsFatalEnabled());
-        }
+        //    // check...
+        //    Assert.IsFalse(loggable.IsTraceEnabled());
+        //    Assert.IsFalse(loggable.IsDebugEnabled());
+        //    Assert.IsFalse(loggable.IsInfoEnabled());
+        //    Assert.IsFalse(loggable.IsWarnEnabled());
+        //    Assert.IsTrue(loggable.IsErrorEnabled());
+        //    Assert.IsTrue(loggable.IsFatalEnabled());
+        //}
 
-        [TestMethod]
-        public void TestIsErrorEnabledForLoggable()
-        {
-            LogManager.Reset();
-            LogManager.DefaultConfiguration.ClearTargets();
-            LogManager.DefaultConfiguration.AddTarget(LogLevel.Fatal, TestTarget.Current);
+        //[TestMethod]
+        //public void TestIsErrorEnabledForLoggable()
+        //{
+        //    LogManager.Reset();
+        //    LogManager.DefaultConfiguration.ClearTargets();
+        //    LogManager.DefaultConfiguration.AddTarget(LogLevel.Fatal, TestTarget.Current);
 
-            // get a loggable...
-            var loggable = new TestLoggable();
 
-            // check...
-            Assert.IsFalse(loggable.IsTraceEnabled());
-            Assert.IsFalse(loggable.IsDebugEnabled());
-            Assert.IsFalse(loggable.IsInfoEnabled());
-            Assert.IsFalse(loggable.IsWarnEnabled());
-            Assert.IsFalse(loggable.IsErrorEnabled());
-            Assert.IsTrue(loggable.IsFatalEnabled());
-        }
 
-        [TestMethod]
-        public void TestIsFatalEnabledForLoggable()
-        {
-            LogManager.Reset();
-            LogManager.DefaultConfiguration.ClearTargets();
+        //    // get a loggable...
+        //    var loggable = new TestLoggable();
 
-            // get a loggable...
-            var loggable = new TestLoggable();
+        //    // check...
+        //    Assert.IsFalse(loggable.IsTraceEnabled());
+        //    Assert.IsFalse(loggable.IsDebugEnabled());
+        //    Assert.IsFalse(loggable.IsInfoEnabled());
+        //    Assert.IsFalse(loggable.IsWarnEnabled());
+        //    Assert.IsFalse(loggable.IsErrorEnabled());
+        //    Assert.IsTrue(loggable.IsFatalEnabled());
+        //}
 
-            // check...
-            Assert.IsFalse(loggable.IsTraceEnabled());
-            Assert.IsFalse(loggable.IsDebugEnabled());
-            Assert.IsFalse(loggable.IsInfoEnabled());
-            Assert.IsFalse(loggable.IsWarnEnabled());
-            Assert.IsFalse(loggable.IsErrorEnabled());
-            Assert.IsFalse(loggable.IsFatalEnabled());
-        }
+        //[TestMethod]
+        //public void TestIsFatalEnabledForLoggable()
+        //{
+        //    LogManager.Reset();
+        //    LogManager.DefaultConfiguration.ClearTargets();
+
+        //    // get a loggable...
+        //    var loggable = new TestLoggable();
+
+        //    // check...
+        //    Assert.IsFalse(loggable.IsTraceEnabled());
+        //    Assert.IsFalse(loggable.IsDebugEnabled());
+        //    Assert.IsFalse(loggable.IsInfoEnabled());
+        //    Assert.IsFalse(loggable.IsWarnEnabled());
+        //    Assert.IsFalse(loggable.IsErrorEnabled());
+        //    Assert.IsFalse(loggable.IsFatalEnabled());
+        //}
     }
 }

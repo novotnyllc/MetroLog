@@ -12,23 +12,12 @@ namespace MetroLog.Tests
     {
         internal int NumWritten { get; private set; }
         internal LogEventInfo LastWritten { get; private set; }
-
-		private static TestTarget _current = new TestTarget();
-				
-		private TestTarget()
+        
+		public TestTarget()
             : base(new SingleLineLayout())
 		{
 		}
-						
-		internal static TestTarget Current
-		{
-			get
-			{
-				if(_current == null)
-					throw new ObjectDisposedException("TestTarget");
-				return _current;
-			}
-		}
+			
 
         protected override void Write(LogEventInfo entry)
         {

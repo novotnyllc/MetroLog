@@ -20,22 +20,12 @@ namespace MetroLog
 
         internal LogEventInfo(LogLevel level, string logger, string message, Exception ex)
         {
-            this.Level = level;
-            this.Logger = logger;
-            this.Message = message;
-            this.Exception = ex;
-            this.TimeStamp = LogManager.GetDateTime();
-            this.SequenceID = Interlocked.Increment(ref _globalSequenceId);
-        }
-
-        internal LogEventInfo Clone()
-        {
-            var newInfo = new LogEventInfo(this.Level, this.Logger, this.Message, this.Exception);
-            newInfo.TimeStamp = this.TimeStamp;
-            newInfo.SequenceID = this.SequenceID;
-
-            // return...
-            return newInfo;
+            Level = level;
+            Logger = logger;
+            Message = message;
+            Exception = ex;
+            TimeStamp = LogManager.GetDateTime();
+            SequenceID = Interlocked.Increment(ref _globalSequenceId);
         }
     }
 }

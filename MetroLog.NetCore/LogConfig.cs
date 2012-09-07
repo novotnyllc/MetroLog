@@ -15,7 +15,7 @@ namespace MetroLog
             configuration.AddTarget(LogLevel.Trace, LogLevel.Fatal, new DebugTarget());
             configuration.AddTarget(LogLevel.Error, LogLevel.Fatal, new FileSnapshotTarget());
 
-            LogManager.Reset(configuration);
+           // LogManager.Reset(configuration);
         }
     }
 }

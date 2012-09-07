@@ -18,13 +18,13 @@ namespace MetroLog.Targets
         {
             try
             {
-                this.Write(entry);
-                return Task.FromResult<LogWriteOperation>(new LogWriteOperation(this, entry, true));
+                Write(entry);
+                return Task.FromResult(new LogWriteOperation(this, entry, true));
             }
             catch (Exception ex)
             {
                 LogManager.LogInternal(string.Format("Failed to write to target '{0}'.", this), ex);
-                return Task.FromResult<LogWriteOperation>(new LogWriteOperation(this, entry, false));
+                return Task.FromResult(new LogWriteOperation(this, entry, false));
             }
         }
 

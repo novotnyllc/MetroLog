@@ -9,35 +9,35 @@ namespace MetroLog
 {
     public class LoggingConfiguration
     {
-        private List<TargetBinding> Bindings { get; set; }
-        private object _bindingsLock = new object();
+        private readonly List<TargetBinding> _bindings;
+        private readonly object _bindingsLock = new object();
 
         public LoggingConfiguration()
         {
-            this.Bindings = new List<TargetBinding>();
+            _bindings = new List<TargetBinding>();
         }
 
         public void AddTarget(LogLevel level, Target target)
         {
-            this.AddTarget(level, level, target);
+            AddTarget(level, level, target);
         }
 
         public void AddTarget(LogLevel min, LogLevel max, Target target)
         {
             lock (_bindingsLock)
-                this.Bindings.Add(new TargetBinding(min, max, target));
+                _bindings.Add(new TargetBinding(min, max, target));
         }
 
         internal IEnumerable<Target> GetTargets(LogLevel level)
         {
             lock(_bindingsLock)
-                return this.Bindings.Where(v => v.SupportsLevel(level)).Select(binding => binding.Target).ToList();
+                return _bindings.Where(v => v.SupportsLevel(level)).Select(binding => binding.Target).ToList();
         }
 
         public void ClearTargets()
         {
             lock (_bindingsLock)
-                this.Bindings.Clear();
+                _bindings.Clear();
         }
     }
 }

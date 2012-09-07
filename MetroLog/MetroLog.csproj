@@ -107,9 +107,7 @@
     <Compile Include="Layouts\FileSnapshotLayout.cs" />
     <Compile Include="Layouts\Layout.cs" />
     <Compile Include="Layouts\SingleLineLayout.cs" />
-    <Compile Include="Objects\FrameworkLogger.cs" />
-    <Compile Include="Objects\ILoggable.cs" />
-    <Compile Include="Objects\ILoggableExtender.cs" />
+    <Compile Include="Objects\ILogger.cs" />
     <Compile Include="Objects\ILogManager.cs" />
     <Compile Include="Objects\LogEventInfo.cs" />
     <Compile Include="Objects\Logger.cs" />

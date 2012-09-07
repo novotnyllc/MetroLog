@@ -13,7 +13,7 @@ namespace MetroLog.Targets
 
         protected Target(Layout layout)
         {
-            this.Layout = layout;
+            Layout = layout;
         }
 
         protected internal abstract Task<LogWriteOperation> WriteAsync(LogEventInfo entry);

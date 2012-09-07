@@ -3,44 +3,22 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using MetroLog.Layouts;
 using MetroLog.Targets;
 
 namespace MetroLog
 {
-    public static class LogManager
+    internal class LogManager : ILogManager
     {
-        public static LoggingConfiguration DefaultConfiguration { get; set; }
+        public LoggingConfiguration DefaultConfiguration { get; private set; }
 
-        private static Dictionary<string, Logger> Loggers { get; set; }
-        private static readonly object _loggersLock = new object();
+        private readonly Dictionary<string, Logger> _loggers;
+        private readonly object _loggersLock = new object();
 
-        internal const string DateTimeFormat = "dd/MMM/yyyy HH:mm:ss";
+        internal const string DateTimeFormat = "o";
 
-        static LogManager()
+        public LogManager(LoggingConfiguration configuration = null)
         {
-            Reset();
-        }
-
-        public static Logger GetLogger(ILoggable loggable, LoggingConfiguration config)
-        {
-            return GetLogger(loggable.GetType().Name, config);
-        }
-
-        public static Logger GetLogger(string name, LoggingConfiguration config = null)
-        {
-            lock (_loggersLock)
-            {
-                if (!(Loggers.ContainsKey(name)))
-                    Loggers[name] = new Logger(name, config);
-                return Loggers[name];
-            }
-        }
-
-        public static void Reset(LoggingConfiguration configuration = null)
-        {
-            Loggers = new Dictionary<string, Logger>(StringComparer.OrdinalIgnoreCase);
+            _loggers = new Dictionary<string, Logger>(StringComparer.OrdinalIgnoreCase);
 
             if (configuration == null)
             {
@@ -50,6 +28,22 @@ namespace MetroLog
             }
             DefaultConfiguration = configuration;
         }
+
+        public ILogger GetLogger<T>(LoggingConfiguration config = null)
+        {
+            return GetLogger(typeof(T).Name, config);
+        }
+
+        public ILogger GetLogger(string name, LoggingConfiguration config = null)
+        {
+            lock (_loggersLock)
+            {
+                if (!(_loggers.ContainsKey(name)))
+                    _loggers[name] = new Logger(name, config ?? DefaultConfiguration);
+                return _loggers[name];
+            }
+        }
+
 
         // logs problems with the framework to Debug...
         internal static void LogInternal(string message, Exception ex)
@@ -62,7 +56,6 @@ namespace MetroLog
 
         internal static DateTimeOffset GetDateTime()
         {
-            // NLog has a high efficiency version of this...
             return DateTimeOffset.UtcNow;
         }
     }

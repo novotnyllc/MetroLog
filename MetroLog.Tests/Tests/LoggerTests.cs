@@ -10,287 +10,281 @@ namespace MetroLog.Tests
     [TestClass]
     public class LoggerTests
     {
-        [TestInitialize]
-        public void Initialize()
+        private static Tuple<Logger, TestTarget> CreateTarget()
         {
-            LogManager.Reset();
-            LogManager.DefaultConfiguration.AddTarget(LogLevel.Trace, LogLevel.Fatal, TestTarget.Current);
+            var testTarget = new TestTarget();
+            var config = new LoggingConfiguration();
+            config.AddTarget(LogLevel.Trace, LogLevel.Fatal, testTarget);
+
+            return Tuple.Create(new Logger("Foobar", config), testTarget);
         }
 
         [TestMethod]
-        public void TestTrace()
+        public async Task TestTrace()
         {
-            TestTarget.Current.Reset();
-
             // run...
-            var logger = LogManager.GetLogger("Foobar");
-            logger.Trace("Hello, world.");
+            var logger = CreateTarget();
+            await logger.Item1.TraceAsync("Hello, world.");
 
             // check...
-            Assert.AreEqual(1, TestTarget.Current.NumWritten);
-            Assert.AreEqual(LogLevel.Trace, TestTarget.Current.LastWritten.Level);
-            Assert.IsNull(TestTarget.Current.LastWritten.Exception);
+            Assert.AreEqual(1, logger.Item2.NumWritten);
+            Assert.AreEqual(LogLevel.Trace, logger.Item2.LastWritten.Level);
+            Assert.IsNull(logger.Item2.LastWritten.Exception);
         }
 
         [TestMethod]
-        public void TestDebug()
+        public async Task TestLog()
         {
-            TestTarget.Current.Reset();
-
             // run...
-            var logger = LogManager.GetLogger("Foobar");
-            logger.Debug("Hello, world.");
+            var logger = CreateTarget();
+            await logger.Item1.LogAsync(LogLevel.Trace, "Hello, world.");
 
             // check...
-            Assert.AreEqual(1, TestTarget.Current.NumWritten);
-            Assert.AreEqual(LogLevel.Debug, TestTarget.Current.LastWritten.Level);
-            Assert.IsNull(TestTarget.Current.LastWritten.Exception);
+            Assert.AreEqual(1, logger.Item2.NumWritten);
+            Assert.AreEqual(LogLevel.Trace, logger.Item2.LastWritten.Level);
+            Assert.IsNull(logger.Item2.LastWritten.Exception);
+        }
+
+
+        [TestMethod]
+        public async Task TestDebug()
+        {
+            // run...
+            var logger = CreateTarget();
+            await logger.Item1.DebugAsync("Hello, world.");
+
+            // check...
+            Assert.AreEqual(1, logger.Item2.NumWritten);
+            Assert.AreEqual(LogLevel.Debug, logger.Item2.LastWritten.Level);
+            Assert.IsNull(logger.Item2.LastWritten.Exception);
         }
 
         [TestMethod]
-        public void TestInfo()
+        public async Task TestInfo()
         {
-            TestTarget.Current.Reset();
-
             // run...
-            var logger = LogManager.GetLogger("Foobar");
-            logger.Info("Hello, world.");
+            var logger = CreateTarget();
+            await logger.Item1.InfoAsync("Hello, world.");
 
             // check...
-            Assert.AreEqual(1, TestTarget.Current.NumWritten);
-            Assert.AreEqual(LogLevel.Info, TestTarget.Current.LastWritten.Level);
-            Assert.IsNull(TestTarget.Current.LastWritten.Exception);
+            Assert.AreEqual(1, logger.Item2.NumWritten);
+            Assert.AreEqual(LogLevel.Info, logger.Item2.LastWritten.Level);
+            Assert.IsNull(logger.Item2.LastWritten.Exception);
         }
 
         [TestMethod]
-        public void TestWarn()
+        public async Task TestWarn()
         {
-            TestTarget.Current.Reset();
-
             // run...
-            var logger = LogManager.GetLogger("Foobar");
-            logger.Warn("Hello, world.");
+            var logger = CreateTarget();
+            await logger.Item1.WarnAsync("Hello, world.");
 
             // check...
-            Assert.AreEqual(1, TestTarget.Current.NumWritten);
-            Assert.AreEqual(LogLevel.Warn, TestTarget.Current.LastWritten.Level);
-            Assert.IsNull(TestTarget.Current.LastWritten.Exception);
+            Assert.AreEqual(1, logger.Item2.NumWritten);
+            Assert.AreEqual(LogLevel.Warn, logger.Item2.LastWritten.Level);
+            Assert.IsNull(logger.Item2.LastWritten.Exception);
         }
 
         [TestMethod]
-        public void TestError()
+        public async Task TestError()
         {
-            TestTarget.Current.Reset();
-
             // run...
-            var logger = LogManager.GetLogger("Foobar");
-            logger.Error("Hello, world.");
+            var logger = CreateTarget();
+            await logger.Item1.ErrorAsync("Hello, world.");
 
             // check...
-            Assert.AreEqual(1, TestTarget.Current.NumWritten);
-            Assert.AreEqual(LogLevel.Error, TestTarget.Current.LastWritten.Level);
-            Assert.IsNull(TestTarget.Current.LastWritten.Exception);
+            Assert.AreEqual(1, logger.Item2.NumWritten);
+            Assert.AreEqual(LogLevel.Error, logger.Item2.LastWritten.Level);
+            Assert.IsNull(logger.Item2.LastWritten.Exception);
         }
 
         [TestMethod]
-        public void TestFatal()
+        public async Task TestFatal()
         {
-            TestTarget.Current.Reset();
-
             // run...
-            var logger = LogManager.GetLogger("Foobar");
-            logger.Fatal("Hello, world.");
+            var logger = CreateTarget();
+            await logger.Item1.FatalAsync("Hello, world.");
 
             // check...
-            Assert.AreEqual(1, TestTarget.Current.NumWritten);
-            Assert.AreEqual(LogLevel.Fatal, TestTarget.Current.LastWritten.Level);
-            Assert.IsNull(TestTarget.Current.LastWritten.Exception);
+            Assert.AreEqual(1, logger.Item2.NumWritten);
+            Assert.AreEqual(LogLevel.Fatal, logger.Item2.LastWritten.Level);
+            Assert.IsNull(logger.Item2.LastWritten.Exception);
         }
 
         [TestMethod]
-        public void TestTraceWithException()
+        public async Task TestTraceWithException()
         {
-            TestTarget.Current.Reset();
-
             // run...
-            var logger = LogManager.GetLogger("Foobar");
-            logger.Trace("Hello, world.", new InvalidOperationException("Foobar"));
+            var logger = CreateTarget();
+            await logger.Item1.TraceAsync("Hello, world.", new InvalidOperationException("Foobar"));
 
             // check...
-            Assert.AreEqual(1, TestTarget.Current.NumWritten);
-            Assert.AreEqual(LogLevel.Trace, TestTarget.Current.LastWritten.Level);
-            Assert.IsNotNull(TestTarget.Current.LastWritten.Exception);
+            Assert.AreEqual(1, logger.Item2.NumWritten);
+            Assert.AreEqual(LogLevel.Trace, logger.Item2.LastWritten.Level);
+            Assert.IsNotNull(logger.Item2.LastWritten.Exception);
         }
 
         [TestMethod]
-        public void TestDebugWithException()
+        public async Task TestLogWithException()
         {
-            TestTarget.Current.Reset();
-
             // run...
-            var logger = LogManager.GetLogger("Foobar");
-            logger.Debug("Hello, world", new InvalidOperationException("Foobar"));
+            var logger = CreateTarget();
+            await logger.Item1.LogAsync(LogLevel.Trace, "Hello, world.", new InvalidOperationException("Foobar"));
 
             // check...
-            Assert.AreEqual(1, TestTarget.Current.NumWritten);
-            Assert.AreEqual(LogLevel.Debug, TestTarget.Current.LastWritten.Level);
-            Assert.IsNotNull(TestTarget.Current.LastWritten.Exception);
+            Assert.AreEqual(1, logger.Item2.NumWritten);
+            Assert.AreEqual(LogLevel.Trace, logger.Item2.LastWritten.Level);
+            Assert.IsNotNull(logger.Item2.LastWritten.Exception);
         }
 
         [TestMethod]
-        public void TestInfoWithException()
+        public async Task TestDebugWithException()
         {
-            TestTarget.Current.Reset();
-
             // run...
-            var logger = LogManager.GetLogger("Foobar");
-            logger.Info("Hello, world", new InvalidOperationException("Foobar"));
+            var logger = CreateTarget();
+            await logger.Item1.DebugAsync("Hello, world.", new InvalidOperationException("Foobar"));
 
             // check...
-            Assert.AreEqual(1, TestTarget.Current.NumWritten);
-            Assert.AreEqual(LogLevel.Info, TestTarget.Current.LastWritten.Level);
-            Assert.IsNotNull(TestTarget.Current.LastWritten.Exception);
+            Assert.AreEqual(1, logger.Item2.NumWritten);
+            Assert.AreEqual(LogLevel.Debug, logger.Item2.LastWritten.Level);
+            Assert.IsNotNull(logger.Item2.LastWritten.Exception);
         }
 
         [TestMethod]
-        public void TestWarnWithException()
+        public async Task TestInfoWithException()
         {
-            TestTarget.Current.Reset();
-
             // run...
-            var logger = LogManager.GetLogger("Foobar");
-            logger.Warn("Hello, world", new InvalidOperationException("Foobar"));
+            var logger = CreateTarget();
+            await logger.Item1.InfoAsync("Hello, world.", new InvalidOperationException("Foobar"));
 
             // check...
-            Assert.AreEqual(1, TestTarget.Current.NumWritten);
-            Assert.AreEqual(LogLevel.Warn, TestTarget.Current.LastWritten.Level);
-            Assert.IsNotNull(TestTarget.Current.LastWritten.Exception);
+            Assert.AreEqual(1, logger.Item2.NumWritten);
+            Assert.AreEqual(LogLevel.Info, logger.Item2.LastWritten.Level);
+            Assert.IsNotNull(logger.Item2.LastWritten.Exception);
         }
 
         [TestMethod]
-        public void TestErrorWithException()
+        public async Task TestWarnWithException()
         {
-            TestTarget.Current.Reset();
-
             // run...
-            var logger = LogManager.GetLogger("Foobar");
-            logger.Error("Hello, world", new InvalidOperationException("Foobar"));
+            var logger = CreateTarget();
+            await logger.Item1.WarnAsync("Hello, world.", new InvalidOperationException("Foobar"));
 
             // check...
-            Assert.AreEqual(1, TestTarget.Current.NumWritten);
-            Assert.AreEqual(LogLevel.Error, TestTarget.Current.LastWritten.Level);
-            Assert.IsNotNull(TestTarget.Current.LastWritten.Exception);
+            Assert.AreEqual(1, logger.Item2.NumWritten);
+            Assert.AreEqual(LogLevel.Warn, logger.Item2.LastWritten.Level);
+            Assert.IsNotNull(logger.Item2.LastWritten.Exception);
         }
 
         [TestMethod]
-        public void TestFatalWithException()
+        public async Task TestErrorWithException()
         {
-            TestTarget.Current.Reset();
-
             // run...
-            var logger = LogManager.GetLogger("Foobar");
-            logger.Fatal("Hello, world", new InvalidOperationException("Foobar"));
+            var logger = CreateTarget();
+            await logger.Item1.ErrorAsync("Hello, world.", new InvalidOperationException("Foobar"));
 
             // check...
-            Assert.AreEqual(1, TestTarget.Current.NumWritten);
-            Assert.AreEqual(LogLevel.Fatal, TestTarget.Current.LastWritten.Level);
-            Assert.IsNotNull(TestTarget.Current.LastWritten.Exception);
+            Assert.AreEqual(1, logger.Item2.NumWritten);
+            Assert.AreEqual(LogLevel.Error, logger.Item2.LastWritten.Level);
+            Assert.IsNotNull(logger.Item2.LastWritten.Exception);
         }
 
         [TestMethod]
-        public void TestTraceWithFormat()
+        public async Task TestFatalWithException()
         {
-            TestTarget.Current.Reset();
-
             // run...
-            var logger = LogManager.GetLogger("Foobar");
-            logger.Trace("Hello, {0}.", "**foo**");
+            var logger = CreateTarget();
+            await logger.Item1.FatalAsync("Hello, world.", new InvalidOperationException("Foobar"));
 
             // check...
-            Assert.AreEqual(1, TestTarget.Current.NumWritten);
-            Assert.AreEqual(LogLevel.Trace, TestTarget.Current.LastWritten.Level);
-            Assert.IsNull(TestTarget.Current.LastWritten.Exception);
-            Assert.AreNotEqual(-1, TestTarget.Current.LastWritten.Message.IndexOf("**foo**"));
+            Assert.AreEqual(1, logger.Item2.NumWritten);
+            Assert.AreEqual(LogLevel.Fatal, logger.Item2.LastWritten.Level);
+            Assert.IsNotNull(logger.Item2.LastWritten.Exception);
         }
 
         [TestMethod]
-        public void TestDebugWithFormat()
+        public async Task TestTraceWithFormat()
         {
-            TestTarget.Current.Reset();
-
             // run...
-            var logger = LogManager.GetLogger("Foobar");
-            logger.Debug("Hello, {0}.", "**foo**");
+            var logger = CreateTarget();
+            await logger.Item1.TraceAsync("Hello, {0}.", "**foo**");
+            
 
             // check...
-            Assert.AreEqual(1, TestTarget.Current.NumWritten);
-            Assert.AreEqual(LogLevel.Debug, TestTarget.Current.LastWritten.Level);
-            Assert.IsNull(TestTarget.Current.LastWritten.Exception);
-            Assert.AreNotEqual(-1, TestTarget.Current.LastWritten.Message.IndexOf("**foo**"));
+            Assert.AreEqual(1, logger.Item2.NumWritten);
+            Assert.AreEqual(LogLevel.Trace, logger.Item2.LastWritten.Level);
+            Assert.IsNull(logger.Item2.LastWritten.Exception);
+            Assert.AreNotEqual(-1, logger.Item2.LastWritten.Message.IndexOf("**foo**"));
         }
 
         [TestMethod]
-        public void TestInfoWithFormat()
+        public async Task TestDebugWithFormat()
         {
-            TestTarget.Current.Reset();
-
             // run...
-            var logger = LogManager.GetLogger("Foobar");
-            logger.Info("Hello, {0}.", "**foo**");
+            var logger = CreateTarget();
+            await logger.Item1.DebugAsync("Hello, {0}.", "**foo**");
 
             // check...
-            Assert.AreEqual(1, TestTarget.Current.NumWritten);
-            Assert.AreEqual(LogLevel.Info, TestTarget.Current.LastWritten.Level);
-            Assert.IsNull(TestTarget.Current.LastWritten.Exception);
-            Assert.AreNotEqual(-1, TestTarget.Current.LastWritten.Message.IndexOf("**foo**"));
+            Assert.AreEqual(1, logger.Item2.NumWritten);
+            Assert.AreEqual(LogLevel.Debug, logger.Item2.LastWritten.Level);
+            Assert.IsNull(logger.Item2.LastWritten.Exception);
+            Assert.AreNotEqual(-1, logger.Item2.LastWritten.Message.IndexOf("**foo**"));
         }
 
         [TestMethod]
-        public void TestWarnWithFormat()
+        public async Task TestInfoWithFormat()
         {
-            TestTarget.Current.Reset();
-
             // run...
-            var logger = LogManager.GetLogger("Foobar");
-            logger.Warn("Hello, {0}.", "**foo**");
+            var logger = CreateTarget();
+            await logger.Item1.InfoAsync("Hello, {0}.", "**foo**");
 
             // check...
-            Assert.AreEqual(1, TestTarget.Current.NumWritten);
-            Assert.AreEqual(LogLevel.Warn, TestTarget.Current.LastWritten.Level);
-            Assert.IsNull(TestTarget.Current.LastWritten.Exception);
-            Assert.AreNotEqual(-1, TestTarget.Current.LastWritten.Message.IndexOf("**foo**"));
+            Assert.AreEqual(1, logger.Item2.NumWritten);
+            Assert.AreEqual(LogLevel.Info, logger.Item2.LastWritten.Level);
+            Assert.IsNull(logger.Item2.LastWritten.Exception);
+            Assert.AreNotEqual(-1, logger.Item2.LastWritten.Message.IndexOf("**foo**"));
         }
 
         [TestMethod]
-        public void TestErrorWithFormat()
+        public async Task TestWarnWithFormat()
         {
-            TestTarget.Current.Reset();
-
             // run...
-            var logger = LogManager.GetLogger("Foobar");
-            logger.Error("Hello, {0}.", "**foo**");
+            var logger = CreateTarget();
+            await logger.Item1.WarnAsync("Hello, {0}.", "**foo**");
 
             // check...
-            Assert.AreEqual(1, TestTarget.Current.NumWritten);
-            Assert.AreEqual(LogLevel.Error, TestTarget.Current.LastWritten.Level);
-            Assert.IsNull(TestTarget.Current.LastWritten.Exception);
-            Assert.AreNotEqual(-1, TestTarget.Current.LastWritten.Message.IndexOf("**foo**"));
+            Assert.AreEqual(1, logger.Item2.NumWritten);
+            Assert.AreEqual(LogLevel.Warn, logger.Item2.LastWritten.Level);
+            Assert.IsNull(logger.Item2.LastWritten.Exception);
+            Assert.AreNotEqual(-1, logger.Item2.LastWritten.Message.IndexOf("**foo**"));
         }
 
         [TestMethod]
-        public void TestFatalWithFormat()
+        public async Task TestErrorWithFormat()
         {
-            TestTarget.Current.Reset();
-
             // run...
-            var logger = LogManager.GetLogger("Foobar");
-            logger.Fatal("Hello, {0}.", "**foo**");
+            var logger = CreateTarget();
+            await logger.Item1.ErrorAsync("Hello, {0}.", "**foo**");
 
             // check...
-            Assert.AreEqual(1, TestTarget.Current.NumWritten);
-            Assert.AreEqual(LogLevel.Fatal, TestTarget.Current.LastWritten.Level);
-            Assert.IsNull(TestTarget.Current.LastWritten.Exception);
-            Assert.AreNotEqual(-1, TestTarget.Current.LastWritten.Message.IndexOf("**foo**"));
+            Assert.AreEqual(1, logger.Item2.NumWritten);
+            Assert.AreEqual(LogLevel.Error, logger.Item2.LastWritten.Level);
+            Assert.IsNull(logger.Item2.LastWritten.Exception);
+            Assert.AreNotEqual(-1, logger.Item2.LastWritten.Message.IndexOf("**foo**"));
+        }
+
+        [TestMethod]
+        public async Task TestFatalWithFormat()
+        {
+            // run...
+            var logger = CreateTarget();
+            await logger.Item1.FatalAsync("Hello, {0}.", "**foo**");
+
+            // check...
+            Assert.AreEqual(1, logger.Item2.NumWritten);
+            Assert.AreEqual(LogLevel.Fatal, logger.Item2.LastWritten.Level);
+            Assert.IsNull(logger.Item2.LastWritten.Exception);
+            Assert.AreNotEqual(-1, logger.Item2.LastWritten.Message.IndexOf("**foo**"));
         }
     }
 }
