@@ -48,37 +48,44 @@ namespace MetroLog.Targets
         }
     }
 
+    [EventSource(Name="MetroLog")]
     internal sealed class MetroLogEventSource : EventSource
     {
         public static readonly MetroLogEventSource Log = new MetroLogEventSource();
 
 // ReSharper disable InconsistentNaming
 
+        [Event(1, Level=EventLevel.Informational)]
         public void Info(string Message)
         {
             WriteEvent(1, Message, Name);
         }
 
+        [Event(2, Level = EventLevel.Verbose)]
         public void Trace(string Message)
         {
             WriteEvent(2, Message, Name);
         }
 
+        [Event(3, Level = EventLevel.Warning)]
         public void Warn(string Message)
         {
             WriteEvent(3, Message, Name);
         }
 
+        [Event(4, Level = EventLevel.Error)]
         public void Error(string Message)
         {
             WriteEvent(4, Message, Name);
         }
 
+        [Event(5, Level = EventLevel.Critical)]
         public void Fatal(string Message)
         {
             WriteEvent(5, Message, Name);
         }
 
+        [Event(6, Level = EventLevel.Verbose)]
         public void Debug(string Message)
         {
             WriteEvent(6, Message, Name);
