@@ -10,7 +10,7 @@ incredibly rich feature set, most of which is not workable in Metro-style.
 Out-of-the-box, logging operations are intended to send all log levels to `Debug.WriteLine`, and Error and Fatal
 levels to a file in the app's `LocalState` folder.
 
-Although `Debug.WriteLine` seems limited, don't forget that you can use [http://technet.microsoft.com/en-us/sysinternals/bb896647.aspx DbgView]
+Although `Debug.WriteLine` seems limited, don't forget that you can use [DbgView](http://technet.microsoft.com/en-us/sysinternals/bb896647.aspx)
 to view global system error messages. This is very helpful when chasing down application boot problems.
 
 Documentation
@@ -18,10 +18,22 @@ Documentation
 The intention is that MetroLog is mostly compatible with NLog. Both the surface area and internal construction
 should just about match.
 
+Quick Start
+---
+After referencing the MetroLog and Metrolog._platform_ libraries, using MetroLog is very easy. Before any logging call, you'll need to
+call `LogManagerFactory.Initialize`, optionally passing in any non-default settings. Then, obtain a reference to the `ILogManager` 
+with `LogManagerFactory.DefaultLogManager`.
+
+Once you have an `ILogManager`, you can call `GetLogger` on it to get an instance for each `Type` to use.
+
+For those using DI or an IoC container, you can inject `ILogManager` by registering the value of the `DefaultLogManager` property
+in your container setup. This is the recommended approach instead of using `LogManagerFactory.DefaultLogManager` thoughout your code.
+
+
 Meta
 ===
 This is an open source project that welcomes contributions/suggestions/bug reports from those who use it. 
-If you have any ideas on how to improve the library, please contact [https://twitter.com/mbrit @mbrit] or 
-[https://twitter.com/onovotny @onovotny].
+If you have any ideas on how to improve the library, please contact [@mbrit](https://twitter.com/mbrit) or 
+[@onovotny](https://twitter.com/onovotny).
 
 MetroLog is distributed under the MIT license. 
