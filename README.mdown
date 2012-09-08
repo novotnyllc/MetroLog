@@ -43,9 +43,9 @@ in your container setup. This is the recommended approach instead of using `LogM
 		static void Main(string[] args)
 		{
 			// Initialize MetroLog using the defaults
-			MetroLogFactory.Initialize();
+			LogManagerFactory.Initialize();
 
-			ILogManager logManager = MetroLogFactory.DefaultLogManager;
+			ILogManager logManager = LogManagerFactory.DefaultLogManager;
 
 			// Inject the ILogManager manually
 			SomeMagicClass c = new SomeMagicClass(logManager);

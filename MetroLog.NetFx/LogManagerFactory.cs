@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MetroLog.Internal;
+using MetroLog.Targets;
 
 namespace MetroLog
 {
@@ -21,6 +22,14 @@ namespace MetroLog
             var instance = factory.CreateNew(config);
 
             SetDefaultLogManager(instance);
+        }
+
+        protected override LoggingConfiguration CreateDefaultSettings()
+        {
+            var def = base.CreateDefaultSettings();
+            def.AddTarget(LogLevel.Trace, LogLevel.Fatal, new TraceTarget());
+
+            return def;
         }
 
     }
