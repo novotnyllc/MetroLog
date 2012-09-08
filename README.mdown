@@ -29,6 +29,43 @@ Once you have an `ILogManager`, you can call `GetLogger` on it to get an instanc
 For those using DI or an IoC container, you can inject `ILogManager` by registering the value of the `DefaultLogManager` property
 in your container setup. This is the recommended approach instead of using `LogManagerFactory.DefaultLogManager` thoughout your code.
 
+###Example
+
+	using System;
+	using MetroLog;
+
+	class LogExample
+	{
+		static void Main(string[] args)
+		{
+			// Initialize MetroLog using the defaults
+			MetroLogFactory.Initialize();
+
+			ILogManager logManager = MetroLogFactory.DefaultLogManager;
+
+			// Inject the ILogManager manually
+			SomeMagicClass c = new SomeMagicClass(logManager);
+			c.DoMagic();
+		}
+	}
+
+	class SomeMagicClass
+	{
+		private readonly ILogger _log;
+		public SomeMagicClass(ILogManager logManager)
+		{
+			_log = logManager.GetLogger<SomeMagicClass>();
+		}
+
+		public void DoMagic()
+		{
+			// Log something interesting
+			_log.Info("We are about to do magic!");			
+		}
+	}
+		
+
+
 
 Meta
 ===
