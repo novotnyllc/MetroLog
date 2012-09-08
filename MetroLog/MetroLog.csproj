@@ -117,6 +117,7 @@
     <Compile Include="Internal\LogManagerFactoryBase.cs" />
     <Compile Include="LogWriteOperation.cs" />
     <Compile Include="Targets\AsyncTarget.cs" />
+    <Compile Include="Targets\EtwTarget.cs" />
     <Compile Include="Targets\SyncTarget.cs" />
     <Compile Include="Targets\TargetBinding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
