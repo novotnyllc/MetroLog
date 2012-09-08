@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using MetroLog.Targets;
 
-namespace MetroLog
+namespace MetroLog.Internal
 {
     internal class LogManager : ILogManager
     {

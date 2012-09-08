@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MetroLog
+namespace MetroLog.Internal
 {
     internal class Logger : ILogger
     {
