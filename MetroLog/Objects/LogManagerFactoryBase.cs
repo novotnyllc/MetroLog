@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MetroLog.Targets;
 
-namespace MetroLog
+namespace MetroLog.Implementation
 {
     public abstract class LogManagerFactoryBase
     {
