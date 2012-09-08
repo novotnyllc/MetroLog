@@ -7,11 +7,15 @@ The need for it to be basic comes from the fact that Metro-style is intentionall
 applications. This project came out of the fact that porting NLog to Metro-style is difficult because of it's 
 incredibly rich feature set, most of which is not workable in Metro-style.
 
-Out-of-the-box, logging operations are intended to send all log levels to `Debug.WriteLine`, and Error and Fatal
-levels to a file in the app's `LocalState` folder.
+Out-of-the-box, logging operations are intended to send all log levels to `Debug.WriteLine` and [ETW](http://blogs.msdn.com/b/vancem/archive/2012/07/09/logging-your-own-etw-events-in-c-system-diagnostics-tracing-eventsource.aspx), 
+and Error and Fatal levels to a file in the app's `LocalState` folder.
 
 Although `Debug.WriteLine` seems limited, don't forget that you can use [DbgView](http://technet.microsoft.com/en-us/sysinternals/bb896647.aspx)
 to view global system error messages. This is very helpful when chasing down application boot problems.
+
+When `Debug.WriteLine` isn't enough, Event Tracing for Windows provides a high-performance way to obtain data.
+Tools like [PerfView](http://www.microsoft.com/en-us/download/details.aspx?id=28567) and [Windows Performance Analyzer](http://msdn.microsoft.com/en-us/performance/cc752957.aspx)
+can be useful as they also capture stack traces along with the event.
 
 Documentation
 ===
