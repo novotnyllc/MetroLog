@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MetroLog;
+using System.Diagnostics;
 
 namespace ConsoleSample
 {
@@ -11,14 +12,23 @@ namespace ConsoleSample
     {
         static void Main(string[] args)
         {
-            // Initialize MetroLog using the defaults
-            LogManagerFactory.Initialize();
+            try
+            {
+                // Initialize MetroLog using the defaults
+                LogManagerFactory.Initialize();
 
-            ILogManager logManager = LogManagerFactory.DefaultLogManager;
+                ILogManager logManager = LogManagerFactory.DefaultLogManager;
 
-            // Inject the ILogManager manually
-            SomeMagicClass c = new SomeMagicClass(logManager);
-            c.DoMagic();
+                // Inject the ILogManager manually
+                SomeMagicClass c = new SomeMagicClass(logManager);
+                c.DoMagic();
+            }
+            finally
+            {
+                // If we have a debugger, stop so you can see the output
+                if (Debugger.IsAttached)
+                    Console.ReadLine();
+            }
         }
     }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace MetroLog.Internal
@@ -30,7 +31,7 @@ namespace MetroLog.Internal
             return GetLogger(typeof(T).Name, config);
         }
 
-        public ILogger GetLogger(string name, LoggingConfiguration config = null)
+        public ILogger GetLogger(string name = null, LoggingConfiguration config = null)
         {
             lock (_loggersLock)
             {

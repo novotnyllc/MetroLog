@@ -13,7 +13,7 @@ and Error and Fatal levels to a file in the app's `LocalState` folder.
 Although `Debug.WriteLine` seems limited, don't forget that you can use [DbgView](http://technet.microsoft.com/en-us/sysinternals/bb896647.aspx)
 to view global system error messages. This is very helpful when chasing down application boot problems.
 
-When `Debug.WriteLine` isn't enough, [Event Tracing for Windows](http://msdn.microsoft.com/en-us/library/windows/desktop/ff190903(v=vs.85).aspx) provides a high-performance way to obtain data.
+When `Debug.WriteLine` isn't enough, [Event Tracing for Windows](http://msdn.microsoft.com/en-us/library/windows/desktop/ff190903.aspx) provides a high-performance way to obtain data.
 Tools like [PerfView](http://www.microsoft.com/en-us/download/details.aspx?id=28567) and [Windows Performance Analyzer](http://msdn.microsoft.com/en-us/performance/cc752957.aspx)
 can be useful as they also capture stack traces along with the event.
 
