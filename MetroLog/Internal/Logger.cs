@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MetroLog.Targets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace MetroLog.Internal
 {
-    internal class Logger : ILogger
+    internal class Logger : ILogger, ILoggerAsync, ILoggerQuery
     {
         public string Name { get; private set; }
         private readonly LoggingConfiguration _configuration;
+        protected internal ILogManager Manager { get; internal set; }
 
         internal Logger(string name, LoggingConfiguration config)
         {
@@ -105,8 +107,12 @@ namespace MetroLog.Internal
                 // create an event entry and pass it through...
                 var entry = new LogEventInfo(level, Name, message, ex);
 
+                // create a context...
+                var context = this.Manager.GetWriteContext();
+
+                // gather the tasks...
                 var writeTasks = from target in targets
-                                 select target.WriteAsync(entry);
+                                 select target.WriteAsync(context, entry);
 
                 // group...
                 var group = Task.WhenAll(writeTasks);
@@ -240,6 +246,81 @@ namespace MetroLog.Internal
         public bool IsEnabled(LogLevel level)
         {
             return _configuration.GetTargets(level).Any();
+        }
+
+        Task<LogWriteOperation[]> ILoggerAsync.TraceAsync(string message, Exception ex)
+        {
+            return TraceAsync(message, ex);
+        }
+
+        Task<LogWriteOperation[]> ILoggerAsync.TraceAsync(string message, params object[] ps)
+        {
+            return TraceAsync(message, ps);
+        }
+
+        Task<LogWriteOperation[]> ILoggerAsync.DebugAsync(string message, Exception ex)
+        {
+            return DebugAsync(message, ex);
+        }
+
+        Task<LogWriteOperation[]> ILoggerAsync.DebugAsync(string message, params object[] ps)
+        {
+            return DebugAsync(message, ps);
+        }
+
+        Task<LogWriteOperation[]> ILoggerAsync.InfoAsync(string message, Exception ex)
+        {
+            return InfoAsync(message, ex);
+        }
+
+        Task<LogWriteOperation[]> ILoggerAsync.InfoAsync(string message, params object[] ps)
+        {
+            return InfoAsync(message, ps);
+        }
+
+        Task<LogWriteOperation[]> ILoggerAsync.WarnAsync(string message, Exception ex)
+        {
+            return WarnAsync(message, ex);
+        }
+
+        Task<LogWriteOperation[]> ILoggerAsync.WarnAsync(string message, params object[] ps)
+        {
+            return WarnAsync(message, ps);
+        }
+
+        Task<LogWriteOperation[]> ILoggerAsync.ErrorAsync(string message, Exception ex)
+        {
+            return ErrorAsync(message, ex);
+        }
+
+        Task<LogWriteOperation[]> ILoggerAsync.ErrorAsync(string message, params object[] ps)
+        {
+            return ErrorAsync(message, ps);
+        }
+
+        Task<LogWriteOperation[]> ILoggerAsync.FatalAsync(string message, Exception ex)
+        {
+            return FatalAsync(message, ex);
+        }
+
+        Task<LogWriteOperation[]> ILoggerAsync.FatalAsync(string message, params object[] ps)
+        {
+            return FatalAsync(message, ps);
+        }
+
+        Task<LogWriteOperation[]> ILoggerAsync.LogAsync(LogLevel logLevel, string message, Exception ex)
+        {
+            return LogAsync(logLevel, message, ex);
+        }
+
+        Task<LogWriteOperation[]> ILoggerAsync.LogAsync(LogLevel logLevel, string message, params object[] ps)
+        {
+            return LogAsync(logLevel, message, ps);
+        }
+
+        public IEnumerable<Target> GetTargets()
+        {
+            return _configuration.GetTargets();
         }
     }
 }

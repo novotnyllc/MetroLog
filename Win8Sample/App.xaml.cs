@@ -38,10 +38,10 @@ namespace Win8Sample
             this.UnhandledException += App_UnhandledException;
         }
 
-        void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        async void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            var log = LogManagerFactory.DefaultLogManager.GetLogger<App>();
-            log.Fatal("The application crashed: " + e.Message, e.Exception);
+            var log = (ILoggerAsync)LogManagerFactory.DefaultLogManager.GetLogger<App>();
+            await log.FatalAsync("The application crashed: " + e.Message, e.Exception);
         }
 
         /// <summary>

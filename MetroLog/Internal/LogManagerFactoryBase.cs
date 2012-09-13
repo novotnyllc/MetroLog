@@ -16,9 +16,9 @@ namespace MetroLog.Internal
             get { return CreateDefaultSettings(); }
         }
 
-        protected ILogManager CreateNew(LoggingConfiguration configuration = null)
+        protected ILogManager CreateNew(ILoggingEnvironment environment, LoggingConfiguration configuration = null)
         {
-            return new LogManager(configuration ?? DefaultSettings);
+            return new LogManager(environment, configuration ?? DefaultSettings);
         }
 
 

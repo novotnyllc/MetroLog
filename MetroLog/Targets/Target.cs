@@ -16,6 +16,6 @@ namespace MetroLog.Targets
             Layout = layout;
         }
 
-        protected internal abstract Task<LogWriteOperation> WriteAsync(LogEventInfo entry);
+        protected internal abstract Task<LogWriteOperation> WriteAsync(LogWriteContext context, LogEventInfo entry);
     }
 }

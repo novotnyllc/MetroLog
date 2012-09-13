@@ -62,6 +62,11 @@ namespace Win8Sample
             this.labelPath.Text = "Error log files are written to: " + ApplicationData.Current.LocalFolder.Path;
         }
 
+        private void HandleTrace(object sender, RoutedEventArgs e)
+        {
+            this.Log.Debug("This is a trace message.");
+        }
+
         private void HandleDebug(object sender, RoutedEventArgs e)
         {
             this.Log.Debug("This is a debug message.");
@@ -98,7 +103,7 @@ namespace Win8Sample
         private void HandleFatal(object sender, RoutedEventArgs e)
         {
             // the idea here is to invoke the global error handler...
-            throw new InvalidOperationException("Bang.");
+            throw new NotImplementedException("Bang.");
         }
 
         private void HandleRegisterStreamingTarget(object sender, RoutedEventArgs e)
@@ -106,8 +111,23 @@ namespace Win8Sample
             LogManagerFactory.DefaultLogManager.DefaultConfiguration.AddTarget(LogLevel.Debug, LogLevel.Fatal,
                 new FileStreamingTarget());
 
-            // reset...
-            this.Log = LogManagerFactory.DefaultLogManager.GetLogger<LogSamplePage>();
+            // reset - you wouldn't do it like this in production, but you can't reset cached loggers (yet)...
+            this.Log = LogManagerFactory.DefaultLogManager.GetLogger(Guid.NewGuid().ToString());
+
+            // set...
+            this.buttonFileStreaming.IsEnabled = false;
+        }
+
+        private void HandleRegisterJsonPostTarget(object sender, RoutedEventArgs e)
+        {
+            LogManagerFactory.DefaultLogManager.DefaultConfiguration.AddTarget(LogLevel.Debug, LogLevel.Fatal,
+                new JsonPostTarget(5, new Uri("http://localhost/metrologweb/receivelogentries.ashx")));
+
+            // reset - you wouldn't do it like this in production, but you can't reset cached loggers (yet)...
+            this.Log = LogManagerFactory.DefaultLogManager.GetLogger(Guid.NewGuid().ToString());
+
+            // set...
+            this.buttonJsonPost.IsEnabled = false;
         }
     }
 }

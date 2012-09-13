@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MetroLog.Internal;
 using MetroLog.Targets;
+using Windows.UI.Xaml;
 
 namespace MetroLog
 {
@@ -19,9 +20,12 @@ namespace MetroLog
         {
             var factory = new LogManagerFactory();
 
-            var instance = factory.CreateNew(config);
+            var instance = factory.CreateNew(new LoggingEnvironment(), config);
 
             SetDefaultLogManager(instance);
+
+            // initialize the suspend manager...
+            SuspendManager.Initialize(instance);
         }
 
         protected override LoggingConfiguration CreateDefaultSettings()

@@ -17,7 +17,7 @@ namespace MetroLog.Tests
             var config = new LoggingConfiguration();
             config.AddTarget(min, max, testTarget);
 
-            return Tuple.Create<ILogManager, TestTarget>(new LogManager(config), testTarget);
+            return Tuple.Create<ILogManager, TestTarget>(new LogManager(new LoggingEnvironment(), config), testTarget);
         }
 
         [Fact]
@@ -184,7 +184,7 @@ namespace MetroLog.Tests
         [Fact]
         public void TestIsFatalEnabled()
         {
-            var target = new LogManager(new LoggingConfiguration());
+            var target = new LogManager(new LoggingEnvironment(), new LoggingConfiguration());
 
             // get a logger...
             var logger = target.GetLogger("foo");

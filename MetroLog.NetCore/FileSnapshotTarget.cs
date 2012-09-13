@@ -71,7 +71,7 @@ namespace MetroLog.Targets
             // no-op - just preventing compile warnings...
         }
 
-        protected override async Task<LogWriteOperation> WriteAsync(LogEventInfo entry)
+        protected override async Task<LogWriteOperation> WriteAsync(LogWriteContext context, LogEventInfo entry)
         {
             var folder = await EnsureInitializedAsync();
             if (folder == null)

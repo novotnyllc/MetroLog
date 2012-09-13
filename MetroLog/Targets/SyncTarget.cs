@@ -15,11 +15,11 @@ namespace MetroLog.Targets
         {
         }
 
-        protected internal override sealed Task<LogWriteOperation> WriteAsync(LogEventInfo entry)
+        protected internal override sealed Task<LogWriteOperation> WriteAsync(LogWriteContext context, LogEventInfo entry)
         {
             try
             {
-                Write(entry);
+                Write(context, entry);
                 return Task.FromResult(new LogWriteOperation(this, entry, true));
             }
             catch (Exception ex)
@@ -29,6 +29,6 @@ namespace MetroLog.Targets
             }
         }
 
-        protected abstract void Write(LogEventInfo entry);
+        protected abstract void Write(LogWriteContext context, LogEventInfo entry);
     }
 }

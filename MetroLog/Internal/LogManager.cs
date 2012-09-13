@@ -10,19 +10,25 @@ namespace MetroLog.Internal
     internal class LogManager : ILogManager
     {
         public LoggingConfiguration DefaultConfiguration { get; private set; }
+        public ILoggingEnvironment LoggingEnvironment { get; private set; }
 
         private readonly Dictionary<string, Logger> _loggers;
         private readonly object _loggersLock = new object();
 
+        public event EventHandler<ILoggerEventArgs> LoggerCreated;
+
         internal const string DateTimeFormat = "o";
 
-        public LogManager(LoggingConfiguration configuration)
+        public LogManager(ILoggingEnvironment environment, LoggingConfiguration configuration)
         {
+            if (environment == null)
+                throw new ArgumentNullException("environment");
             if (configuration == null)
                 throw new ArgumentNullException("configuration");
 
             _loggers = new Dictionary<string, Logger>(StringComparer.OrdinalIgnoreCase);
 
+            LoggingEnvironment = environment;
             DefaultConfiguration = configuration;
         }
 
@@ -36,11 +42,39 @@ namespace MetroLog.Internal
             lock (_loggersLock)
             {
                 if (!(_loggers.ContainsKey(name)))
-                    _loggers[name] = new Logger(name, config ?? DefaultConfiguration);
+                {
+                    var logger = new Logger(name, config ?? DefaultConfiguration)
+                    {
+                        Manager = this
+                    };
+
+                    // call...
+                    this.OnLoggerCreatedSafe(new ILoggerEventArgs(logger));
+
+                    // set...
+                    _loggers[name] = logger;
+                }
                 return _loggers[name];
             }
         }
 
+        private void OnLoggerCreatedSafe(ILoggerEventArgs args)
+        {
+            try
+            {
+                this.OnLoggerCreated(args);
+            }
+            catch (Exception ex)
+            {
+                LogInternal("Failed to handle OnLoggerCreated event.", ex);
+            }
+        }
+
+        protected virtual void OnLoggerCreated(ILoggerEventArgs args)
+        {
+            if (this.LoggerCreated != null)
+                this.LoggerCreated(this, args);
+        }
 
         // logs problems with the framework to Debug...
         internal static void LogInternal(string message, Exception ex)
@@ -54,6 +88,11 @@ namespace MetroLog.Internal
         internal static DateTimeOffset GetDateTime()
         {
             return DateTimeOffset.UtcNow;
+        }
+
+        public LogWriteContext GetWriteContext()
+        {
+            return new LogWriteContext(this);
         }
     }
 }

@@ -10,13 +10,18 @@ namespace MetroLog
     public struct LogWriteOperation
     {
         private readonly Target _target;
-        private readonly LogEventInfo _entry;
+        private readonly List<LogEventInfo> _entries;
         private readonly bool _success;
 
         public LogWriteOperation(Target target, LogEventInfo entry, bool success)
+            : this(target, new List<LogEventInfo>() { entry }, success)
+        {
+        }
+
+        public LogWriteOperation(Target target, IEnumerable<LogEventInfo> entries, bool success)
         {
             _target = target;
-            _entry = entry;
+            _entries = new List<LogEventInfo>(entries);
             _success = success;
         }
 
@@ -28,12 +33,9 @@ namespace MetroLog
             }
         }
 
-        public LogEventInfo Entry
+        public IEnumerable<LogEventInfo> GetEntries()
         {
-            get
-            {
-                return _entry;
-            }
+            return new List<LogEventInfo>(this._entries);
         }
 
         public bool Success

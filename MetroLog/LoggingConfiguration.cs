@@ -28,6 +28,18 @@ namespace MetroLog
                 _bindings.Add(new TargetBinding(min, max, target));
         }
 
+        internal IEnumerable<Target> GetTargets()
+        {
+            lock (_bindingsLock)
+            {
+                var results = new List<Target>();
+                foreach (var binding in _bindings)
+                    results.Add(binding.Target);
+
+                return results;
+            }
+        }
+
         internal IEnumerable<Target> GetTargets(LogLevel level)
         {
             lock(_bindingsLock)

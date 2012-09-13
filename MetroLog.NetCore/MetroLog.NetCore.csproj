@@ -111,8 +111,10 @@
     </Compile>
     <Compile Include="FileSnapshotTarget.cs" />
     <Compile Include="FileStreamingTarget.cs" />
+    <Compile Include="LoggingEnvironment.cs" />
     <Compile Include="LogManagerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SuspendManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\MetroLog.snk">

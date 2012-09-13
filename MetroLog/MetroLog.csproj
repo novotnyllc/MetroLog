@@ -16,6 +16,8 @@
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile7</TargetFrameworkProfile>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -104,8 +106,15 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ILoggerEventArgs.cs" />
+    <Compile Include="ILoggerQuery.cs" />
+    <Compile Include="ILoggingEnvironment.cs" />
+    <Compile Include="Internal\LoggingEnvironmentBase.cs" />
+    <Compile Include="ILoggerAsync.cs" />
+    <Compile Include="ISuspendNotify.cs" />
     <Compile Include="Layouts\FileSnapshotLayout.cs" />
     <Compile Include="Layouts\Layout.cs" />
+    <Compile Include="Layouts\NullLayout.cs" />
     <Compile Include="Layouts\SingleLineLayout.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="ILogManager.cs" />
@@ -115,9 +124,14 @@
     <Compile Include="LogLevel.cs" />
     <Compile Include="Internal\LogManager.cs" />
     <Compile Include="Internal\LogManagerFactoryBase.cs" />
+    <Compile Include="LogWriteContext.cs" />
     <Compile Include="LogWriteOperation.cs" />
     <Compile Include="Targets\AsyncTarget.cs" />
+    <Compile Include="Targets\BufferedTarget.cs" />
     <Compile Include="Targets\EtwTarget.cs" />
+    <Compile Include="Targets\HttpClientEventHandler.cs" />
+    <Compile Include="Targets\JsonPostTarget.cs" />
+    <Compile Include="Targets\JsonPostWrapper.cs" />
     <Compile Include="Targets\SyncTarget.cs" />
     <Compile Include="Targets\TargetBinding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -129,6 +143,9 @@
       <Link>MetroLog.snk</Link>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Json\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>
@@ -139,6 +156,7 @@
     <AssemblyOriginatorKeyFile>..\MetroLog.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

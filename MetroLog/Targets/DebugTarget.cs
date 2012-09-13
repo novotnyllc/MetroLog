@@ -20,7 +20,7 @@ namespace MetroLog.Targets
         {
         }
 
-        protected override void Write(LogEventInfo entry)
+        protected override void Write(LogWriteContext context, LogEventInfo entry)
         {
             var message = Layout.GetFormattedString(entry);
             Debug.WriteLine(message);

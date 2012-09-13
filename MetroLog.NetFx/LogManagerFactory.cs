@@ -19,7 +19,7 @@ namespace MetroLog
         {
             var factory = new LogManagerFactory();
 
-            var instance = factory.CreateNew(config);
+            var instance = factory.CreateNew(new LoggingEnvironment(), config);
 
             SetDefaultLogManager(instance);
         }
@@ -31,6 +31,5 @@ namespace MetroLog
 
             return def;
         }
-
     }
 }

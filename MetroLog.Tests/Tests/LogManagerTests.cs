@@ -12,9 +12,18 @@ namespace MetroLog.Tests
         [Fact]
         public void TestGetLogger()
         {
-            var target = new LogManager(new LoggingConfiguration());
+            var target = new LogManager(new LoggingEnvironment(), new LoggingConfiguration());
 
             var logger = target.GetLogger("Foobar");
+            Assert.NotNull(logger);
+        }
+
+        [Fact]
+        public void TestGetLoggerByType()
+        {
+            var target = new LogManager(new LoggingEnvironment(), new LoggingConfiguration());
+
+            var logger = target.GetLogger<LogManagerTests>();
             Assert.NotNull(logger);
         }
     }

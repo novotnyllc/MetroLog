@@ -9,8 +9,13 @@ namespace MetroLog
     public interface ILogManager
     {
         LoggingConfiguration DefaultConfiguration { get; }
-       // ILogger GetLogger(ILoggable loggable, LoggingConfiguration config);
+        ILoggingEnvironment LoggingEnvironment { get; }
+
         ILogger GetLogger<T>(LoggingConfiguration config = null);
         ILogger GetLogger(string name, LoggingConfiguration config = null);
+
+        LogWriteContext GetWriteContext();
+
+        event EventHandler<ILoggerEventArgs> LoggerCreated;
     }
 }

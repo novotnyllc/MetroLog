@@ -40,12 +40,14 @@
         <StackPanel Grid.Row="1">
             <TextBlock Text="To see the output, pull the app into snapped view and put VS in the fill view."></TextBlock>
             <TextBlock x:Name="labelPath"></TextBlock>
-            <Button Content="Debug" Click="HandleDebug" Margin="0,30,0,0"></Button>
+            <Button Content="Trace" Click="HandleTrace" Margin="0,30,0,0"></Button>
+            <Button Content="Debug" Click="HandleDebug"></Button>
             <Button Content="Info" Click="HandleInfo"></Button>
             <Button Content="Warn" Click="HandleWarn"></Button>
             <Button Content="Error" Click="HandleError"></Button>
             <Button Content="Crash/Fatal" Margin="0,30,0,0" Click="HandleFatal"></Button>
-            <Button Content="Register FileStreamingTarget" Margin="0,30,0,0" Click="HandleRegisterStreamingTarget"></Button>
+            <Button Content="Register FileStreamingTarget" Margin="0,30,0,0" Click="HandleRegisterStreamingTarget" x:Name="buttonFileStreaming"></Button>
+            <Button Content="Register JsonPostTarget" Click="HandleRegisterJsonPostTarget" x:Name="buttonJsonPost"/>
         </StackPanel>
 
         <VisualStateManager.VisualStateGroups>
