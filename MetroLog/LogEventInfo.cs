@@ -17,7 +17,7 @@ namespace MetroLog
         public string Message { get; private set; }
         public DateTimeOffset TimeStamp { get; private set; }
 
-       // [JsonConverter(typeof(ExceptionConverter))]
+        [JsonConverter(typeof(ExceptionConverter))]
         public Exception Exception { get; private set; }
 
         private static long _globalSequenceId;

@@ -144,7 +144,6 @@
       <Link>MetroLog.snk</Link>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\lib\Newtonsoft.Json.dll</HintPath>
