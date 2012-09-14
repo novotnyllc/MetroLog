@@ -19,7 +19,7 @@ namespace MetroLog.Tests
 		}
 			
 
-        protected override void Write(LogWriteContext context, LogEventInfo entry)
+        protected override void Write(LogEventInfo entry)
         {
             NumWritten++;
             LastWritten = entry;

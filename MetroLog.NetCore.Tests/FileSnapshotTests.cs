@@ -20,7 +20,7 @@ namespace MetroLog.NetCore.Tests
             var target = new FileSnapshotTarget();
 
             // send through a log entry...
-            var op = await target.WriteAsync(LogManagerFactory.DefaultLogManager.GetWriteContext(),
+            var op = await target.WriteAsync(
                 new LogEventInfo(LogLevel.Fatal, "TestLogger", "Testing file write...", new InvalidOperationException("An exception message...")));
 
             // TODO: This should be Faked! We shouldn't be writing to the disk

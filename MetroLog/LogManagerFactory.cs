@@ -11,7 +11,6 @@ namespace MetroLog
     public static class LogManagerFactory
     {
         private static readonly ILogConfigurator _configurator = PlatformAdapter.Resolve<ILogConfigurator>();
-        private static readonly ILoggingEnvironment _env = PlatformAdapter.Resolve<ILoggingEnvironment>();
 
         private static LoggingConfiguration _defaultConfig = _configurator.CreateDefaultSettings();
 
@@ -21,7 +20,10 @@ namespace MetroLog
         {
             _lazyLogManager = new Lazy<ILogManager>(() =>
                 {
-                    var manager = new LogManager(_env, DefaultConfiguration);
+                    var config = DefaultConfiguration;
+                    config.Freeze();
+
+                    var manager = new LogManager(config);
                     _configurator.OnLogManagerCreated(manager);
                     return manager;
                 },

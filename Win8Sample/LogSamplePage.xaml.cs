@@ -112,8 +112,6 @@ namespace Win8Sample
             LogManagerFactory.DefaultLogManager.DefaultConfiguration.AddTarget(LogLevel.Debug, LogLevel.Fatal,
                 new FileStreamingTarget());
 
-            // reset...
-            LogManagerFactory.DefaultLogManager.ResetCache();
             this.Log = LogManagerFactory.DefaultLogManager.GetLogger<LogSamplePage>();
 
             // set...
@@ -125,8 +123,7 @@ namespace Win8Sample
             LogManagerFactory.DefaultLogManager.DefaultConfiguration.AddTarget(LogLevel.Debug, LogLevel.Fatal,
                 new JsonPostTarget(5, new Uri("http://localhost/metrologweb/receivelogentries.ashx")));
 
-            // reset...
-            LogManagerFactory.DefaultLogManager.ResetCache();
+ 
             this.Log = LogManagerFactory.DefaultLogManager.GetLogger<LogSamplePage>();
 
             // set...
