@@ -17,7 +17,32 @@ namespace MetroLog.Internal
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             if (value != null)
-                writer.WriteRawValue(value.ToString());
+            {
+                var ex = (Exception)value;
+
+                // ok...
+                writer.WriteStartObject();
+                writer.WritePropertyName("Type");
+                writer.WriteValue(ex.GetType().AssemblyQualifiedName);
+                writer.WritePropertyName("Data");
+                if (ex.Data != null && ex.Data.Count > 0)
+                {
+                    writer.WriteStartObject();
+                    foreach (var key in ex.Data.Keys)
+                    {
+                        writer.WritePropertyName(key.ToString());
+                        writer.WriteValue(ex.Data[key]);
+                    }
+                    writer.WriteEndObject();
+                }
+                else
+                    writer.WriteValue((string)null);
+                writer.WritePropertyName("AsString");
+                writer.WriteValue(ex.ToString());
+                writer.WritePropertyName("Hresult");
+                writer.WriteValue(ex.HResult.ToString("x8"));
+                writer.WriteEndObject();
+            }
             else
                 writer.WriteRawValue(null);
         }

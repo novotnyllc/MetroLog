@@ -12,6 +12,12 @@ namespace WebTargetSample
     {
         public void ProcessRequest(HttpContext context)
         {
+            // get the json out...
+
+            // deserialize...
+
+            // dump to the event log...
+
         }
 
         public bool IsReusable

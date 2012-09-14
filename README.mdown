@@ -69,7 +69,11 @@ in your container setup. This is the recommended approach instead of using `LogM
 	}
 		
 
-
+Unit testing
+===
+This project uses xUnit.NET, rather than the built-in VS2012 test runner. Use the
+[xUnit.NET Test Runner for Visual Studio 2012](http://visualstudiogallery.msdn.microsoft.com/463c5987-f82b-46c8-a97e-b1cde42b9099) to
+run the unit tests.
 
 Meta
 ===
