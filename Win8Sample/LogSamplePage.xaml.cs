@@ -109,10 +109,12 @@ namespace Win8Sample
 
         private void HandleRegisterStreamingTarget(object sender, RoutedEventArgs e)
         {
-            LogManagerFactory.DefaultLogManager.DefaultConfiguration.AddTarget(LogLevel.Debug, LogLevel.Fatal,
-                new FileStreamingTarget());
+            var settings = LogManagerFactory.CreateLibraryDefaultSettings();
+            settings.AddTarget(LogLevel.Debug, LogLevel.Fatal, new FileStreamingTarget());
 
-            this.Log = LogManagerFactory.DefaultLogManager.GetLogger<LogSamplePage>();
+            
+
+            this.Log = LogManagerFactory.CreateLogManager(settings).GetLogger<LogSamplePage>();
 
             // set...
             this.buttonFileStreaming.IsEnabled = false;
@@ -120,11 +122,12 @@ namespace Win8Sample
 
         private void HandleRegisterJsonPostTarget(object sender, RoutedEventArgs e)
         {
-            LogManagerFactory.DefaultLogManager.DefaultConfiguration.AddTarget(LogLevel.Debug, LogLevel.Fatal,
+            var settings = LogManagerFactory.CreateLibraryDefaultSettings();
+            settings.AddTarget(LogLevel.Debug, LogLevel.Fatal,
                 new JsonPostTarget(5, new Uri("http://localhost/metrologweb/receivelogentries.ashx")));
 
- 
-            this.Log = LogManagerFactory.DefaultLogManager.GetLogger<LogSamplePage>();
+
+            this.Log = LogManagerFactory.CreateLogManager(settings).GetLogger<LogSamplePage>();
 
             // set...
             this.buttonJsonPost.IsEnabled = false;

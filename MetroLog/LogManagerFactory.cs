@@ -30,6 +30,11 @@ namespace MetroLog
                 LazyThreadSafetyMode.ExecutionAndPublication);
         }
       
+        public static LoggingConfiguration CreateLibraryDefaultSettings()
+        {
+            return _configurator.CreateDefaultSettings();
+        }
+
         public static ILogManager CreateLogManager(LoggingConfiguration config = null)
         {
             var cfg = config ?? DefaultConfiguration;
