@@ -43,12 +43,12 @@ namespace MetroLog.Internal
             private set { _defaultLogManager = value; }
         }
 
-        protected static void SetDefaultLogManager(ILogManager instance)
+        protected static void SetDefaultLogManager(ILogManager instance, bool allowReinit = false)
         {
             if (instance == null)
                 throw new ArgumentNullException("instance");
 
-            if (_defaultLogManager != null)
+            if (_defaultLogManager != null && !(allowReinit))
                 throw new InvalidOperationException("Already Initalized. Cannot call LogManagerFactory.Initialize() multiple times.");
 
             DefaultLogManager = instance;

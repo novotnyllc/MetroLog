@@ -31,5 +31,19 @@ namespace MetroLog
 
             return def;
         }
+
+        /// <summary>
+        /// Reinitializes the log manager.
+        /// </summary>
+        /// <param name="config"></param>
+        /// <remarks>Only use for testing.</remarks>
+        internal static void Reinitialize(LoggingConfiguration config)
+        {
+            var factory = new LogManagerFactory();
+
+            var instance = factory.CreateNew(new LoggingEnvironment(), config);
+
+            SetDefaultLogManager(instance, true);
+        }
     }
 }

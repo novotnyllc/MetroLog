@@ -96,6 +96,7 @@
     <Compile Include="Objects\BrokenTarget.cs" />
     <Compile Include="Objects\TestTarget.cs" />
     <Compile Include="Tests\BrokenTargetTests.cs" />
+    <Compile Include="Tests\JsonTests.cs" />
     <Compile Include="Tests\LevelTests.cs" />
     <Compile Include="Tests\LoggerTests.cs" />
     <Compile Include="Tests\LogManagerFactoryTests.cs" />
