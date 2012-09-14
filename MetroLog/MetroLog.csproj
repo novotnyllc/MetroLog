@@ -111,7 +111,8 @@
     <Compile Include="ILoggingEnvironment.cs" />
     <Compile Include="Internal\LoggingEnvironmentBase.cs" />
     <Compile Include="ILoggerAsync.cs" />
-    <Compile Include="ISuspendNotify.cs" />
+    <Compile Include="ILazyFlushable.cs" />
+    <Compile Include="Internal\ExceptionConverter.cs" />
     <Compile Include="Layouts\FileSnapshotLayout.cs" />
     <Compile Include="Layouts\Layout.cs" />
     <Compile Include="Layouts\NullLayout.cs" />
@@ -143,8 +144,11 @@
       <Link>MetroLog.snk</Link>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Json\" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

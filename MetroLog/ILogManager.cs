@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MetroLog.Targets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,5 +18,8 @@ namespace MetroLog
         LogWriteContext GetWriteContext();
 
         event EventHandler<ILoggerEventArgs> LoggerCreated;
+
+        void ResetCache();
+        event EventHandler CacheReset;
     }
 }

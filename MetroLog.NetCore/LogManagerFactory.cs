@@ -25,7 +25,7 @@ namespace MetroLog
             SetDefaultLogManager(instance);
 
             // initialize the suspend manager...
-            SuspendManager.Initialize(instance);
+            LazyFlushManager.Initialize(instance);
         }
 
         protected override LoggingConfiguration CreateDefaultSettings()

@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace MetroLog
 {
+    /// <summary>
+    /// Holds the logging environment for .NET apps.
+    /// </summary>
     public class LoggingEnvironment : LoggingEnvironmentBase
     {
+        public string MachineName { get; private set; }
+
         public LoggingEnvironment()
             : base(Environment.Version.ToString())
         {
-            this.Values["MachineName"] = Environment.MachineName;
-        }
-
-        public override string ToJson()
-        {
-            throw new NotImplementedException();
+            this.MachineName = Environment.MachineName;
         }
     }
 }

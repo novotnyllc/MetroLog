@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MetroLog.Targets
 {
-    public abstract class BufferedTarget : Target, ISuspendNotify
+    public abstract class BufferedTarget : Target, ILazyFlushable
     {
         private List<LogEventInfo> Buffer { get; set; }
         private object _lock = new object();
@@ -17,6 +17,9 @@ namespace MetroLog.Targets
         public BufferedTarget(Layout layout, int threshold)
             : base(layout)
         {
+            if (threshold < 1)
+                throw new ArgumentOutOfRangeException("threshold");
+
             this.Threshold = threshold;
             this.Buffer = new List<LogEventInfo>();
         }
@@ -71,7 +74,7 @@ namespace MetroLog.Targets
 
         protected abstract Task DoFlushAsync(LogWriteContext context, IEnumerable<LogEventInfo> toFlush);
 
-        public async void Suspending(LogWriteContext context)
+        async Task ILazyFlushable.LazyFlushAsync(LogWriteContext context)
         {
             List<LogEventInfo> toFlush = null;
             lock (_lock)
@@ -81,7 +84,8 @@ namespace MetroLog.Targets
             }
 
             // flush...
-            await DoFlushAsync(context, toFlush);
+            if(toFlush.Any())
+                await DoFlushAsync(context, toFlush);
         }
     }
 }

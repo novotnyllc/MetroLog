@@ -5,17 +5,20 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MetroLog.Internal;
+using Newtonsoft.Json;
 
 namespace MetroLog
 {
     public class LogEventInfo
     {
+        public long SequenceID { get; private set; }
         public LogLevel Level { get; private set; }
         public string Logger { get; private set; }
         public string Message { get; private set; }
-        public Exception Exception { get; private set; }
-        public long SequenceID { get; private set; }
         public DateTimeOffset TimeStamp { get; private set; }
+
+       // [JsonConverter(typeof(ExceptionConverter))]
+        public Exception Exception { get; private set; }
 
         private static long _globalSequenceId;
 
@@ -27,6 +30,11 @@ namespace MetroLog
             Exception = ex;
             TimeStamp = LogManager.GetDateTime();
             SequenceID = Interlocked.Increment(ref _globalSequenceId);
+        }
+
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

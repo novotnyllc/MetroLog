@@ -16,6 +16,7 @@ namespace MetroLog.Internal
         private readonly object _loggersLock = new object();
 
         public event EventHandler<ILoggerEventArgs> LoggerCreated;
+        public event EventHandler CacheReset;
 
         internal const string DateTimeFormat = "o";
 
@@ -93,6 +94,27 @@ namespace MetroLog.Internal
         public LogWriteContext GetWriteContext()
         {
             return new LogWriteContext(this);
+        }
+
+        /// <summary>
+        /// Resets the internal cache of loggers.
+        /// </summary>
+        /// <remarks>
+        /// Not for general use. Used for testing the framework.
+        /// </remarks>
+        public void ResetCache()
+        {
+            lock (_loggersLock)
+                _loggers.Clear();
+
+            // call...
+            this.OnCacheReset();
+        }
+
+        protected virtual void OnCacheReset()
+        {
+            if (this.CacheReset != null)
+                this.CacheReset(this, EventArgs.Empty);
         }
     }
 }

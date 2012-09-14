@@ -111,8 +111,9 @@ namespace Win8Sample
             LogManagerFactory.DefaultLogManager.DefaultConfiguration.AddTarget(LogLevel.Debug, LogLevel.Fatal,
                 new FileStreamingTarget());
 
-            // reset - you wouldn't do it like this in production, but you can't reset cached loggers (yet)...
-            this.Log = LogManagerFactory.DefaultLogManager.GetLogger(Guid.NewGuid().ToString());
+            // reset...
+            LogManagerFactory.DefaultLogManager.ResetCache();
+            this.Log = LogManagerFactory.DefaultLogManager.GetLogger<LogSamplePage>();
 
             // set...
             this.buttonFileStreaming.IsEnabled = false;
@@ -123,8 +124,9 @@ namespace Win8Sample
             LogManagerFactory.DefaultLogManager.DefaultConfiguration.AddTarget(LogLevel.Debug, LogLevel.Fatal,
                 new JsonPostTarget(5, new Uri("http://localhost/metrologweb/receivelogentries.ashx")));
 
-            // reset - you wouldn't do it like this in production, but you can't reset cached loggers (yet)...
-            this.Log = LogManagerFactory.DefaultLogManager.GetLogger(Guid.NewGuid().ToString());
+            // reset...
+            LogManagerFactory.DefaultLogManager.ResetCache();
+            this.Log = LogManagerFactory.DefaultLogManager.GetLogger<LogSamplePage>();
 
             // set...
             this.buttonJsonPost.IsEnabled = false;

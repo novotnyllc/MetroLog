@@ -21,7 +21,6 @@ namespace MetroLog.Internal
             return new LogManager(environment, configuration ?? DefaultSettings);
         }
 
-
         protected virtual LoggingConfiguration CreateDefaultSettings()
         {
             // default logging config...

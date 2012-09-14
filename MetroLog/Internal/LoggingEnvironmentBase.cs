@@ -1,25 +1,34 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
+using Newtonsoft.Json.Converters;
 
 namespace MetroLog.Internal
 {
     public abstract class LoggingEnvironmentBase : ILoggingEnvironment
     {
-        public Dictionary<String, object> Values { get; private set; }
+        public string FxProfile { get; private set; }
+        public bool IsDebugging { get; private set; }
+
+        [JsonConverter(typeof(VersionConverter))]
+        public Version MetroLogVersion { get; private set; }
 
         protected LoggingEnvironmentBase(string fxProfile)
         {
-            this.Values = new Dictionary<string, object>();
-
-            // common.
-            this.Values["FxProfile"] = fxProfile;
-            this.Values["IsDebugging"] = Debugger.IsAttached;
+            // common...
+            this.FxProfile = fxProfile;
+            this.IsDebugging = Debugger.IsAttached;
+            this.MetroLogVersion = typeof(ILogger).GetTypeInfo().Assembly.GetName().Version;
         }
 
-        public abstract string ToJson();
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
     }
 }
