@@ -15,10 +15,7 @@ namespace MetroLog.Tests
             var testTarget = new TestTarget();
             var config = new LoggingConfiguration();
             config.AddTarget(LogLevel.Trace, LogLevel.Fatal, testTarget);
-
-            // manager...
-            LogManagerFactory.Reinitialize(config);
-
+            
             return Tuple.Create(new Logger("Foobar", config), testTarget);
         }
 

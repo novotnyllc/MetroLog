@@ -1,0 +1,54 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using MetroLog.Internal;
+
+namespace MetroLog
+{
+    public static class LogManagerFactory
+    {
+        private static readonly ILogConfigurator _configurator = PlatformAdapter.Resolve<ILogConfigurator>();
+        private static readonly ILoggingEnvironment _env = PlatformAdapter.Resolve<ILoggingEnvironment>();
+
+        private static LoggingConfiguration _defaultConfig = _configurator.CreateDefaultSettings();
+
+        private static readonly Lazy<ILogManager> _lazyLogManager;
+
+        static LogManagerFactory()
+        {
+            _lazyLogManager = new Lazy<ILogManager>(() =>
+                {
+                    var manager = new LogManager(_env, DefaultConfiguration);
+                    _configurator.OnLogManagerCreated(manager);
+                    return manager;
+                },
+                LazyThreadSafetyMode.ExecutionAndPublication);
+        }
+      
+        public static LoggingConfiguration DefaultConfiguration
+        {
+            get
+            {
+                return _defaultConfig;
+            }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException("value");
+                if (_lazyLogManager.IsValueCreated)
+                    throw new InvalidOperationException("Must set DefaultConfiguration before any calls to DefaultLogManager");
+
+                _defaultConfig = value;
+            }
+        }
+
+        public static ILogManager DefaultLogManager
+        {
+            get { return _lazyLogManager.Value; }
+        }
+
+    }
+}

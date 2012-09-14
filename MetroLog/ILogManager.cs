@@ -17,7 +17,7 @@ namespace MetroLog
 
         LogWriteContext GetWriteContext();
 
-        event EventHandler<ILoggerEventArgs> LoggerCreated;
+        event EventHandler<LoggerEventArgs> LoggerCreated;
 
         void ResetCache();
         event EventHandler CacheReset;

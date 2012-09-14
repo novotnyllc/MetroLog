@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Win8Sample.Common;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;

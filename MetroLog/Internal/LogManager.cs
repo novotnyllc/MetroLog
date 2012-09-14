@@ -15,7 +15,7 @@ namespace MetroLog.Internal
         private readonly Dictionary<string, Logger> _loggers;
         private readonly object _loggersLock = new object();
 
-        public event EventHandler<ILoggerEventArgs> LoggerCreated;
+        public event EventHandler<LoggerEventArgs> LoggerCreated;
         public event EventHandler CacheReset;
 
         internal const string DateTimeFormat = "o";
@@ -50,7 +50,7 @@ namespace MetroLog.Internal
                     };
 
                     // call...
-                    this.OnLoggerCreatedSafe(new ILoggerEventArgs(logger));
+                    this.OnLoggerCreatedSafe(new LoggerEventArgs(logger));
 
                     // set...
                     _loggers[name] = logger;
@@ -59,7 +59,7 @@ namespace MetroLog.Internal
             }
         }
 
-        private void OnLoggerCreatedSafe(ILoggerEventArgs args)
+        private void OnLoggerCreatedSafe(LoggerEventArgs args)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace MetroLog.Internal
             }
         }
 
-        protected virtual void OnLoggerCreated(ILoggerEventArgs args)
+        protected virtual void OnLoggerCreated(LoggerEventArgs args)
         {
             if (this.LoggerCreated != null)
                 this.LoggerCreated(this, args);

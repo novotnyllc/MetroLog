@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace MetroLog
 {
-    public class ILoggerEventArgs : EventArgs
+    public class LoggerEventArgs : EventArgs
     {
         public ILogger Logger { get; private set; }
 
-        public ILoggerEventArgs(ILogger logger)
+        public LoggerEventArgs(ILogger logger)
         {
             this.Logger = logger;
         }

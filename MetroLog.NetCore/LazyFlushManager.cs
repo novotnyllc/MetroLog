@@ -40,7 +40,7 @@ namespace MetroLog
             }, TimeSpan.FromMinutes(2));
         }
 
-        void Owner_LoggerCreated(object sender, ILoggerEventArgs e)
+        void Owner_LoggerCreated(object sender, LoggerEventArgs e)
         {
             lock(_lock)
             {

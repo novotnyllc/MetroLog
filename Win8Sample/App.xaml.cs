@@ -33,8 +33,6 @@ namespace Win8Sample
             this.InitializeComponent();
             this.Suspending += OnSuspending;
 
-            // start logging here...
-            LogManagerFactory.Initialize();
             this.UnhandledException += App_UnhandledException;
         }
 

@@ -114,7 +114,7 @@
     <Compile Include="FileSnapshotTarget.cs" />
     <Compile Include="FileStreamingTarget.cs" />
     <Compile Include="LoggingEnvironment.cs" />
-    <Compile Include="LogManagerFactory.cs" />
+    <Compile Include="LogConfigurator.cs" />
     <Compile Include="LogZcf.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LazyFlushManager.cs" />
