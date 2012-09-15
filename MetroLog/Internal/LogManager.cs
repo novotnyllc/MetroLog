@@ -67,7 +67,7 @@ namespace MetroLog.Internal
             }
             catch (Exception ex)
             {
-                LogInternal("Failed to handle OnLoggerCreated event.", ex);
+                InternalLogger.Current.Error("Failed to handle OnLoggerCreated event.", ex);
             }
         }
 
@@ -78,13 +78,14 @@ namespace MetroLog.Internal
         }
 
         // logs problems with the framework to Debug...
-        internal static void LogInternal(string message, Exception ex)
-        {
-            if(ex != null)
-                Debug.WriteLine("{0}|INTERNAL|(null)|{1} --> {2}", GetDateTime().ToString(DateTimeFormat), message, ex);
-            else
-                Debug.WriteLine("{0}|INTERNAL|(null)|{1}", GetDateTime().ToString(DateTimeFormat), message);
-        }
+        // mbr - 2012-09-14 - moves to InternalLogger...
+        //internal static void LogInternal(string message, Exception ex)
+        //{
+        //    if(ex != null)
+        //        Debug.WriteLine("{0}|INTERNAL|(null)|{1} --> {2}", GetDateTime().ToString(DateTimeFormat), message, ex);
+        //    else
+        //        Debug.WriteLine("{0}|INTERNAL|(null)|{1}", GetDateTime().ToString(DateTimeFormat), message);
+        //}
 
         internal static DateTimeOffset GetDateTime()
         {

@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace MetroLog
 {
-    public interface ILoggingEnvironment
+    public enum FileNamingMode
     {
-        Guid SessionId { get; }
-
-        string ToJson();
+        SingleFile = 0,
+        FilePerDate = 1,
+        FilePerSession = 2,
+        FilePerDateAndSession = 3
     }
 }

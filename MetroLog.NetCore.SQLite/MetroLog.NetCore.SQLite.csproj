@@ -111,13 +111,24 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="LogEventInfoItem.cs" />
+    <Compile Include="SQLiteTarget.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLite.cs" />
     <Compile Include="SQLiteAsync.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MetroLog.NetCore\MetroLog.NetCore.csproj">
+      <Project>{429ee5fc-46fe-4249-bb40-8dc6d9023a04}</Project>
+      <Name>MetroLog.NetCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MetroLog\MetroLog.csproj">
+      <Project>{65e2062e-aac2-4054-aae6-d6764040c769}</Project>
+      <Name>MetroLog</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

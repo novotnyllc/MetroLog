@@ -110,6 +110,7 @@
     <Compile Include="ILoggerEventArgs.cs" />
     <Compile Include="ILoggerQuery.cs" />
     <Compile Include="ILoggingEnvironment.cs" />
+    <Compile Include="InternalLogger.cs" />
     <Compile Include="Internal\LoggingEnvironmentBase.cs" />
     <Compile Include="ILoggerAsync.cs" />
     <Compile Include="ILazyFlushable.cs" />
@@ -131,6 +132,8 @@
     <Compile Include="Targets\AsyncTarget.cs" />
     <Compile Include="Targets\BufferedTarget.cs" />
     <Compile Include="Targets\EtwTarget.cs" />
+    <Compile Include="Targets\FileNamingParameters.cs" />
+    <Compile Include="Targets\FileTimestampMoe.cs" />
     <Compile Include="Targets\HttpClientEventHandler.cs" />
     <Compile Include="Targets\JsonPostTarget.cs" />
     <Compile Include="Targets\JsonPostWrapper.cs" />

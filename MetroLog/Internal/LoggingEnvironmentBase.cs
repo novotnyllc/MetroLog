@@ -12,6 +12,7 @@ namespace MetroLog.Internal
 {
     public abstract class LoggingEnvironmentBase : ILoggingEnvironment
     {
+        public Guid SessionId { get; private set; }
         public string FxProfile { get; private set; }
         public bool IsDebugging { get; private set; }
 
@@ -21,6 +22,7 @@ namespace MetroLog.Internal
         protected LoggingEnvironmentBase(string fxProfile)
         {
             // common...
+            this.SessionId = Guid.NewGuid();
             this.FxProfile = fxProfile;
             this.IsDebugging = Debugger.IsAttached;
             this.MetroLogVersion = typeof(ILogger).GetTypeInfo().Assembly.GetName().Version;

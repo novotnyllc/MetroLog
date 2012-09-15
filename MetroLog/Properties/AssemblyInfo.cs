@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security;
@@ -21,3 +22,6 @@ using System.Security;
 //                                                        "28dae83980e5b69e97985899ae9299dd6951b0933d13416c564b3997d8ed784208afa2e18f0389" +
 //                                                        "9da14d209054ce3002e47e9ae1bd811baa2a20899c5f6c8211b886be9284541d58476fbabc7323" +
 //                                                        "90a0f7c9")]
+
+// mbr - 2012-09-15 - added at the suggestion of @davkean...
+[assembly: NeutralResourcesLanguage("en-US")]

@@ -35,13 +35,7 @@ namespace Win8Sample
 
             // start logging here...
             LogManagerFactory.Initialize();
-            this.UnhandledException += App_UnhandledException;
-        }
-
-        async void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            var log = (ILoggerAsync)LogManagerFactory.DefaultLogManager.GetLogger<App>();
-            await log.FatalAsync("The application crashed: " + e.Message, e.Exception);
+            LogManagerFactory.ConfigureGlobalHandler();
         }
 
         /// <summary>

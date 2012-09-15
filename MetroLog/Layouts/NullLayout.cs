@@ -12,7 +12,7 @@ namespace MetroLog.Layouts
         {
         }
 
-        public override string GetFormattedString(LogEventInfo info)
+        public override string GetFormattedString(LogWriteContext context, LogEventInfo info)
         {
             return string.Empty;
         }

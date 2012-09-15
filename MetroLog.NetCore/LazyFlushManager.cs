@@ -60,6 +60,11 @@ namespace MetroLog
 
         private static async void Current_Suspending(object sender, Windows.ApplicationModel.SuspendingEventArgs e)
         {
+            await FlushAllAsync();
+        }
+
+        internal static async Task FlushAllAsync()
+        {
             var tasks = new List<Task>();
             foreach (var manager in Owners.Values)
                 tasks.Add(manager.LazyFlushAsync());

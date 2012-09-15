@@ -1,7 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Web;
+using WebTargetSample.Model;
 
 namespace WebTargetSample
 {
@@ -13,11 +17,15 @@ namespace WebTargetSample
         public void ProcessRequest(HttpContext context)
         {
             // get the json out...
+            string json = null;
+            using (var reader = new StreamReader(context.Request.InputStream))
+                json = reader.ReadToEnd();
 
             // deserialize...
+            var wrapper = JsonConvert.DeserializeObject<JsonPostWrapper>(json);
 
-            // dump to the event log...
-
+            //Console.WriteLine(info);
+            Debug.WriteLine(wrapper);
         }
 
         public bool IsReusable

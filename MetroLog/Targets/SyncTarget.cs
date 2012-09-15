@@ -24,7 +24,7 @@ namespace MetroLog.Targets
             }
             catch (Exception ex)
             {
-                LogManager.LogInternal(string.Format("Failed to write to target '{0}'.", this), ex);
+                InternalLogger.Current.Error(string.Format("Failed to write to target '{0}'.", this), ex);
                 return Task.FromResult(new LogWriteOperation(this, entry, false));
             }
         }

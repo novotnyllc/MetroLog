@@ -9,7 +9,7 @@ namespace MetroLog.Layouts
 {
     public class FileSnapshotLayout : Layout
     {
-        public override string GetFormattedString(LogEventInfo info)
+        public override string GetFormattedString(LogWriteContext context, LogEventInfo info)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append("Sequence: ");
@@ -30,6 +30,10 @@ namespace MetroLog.Layouts
                 builder.Append("\r\n------------------------\r\n");
                 builder.Append(info.Exception);
             }
+
+            builder.Append("\r\n------------------------\r\n");
+            builder.Append("Session: ");
+            builder.Append(context.Environment.ToJson());
 
             return builder.ToString();
         }

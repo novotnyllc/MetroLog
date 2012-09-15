@@ -29,7 +29,12 @@ namespace MetroLog
             Message = message;
             Exception = ex;
             TimeStamp = LogManager.GetDateTime();
-            SequenceID = Interlocked.Increment(ref _globalSequenceId);
+            SequenceID = GetNextSequenceId();
+        }
+
+        internal static long GetNextSequenceId()
+        {
+            return Interlocked.Increment(ref _globalSequenceId);
         }
 
         public string ToJson()

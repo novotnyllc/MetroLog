@@ -64,7 +64,7 @@ namespace Win8Sample
 
         private void HandleTrace(object sender, RoutedEventArgs e)
         {
-            this.Log.Debug("This is a trace message.");
+            this.Log.Trace("This is a trace message.");
         }
 
         private void HandleDebug(object sender, RoutedEventArgs e)
@@ -103,12 +103,12 @@ namespace Win8Sample
         private void HandleFatal(object sender, RoutedEventArgs e)
         {
             // the idea here is to invoke the global error handler...
-            throw new NotImplementedException("Bang.");
+            throw new InvalidOperationException("Bang.");
         }
 
         private void HandleRegisterStreamingTarget(object sender, RoutedEventArgs e)
         {
-            LogManagerFactory.DefaultLogManager.DefaultConfiguration.AddTarget(LogLevel.Debug, LogLevel.Fatal,
+            LogManagerFactory.DefaultLogManager.DefaultConfiguration.AddTarget(LogLevel.Trace, LogLevel.Fatal,
                 new FileStreamingTarget());
 
             // reset...
@@ -121,7 +121,7 @@ namespace Win8Sample
 
         private void HandleRegisterJsonPostTarget(object sender, RoutedEventArgs e)
         {
-            LogManagerFactory.DefaultLogManager.DefaultConfiguration.AddTarget(LogLevel.Debug, LogLevel.Fatal,
+            LogManagerFactory.DefaultLogManager.DefaultConfiguration.AddTarget(LogLevel.Trace, LogLevel.Fatal,
                 new JsonPostTarget(5, new Uri("http://localhost/metrologweb/receivelogentries.ashx")));
 
             // reset...
@@ -130,6 +130,19 @@ namespace Win8Sample
 
             // set...
             this.buttonJsonPost.IsEnabled = false;
+        }
+
+        private void HandleRegisterSQLiteTarget(object sender, RoutedEventArgs e)
+        {
+            LogManagerFactory.DefaultLogManager.DefaultConfiguration.AddTarget(LogLevel.Trace, LogLevel.Fatal,
+                new SQLiteTarget());
+
+            // reset...
+            LogManagerFactory.DefaultLogManager.ResetCache();
+            this.Log = LogManagerFactory.DefaultLogManager.GetLogger<LogSamplePage>();
+
+            // set...
+            this.buttonSQLite.IsEnabled = false;
         }
     }
 }

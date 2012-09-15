@@ -120,7 +120,7 @@ namespace MetroLog.Internal
             }
             catch (Exception logEx)
             {
-                LogManager.LogInternal("Logging operation failed.", logEx);
+                InternalLogger.Current.Error("Logging operation failed.", logEx);
                 return Task.FromResult(new LogWriteOperation[] {});
             }
         }

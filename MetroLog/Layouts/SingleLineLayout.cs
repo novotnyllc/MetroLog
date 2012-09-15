@@ -9,7 +9,7 @@ namespace MetroLog.Layouts
 {
     public class SingleLineLayout : Layout
     {
-        public override string GetFormattedString(LogEventInfo info)
+        public override string GetFormattedString(LogWriteContext context, LogEventInfo info)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append(info.SequenceID);

@@ -9,7 +9,10 @@ using Windows.Storage;
 
 namespace MetroLog.Targets
 {
-    public class FileStreamingTarget : AsyncTarget
+    /// <summary>
+    /// Defines a target that will append messages to a single file.
+    /// </summary>
+    public class FileStreamingTarget : FileTargetBase
     {
         public FileStreamingTarget()
             : this(new SingleLineLayout())
@@ -19,16 +22,28 @@ namespace MetroLog.Targets
         public FileStreamingTarget(Layout layout)
             : base(layout)
         {
+            this.FileNamingParameters.IncludeLevel = false;
+            this.FileNamingParameters.IncludeLogger = false;
+            this.FileNamingParameters.IncludeSequence = false;
+            this.FileNamingParameters.IncludeSession = false;
+            this.FileNamingParameters.IncludeTimestamp = FileTimestampMode.Date;
         }
 
         protected override async Task<LogWriteOperation> WriteAsync(LogWriteContext context, LogEventInfo entry)
         {
             var folder = await FileSnapshotTarget.EnsureInitializedAsync();
 
+            // cleanup...
+            await this.CheckCleanupAsync(folder);
+
             // write...
-            var filename = string.Format("Log - {0}.log", entry.TimeStamp.ToString("yyyyMMdd"));
+            var filename = this.FileNamingParameters.GetFilename(context, entry);
             var file = await folder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists);
-            await FileIO.AppendTextAsync(file, this.Layout.GetFormattedString(entry) + "\r\n");
+
+            // need to append a session header...
+
+            // append...
+            await FileIO.AppendTextAsync(file, this.Layout.GetFormattedString(context, entry) + "\r\n");
 
             // return...
             return new LogWriteOperation(this, entry, true);

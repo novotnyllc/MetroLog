@@ -27,6 +27,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 
 namespace SQLite
 {
@@ -402,6 +403,17 @@ namespace SQLite
 		readonly object _entriesLock = new object ();
 
 		static readonly SQLiteConnectionPool _shared = new SQLiteConnectionPool ();
+
+        private SQLiteConnectionPool()
+        {
+            // mbr - 2012-09-14 - this needs to find its way into the main sqlite-net branch.
+            Application.Current.Suspending += Current_Suspending;
+        }
+
+        void Current_Suspending(object sender, Windows.ApplicationModel.SuspendingEventArgs e)
+        {
+            this.ApplicationSuspended();
+        }
 
 		/// <summary>
 		/// Gets the singleton instance of the connection tool.

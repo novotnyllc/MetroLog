@@ -14,5 +14,13 @@ namespace MetroLog
         {
             this.Manager = manager;
         }
+
+        public ILoggingEnvironment Environment
+        {
+            get
+            {
+                return Manager.LoggingEnvironment;
+            }
+        }
     }
 }
