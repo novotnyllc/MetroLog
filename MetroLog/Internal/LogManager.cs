@@ -86,16 +86,5 @@ namespace MetroLog.Internal
         {
             return DateTimeOffset.UtcNow;
         }
-
-        /// <summary>
-        /// Reset the cache of created loggers.
-        /// </summary>
-        /// <remarks>You typically don't need to call this method. It's only helpful if you have added new
-        /// targest to the configuration after proper execution has begun.</remarks>
-        public void ResetCache()
-        {
-            lock (_loggersLock)
-                _loggers.Clear();
-        }
     }
 }
