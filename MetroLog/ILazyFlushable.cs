@@ -8,6 +8,6 @@ namespace MetroLog
 {
     public interface ILazyFlushable
     {
-        Task LazyFlushAsync();
+        Task LazyFlushAsync(LogWriteContext context);
     }
 }

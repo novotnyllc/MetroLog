@@ -26,7 +26,7 @@ namespace MetroLog.Targets
             this.Url = url;
         }
 
-        protected override async Task DoFlushAsync(IEnumerable<LogEventInfo> toFlush)
+        protected override async Task DoFlushAsync(LogWriteContext context, IEnumerable<LogEventInfo> toFlush)
         {
             // create a json object...
 

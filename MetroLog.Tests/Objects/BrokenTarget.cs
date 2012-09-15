@@ -15,7 +15,7 @@ namespace MetroLog.Tests
         {
         }
 
-        protected override void Write(LogEventInfo entry)
+        protected override void Write(LogWriteContext context, LogEventInfo entry)
         {
             // broken...
             throw new NotImplementedException();

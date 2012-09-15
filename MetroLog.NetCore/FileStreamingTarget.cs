@@ -29,7 +29,7 @@ namespace MetroLog.Targets
             this.FileNamingParameters.IncludeTimestamp = FileTimestampMode.Date;
         }
 
-        protected override async Task<LogWriteOperation> WriteAsync(LogEventInfo entry)
+        protected override async Task<LogWriteOperation> WriteAsync(LogWriteContext context, LogEventInfo entry)
         {
             var folder = await FileSnapshotTarget.EnsureInitializedAsync();
 

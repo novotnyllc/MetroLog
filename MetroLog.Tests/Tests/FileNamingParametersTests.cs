@@ -32,8 +32,7 @@ namespace MetroLog.Tests
             var info = GetLogEventInfo();
 
             // check...
-            var filename = naming.GetFilename(new LogWriteContext(new LogManager(new LoggingEnvironment(), new LoggingConfiguration())), 
-                info);
+            var filename = naming.GetFilename(new LogWriteContext(), info);
             Assert.Equal("Log.log", filename);
         }
 
@@ -53,8 +52,7 @@ namespace MetroLog.Tests
             var info = GetLogEventInfo();
 
             // check...
-            var filename = naming.GetFilename(new LogWriteContext(new LogManager(new LoggingEnvironment(), new LoggingConfiguration())),
-                info);
+            var filename = naming.GetFilename(new LogWriteContext(), info);
             Assert.Equal("Log - INFO.log", filename);
         }
 
@@ -74,8 +72,7 @@ namespace MetroLog.Tests
             var info = GetLogEventInfo();
 
             // check...
-            var filename = naming.GetFilename(new LogWriteContext(new LogManager(new LoggingEnvironment(), new LoggingConfiguration())),
-                info);
+            var filename = naming.GetFilename(new LogWriteContext(), info);
             Assert.Equal("Log - foobar.log", filename);
         }
 
@@ -95,8 +92,7 @@ namespace MetroLog.Tests
             var info = GetLogEventInfo();
 
             // check...
-            var filename = naming.GetFilename(new LogWriteContext(new LogManager(new LoggingEnvironment(), new LoggingConfiguration())),
-                info);
+            var filename = naming.GetFilename(new LogWriteContext(), info);
             Assert.Equal(string.Format("Log - {0}.log", info.SequenceID), filename);
         }
 
@@ -116,8 +112,7 @@ namespace MetroLog.Tests
             var info = GetLogEventInfo();
 
             // check...
-            var filename = naming.GetFilename(new LogWriteContext(new LogManager(new LoggingEnvironment(), new LoggingConfiguration())),
-                info);
+            var filename = naming.GetFilename(new LogWriteContext(), info);
             Assert.Equal(string.Format("Log - {0}.log", LogManager.GetDateTime().ToString("yyyyMMdd")), filename);
         }
 
@@ -137,8 +132,7 @@ namespace MetroLog.Tests
             var info = GetLogEventInfo();
 
             // check...
-            var filename = naming.GetFilename(new LogWriteContext(new LogManager(new LoggingEnvironment(), new LoggingConfiguration())),
-                info);
+            var filename = naming.GetFilename(new LogWriteContext(), info);
             Assert.Equal(string.Format("Log - {0}.log", LogManager.GetDateTime().ToString("HHmmss")), filename);
         }
 
@@ -158,8 +152,7 @@ namespace MetroLog.Tests
             var info = GetLogEventInfo();
 
             // check...
-            var filename = naming.GetFilename(new LogWriteContext(new LogManager(new LoggingEnvironment(), new LoggingConfiguration())),
-                info);
+            var filename = naming.GetFilename(new LogWriteContext(), info);
             Assert.Equal(string.Format("Log - {0}.log", LogManager.GetDateTime().ToString("yyyyMMdd HHmmss")), filename);
         }
 
@@ -179,7 +172,7 @@ namespace MetroLog.Tests
             var info = GetLogEventInfo();
 
             // check...
-            var context = new LogWriteContext(new LogManager(new LoggingEnvironment(), new LoggingConfiguration()));
+            var context = new LogWriteContext();
             var filename = naming.GetFilename(context, info);
             Assert.Equal(string.Format("Log - INFO - foobar - {0} - {1} - {2}.log", LogManager.GetDateTime().ToString("yyyyMMdd HHmmss"),
                 context.Environment.SessionId, info.SequenceID), filename);
@@ -204,7 +197,7 @@ namespace MetroLog.Tests
             var info = GetLogEventInfo();
 
             // check...
-            var context = new LogWriteContext(new LogManager(new LoggingEnvironment(), new LoggingConfiguration()));
+            var context = new LogWriteContext();
             var filename = naming.GetFilename(context, info);
 
             // check...
@@ -230,7 +223,7 @@ namespace MetroLog.Tests
             var info = GetLogEventInfo();
 
             // check...
-            var context = new LogWriteContext(new LogManager(new LoggingEnvironment(), new LoggingConfiguration()));
+            var context = new LogWriteContext();
             var filename = naming.GetFilename(context, info);
   
             // check...

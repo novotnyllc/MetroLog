@@ -35,7 +35,7 @@ namespace MetroLog
             // timer...
             Timer = ThreadPoolTimer.CreatePeriodicTimer(async (args) =>
             {
-                await this.LazyFlushAsync();
+                await this.LazyFlushAsync(new LogWriteContext());
 
             }, TimeSpan.FromMinutes(2));
         }
@@ -60,20 +60,20 @@ namespace MetroLog
 
         private static async void Current_Suspending(object sender, Windows.ApplicationModel.SuspendingEventArgs e)
         {
-            await FlushAllAsync();
+            await FlushAllAsync(new LogWriteContext());
         }
 
-        internal static async Task FlushAllAsync()
+        internal static async Task FlushAllAsync(LogWriteContext context)
         {
             var tasks = new List<Task>();
             foreach (var manager in Owners.Values)
-                tasks.Add(manager.LazyFlushAsync());
+                tasks.Add(manager.LazyFlushAsync(context));
 
             // wait...
             await Task.WhenAll(tasks);
         }
 
-        private async Task LazyFlushAsync()
+        private async Task LazyFlushAsync(LogWriteContext context)
         {
             List<ILazyFlushable> toNotify = null;
             lock (_lock)
@@ -82,7 +82,7 @@ namespace MetroLog
             // walk...
             if (toNotify.Any())
             {
-                var tasks = toNotify.Select(client => client.LazyFlushAsync()).ToList();
+                var tasks = toNotify.Select(client => client.LazyFlushAsync(context)).ToList();
 
                 // wait...
                 await Task.WhenAll(tasks);

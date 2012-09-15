@@ -15,5 +15,7 @@ namespace MetroLog
         ILogger GetLogger(string name, LoggingConfiguration config = null);
         
         event EventHandler<LoggerEventArgs> LoggerCreated;
+
+        void ResetCache();
     }
 }

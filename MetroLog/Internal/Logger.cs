@@ -107,9 +107,12 @@ namespace MetroLog.Internal
                 // create an event entry and pass it through...
                 var entry = new LogEventInfo(level, Name, message, ex);
 
+                // create a context...
+                var context = new LogWriteContext();
+
                 // gather the tasks...
                 var writeTasks = from target in targets
-                                 select target.WriteAsync(entry);
+                                 select target.WriteAsync(context, entry);
 
                 // group...
                 var group = Task.WhenAll(writeTasks);

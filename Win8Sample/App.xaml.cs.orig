@@ -33,7 +33,19 @@ namespace Win8Sample
             this.InitializeComponent();
             this.Suspending += OnSuspending;
 
-//            LogManagerFactory.ConfigureGlobalHandler();
+<<<<<<< HEAD
+            // start logging here...
+            LogManagerFactory.Initialize();
+            LogManagerFactory.ConfigureGlobalHandler();
+=======
+            this.UnhandledException += App_UnhandledException;
+        }
+
+        async void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            var log = (ILoggerAsync)LogManagerFactory.DefaultLogManager.GetLogger<App>();
+            await log.FatalAsync("The application crashed: " + e.Message, e.Exception);
+>>>>>>> ff768432e4c798139562879f21ef39b95f53b4f8
         }
 
         /// <summary>

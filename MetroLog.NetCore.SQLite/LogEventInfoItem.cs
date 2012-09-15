@@ -34,7 +34,7 @@ namespace MetroLog.Targets
         {
             var item = new LogEventInfoItem()
             {
-                SessionId = context.Manager.LoggingEnvironment.SessionId.ToString(),
+                SessionId = context.Environment.SessionId.ToString(),
                 DateTimeUtc = info.TimeStamp.UtcDateTime,
                 SequenceId = info.SequenceID,
                 Level = info.Level,
