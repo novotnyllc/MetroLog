@@ -11,6 +11,7 @@ using Windows.System;
 using Windows.UI.Xaml;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Windows.Storage;
 
 namespace MetroLog
 {
@@ -28,6 +29,11 @@ namespace MetroLog
         public string PackageResourceId { get; private set; }
         public string PackageVersion { get; private set; }
 
+        /// <summary>
+        /// Gets a unique ID for the installation of this app.
+        /// </summary>
+        public string InstallationId { get; private set; }
+
         public LoggingEnvironment()
             : base(".NET Core")
         {
@@ -40,6 +46,21 @@ namespace MetroLog
             this.PackageResourceId = id.ResourceId;
             this.PackageVersion = string.Format("{0}.{1}.{2}.{3}", id.Version.Major, id.Version.Minor,
                 id.Version.Build, id.Version.Revision);
+
+            // installation...
+            const string containerName = "MetroLog";
+            var ls = ApplicationData.Current.LocalSettings;
+            if(!(ls.Containers.ContainsKey(containerName)))
+                ls.CreateContainer(containerName, ApplicationDataCreateDisposition.Always);
+
+            // then..
+            const string key = "InstallationId";
+            this.InstallationId = (string)ls.Values[key];
+            if (string.IsNullOrEmpty(this.InstallationId))
+            {
+                this.InstallationId = Guid.NewGuid().ToString();
+                ls.Values[key] = this.InstallationId;
+            }
         }
     }
 }
