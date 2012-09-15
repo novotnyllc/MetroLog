@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace MetroLog
 {
-    public interface ISuspendNotify
+    public interface ILogConfigurator
     {
-        void Suspending(LogWriteContext context);
+        LoggingConfiguration CreateDefaultSettings();
+        void OnLogManagerCreated(ILogManager manager);
     }
 }

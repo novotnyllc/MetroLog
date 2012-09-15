@@ -24,9 +24,9 @@ should just about match.
 
 Quick Start
 ---
-After referencing the MetroLog and Metrolog._platform_ libraries, using MetroLog is very easy. Before any logging call, you'll need to
-call `LogManagerFactory.Initialize`, optionally passing in any non-default settings. Then, obtain a reference to the `ILogManager` 
-with `LogManagerFactory.DefaultLogManager`.
+After referencing the MetroLog and Metrolog._platform_ libraries, using MetroLog is very easy. Just obtain a reference to the `ILogManager` 
+with `LogManagerFactory.DefaultLogManager`. If you're doing your own IoC, you can alternatively use `LogManagerFactory.CreateLogManager()`
+if you don't want to use the default instance.
 
 Once you have an `ILogManager`, you can call `GetLogger` on it to get an instance for each `Type` to use.
 
@@ -42,9 +42,6 @@ in your container setup. This is the recommended approach instead of using `LogM
 	{
 		static void Main(string[] args)
 		{
-			// Initialize MetroLog using the defaults
-			LogManagerFactory.Initialize();
-
 			ILogManager logManager = LogManagerFactory.DefaultLogManager;
 
 			// Inject the ILogManager manually
@@ -71,9 +68,9 @@ in your container setup. This is the recommended approach instead of using `LogM
 
 Unit testing
 ===
-This project uses xUnit.NET, rather than the built-in VS2012 test runner. Use the
+This project uses xUnit.NET, rather than the built-in MSTest. Use the
 [xUnit.NET Test Runner for Visual Studio 2012](http://visualstudiogallery.msdn.microsoft.com/463c5987-f82b-46c8-a97e-b1cde42b9099) to
-run the unit tests.
+enable VS 2012 to discover and run the unit tests.
 
 Meta
 ===

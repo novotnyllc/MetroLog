@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MetroLog.NetCore.SQLite
+namespace MetroLog.Internal
 {
-    public class Class1
+    internal interface IAdapterResolver
     {
+        object Resolve(Type type);
     }
 }

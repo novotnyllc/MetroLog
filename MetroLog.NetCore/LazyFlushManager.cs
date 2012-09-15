@@ -40,7 +40,7 @@ namespace MetroLog
             }, TimeSpan.FromMinutes(2));
         }
 
-        void Owner_LoggerCreated(object sender, ILoggerEventArgs e)
+        void Owner_LoggerCreated(object sender, LoggerEventArgs e)
         {
             lock(_lock)
             {
@@ -82,10 +82,7 @@ namespace MetroLog
             // walk...
             if (toNotify.Any())
             {
-                var context = this.Owner.GetWriteContext();
-                var tasks = new List<Task>();
-                foreach (var client in toNotify)
-                    tasks.Add(client.LazyFlushAsync(context));
+                var tasks = toNotify.Select(client => client.LazyFlushAsync()).ToList();
 
                 // wait...
                 await Task.WhenAll(tasks);

@@ -15,7 +15,6 @@ namespace ConsoleSample
             try
             {
                 // Initialize MetroLog using the defaults
-                LogManagerFactory.Initialize();
 
                 ILogManager logManager = LogManagerFactory.DefaultLogManager;
 

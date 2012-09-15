@@ -10,16 +10,10 @@ namespace MetroLog
     public interface ILogManager
     {
         LoggingConfiguration DefaultConfiguration { get; }
-        ILoggingEnvironment LoggingEnvironment { get; }
 
         ILogger GetLogger<T>(LoggingConfiguration config = null);
         ILogger GetLogger(string name, LoggingConfiguration config = null);
-
-        LogWriteContext GetWriteContext();
-
-        event EventHandler<ILoggerEventArgs> LoggerCreated;
-
-        void ResetCache();
-        event EventHandler CacheReset;
+        
+        event EventHandler<LoggerEventArgs> LoggerCreated;
     }
 }

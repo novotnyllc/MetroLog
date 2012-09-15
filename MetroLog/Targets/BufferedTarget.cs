@@ -24,7 +24,7 @@ namespace MetroLog.Targets
             this.Buffer = new List<LogEventInfo>();
         }
 
-        protected internal override sealed Task<LogWriteOperation> WriteAsync(LogWriteContext context, LogEventInfo entry)
+        protected internal override sealed Task<LogWriteOperation> WriteAsync(LogEventInfo entry)
         {
             try
             {
@@ -44,7 +44,7 @@ namespace MetroLog.Targets
 
                 // anything to flush?
                 if (toFlush != null)
-                    return FlushAsync(context, toFlush);
+                    return FlushAsync(toFlush);
                 else
                     return Task.FromResult(new LogWriteOperation(this, entry, true));
             }
@@ -55,11 +55,11 @@ namespace MetroLog.Targets
             }
         }
 
-        private async Task<LogWriteOperation> FlushAsync(LogWriteContext context, IEnumerable<LogEventInfo> toFlush)
+        private async Task<LogWriteOperation> FlushAsync(IEnumerable<LogEventInfo> toFlush)
         {
             try
             {
-                await DoFlushAsync(context, toFlush);
+                await DoFlushAsync(toFlush);
 
                 // this is a slight cheat in that we return the first one back, even though we may have
                 // written more...
@@ -72,9 +72,9 @@ namespace MetroLog.Targets
             }
         }
 
-        protected abstract Task DoFlushAsync(LogWriteContext context, IEnumerable<LogEventInfo> toFlush);
+        protected abstract Task DoFlushAsync(IEnumerable<LogEventInfo> toFlush);
 
-        async Task ILazyFlushable.LazyFlushAsync(LogWriteContext context)
+        async Task ILazyFlushable.LazyFlushAsync()
         {
             List<LogEventInfo> toFlush = null;
             lock (_lock)
@@ -85,7 +85,7 @@ namespace MetroLog.Targets
 
             // flush...
             if(toFlush.Any())
-                await DoFlushAsync(context, toFlush);
+                await DoFlushAsync(toFlush);
         }
     }
 }

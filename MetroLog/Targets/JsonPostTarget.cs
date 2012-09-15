@@ -26,10 +26,12 @@ namespace MetroLog.Targets
             this.Url = url;
         }
 
-        protected override async Task DoFlushAsync(LogWriteContext context, IEnumerable<LogEventInfo> toFlush)
+        protected override async Task DoFlushAsync(IEnumerable<LogEventInfo> toFlush)
         {
             // create a json object...
-            var wrapper = new JsonPostWrapper(context.Manager.LoggingEnvironment, toFlush);
+
+            var env = PlatformAdapter.Resolve<ILoggingEnvironment>();
+            var wrapper = new JsonPostWrapper(env, toFlush);
             var json = wrapper.ToJson();
 
             // send...

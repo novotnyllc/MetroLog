@@ -10,26 +10,21 @@ namespace MetroLog.Internal
     internal class LogManager : ILogManager
     {
         public LoggingConfiguration DefaultConfiguration { get; private set; }
-        public ILoggingEnvironment LoggingEnvironment { get; private set; }
 
         private readonly Dictionary<string, Logger> _loggers;
         private readonly object _loggersLock = new object();
 
-        public event EventHandler<ILoggerEventArgs> LoggerCreated;
-        public event EventHandler CacheReset;
+        public event EventHandler<LoggerEventArgs> LoggerCreated;
 
         internal const string DateTimeFormat = "o";
 
-        public LogManager(ILoggingEnvironment environment, LoggingConfiguration configuration)
+        public LogManager(LoggingConfiguration configuration)
         {
-            if (environment == null)
-                throw new ArgumentNullException("environment");
             if (configuration == null)
                 throw new ArgumentNullException("configuration");
 
             _loggers = new Dictionary<string, Logger>(StringComparer.OrdinalIgnoreCase);
 
-            LoggingEnvironment = environment;
             DefaultConfiguration = configuration;
         }
 
@@ -50,7 +45,7 @@ namespace MetroLog.Internal
                     };
 
                     // call...
-                    this.OnLoggerCreatedSafe(new ILoggerEventArgs(logger));
+                    this.OnLoggerCreatedSafe(new LoggerEventArgs(logger));
 
                     // set...
                     _loggers[name] = logger;
@@ -59,7 +54,7 @@ namespace MetroLog.Internal
             }
         }
 
-        private void OnLoggerCreatedSafe(ILoggerEventArgs args)
+        private void OnLoggerCreatedSafe(LoggerEventArgs args)
         {
             try
             {
@@ -71,7 +66,7 @@ namespace MetroLog.Internal
             }
         }
 
-        protected virtual void OnLoggerCreated(ILoggerEventArgs args)
+        protected virtual void OnLoggerCreated(LoggerEventArgs args)
         {
             if (this.LoggerCreated != null)
                 this.LoggerCreated(this, args);
@@ -90,32 +85,6 @@ namespace MetroLog.Internal
         internal static DateTimeOffset GetDateTime()
         {
             return DateTimeOffset.UtcNow;
-        }
-
-        public LogWriteContext GetWriteContext()
-        {
-            return new LogWriteContext(this);
-        }
-
-        /// <summary>
-        /// Resets the internal cache of loggers.
-        /// </summary>
-        /// <remarks>
-        /// Not for general use. Used for testing the framework.
-        /// </remarks>
-        public void ResetCache()
-        {
-            lock (_loggersLock)
-                _loggers.Clear();
-
-            // call...
-            this.OnCacheReset();
-        }
-
-        protected virtual void OnCacheReset()
-        {
-            if (this.CacheReset != null)
-                this.CacheReset(this, EventArgs.Empty);
         }
     }
 }
