@@ -18,15 +18,7 @@ namespace MetroLog
 
         static LogManagerFactory()
         {
-            _lazyLogManager = new Lazy<ILogManager>(() =>
-                {
-                    var config = DefaultConfiguration;
-                    config.Freeze();
-
-                    var manager = new LogManager(config);
-                    _configurator.OnLogManagerCreated(manager);
-                    return manager;
-                },
+            _lazyLogManager = new Lazy<ILogManager>(() => CreateLogManager(),
                 LazyThreadSafetyMode.ExecutionAndPublication);
         }
       
@@ -40,7 +32,11 @@ namespace MetroLog
             var cfg = config ?? DefaultConfiguration;
             cfg.Freeze();
 
-            return new LogManager(cfg);
+            var manager = new LogManager(cfg);
+
+            _configurator.OnLogManagerCreated(manager);
+
+            return manager;
         }
 
         public static LoggingConfiguration DefaultConfiguration
