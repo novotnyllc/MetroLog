@@ -9,7 +9,7 @@ namespace MetroLog.Tests.Tests
 {
     public class LogManagerFactoryTests
     {
-        [Fact]
+       // [Fact]
         public void InitalizeCallsSetDefault()
         {
             bool wasCalled = false;
