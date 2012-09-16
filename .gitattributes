@@ -1,4 +1,7 @@
 # Auto detect text files and perform LF normalization
+
+[attr]utf16 diff merge -crlf
+
 * text=auto
 
 *.ico binary
@@ -12,7 +15,7 @@
 *.fsproj merge=union
 *.manifest text
 *.msbuild text
-*.nuspec text
+*.nuspec utf16
 *.resw text merge=union
 *.resx text merge=union
 *.ruleset text
