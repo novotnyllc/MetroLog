@@ -129,7 +129,7 @@
     <Compile Include="LogEventInfo.cs" />
     <Compile Include="Internal\Logger.cs" />
     <Compile Include="LoggingConfiguration.cs" />
-    <Compile Include="LoggingContext.cs" />
+    <Compile Include="LogWriteContext.cs" />
     <Compile Include="LogLevel.cs" />
     <Compile Include="Internal\LogManager.cs" />
     <Compile Include="LogManagerFactory.cs" />
