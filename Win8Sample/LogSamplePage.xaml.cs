@@ -26,6 +26,10 @@ namespace Win8Sample
     {
         private ILogger Log = LogManagerFactory.DefaultLogManager.GetLogger<LogSamplePage>();
 
+        private bool DoFileStreaming { get; set; }
+        private bool DoJsonPost { get; set; }
+        private bool DoSqlite { get; set; }
+
         public LogSamplePage()
         {
             this.InitializeComponent();
@@ -108,9 +112,8 @@ namespace Win8Sample
 
         private void HandleRegisterStreamingTarget(object sender, RoutedEventArgs e)
         {
-            var settings = LogManagerFactory.CreateLibraryDefaultSettings();
-            settings.AddTarget(LogLevel.Trace, LogLevel.Fatal,
-                new FileStreamingTarget());
+            this.DoFileStreaming = true;
+            var settings = CreateNewSettings();
 
             this.Log = LogManagerFactory.CreateLogManager(settings).GetLogger<LogSamplePage>();
 
@@ -120,9 +123,8 @@ namespace Win8Sample
 
         private void HandleRegisterJsonPostTarget(object sender, RoutedEventArgs e)
         {
-            var settings = LogManagerFactory.CreateLibraryDefaultSettings();
-            settings.AddTarget(LogLevel.Trace, LogLevel.Fatal,
-                new JsonPostTarget(5, new Uri("http://localhost/metrologweb/receivelogentries.ashx")));
+            this.DoJsonPost = true;
+            var settings = CreateNewSettings();
             
 
             this.Log = LogManagerFactory.CreateLogManager(settings).GetLogger<LogSamplePage>();
@@ -133,15 +135,28 @@ namespace Win8Sample
 
         private void HandleRegisterSQLiteTarget(object sender, RoutedEventArgs e)
         {
-            var settings = LogManagerFactory.CreateLibraryDefaultSettings();
-            settings.AddTarget(LogLevel.Trace, LogLevel.Fatal,
-                new SQLiteTarget());
+            this.DoSqlite = true;
+            var settings = CreateNewSettings();
 
             // reset...
             this.Log = LogManagerFactory.CreateLogManager(settings).GetLogger<LogSamplePage>();
 
             // set...
             this.buttonSQLite.IsEnabled = false;
+        }
+
+        private LoggingConfiguration CreateNewSettings()
+        {
+            var settings = LogManagerFactory.CreateLibraryDefaultSettings();
+            if (this.DoFileStreaming)
+                settings.AddTarget(LogLevel.Trace, LogLevel.Fatal, new FileStreamingTarget());
+            if (this.DoJsonPost)
+                settings.AddTarget(LogLevel.Trace, LogLevel.Fatal, new JsonPostTarget(5, new Uri("http://localhost/metrologweb/ReceiveLogEntries.ashx")));
+            if(this.DoSqlite)
+                settings.AddTarget(LogLevel.Trace, LogLevel.Fatal, new SQLiteTarget());
+
+            // return...
+            return settings;
         }
     }
 }
