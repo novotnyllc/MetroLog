@@ -7,15 +7,10 @@ The need for it to be basic comes from the fact that Metro-style is intentionall
 applications. This project came out of the fact that porting NLog to Metro-style is difficult because of it's 
 incredibly rich feature set, most of which is not workable in Metro-style.
 
-Out-of-the-box, logging operations are intended to send all log levels to `Debug.WriteLine` and [ETW](http://blogs.msdn.com/b/vancem/archive/2012/07/09/logging-your-own-etw-events-in-c-system-diagnostics-tracing-eventsource.aspx), 
-and Error and Fatal levels to a file in the app's `LocalState` folder.
+Out-of-the-box, logging operations are intended to send all log levels to `Debug.WriteLine` and [[EventTracingForWindows]], 
+and Error and Fatal levels to a file in the app's `LocalState` folder using `[[FileSnapshotTarget]]`.
 
-Although `Debug.WriteLine` seems limited, don't forget that you can use [DbgView](http://technet.microsoft.com/en-us/sysinternals/bb896647.aspx)
-to view global system error messages. This is very helpful when chasing down application boot problems.
-
-When `Debug.WriteLine` isn't enough, [Event Tracing for Windows](http://msdn.microsoft.com/en-us/library/windows/desktop/ff190903.aspx) provides a high-performance way to obtain data.
-Tools like [PerfView](http://www.microsoft.com/en-us/download/details.aspx?id=28567) and [Windows Performance Analyzer](http://msdn.microsoft.com/en-us/performance/cc752957.aspx)
-can be useful as they also capture stack traces along with the event.
+For Windows Store apps we recommend that you configure the `[[SQLiteTarget]]`.
 
 Documentation
 ===
@@ -24,47 +19,30 @@ should just about match.
 
 Quick Start
 ---
-After referencing the MetroLog and Metrolog._platform_ libraries, using MetroLog is very easy. Just obtain a reference to the `ILogManager` 
-with `LogManagerFactory.DefaultLogManager`. If you're doing your own IoC, you can alternatively use `LogManagerFactory.CreateLogManager()`
-if you don't want to use the default instance.
+Include the NuGet package. (Choose the one for the platform you want, the PCL dependency library is automatically added.)
 
-Once you have an `ILogManager`, you can call `GetLogger` on it to get an instance for each `Type` to use.
+Request the logger when you need it:
 
-For those using DI or an IoC container, you can inject `ILogManager` by registering the value of the `DefaultLogManager` property
-in your container setup. This is the recommended approach instead of using `LogManagerFactory.DefaultLogManager` thoughout your code.
+    public sealed partial class LogSamplePage : Win8Sample.Common.LayoutAwarePage
+    {
+        private ILogger Log = LogManagerFactory.DefaultLogManager.GetLogger<LogSamplePage>();
 
-###Example
+Log information when you need to:
 
-	using System;
-	using MetroLog;
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            
+            // log...
+            if (this.Log.IsInfoEnabled)
+                this.Log.Info("I've been navigated to.");
 
-	class LogExample
-	{
-		static void Main(string[] args)
-		{
-			ILogManager logManager = LogManagerFactory.DefaultLogManager;
+            // messages...
+            if (this.Log.IsDebugEnabled)
+                this.Log.Debug("I can also format {0}.", "strings");
+        }
 
-			// Inject the ILogManager manually
-			SomeMagicClass c = new SomeMagicClass(logManager);
-			c.DoMagic();
-		}
-	}
-
-	class SomeMagicClass
-	{
-		private readonly ILogger _log;
-		public SomeMagicClass(ILogManager logManager)
-		{
-			_log = logManager.GetLogger<SomeMagicClass>();
-		}
-
-		public void DoMagic()
-		{
-			// Log something interesting
-			_log.Info("We are about to do magic!");			
-		}
-	}
-		
+For Windows Store apps, you might want to configure the [[GlobalCrashHandler]]. You may also want to use the [[XamlExtensionMethods]].		
 
 Unit testing
 ===
