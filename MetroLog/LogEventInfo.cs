@@ -6,23 +6,33 @@ using System.Threading;
 using System.Threading.Tasks;
 using MetroLog.Internal;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace MetroLog
 {
     public class LogEventInfo
     {
-        public long SequenceID { get; private set; }
-        public LogLevel Level { get; private set; }
-        public string Logger { get; private set; }
-        public string Message { get; private set; }
-        public DateTimeOffset TimeStamp { get; private set; }
+        public long SequenceID { get; set; }
 
-        [JsonConverter(typeof(ExceptionConverter))]
-        public Exception Exception { get; private set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public LogLevel Level { get; set; }
+        public string Logger { get; set; }
+        public string Message { get; set; }
+        public DateTimeOffset TimeStamp { get; set; }
+
+        [JsonIgnore]
+        public Exception Exception { get; set; }
+
+        private ExceptionWrapper _exceptionWrapper;
 
         private static long _globalSequenceId;
 
-        internal LogEventInfo(LogLevel level, string logger, string message, Exception ex)
+        [JsonConstructor()]
+        public LogEventInfo()
+        {
+        }
+
+        public LogEventInfo(LogLevel level, string logger, string message, Exception ex)
         {
             Level = level;
             Logger = logger;
@@ -40,6 +50,25 @@ namespace MetroLog
         public string ToJson()
         {
             return JsonConvert.SerializeObject(this);
+        }
+
+        public static LogEventInfo FromJson(string json)
+        {
+            return JsonConvert.DeserializeObject<LogEventInfo>(json);
+        }
+
+        public ExceptionWrapper ExceptionWrapper
+        {
+            get
+            {
+                if (_exceptionWrapper == null && this.Exception != null)
+                    _exceptionWrapper = new ExceptionWrapper(this.Exception);
+                return _exceptionWrapper;
+            }
+            set
+            {
+                _exceptionWrapper = value;
+            }
         }
     }
 }

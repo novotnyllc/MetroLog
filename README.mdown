@@ -1,70 +1,32 @@
 Overview
 ===
-MetroLog is a lightweight logging framework designed for Metro-style apps. Although the API is based on
+MetroLog is a lightweight logging framework designed for Windows Store and Windows Phone 8 apps. Although the API is based on
 NLog and log4net, the intention is that it's a very basic logging system. 
 
-The need for it to be basic comes from the fact that Metro-style is intentionally limited for very specific 
-applications. This project came out of the fact that porting NLog to Metro-style is difficult because of it's 
-incredibly rich feature set, most of which is not workable in Metro-style.
+The need for it to be basic comes from the fact that the Windows Store apps API surface area intentionally limited for very specific 
+applications. This project came out of the fact that porting NLog to Windows Store apps is difficult because of it's 
+incredibly rich feature set, most of which is not workable in Windows Store apps.
 
-Out-of-the-box, logging operations are intended to send all log levels to `Debug.WriteLine` and [ETW](http://blogs.msdn.com/b/vancem/archive/2012/07/09/logging-your-own-etw-events-in-c-system-diagnostics-tracing-eventsource.aspx), 
-and Error and Fatal levels to a file in the app's `LocalState` folder.
+Out-of-the-box, logging operations are intended to send all log levels to `Debug.WriteLine` and [EventTracingForWindows](https://github.com/mbrit/MetroLog/wiki/EventTracingForWindows) (ETW).
+and ERROR and FATAL levels to a file in the app's `LocalState` folder using [FileSnapshotTarget](https://github.com/mbrit/MetroLog/wiki/FileSnapshotTarget). 
 
-Although `Debug.WriteLine` seems limited, don't forget that you can use [DbgView](http://technet.microsoft.com/en-us/sysinternals/bb896647.aspx)
-to view global system error messages. This is very helpful when chasing down application boot problems.
+Caution on using `Debug.WriteLine` with NuGet. The NuGet packages are compiled as RELEASE mode and `Debug.WriteLine` calls are #ifdef'd out. Use 
+the ETW mode, or [FileStreamingTarget](https://github.com/mbrit/MetroLog/wiki/FileStreamingTarget) to see levels TRACE through WARN.
 
-When `Debug.WriteLine` isn't enough, [Event Tracing for Windows](http://msdn.microsoft.com/en-us/library/windows/desktop/ff190903.aspx) provides a high-performance way to obtain data.
-Tools like [PerfView](http://www.microsoft.com/en-us/download/details.aspx?id=28567) and [Windows Performance Analyzer](http://msdn.microsoft.com/en-us/performance/cc752957.aspx)
-can be useful as they also capture stack traces along with the event.
+For Windows Store apps we recommend that you configure the [SQLiteTarget](https://github.com/mbrit/MetroLog/wiki/SQLiteTarget). For support purposes, 
+you can load entries back out of the SQLite database and package them for email over the Share charm.
+
+You can use [JsonPostTarget](https://github.com/mbrit/MetroLog/wiki/JsonPostTarget) to stream log messages back to an HTTP/HTTPS end-point of your 
+own design. (Although we provide a sample app.)
+
+We ensure that MetroLog is compataible with WACK requirements.
 
 Documentation
 ===
 The intention is that MetroLog is mostly compatible with NLog. Both the surface area and internal construction
 should just about match.
 
-Quick Start
----
-After referencing the MetroLog and Metrolog._platform_ libraries, using MetroLog is very easy. Just obtain a reference to the `ILogManager` 
-with `LogManagerFactory.DefaultLogManager`. If you're doing your own IoC, you can alternatively use `LogManagerFactory.CreateLogManager()`
-if you don't want to use the default instance.
-
-Once you have an `ILogManager`, you can call `GetLogger` on it to get an instance for each `Type` to use.
-
-For those using DI or an IoC container, you can inject `ILogManager` by registering the value of the `DefaultLogManager` property
-in your container setup. This is the recommended approach instead of using `LogManagerFactory.DefaultLogManager` thoughout your code.
-
-###Example
-
-	using System;
-	using MetroLog;
-
-	class LogExample
-	{
-		static void Main(string[] args)
-		{
-			ILogManager logManager = LogManagerFactory.DefaultLogManager;
-
-			// Inject the ILogManager manually
-			SomeMagicClass c = new SomeMagicClass(logManager);
-			c.DoMagic();
-		}
-	}
-
-	class SomeMagicClass
-	{
-		private readonly ILogger _log;
-		public SomeMagicClass(ILogManager logManager)
-		{
-			_log = logManager.GetLogger<SomeMagicClass>();
-		}
-
-		public void DoMagic()
-		{
-			// Log something interesting
-			_log.Info("We are about to do magic!");			
-		}
-	}
-		
+*To get started, read the [Configuration](https://github.com/mbrit/MetroLog/wiki/Configuration) entry in the wiki.*
 
 Unit testing
 ===

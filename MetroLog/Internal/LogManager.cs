@@ -28,11 +28,37 @@ namespace MetroLog.Internal
             DefaultConfiguration = configuration;
         }
 
+        /// <summary>
+        /// Gets the logger for the given object of type <c>T</c>.
+        /// </summary>
+        /// <typeparam name="T">The type of object.</typeparam>
+        /// <param name="config">An optional configuration value.</param>
+        /// <returns>The requested logger.</returns>
         public ILogger GetLogger<T>(LoggingConfiguration config = null)
         {
-            return GetLogger(typeof(T).Name, config);
+            return GetLogger(typeof(T), config);
         }
 
+        /// <summary>
+        /// Gets the logger for the given type.
+        /// </summary>
+        /// <param name="type">The type of object.</param>
+        /// <param name="config">An optional configuration value.</param>
+        /// <returns>The requested logger.</returns>
+        public ILogger GetLogger(Type type, LoggingConfiguration config = null)
+        {
+            if (type == null)
+                throw new ArgumentNullException("type");
+
+            return GetLogger(type.Name, config);
+        }
+
+        /// <summary>
+        /// Gets the logger with the given name.
+        /// </summary>
+        /// <param name="name">The name of the logger.</param>
+        /// <param name="config">An optional configuration value.</param>
+        /// <returns>The requested logger.</returns>
         public ILogger GetLogger(string name = null, LoggingConfiguration config = null)
         {
             lock (_loggersLock)
