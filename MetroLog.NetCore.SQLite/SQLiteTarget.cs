@@ -125,6 +125,21 @@ namespace MetroLog.Targets
 
         private async Task EnsureInitialize()
         {
+            // check the folder...
+            if (this.DatabasePath.Contains("\\") || this.DatabasePath.Contains("/"))
+            {
+                var folder = Path.GetDirectoryName(this.DatabasePath);
+                try
+                {
+                    await ApplicationData.Current.LocalFolder.CreateFolderAsync(folder);
+                }
+                catch
+                {
+                    // ignore...
+                }
+            }
+
+            // get...
             var conn = GetConnection();
             await conn.CreateTablesAsync<LogEventInfoItem, SessionHeaderItem>();
         }
@@ -191,6 +206,8 @@ namespace MetroLog.Targets
         private async Task<IStorageFile> PackageToTempFileAsync(ReadLogEntriesResult result, int maxPayloadMb = 5 * (1024 * 1024))
         {
             var file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync(Guid.NewGuid().ToString() + ".txt");
+
+            // TODO - implement payload maximum...
 
             // ok...
             var json = result.ToJson();

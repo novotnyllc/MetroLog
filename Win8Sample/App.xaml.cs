@@ -33,7 +33,8 @@ namespace Win8Sample
             this.InitializeComponent();
             this.Suspending += OnSuspending;
 
-//            LogManagerFactory.ConfigureGlobalHandler();
+            // setup the global crash handler...
+            GlobalCrashHandler.Configure();
         }
 
         /// <summary>
