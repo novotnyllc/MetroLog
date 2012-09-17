@@ -1,4 +1,5 @@
 ﻿using MetroLog;
+using MetroLog.Targets;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,6 +33,11 @@ namespace Win8Sample
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            // debug?
+#if DEBUG
+            LogManagerFactory.DefaultConfiguration.AddTarget(LogLevel.Trace, LogLevel.Fatal, new DebugTarget());
+#endif
 
             // setup the global crash handler...
             GlobalCrashHandler.Configure();

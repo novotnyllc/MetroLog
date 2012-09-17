@@ -12,11 +12,11 @@ namespace MetroLog.Internal
         private static readonly string[] KnownPlatformNames = new[] { "NetFx", "NetCore" };
         private static IAdapterResolver _resolver = new ProbingAdapterResolver(KnownPlatformNames);
 
-        public static T Resolve<T>()
+        public static T Resolve<T>(bool throwIfNotFound = true)
         {
             T value = (T)_resolver.Resolve(typeof(T));
 
-            if (value == null)
+            if (value == null && throwIfNotFound)
                 throw new PlatformNotSupportedException(Strings.AdapterNotSupported);
 
             return value;

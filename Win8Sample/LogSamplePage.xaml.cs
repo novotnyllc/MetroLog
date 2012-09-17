@@ -93,6 +93,14 @@ namespace Win8Sample
         {
             base.OnNavigatedTo(e);
             
+            // log...
+            if (this.Log.IsInfoEnabled)
+                this.Log.Info("I've been navigated to.");
+
+            // messages...
+            if (this.Log.IsDebugEnabled)
+                this.Log.Debug("I can also format {0}.", "strings");
+
             // set...
             this.labelPath.Text = "Error log files are written to: " + ApplicationData.Current.LocalFolder.Path;
         }

@@ -13,7 +13,6 @@ namespace MetroLog.Internal
         {
             // default logging config...
             var configuration = new LoggingConfiguration();
-            configuration.AddTarget(LogLevel.Trace, LogLevel.Fatal, new DebugTarget());
             configuration.AddTarget(LogLevel.Trace, LogLevel.Fatal, new EtwTarget());
 
             return configuration;
@@ -25,3 +24,4 @@ namespace MetroLog.Internal
         }
     }
 }
+

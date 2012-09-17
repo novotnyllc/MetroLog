@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MetroLog;
 using System.Diagnostics;
+using MetroLog.Targets;
 
 namespace ConsoleSample
 {
@@ -15,7 +16,7 @@ namespace ConsoleSample
             try
             {
                 // Initialize MetroLog using the defaults
-
+                LogManagerFactory.DefaultConfiguration.AddTarget(LogLevel.Trace, LogLevel.Fatal, new DebugTarget());
                 ILogManager logManager = LogManagerFactory.DefaultLogManager;
 
                 // Inject the ILogManager manually
