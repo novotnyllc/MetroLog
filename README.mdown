@@ -1,16 +1,21 @@
 Overview
 ===
-MetroLog is a lightweight logging framework designed for Metro-style apps. Although the API is based on
+MetroLog is a lightweight logging framework designed for Windows Store and Windows Phone 8 apps. Although the API is based on
 NLog and log4net, the intention is that it's a very basic logging system. 
 
-The need for it to be basic comes from the fact that Metro-style is intentionally limited for very specific 
-applications. This project came out of the fact that porting NLog to Metro-style is difficult because of it's 
-incredibly rich feature set, most of which is not workable in Metro-style.
+The need for it to be basic comes from the fact that the Windows Store apps API surface area intentionally limited for very specific 
+applications. This project came out of the fact that porting NLog to Windows Store apps is difficult because of it's 
+incredibly rich feature set, most of which is not workable in Windows Store apps.
 
-Out-of-the-box, logging operations are intended to send all log levels to `Debug.WriteLine` and [[EventTracingForWindows]], 
-and Error and Fatal levels to a file in the app's `LocalState` folder using `[[FileSnapshotTarget]]`.
+Out-of-the-box, logging operations are intended to send all log levels to `Debug.WriteLine` and [EventTracingForWindows](https://github.com/mbrit/MetroLog/wiki/EventTracingForWindows) (ETW).
+and ERROR and FATAL levels to a file in the app's `LocalState` folder using `[FileSnapshotTarget](https://github.com/mbrit/MetroLog/wiki/FileSnapshotTarget)`. 
 
-For Windows Store apps we recommend that you configure the `[[SQLiteTarget]]`.
+Caution on using `Debug.WriteLine` with NuGet. The NuGet packages are compiled as RELEASE mode and `Debug.WriteLine` calls are #ifdef'd out. Use 
+the ETW mode, or `[SQLiteTarget](https://github.com/mbrit/MetroLog/wiki/FileStreamingTarget)` to see levels TRACE through WARN.
+
+For Windows Store apps we recommend that you configure the `[SQLiteTarget](https://github.com/mbrit/MetroLog/wiki/SQLiteTarget)`.
+
+We ensure that apps built with MetroLog will pass the WACK.
 
 Documentation
 ===
@@ -42,7 +47,8 @@ Log information when you need to:
                 this.Log.Debug("I can also format {0}.", "strings");
         }
 
-For Windows Store apps, you might want to configure the [[GlobalCrashHandler]]. You may also want to use the [[XamlExtensionMethods]].		
+For Windows Store apps, you might want to configure the [GlobalCrashHandler](https://github.com/mbrit/MetroLog/wiki/GlobalCrashHandler). 
+You may also want to use the [XamlExtensionMethods](https://github.com/mbrit/MetroLog/wiki/XamlExtensionMethods).		
 
 Unit testing
 ===
