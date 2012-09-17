@@ -12,6 +12,7 @@ namespace MetroLog
         LoggingConfiguration DefaultConfiguration { get; }
 
         ILogger GetLogger<T>(LoggingConfiguration config = null);
+        ILogger GetLogger(Type type, LoggingConfiguration config = null);
         ILogger GetLogger(string name, LoggingConfiguration config = null);
         
         event EventHandler<LoggerEventArgs> LoggerCreated;

@@ -1,12 +1,15 @@
 ﻿using MetroLog;
+using MetroLog.Packaging;
 using MetroLog.Targets;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -24,15 +27,43 @@ namespace Win8Sample
     /// </summary>
     public sealed partial class LogSamplePage : Win8Sample.Common.LayoutAwarePage
     {
-        private ILogger Log = LogManagerFactory.DefaultLogManager.GetLogger<LogSamplePage>();
+        private ILogger Log { get; set; }
+
+        private SQLiteTarget SQLiteTarget { get; set; }
 
         private bool DoFileStreaming { get; set; }
         private bool DoJsonPost { get; set; }
         private bool DoSqlite { get; set; }
 
+        private IStorageFile FileToShare { get; set; }
+
         public LogSamplePage()
         {
             this.InitializeComponent();
+
+            // you can either initialize the logger like this:
+            //      private ILogger Log = LogManagerFactory.DefaultLogManager.GetLogger<LogSamplePage>();
+            // ...or with the extension method...
+            this.Log = this.GetLogger();
+
+            // you could even add Log as a property your LayoutAwarePage class...
+
+            // setup...
+            this.SetupSharing();
+        }
+
+        private void SetupSharing()
+        {
+            var manager = DataTransferManager.GetForCurrentView();
+            manager.DataRequested += manager_DataRequested;
+        }
+
+        void manager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            var data = args.Request.Data;
+            data.Properties.Title = "Diagnostic Information";
+            data.Properties.Description = "Email to <your support email address here>";
+            data.SetStorageItems(new List<IStorageItem>() { this.FileToShare });
         }
 
         /// <summary>
@@ -143,6 +174,7 @@ namespace Win8Sample
 
             // set...
             this.buttonSQLite.IsEnabled = false;
+            this.buttonReadSQLite.IsEnabled = true;
         }
 
         private LoggingConfiguration CreateNewSettings()
@@ -152,11 +184,30 @@ namespace Win8Sample
                 settings.AddTarget(LogLevel.Trace, LogLevel.Fatal, new FileStreamingTarget());
             if (this.DoJsonPost)
                 settings.AddTarget(LogLevel.Trace, LogLevel.Fatal, new JsonPostTarget(5, new Uri("http://localhost/metrologweb/ReceiveLogEntries.ashx")));
-            if(this.DoSqlite)
-                settings.AddTarget(LogLevel.Trace, LogLevel.Fatal, new SQLiteTarget());
+            if (this.DoSqlite)
+            {
+                this.SQLiteTarget = new SQLiteTarget();
+                settings.AddTarget(LogLevel.Trace, LogLevel.Fatal, this.SQLiteTarget);
+            }
 
             // return...
             return settings;
+        }
+
+        private async void HandleReadSQLiteValues(object sender, RoutedEventArgs e)
+        {
+            // read some values back...
+            var query = new LogReadQuery();
+            query.SetLevels(LogLevel.Trace, LogLevel.Fatal);
+            var file = await this.SQLiteTarget.PackageToTempFileAsync(query);
+
+            // replace...
+            if (this.FileToShare != null)
+                await this.FileToShare.DeleteAsync();
+            this.FileToShare = file;
+
+            // share...
+            DataTransferManager.ShowShareUI();
         }
     }
 }

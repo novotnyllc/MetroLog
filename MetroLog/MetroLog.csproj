@@ -107,6 +107,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ExceptionWrapper.cs" />
     <Compile Include="ILogConfigurator.cs" />
     <Compile Include="LoggerEventArgs.cs" />
     <Compile Include="ILoggerQuery.cs" />
@@ -145,8 +146,10 @@
     <Compile Include="Targets\FileNamingParameters.cs" />
     <Compile Include="Targets\FileTimestampMoe.cs" />
     <Compile Include="Targets\HttpClientEventHandler.cs" />
+    <Compile Include="Targets\IReadableTarget.cs" />
     <Compile Include="Targets\JsonPostTarget.cs" />
     <Compile Include="Targets\JsonPostWrapper.cs" />
+    <Compile Include="Targets\LogReadQuery.cs" />
     <Compile Include="Targets\SyncTarget.cs" />
     <Compile Include="Targets\TargetBinding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

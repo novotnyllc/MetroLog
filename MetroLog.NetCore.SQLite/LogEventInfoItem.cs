@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using Newtonsoft.Json;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +11,14 @@ namespace MetroLog.Targets
     /// <summary>
     /// Defines the class uses for serializing log entries to the database.
     /// </summary>
+    [JsonConverter(typeof(LogEventInfoItemConverter))]
     public class LogEventInfoItem
     {
         [PrimaryKey, AutoIncrement]
         public int ItemId { get; set; }
 
+        public int SessionId { get; set; }
         public DateTime DateTimeUtc { get; set; }
-        public string SessionId { get; set; }
         public long SequenceId { get; set; }
         public LogLevel Level { get; set; }
         public string Logger { get; set; }
@@ -24,17 +26,18 @@ namespace MetroLog.Targets
 
         public bool HasException { get; set; }
         public string Exception { get; set; }
+        public string ExceptionTypeName { get; set; }
         public int ExceptionHresult { get; set; }
 
         public LogEventInfoItem()
         {
         }
 
-        internal static LogEventInfoItem GetForInsert(LogWriteContext context, LogEventInfo info)
+        internal static LogEventInfoItem GetForInsert(LogWriteContext context, LogEventInfo info, SessionHeaderItem session)
         {
             var item = new LogEventInfoItem()
             {
-                SessionId = context.Environment.SessionId.ToString(),
+                SessionId = session.SessionId,
                 DateTimeUtc = info.TimeStamp.UtcDateTime,
                 SequenceId = info.SequenceID,
                 Level = info.Level,
@@ -55,6 +58,33 @@ namespace MetroLog.Targets
             this.HasException = true;
             this.Exception = ex.ToString();
             this.ExceptionHresult = ex.HResult;
+        }
+
+        internal string ToJson()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
+
+        internal LogEventInfo ToLogEventInfo()
+        {
+            // pass this through json...
+            var json = this.ToJson();
+            return LogEventInfo.FromJson(json);
+        }
+
+        internal ExceptionWrapper GetExceptionWrapper()
+        {
+            if (this.HasException)
+            {
+                return new ExceptionWrapper()
+                {
+                    AsString = this.Exception,
+                    TypeName = this.ExceptionTypeName,
+                    Hresult = this.ExceptionHresult
+                };
+            }
+            else
+                return null;
         }
     }
 }

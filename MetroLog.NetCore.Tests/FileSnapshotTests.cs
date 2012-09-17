@@ -12,7 +12,7 @@ using Xunit;
 namespace MetroLog.NetCore.Tests
 {
     
-    public class FileSnapshotTests
+    public class FileSnapshotTargetTests
     {
         [Fact]
         public async Task TestFileSnapshot()
