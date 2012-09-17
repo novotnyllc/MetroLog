@@ -11,11 +11,12 @@ Out-of-the-box, logging operations are intended to send all log levels to `Debug
 and ERROR and FATAL levels to a file in the app's `LocalState` folder using `[FileSnapshotTarget]`(https://github.com/mbrit/MetroLog/wiki/FileSnapshotTarget). 
 
 Caution on using `Debug.WriteLine` with NuGet. The NuGet packages are compiled as RELEASE mode and `Debug.WriteLine` calls are #ifdef'd out. Use 
-the ETW mode, or `[SQLiteTarget]`(https://github.com/mbrit/MetroLog/wiki/FileStreamingTarget) to see levels TRACE through WARN.
+the ETW mode, or `[FileStreamingTarget]`(https://github.com/mbrit/MetroLog/wiki/FileStreamingTarget) to see levels TRACE through WARN.
 
-For Windows Store apps we recommend that you configure the `[SQLiteTarget]`(https://github.com/mbrit/MetroLog/wiki/SQLiteTarget).
+For Windows Store apps we recommend that you configure the `[SQLiteTarget]`(https://github.com/mbrit/MetroLog/wiki/SQLiteTarget). For support purposes, 
+you can load entries back out of the SQLite database and package them for email over the Share charm.
 
-We ensure that apps built with MetroLog will pass the WACK.
+We ensure that MetroLog is compataible with WACK requirements.
 
 Documentation
 ===
