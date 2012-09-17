@@ -8,12 +8,12 @@ applications. This project came out of the fact that porting NLog to Windows Sto
 incredibly rich feature set, most of which is not workable in Windows Store apps.
 
 Out-of-the-box, logging operations are intended to send all log levels to `Debug.WriteLine` and [EventTracingForWindows](https://github.com/mbrit/MetroLog/wiki/EventTracingForWindows) (ETW).
-and ERROR and FATAL levels to a file in the app's `LocalState` folder using `[FileSnapshotTarget](https://github.com/mbrit/MetroLog/wiki/FileSnapshotTarget)`. 
+and ERROR and FATAL levels to a file in the app's `LocalState` folder using `[FileSnapshotTarget]`(https://github.com/mbrit/MetroLog/wiki/FileSnapshotTarget). 
 
 Caution on using `Debug.WriteLine` with NuGet. The NuGet packages are compiled as RELEASE mode and `Debug.WriteLine` calls are #ifdef'd out. Use 
-the ETW mode, or `[SQLiteTarget](https://github.com/mbrit/MetroLog/wiki/FileStreamingTarget)` to see levels TRACE through WARN.
+the ETW mode, or `[SQLiteTarget]`(https://github.com/mbrit/MetroLog/wiki/FileStreamingTarget) to see levels TRACE through WARN.
 
-For Windows Store apps we recommend that you configure the `[SQLiteTarget](https://github.com/mbrit/MetroLog/wiki/SQLiteTarget)`.
+For Windows Store apps we recommend that you configure the `[SQLiteTarget]`(https://github.com/mbrit/MetroLog/wiki/SQLiteTarget).
 
 We ensure that apps built with MetroLog will pass the WACK.
 
@@ -47,7 +47,7 @@ Log information when you need to:
                 this.Log.Debug("I can also format {0}.", "strings");
         }
 
-For Windows Store apps, you might want to configure the [GlobalCrashHandler](https://github.com/mbrit/MetroLog/wiki/GlobalCrashHandler). 
+For Windows Store apps, you might want to configure the [WindowsStoreAppCrashHandler](https://github.com/mbrit/MetroLog/wiki/WindowsStoreAppCrashHandler). 
 You may also want to use the [XamlExtensionMethods](https://github.com/mbrit/MetroLog/wiki/XamlExtensionMethods).		
 
 Unit testing
