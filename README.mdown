@@ -8,13 +8,16 @@ applications. This project came out of the fact that porting NLog to Windows Sto
 incredibly rich feature set, most of which is not workable in Windows Store apps.
 
 Out-of-the-box, logging operations are intended to send all log levels to `Debug.WriteLine` and [EventTracingForWindows](https://github.com/mbrit/MetroLog/wiki/EventTracingForWindows) (ETW).
-and ERROR and FATAL levels to a file in the app's `LocalState` folder using `[FileSnapshotTarget]`(https://github.com/mbrit/MetroLog/wiki/FileSnapshotTarget). 
+and ERROR and FATAL levels to a file in the app's `LocalState` folder using [FileSnapshotTarget](https://github.com/mbrit/MetroLog/wiki/FileSnapshotTarget). 
 
 Caution on using `Debug.WriteLine` with NuGet. The NuGet packages are compiled as RELEASE mode and `Debug.WriteLine` calls are #ifdef'd out. Use 
 the ETW mode, or [FileStreamingTarget](https://github.com/mbrit/MetroLog/wiki/FileStreamingTarget) to see levels TRACE through WARN.
 
 For Windows Store apps we recommend that you configure the [SQLiteTarget](https://github.com/mbrit/MetroLog/wiki/SQLiteTarget). For support purposes, 
 you can load entries back out of the SQLite database and package them for email over the Share charm.
+
+You can use [JsonPostTarget](https://github.com/mbrit/MetroLog/wiki/JsonPostTarget) to stream log messages back to an HTTP/HTTPS end-point of your 
+own design. (Although we provide a sample app.)
 
 We ensure that MetroLog is compataible with WACK requirements.
 
