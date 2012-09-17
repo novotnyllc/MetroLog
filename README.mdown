@@ -11,9 +11,9 @@ Out-of-the-box, logging operations are intended to send all log levels to `Debug
 and ERROR and FATAL levels to a file in the app's `LocalState` folder using `[FileSnapshotTarget]`(https://github.com/mbrit/MetroLog/wiki/FileSnapshotTarget). 
 
 Caution on using `Debug.WriteLine` with NuGet. The NuGet packages are compiled as RELEASE mode and `Debug.WriteLine` calls are #ifdef'd out. Use 
-the ETW mode, or `[FileStreamingTarget]`(https://github.com/mbrit/MetroLog/wiki/FileStreamingTarget) to see levels TRACE through WARN.
+the ETW mode, or [FileStreamingTarget](https://github.com/mbrit/MetroLog/wiki/FileStreamingTarget) to see levels TRACE through WARN.
 
-For Windows Store apps we recommend that you configure the `[SQLiteTarget]`(https://github.com/mbrit/MetroLog/wiki/SQLiteTarget). For support purposes, 
+For Windows Store apps we recommend that you configure the [SQLiteTarget](https://github.com/mbrit/MetroLog/wiki/SQLiteTarget). For support purposes, 
 you can load entries back out of the SQLite database and package them for email over the Share charm.
 
 We ensure that MetroLog is compataible with WACK requirements.
@@ -23,33 +23,7 @@ Documentation
 The intention is that MetroLog is mostly compatible with NLog. Both the surface area and internal construction
 should just about match.
 
-Quick Start
----
-Include the NuGet package. (Choose the one for the platform you want, the PCL dependency library is automatically added.)
-
-Request the logger when you need it:
-
-    public sealed partial class LogSamplePage : Win8Sample.Common.LayoutAwarePage
-    {
-        private ILogger Log = LogManagerFactory.DefaultLogManager.GetLogger<LogSamplePage>();
-
-Log information when you need to:
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            
-            // log...
-            if (this.Log.IsInfoEnabled)
-                this.Log.Info("I've been navigated to.");
-
-            // messages...
-            if (this.Log.IsDebugEnabled)
-                this.Log.Debug("I can also format {0}.", "strings");
-        }
-
-For Windows Store apps, you might want to configure the [WindowsStoreAppCrashHandler](https://github.com/mbrit/MetroLog/wiki/WindowsStoreAppCrashHandler). 
-You may also want to use the [XamlExtensionMethods](https://github.com/mbrit/MetroLog/wiki/XamlExtensionMethods).		
+*To get started, read the [Configuration](https://github.com/mbrit/MetroLog/wiki/Configuration) entry in the wiki.*
 
 Unit testing
 ===
