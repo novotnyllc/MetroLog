@@ -57,6 +57,7 @@ namespace MetroLog.Targets
         {
             this.HasException = true;
             this.Exception = ex.ToString();
+            this.ExceptionTypeName = ex.GetType().AssemblyQualifiedName;
             this.ExceptionHresult = ex.HResult;
         }
 
