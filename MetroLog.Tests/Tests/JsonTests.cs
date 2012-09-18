@@ -1,9 +1,13 @@
-﻿using System;
+﻿extern alias netfx;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+
+
 
 namespace MetroLog.Tests
 {
@@ -81,7 +85,7 @@ namespace MetroLog.Tests
         [Fact]
         public void TestLoggingEnvironmentToJson()
         {
-            var environment = new LoggingEnvironment();
+            var environment = new netfx::MetroLog.LoggingEnvironment();
             var json = environment.ToJson();
 
             // check...

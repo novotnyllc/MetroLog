@@ -48,6 +48,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="DebugOutput.cs" />
     <Compile Include="LoggingEnvironment.cs" />
     <Compile Include="LogConfigurator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -143,10 +143,12 @@
     <ProjectReference Include="..\MetroLog.NetCore\MetroLog.NetCore.csproj">
       <Project>{429ee5fc-46fe-4249-bb40-8dc6d9023a04}</Project>
       <Name>MetroLog.NetCore</Name>
+      <Aliases>global, netcore</Aliases>
     </ProjectReference>
     <ProjectReference Include="..\MetroLog\MetroLog.csproj">
       <Project>{65e2062e-aac2-4054-aae6-d6764040c769}</Project>
       <Name>MetroLog</Name>
+      <Aliases>global, pcl</Aliases>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
