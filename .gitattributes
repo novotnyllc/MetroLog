@@ -15,7 +15,7 @@
 *.fsproj merge=union
 *.manifest text
 *.msbuild text
-*.nuspec utf16
+*.nuspec text
 *.resw text merge=union
 *.resx text merge=union
 *.ruleset text
