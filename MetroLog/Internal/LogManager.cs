@@ -59,16 +59,17 @@ namespace MetroLog.Internal
         /// <param name="name">The name of the logger.</param>
         /// <param name="config">An optional configuration value.</param>
         /// <returns>The requested logger.</returns>
-        public ILogger GetLogger(string name = null, LoggingConfiguration config = null)
+        public ILogger GetLogger(string name, LoggingConfiguration config = null)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentNullException("name");
+
             lock (_loggersLock)
             {
                 if (!(_loggers.ContainsKey(name)))
                 {
-                    var logger = new Logger(name, config ?? DefaultConfiguration)
-                    {
-                        Manager = this
-                    };
+                    var logger = new Logger(name, config ?? DefaultConfiguration);
+                    InternalLogger.Current.Info("Created Logger '{0}'", name);
 
                     // call...
                     this.OnLoggerCreatedSafe(new LoggerEventArgs(logger));
@@ -92,10 +93,11 @@ namespace MetroLog.Internal
             }
         }
 
-        protected virtual void OnLoggerCreated(LoggerEventArgs args)
+        private void OnLoggerCreated(LoggerEventArgs args)
         {
-            if (this.LoggerCreated != null)
-                this.LoggerCreated(this, args);
+            var evt = LoggerCreated;
+            if (evt != null)
+                evt(this, args);
         }
 
         // logs problems with the framework to Debug...

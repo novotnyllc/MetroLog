@@ -11,7 +11,6 @@ namespace MetroLog.Internal
     {
         public string Name { get; private set; }
         private readonly LoggingConfiguration _configuration;
-        protected internal ILogManager Manager { get; internal set; }
 
         internal Logger(string name, LoggingConfiguration config)
         {

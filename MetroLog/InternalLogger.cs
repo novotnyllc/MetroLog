@@ -9,7 +9,7 @@ namespace MetroLog
 {
     public class InternalLogger : ILogger
     {
-        private static InternalLogger _current;
+        private static readonly InternalLogger _current;
 
         private InternalLogger()
         {
@@ -117,7 +117,7 @@ namespace MetroLog
 
             // debug...
             System.Diagnostics.Debug.WriteLine(formatted);
-
+            PlatformAdapter.Resolve<IDebugOutput>().WriteLine(formatted);
             // TODO: EWT
         }
 

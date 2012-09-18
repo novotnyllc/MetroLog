@@ -60,7 +60,12 @@ namespace MetroLog.Internal
                 Type type = assembly.GetType(typeName);
                 if (type != null)
                     return Activator.CreateInstance(type);
-
+                
+                // Fallback to looking in this assembly for a default
+                type = typeof (ProbingAdapterResolver).GetTypeInfo().Assembly.GetType(typeName);
+                if (type != null)
+                    return Activator.CreateInstance(type);
+                
                 return type;
             }
             catch
