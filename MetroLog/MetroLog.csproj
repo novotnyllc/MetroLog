@@ -159,6 +159,8 @@
     <None Include="..\MetroLog.snk">
       <Link>MetroLog.snk</Link>
     </None>
+    <None Include="Internal\PlatformAdapter.cd" />
+    <None Include="LogConfigurator.dgml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
