@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define DEBUG
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -23,6 +25,7 @@ namespace MetroLog.Targets
         protected override void Write(LogWriteContext context, LogEventInfo entry)
         {
             var message = Layout.GetFormattedString(context, entry);
+
             Debug.WriteLine(message);
         }
     }

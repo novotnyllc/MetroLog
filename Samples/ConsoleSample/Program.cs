@@ -16,7 +16,7 @@ namespace ConsoleSample
             try
             {
                 // Initialize MetroLog using the defaults
-                LogManagerFactory.DefaultConfiguration.AddTarget(LogLevel.Trace, LogLevel.Fatal, new DebugTarget());
+                //LogManagerFactory.DefaultConfiguration.AddTarget(LogLevel.Trace, LogLevel.Fatal, new DebugTarget());
                 ILogManager logManager = LogManagerFactory.DefaultLogManager;
 
                 // Inject the ILogManager manually

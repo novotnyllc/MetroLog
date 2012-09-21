@@ -146,6 +146,7 @@
     </Compile>
     <Compile Include="Targets\AsyncTarget.cs" />
     <Compile Include="Targets\BufferedTarget.cs" />
+    <Compile Include="Targets\DebugTarget.cs" />
     <Compile Include="Targets\EtwTarget.cs" />
     <Compile Include="Targets\FileNamingParameters.cs" />
     <Compile Include="Targets\FileTimestampMoe.cs" />
