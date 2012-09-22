@@ -109,6 +109,8 @@
     </Compile>
     <Compile Include="ExceptionWrapper.cs" />
     <Compile Include="ILogConfigurator.cs" />
+    <Compile Include="Internal\AsyncLock.cs" />
+    <Compile Include="Internal\AsyncSemaphore.cs" />
     <Compile Include="LogConfigurator.cs" />
     <Compile Include="LoggerEventArgs.cs" />
     <Compile Include="ILoggerQuery.cs" />
@@ -149,9 +151,8 @@
     <Compile Include="Targets\FileCreationMode.cs" />
     <Compile Include="Targets\FileNamingParameters.cs" />
     <Compile Include="Targets\FileTargetBase.cs" />
-    <Compile Include="Targets\FileTimestampMoe.cs" />
+    <Compile Include="Targets\FileTimestampMode.cs" />
     <Compile Include="Targets\HttpClientEventHandler.cs" />
-    <Compile Include="Targets\IReadableTarget.cs" />
     <Compile Include="Targets\JsonPostTarget.cs" />
     <Compile Include="Targets\JsonPostWrapper.cs" />
     <Compile Include="Targets\LogReadQuery.cs" />

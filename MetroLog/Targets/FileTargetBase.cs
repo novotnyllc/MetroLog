@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using MetroLog.Internal;
 using MetroLog.Layouts;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,8 @@ namespace MetroLog.Targets
         /// Holds the next cleanup time.
         /// </summary>
         protected DateTime NextCleanupUtc { get; set; }
+
+        private readonly AsyncLock _lock = new AsyncLock();
 
         protected FileTargetBase(Layout layout)
             : base(layout)
@@ -68,13 +71,16 @@ namespace MetroLog.Targets
 
         sealed protected override async Task<LogWriteOperation> WriteAsyncCore(LogWriteContext context, LogEventInfo entry)
         {
-            await EnsureInitialized();
-            await CheckCleanupAsync();
+            using (await _lock.LockAsync())
+            {
+                await EnsureInitialized();
+                await CheckCleanupAsync();
 
-            var filename = FileNamingParameters.GetFilename(context, entry);
-            var contents = Layout.GetFormattedString(context, entry);
+                var filename = FileNamingParameters.GetFilename(context, entry);
+                var contents = Layout.GetFormattedString(context, entry);
 
-            return await DoWriteAsync(filename, contents, entry);
+                return await DoWriteAsync(filename, contents, entry);
+            }
         }
 
         protected abstract Task<LogWriteOperation> DoWriteAsync(string fileName, string contents, LogEventInfo entry);

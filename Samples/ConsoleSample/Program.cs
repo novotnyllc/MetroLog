@@ -16,7 +16,7 @@ namespace ConsoleSample
             try
             {
                 // Initialize MetroLog using the defaults
-                //LogManagerFactory.DefaultConfiguration.AddTarget(LogLevel.Trace, LogLevel.Fatal, new DebugTarget());
+                LogManagerFactory.DefaultConfiguration.AddTarget(LogLevel.Trace, LogLevel.Fatal, new StreamingFileTarget());
                 ILogManager logManager = LogManagerFactory.DefaultLogManager;
 
                 // Inject the ILogManager manually
@@ -27,7 +27,7 @@ namespace ConsoleSample
             {
                 // If we have a debugger, stop so you can see the output
                 if (Debugger.IsAttached)
-                    Console.ReadLine();
+                    Console.ReadKey();
             }
         }
     }
@@ -49,6 +49,15 @@ namespace ConsoleSample
             _log.Trace("Trace some data.");
             _log.Error("Something bad happened at {0}", DateTime.Now);
             _log.Fatal("Danger Will Robinson!");
+
+            try
+            {
+                throw new InvalidOperationException("Test");
+            }
+            catch(Exception e)
+            {
+                _log.Error("Bad thing!", e);
+            }
         }
     }
 

@@ -65,7 +65,7 @@ namespace MetroLog
             return EnsureInitializedAsync();
         }
 
-        protected override async Task DoCleanup(Regex pattern, DateTime threshold)
+        sealed protected override async Task DoCleanup(Regex pattern, DateTime threshold)
         {
 
             var toDelete = new List<StorageFile>();
