@@ -15,7 +15,7 @@ namespace MetroLog.Targets
         {
         }
 
-        protected internal override sealed Task<LogWriteOperation> WriteAsync(LogWriteContext context, LogEventInfo entry)
+        protected override sealed Task<LogWriteOperation> WriteAsyncCore(LogWriteContext context, LogEventInfo entry)
         {
             try
             {

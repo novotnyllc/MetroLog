@@ -12,7 +12,7 @@ namespace MetroLog.Targets
     /// <summary>
     /// Defines a target that will append messages to a single file.
     /// </summary>
-    public class FileStreamingTarget : FileTargetBase
+    public class FileStreamingTarget : WinRTFileTarget
     {
         public FileStreamingTarget()
             : this(new SingleLineLayout())
@@ -27,26 +27,12 @@ namespace MetroLog.Targets
             this.FileNamingParameters.IncludeSequence = false;
             this.FileNamingParameters.IncludeSession = false;
             this.FileNamingParameters.IncludeTimestamp = FileTimestampMode.Date;
+            FileNamingParameters.CreationMode = FileCreationMode.AppendIfExisting;
         }
 
-        protected override async Task<LogWriteOperation> WriteAsync(LogWriteContext context, LogEventInfo entry)
+        protected override Task WriteTextToFileCore(IStorageFile file, string contents)
         {
-            var folder = await FileSnapshotTarget.EnsureInitializedAsync();
-
-            // cleanup...
-            await this.CheckCleanupAsync(folder);
-
-            // write...
-            var filename = this.FileNamingParameters.GetFilename(context, entry);
-            var file = await folder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists);
-
-            // need to append a session header...
-
-            // append...
-            await FileIO.AppendTextAsync(file, this.Layout.GetFormattedString(context, entry) + "\r\n");
-
-            // return...
-            return new LogWriteOperation(this, entry, true);
+            return FileIO.AppendTextAsync(file, contents + Environment.NewLine).AsTask();
         }
     }
 }

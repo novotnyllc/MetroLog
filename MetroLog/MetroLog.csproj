@@ -146,7 +146,9 @@
     <Compile Include="Targets\BufferedTarget.cs" />
     <Compile Include="Targets\DebugTarget.cs" />
     <Compile Include="Targets\EtwTarget.cs" />
+    <Compile Include="Targets\FileCreationMode.cs" />
     <Compile Include="Targets\FileNamingParameters.cs" />
+    <Compile Include="Targets\FileTargetBase.cs" />
     <Compile Include="Targets\FileTimestampMoe.cs" />
     <Compile Include="Targets\HttpClientEventHandler.cs" />
     <Compile Include="Targets\IReadableTarget.cs" />

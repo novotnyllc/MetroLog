@@ -17,6 +17,7 @@ namespace MetroLog.Targets
         public bool IncludeLogger { get; set; }
         public bool IncludeSession { get; set; }
         public bool IncludeSequence { get; set; }
+        public FileCreationMode CreationMode { get; set; }
 
         public FileNamingParameters()
         {
@@ -25,6 +26,7 @@ namespace MetroLog.Targets
             this.IncludeLogger = false;
             this.IncludeSession = true;
             this.IncludeSequence = false;
+            CreationMode = FileCreationMode.AppendIfExisting;
         }
 
         public string GetFilename(LogWriteContext context, LogEventInfo entry)

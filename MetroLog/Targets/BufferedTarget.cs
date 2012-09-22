@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MetroLog.Targets
 {
-    public abstract class BufferedTarget : Target, ILazyFlushable
+    public abstract class BufferedTarget : AsyncTarget, ILazyFlushable
     {
         private List<LogEventInfo> Buffer { get; set; }
         private object _lock = new object();
@@ -24,7 +24,7 @@ namespace MetroLog.Targets
             this.Buffer = new List<LogEventInfo>();
         }
 
-        protected internal override sealed Task<LogWriteOperation> WriteAsync(LogWriteContext context, LogEventInfo entry)
+        protected override sealed Task<LogWriteOperation> WriteAsyncCore(LogWriteContext context, LogEventInfo entry)
         {
             try
             {

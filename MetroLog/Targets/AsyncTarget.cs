@@ -13,5 +13,7 @@ namespace MetroLog.Targets
             : base(layout)
         {
         }
+
+        
     }
 }

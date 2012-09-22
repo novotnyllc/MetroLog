@@ -59,7 +59,7 @@ namespace MetroLog.Targets
             Headers = new Dictionary<Guid, SessionHeaderItem>();
         }
 
-        protected override async Task<LogWriteOperation> WriteAsync(LogWriteContext context, LogEventInfo entry)
+        protected override async Task<LogWriteOperation> WriteAsyncCore(LogWriteContext context, LogEventInfo entry)
         {
             await EnsureInitialize();
 
