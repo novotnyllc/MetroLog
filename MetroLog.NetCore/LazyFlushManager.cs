@@ -55,7 +55,10 @@ namespace MetroLog
         static LazyFlushManager()
         {
             Owners = new Dictionary<ILogManager, LazyFlushManager>();
-            Application.Current.Suspending += Current_Suspending;
+
+            // only if we have an application...
+            if(LoggingEnvironment.XamlApplicationState == XamlApplicationState.Available)
+                Application.Current.Suspending += Current_Suspending;
         }
 
         private static async void Current_Suspending(object sender, Windows.ApplicationModel.SuspendingEventArgs e)

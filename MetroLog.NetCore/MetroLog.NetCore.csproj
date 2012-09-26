@@ -121,6 +121,7 @@
     <Compile Include="LazyFlushManager.cs" />
     <Compile Include="StorageFilePackager.cs" />
     <Compile Include="WinRTFileTarget.cs" />
+    <Compile Include="XamlApplicationState.cs" />
     <Compile Include="XamlExtensionMethods.cs" />
   </ItemGroup>
   <ItemGroup>

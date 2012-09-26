@@ -34,6 +34,11 @@ namespace MetroLog
         /// </summary>
         public string InstallationId { get; private set; }
 
+        /// <summary>
+        /// Holds whether we are able to access a running XAML application.
+        /// </summary>
+        private static XamlApplicationState _xamlApplicationState; 
+
         public LoggingEnvironment()
             : base(".NET Core")
         {
@@ -60,6 +65,30 @@ namespace MetroLog
             {
                 this.InstallationId = Guid.NewGuid().ToString();
                 ls.Values[key] = this.InstallationId;
+            }
+        }
+
+        internal static XamlApplicationState XamlApplicationState
+        {
+            get
+            {
+                if (_xamlApplicationState == MetroLog.XamlApplicationState.Unknown)
+                {
+                    // the expected behaviour here is the exception - the else case is provided to
+                    // ensure the compiler doesn't optimize out the check (and to be thorough)...
+                    try
+                    {
+                        if (Application.Current != null)
+                            _xamlApplicationState = XamlApplicationState.Available;
+                        else
+                            _xamlApplicationState = XamlApplicationState.Unavailable;
+                    }
+                    catch
+                    {
+                        _xamlApplicationState = XamlApplicationState.Unavailable;
+                    }
+                }
+                return _xamlApplicationState;
             }
         }
     }
