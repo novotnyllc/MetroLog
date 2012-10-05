@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>MetroLog</id>
-        <version>0.6.2.0</version>
+        <version>0.6.4.0</version>
         <title>MetroLog Lightweight Logging for Portable code</title>
         <authors>Matt Baxter-Reynolds,Oren Novotny</authors>
         <owners>onovotny</owners>
@@ -13,11 +13,9 @@
 
 This version targets .NET 4.5 and .NET Core 4.5 (Windows Store apps)</description>
         <summary />
-        <releaseNotes />
+        <releaseNotes>Collapsed into a single NuGet package using the new PCL support</releaseNotes>
         <tags>Logging WinRT NLog log4net portable pcl</tags>
-        <dependencies>
-            <dependency id="MetroLog.Common" version="0.6.2.0" />
-        </dependencies>
+        <dependencies />
     </metadata>
     <files>
         <file src="..\MetroLog.NetFx\bin\Release\MetroLog.NetFx.dll" target="lib\net45\MetroLog.NetFx.dll" />
@@ -25,5 +23,7 @@ This version targets .NET 4.5 and .NET Core 4.5 (Windows Store apps)</descriptio
         <file src="..\MetroLog.NetCore\bin\Release\MetroLog.NetCore.dll" target="lib\netcore45\MetroLog.NetCore.dll" />
         <file src="..\MetroLog.NetCore\bin\Release\MetroLog.NetCore.pdb" target="lib\netcore45\MetroLog.NetCore.pdb" />
         <file src="..\MetroLog.NetCore\bin\Release\MetroLog.NetCore.pri" target="lib\netcore45\MetroLog.NetCore.pri" />
+        <file src="..\MetroLog\bin\Release\MetroLog.dll" target="lib\portable-net45+win8\MetroLog.dll" />
+        <file src="..\MetroLog\bin\Release\MetroLog.pdb" target="lib\portable-net45+win8\MetroLog.pdb" />
     </files>
 </package>
