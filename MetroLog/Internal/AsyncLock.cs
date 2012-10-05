@@ -33,11 +33,14 @@ namespace MetroLog.Internal
             }
         }
 
+#if DEBUG
         public Task<Releaser> LockAsync([CallerMemberName] string callingMethod = null, [CallerFilePath] string path = null, [CallerLineNumber] int line = 0)
         {
             Debug.WriteLine("AsyncLock.LockAsync called by: " + callingMethod + " in file: " + path + " : " + line);
-            
-
+#else
+        public Task<Releaser> LockAsync()
+        {
+#endif
             var wait = m_semaphore.WaitAsync();
 
             return wait.IsCompleted ?
