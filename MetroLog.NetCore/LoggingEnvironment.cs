@@ -9,8 +9,6 @@ using Windows.ApplicationModel;
 using Windows.Data.Json;
 using Windows.System;
 using Windows.UI.Xaml;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using Windows.Storage;
 
 namespace MetroLog
@@ -20,9 +18,7 @@ namespace MetroLog
     /// </summary>
     public partial class LoggingEnvironment : LoggingEnvironmentBase
     {
-        [JsonConverter(typeof(StringEnumConverter))]
-        public ProcessorArchitecture PackageArchitecture { get; private set; }
-
+        public string PackageArchitecture { get; private set; }
         public string PackageFullName { get; private set; }
         public string PackagePublisher { get; private set; }
         public string PackagePublisherId { get; private set; }
@@ -44,7 +40,7 @@ namespace MetroLog
         {
             // id...
             var id = Package.Current.Id;
-            this.PackageArchitecture = id.Architecture;
+            this.PackageArchitecture = id.Architecture.ToString();
             this.PackageFullName = id.FullName;
             this.PackagePublisher = id.Publisher;
             this.PackagePublisherId = id.PublisherId;

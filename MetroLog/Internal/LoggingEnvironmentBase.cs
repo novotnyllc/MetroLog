@@ -5,8 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace MetroLog.Internal
 {
@@ -15,8 +13,6 @@ namespace MetroLog.Internal
         public Guid SessionId { get; private set; }
         public string FxProfile { get; private set; }
         public bool IsDebugging { get; private set; }
-
-        [JsonConverter(typeof(VersionConverter))]
         public Version MetroLogVersion { get; private set; }
 
         protected LoggingEnvironmentBase(string fxProfile)
@@ -30,7 +26,7 @@ namespace MetroLog.Internal
 
         public string ToJson()
         {
-            return JsonConvert.SerializeObject(this);
+            return SimpleJson.SerializeObject(this);
         }
     }
 }

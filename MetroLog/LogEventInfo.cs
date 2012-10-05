@@ -5,16 +5,12 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MetroLog.Internal;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace MetroLog
 {
     public class LogEventInfo
     {
         public long SequenceID { get; set; }
-
-        [JsonConverter(typeof(StringEnumConverter))]
         public LogLevel Level { get; set; }
         public string Logger { get; set; }
         public string Message { get; set; }
@@ -26,11 +22,6 @@ namespace MetroLog
         private ExceptionWrapper _exceptionWrapper;
 
         private static long _globalSequenceId;
-
-        [JsonConstructor()]
-        public LogEventInfo()
-        {
-        }
 
         public LogEventInfo(LogLevel level, string logger, string message, Exception ex)
         {
@@ -49,12 +40,7 @@ namespace MetroLog
 
         public string ToJson()
         {
-            return JsonConvert.SerializeObject(this);
-        }
-
-        public static LogEventInfo FromJson(string json)
-        {
-            return JsonConvert.DeserializeObject<LogEventInfo>(json);
+            return SimpleJson.SerializeObject(this);
         }
 
         public ExceptionWrapper ExceptionWrapper

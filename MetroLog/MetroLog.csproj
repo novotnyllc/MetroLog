@@ -111,6 +111,7 @@
     <Compile Include="ILogConfigurator.cs" />
     <Compile Include="Internal\AsyncLock.cs" />
     <Compile Include="Internal\AsyncSemaphore.cs" />
+    <Compile Include="Internal\SimpleJson.cs" />
     <Compile Include="LogConfigurator.cs" />
     <Compile Include="LoggerEventArgs.cs" />
     <Compile Include="ILoggerQuery.cs" />
@@ -121,7 +122,6 @@
     <Compile Include="Internal\LoggingEnvironmentBase.cs" />
     <Compile Include="ILoggerAsync.cs" />
     <Compile Include="ILazyFlushable.cs" />
-    <Compile Include="Internal\ExceptionConverter.cs" />
     <Compile Include="Internal\PlatformAdapter.cs" />
     <Compile Include="Internal\ProbingAdapterResolver.cs" />
     <Compile Include="Layouts\FileSnapshotLayout.cs" />
@@ -167,11 +167,6 @@
     </None>
     <None Include="Internal\PlatformAdapter.cd" />
     <None Include="LogConfigurator.dgml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\lib\Portable\Newtonsoft.Json.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Strings.resx">

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MetroLog.Internal;
+
 
 namespace MetroLog.Targets
 {
@@ -64,13 +66,6 @@ namespace MetroLog.Targets
         internal string ToJson()
         {
             return JsonConvert.SerializeObject(this);
-        }
-
-        internal LogEventInfo ToLogEventInfo()
-        {
-            // pass this through json...
-            var json = this.ToJson();
-            return LogEventInfo.FromJson(json);
         }
 
         internal ExceptionWrapper GetExceptionWrapper()
