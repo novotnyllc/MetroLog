@@ -15,14 +15,17 @@ This version targets .NET 4.5 and .NET Core 4.5 (Windows Store apps)</descriptio
         <summary />
         <releaseNotes>Collapsed into a single NuGet package using the new PCL support</releaseNotes>
         <tags>Logging WinRT NLog log4net portable pcl</tags>
-        <dependencies />
     </metadata>
     <files>
+        <file src="..\MetroLog\bin\Release\MetroLog.dll" target="lib\net45\MetroLog.dll" />
         <file src="..\MetroLog.NetFx\bin\Release\MetroLog.NetFx.dll" target="lib\net45\MetroLog.NetFx.dll" />
         <file src="..\MetroLog.NetFx\bin\Release\MetroLog.NetFx.pdb" target="lib\net45\MetroLog.NetFx.pdb" />
+        <file src="..\MetroLog\bin\Release\MetroLog.pdb" target="lib\net45\MetroLog.pdb" />
+        <file src="..\MetroLog\bin\Release\MetroLog.dll" target="lib\netcore45\MetroLog.dll" />
         <file src="..\MetroLog.NetCore\bin\Release\MetroLog.NetCore.dll" target="lib\netcore45\MetroLog.NetCore.dll" />
         <file src="..\MetroLog.NetCore\bin\Release\MetroLog.NetCore.pdb" target="lib\netcore45\MetroLog.NetCore.pdb" />
         <file src="..\MetroLog.NetCore\bin\Release\MetroLog.NetCore.pri" target="lib\netcore45\MetroLog.NetCore.pri" />
+        <file src="..\MetroLog\bin\Release\MetroLog.pdb" target="lib\netcore45\MetroLog.pdb" />
         <file src="..\MetroLog\bin\Release\MetroLog.dll" target="lib\portable-net45+win8\MetroLog.dll" />
         <file src="..\MetroLog\bin\Release\MetroLog.pdb" target="lib\portable-net45+win8\MetroLog.pdb" />
     </files>
