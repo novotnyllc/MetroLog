@@ -27,18 +27,9 @@ namespace MetroLog.Tests
         [Fact]
         public void TestLogEventInfoWithExceptionToJson()
         {
-            Exception theEx = null;
-            try
-            {
-                throw new InvalidOperationException("Testing.");
-            }
-            catch (Exception ex)
-            {
-                theEx = ex;
-            }
-
+            
             // create...
-            var log = new LogEventInfo(LogLevel.Info, "foobar", "barfoo", theEx);
+            var log = new LogEventInfo(LogLevel.Info, "foobar", "barfoo", new InvalidOperationException("Testing."));
             var json = log.ToJson();
 
             // check...

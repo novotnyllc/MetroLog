@@ -1660,7 +1660,7 @@ namespace MetroLog.Internal
             public static IEnumerable<PropertyInfo> GetProperties(Type type)
             {
 #if SIMPLE_JSON_TYPEINFO
-                return type.GetRuntimeProperties();
+                return type.GetTypeInfo().DeclaredProperties;
 #else
                 return type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
 #endif
@@ -1669,7 +1669,7 @@ namespace MetroLog.Internal
             public static IEnumerable<FieldInfo> GetFields(Type type)
             {
 #if SIMPLE_JSON_TYPEINFO
-                return type.GetRuntimeFields();
+                return type.GetTypeInfo().DeclaredFields;
 #else
                 return type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
 #endif
