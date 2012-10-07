@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>MetroLog</id>
-        <version>0.6.4.0</version>
+        <version>0.6.5.0</version>
         <title>MetroLog Lightweight Logging for Portable code</title>
         <authors>Matt Baxter-Reynolds,Oren Novotny</authors>
         <owners>onovotny</owners>
@@ -28,5 +28,6 @@ This version targets .NET 4.5 and .NET Core 4.5 (Windows Store apps)</descriptio
         <file src="..\MetroLog\bin\Release\MetroLog.pdb" target="lib\netcore45\MetroLog.pdb" />
         <file src="..\MetroLog\bin\Release\MetroLog.dll" target="lib\portable-net45+win8\MetroLog.dll" />
         <file src="..\MetroLog\bin\Release\MetroLog.pdb" target="lib\portable-net45+win8\MetroLog.pdb" />
+        <file src="..\**\*.cs" target="src" exclude="..\_ReSharper.*\**\*.*;..\packages\**\*.*;..\**\Debug\**\*.*" />
     </files>
 </package>
