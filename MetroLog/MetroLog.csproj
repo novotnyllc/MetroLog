@@ -110,7 +110,6 @@
     <Compile Include="ExceptionWrapper.cs" />
     <Compile Include="ILogConfigurator.cs" />
     <Compile Include="Internal\AsyncLock.cs" />
-    <Compile Include="Internal\AsyncSemaphore.cs" />
     <Compile Include="Internal\SimpleJson.cs" />
     <Compile Include="LogConfigurator.cs" />
     <Compile Include="LoggerEventArgs.cs" />

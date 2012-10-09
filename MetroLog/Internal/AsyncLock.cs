@@ -11,12 +11,12 @@ namespace MetroLog.Internal
 {
     internal class AsyncLock
     {
-        private readonly AsyncSemaphore m_semaphore;
+        private readonly SemaphoreSlim m_semaphore;
         private readonly Task<Releaser> m_releaser;
         
         public AsyncLock()
         {
-            m_semaphore = new AsyncSemaphore(1);
+            m_semaphore = new SemaphoreSlim(1);
             m_releaser = Task.FromResult(new Releaser(this));
         }
 
