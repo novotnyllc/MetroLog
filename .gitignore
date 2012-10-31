@@ -10,7 +10,6 @@
 [Tt]humbs.db 
 _ReSharper.*
 *.resharper
-Ankh.NoLoad
 *.mdb
 /TestResults
 /packages
