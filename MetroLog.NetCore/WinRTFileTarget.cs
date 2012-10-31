@@ -23,38 +23,12 @@ namespace MetroLog
 
         public static async Task<StorageFolder> EnsureInitializedAsync()
         {
-            var folder = _logFolder;
-            if (folder == null)
+            if (_logFolder == null)
             {
-                StorageFolder logFolder = null;
                 var root = ApplicationData.Current.LocalFolder;
-                try
-                {
-                    logFolder = await root.GetFolderAsync(LogFolderName);
-                }
-                catch (FileNotFoundException)
-                {
-                }
 
-                // if...
-                if (logFolder == null)
-                {
-                    try
-                    {
-                        logFolder = await root.CreateFolderAsync(LogFolderName, CreationCollisionOption.OpenIfExists);
-                    }
-                    catch (Exception)
-                    {
-                    }
-
-                    // if we get into trouble here, try and load it again... (something else should have created it)...
-                    if (logFolder == null)
-                        logFolder = await root.GetFolderAsync(LogFolderName);
-                }
-
-                // store it - but only if we have one...
-                if (logFolder != null)
-                    Interlocked.CompareExchange<StorageFolder>(ref _logFolder, logFolder, null);
+                _logFolder = await root.CreateFolderAsync(LogFolderName, CreationCollisionOption.OpenIfExists);
+                
             }
             return _logFolder;
         }

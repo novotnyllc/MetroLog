@@ -1,0 +1,144 @@
+﻿.groupdetailpage section[role=main] {
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 2;
+}
+
+/* This selector is used to prevent ui-dark/light.css from overwriting changes
+   to .win-surface. */
+.groupdetailpage .itemslist .win-horizontal.win-viewport .win-surface {
+    margin-bottom: 35px;
+    margin-left: 120px;
+    margin-right: 120px;
+    margin-top: 128px;
+}
+
+.groupdetailpage .itemslist {
+    height: 100%;
+    position: relative;
+    width: 100%;
+    z-index: 0;
+}
+
+    .groupdetailpage .itemslist .win-groupheader {
+        -ms-grid-columns: 1fr;
+        -ms-grid-rows: auto auto 1fr;
+        display: -ms-grid;
+        height: 100%;
+        margin-left: 0px;
+        margin-right: 43px;
+        padding: 0;
+        width: 480px;
+    }
+
+    .groupdetailpage .itemslist.win-rtl .win-groupheader {
+        margin-left: 43px;
+        margin-right: 0px;
+    }
+
+        .groupdetailpage .itemslist .win-groupheader .group-subtitle {
+            -ms-grid-row: 1;
+            margin-bottom: 14px;
+            margin-top: 6px;
+            max-height: 48pt;
+            overflow: hidden;
+        }
+
+        .groupdetailpage .itemslist .win-groupheader .group-image {
+            -ms-grid-row: 2;
+            background-color: rgba(147, 149, 152, 1);
+            height: 238px;
+            margin: 0;
+            margin-bottom: 20px;
+            width: 480px;
+        }
+
+        .groupdetailpage .itemslist .win-groupheader .group-description {
+            -ms-grid-row: 3;
+            margin-bottom: 55px;
+            overflow: hidden;
+        }
+
+    .groupdetailpage .itemslist .win-container {
+        margin-bottom: 15px;
+        margin-left: 30px;
+        margin-right: 30px;
+        padding: 7px;
+    }
+
+    .groupdetailpage .itemslist .item {
+        -ms-grid-columns: 110px 1fr;
+        -ms-grid-rows: 1fr;
+        display: -ms-grid;
+        height: 110px;
+        width: 470px;
+    }
+
+        .groupdetailpage .itemslist .item .item-info {
+            -ms-grid-column: 2;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+            .groupdetailpage .itemslist .item .item-info .item-title {
+                margin-top: 4px;
+                max-height: 20px;
+                overflow: hidden;
+            }
+
+            .groupdetailpage .itemslist .item .item-info .item-subtitle {
+                opacity: 0.6;
+            }
+
+            .groupdetailpage .itemslist .item .item-info .item-description {
+                max-height: 60px;
+                overflow: hidden;
+            }
+
+@media screen and (-ms-view-state: snapped) {
+    .groupdetailpage section[role=main] {
+        -ms-grid-row: 2;
+        -ms-grid-row-span: 1;
+    }
+
+    .groupdetailpage .itemslist .win-vertical.win-viewport .win-surface {
+        margin-bottom: 30px;
+        margin-top: 0;
+    }
+
+    .groupdetailpage .itemslist .win-groupheader {
+        visibility: hidden;
+    }
+
+    .groupdetailpage .itemslist .win-container {
+        margin-bottom: 15px;
+        margin-left: 13px;
+        margin-right: 35px;
+    }
+
+    .groupdetailpage .itemslist.win-rtl .win-container {
+        margin-bottom: 15px;
+        margin-left: 21px;
+        margin-right: 26px;
+    }
+
+    .groupdetailpage .itemslist .item {
+        -ms-grid-columns: 60px 1fr;
+        height: 60px;
+        width: 272px;
+    }
+
+        .groupdetailpage .itemslist .item .item-info .item-title {
+            max-height: 30pt;
+        }
+
+        .groupdetailpage .itemslist .item .item-info .item-description {
+            visibility: hidden;
+        }
+}
+
+@media screen and (-ms-view-state: fullscreen-portrait) {
+    .groupdetailpage .itemslist .win-horizontal.win-viewport .win-surface {
+        margin-left: 100px;
+        margin-right: 100px;
+    }
+}
