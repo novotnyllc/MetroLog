@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>MetroLog</id>
-        <version>0.7.0</version>
+        <version>0.7.1</version>
         <title>MetroLog Lightweight Logging for Portable and WinJS</title>
         <authors>Matt Baxter-Reynolds,Oren Novotny</authors>
         <owners>onovotny</owners>
@@ -18,6 +18,8 @@ This version targets .NET 4.5,.NET Core 4.5 (Windows Store apps) and WinJS</desc
     </metadata>
     <files>
         <file src="MetroLog.WinRT\MetroLog ReadMe.txt" target="content\win8-javascript\MetroLog ReadMe.txt" />
+        <file src="typescript\winrt.d.ts" target="content\win8-javascript\typings\winrt.d.ts" />
+        <file src="typescript\MetroLog.WinRT.d.ts" target="content\win8-javascript\typings\MetroLog.WinRT.d.ts" />
         <file src="MetroLog\bin\Release\MetroLog.dll" target="lib\net45\MetroLog.dll" />
         <file src="MetroLog.NetFx\bin\Release\MetroLog.NetFx.dll" target="lib\net45\MetroLog.NetFx.dll" />
         <file src="MetroLog.NetFx\bin\Release\MetroLog.NetFx.pdb" target="lib\net45\MetroLog.NetFx.pdb" />
@@ -29,14 +31,9 @@ This version targets .NET 4.5,.NET Core 4.5 (Windows Store apps) and WinJS</desc
         <file src="MetroLog\bin\Release\MetroLog.pdb" target="lib\netcore45\MetroLog.pdb" />
         <file src="MetroLog\bin\Release\MetroLog.dll" target="lib\portable-net45+win8\MetroLog.dll" />
         <file src="MetroLog\bin\Release\MetroLog.pdb" target="lib\portable-net45+win8\MetroLog.pdb" />
-        <file src="MetroLog.WinRT\bin\Release\MetroLog.dll" target="WinRT\MetroLog.dll" />
-        <file src="MetroLog.WinRT\bin\Release\MetroLog.NetCore.dll" target="WinRT\MetroLog.NetCore.dll" />
-        <file src="MetroLog.WinRT\bin\Release\MetroLog.NetCore.pdb" target="WinRT\MetroLog.NetCore.pdb" />
-        <file src="MetroLog.WinRT\bin\Release\MetroLog.NetCore.pri" target="WinRT\MetroLog.NetCore.pri" />
-        <file src="MetroLog.WinRT\bin\Release\MetroLog.pdb" target="WinRT\MetroLog.pdb" />
-        <file src="MetroLog.WinRT\bin\Release\MetroLog.WinRT.pdb" target="WinRT\MetroLog.WinRT.pdb" />
-        <file src="MetroLog.WinRT\bin\Release\MetroLog.WinRT.pri" target="WinRT\MetroLog.WinRT.pri" />
-        <file src="MetroLog.WinRT\bin\Release\MetroLog.WinRT.winmd" target="WinRT\MetroLog.WinRT.winmd" />
+        <file src="MetroLog.WinRT\bin\Release\MetroLog.WinRT.pdb" target="lib\netcore45\MetroLog.WinRT.pdb" />
+        <file src="MetroLog.WinRT\bin\Release\MetroLog.WinRT.pri" target="lib\netcore45\MetroLog.WinRT.pri" />
+        <file src="MetroLog.WinRT\bin\Release\MetroLog.WinRT.winmd" target="lib\netcore45\MetroLog.WinRT.winmd" />
         <file src="**\*.cs" target="src" exclude="_ReSharper.*\**\*.*;packages\**\*.*;**\Debug\**\*.*;Samples\**\*.*;Win8Sample\**\*.*;WebTargetSample\**\*.*" />
     </files>
 </package>

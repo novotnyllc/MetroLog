@@ -1,6 +1,8 @@
 ﻿As WinRT isn't fully supported in NuGet yet, you'll need to manually add a reference
-to the MetroLog.WinRT.winmd file in your \packages\MetroLog.*\WinRT directory. Just 
+to the MetroLog.WinRT.winmd file in your \packages\MetroLog.*\netcore45 directory. Just 
 add the reference to the WinMD file, not anything else in the directory.
+
+TypeScript definitions are provided as content in the package as well.
 
 To hook up the debug logger to your WinJS console, in your default.js file, add the 
 following at the top, right under 'var nav = WinJS.Navigation;'
