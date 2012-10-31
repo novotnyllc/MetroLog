@@ -12,5 +12,6 @@
 _ReSharper.*
 *.resharper
 *.mdb
+*.nupkg
 /TestResults
 /packages

@@ -115,6 +115,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EventTarget.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="MetroLog ReadMe.txt" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>
