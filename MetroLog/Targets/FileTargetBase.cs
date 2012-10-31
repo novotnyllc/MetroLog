@@ -44,6 +44,12 @@ namespace MetroLog.Targets
 
         protected abstract Task EnsureInitialized();
         protected abstract Task DoCleanup(Regex pattern, DateTime threshold);
+        protected abstract Task<Stream> GetCompressedLogsInternal();
+
+        internal Task<Stream> GetCompressedLogs()
+        {
+            return GetCompressedLogsInternal();
+        }
 
         private async Task CheckCleanupAsync()
         {

@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MetroLog.Targets;
+using Windows.Foundation;
+using Windows.Storage;
+using Windows.Storage.Streams;
 using IPclLogger = MetroLog.ILogger;
 using PclLogLevel = MetroLog.LogLevel;
 
@@ -34,6 +38,28 @@ namespace MetroLog.WinRT
 
                     return LogManagerFactory.DefaultLogManager;
                 });
+        }
+
+        /// <summary>
+        /// Returns a zip file stream of compressed logs
+        /// </summary>
+        /// <returns></returns>
+        public static IAsyncOperation<IRandomAccessStream> GetCompressedLogs()
+        {
+            return GetCompressedLogsInternal().AsAsyncOperation();
+        }
+
+        private static async Task<IRandomAccessStream> GetCompressedLogsInternal()
+        {
+            using (var stream = await _logManager.Value.GetCompressedLogs())
+            {
+                // Copy to a WinRT buffer
+                var dest = new InMemoryRandomAccessStream();
+                await stream.CopyToAsync(dest.AsStreamForWrite());
+                dest.Seek(0);
+
+                return dest;
+            }
         }
 
         private static void OnLogMessageInternal(string message)

@@ -35,5 +35,25 @@ namespace MetroLog.NetCore.Tests
             Assert.True(contents.Contains("Testing file write..."));
             Assert.True(contents.Contains("An exception message..."));
         }
+
+        [Fact]
+        public async Task TestGetZipFile()
+        {
+            var target = new FileSnapshotTarget();
+            // send through a log entry...
+            var op = await target.WriteAsync(new LogWriteContext(),
+                new LogEventInfo(LogLevel.Fatal, "TestLogger", "Testing file write...", new InvalidOperationException("An exception message...")));
+
+            var folder = await FileSnapshotTarget.EnsureInitializedAsync();
+
+            var str = await target.GetCompressedLogs();
+
+            var file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync("logs.zip", CreationCollisionOption.ReplaceExisting);
+
+            using (var stream = (await file.OpenAsync(FileAccessMode.ReadWrite)).AsStream())
+            {
+                await str.CopyToAsync(stream);
+            }
+        }
     }
 }

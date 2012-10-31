@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using MetroLog.Internal;
 using Xunit;
 
@@ -40,9 +42,33 @@ namespace MetroLog.Tests
 
             // call...
             var logger = manager.GetLogger<LogManagerTests>();
-
+            
             // check...
             Assert.True(called);
+        }
+
+        [Fact]
+        public async Task TestGetZipNetFile()
+        {
+
+            var manager = new LogManager(LogManagerFactory.CreateLibraryDefaultSettings());
+            manager.DefaultConfiguration.AddTarget(LogLevel.Trace, LogLevel.Fatal, new StreamingFileTarget());
+
+            var logger = (ILoggerAsync)manager.GetLogger("test");
+            // send through a log entry...
+            await logger.DebugAsync("Test Message");
+
+            var str = await manager.GetCompressedLogs();
+
+            var file =
+              new FileInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory, Environment.SpecialFolderOption.None), "logs.zip"));
+
+
+
+            using (var stream = file.Create())
+            {
+                await str.CopyToAsync(stream);
+            }
         }
     }
 }

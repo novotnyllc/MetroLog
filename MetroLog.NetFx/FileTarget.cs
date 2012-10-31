@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -27,6 +28,23 @@ namespace MetroLog
 
                 _appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), value);
             }
+        }
+
+        protected override async Task<Stream> GetCompressedLogsInternal()
+        {
+            var ms = new MemoryStream();
+
+            using (var a = new ZipArchive(ms, ZipArchiveMode.Create, true))
+            {
+                foreach (var file in _logFolder.GetFiles())
+                {
+                    a.CreateEntryFromFile(file.FullName, file.Name);
+                }
+            }
+
+            ms.Position = 0;
+
+            return ms;
         }
 
         protected FileTarget(Layout layout) : base(layout)
@@ -107,7 +125,8 @@ namespace MetroLog
             var path = string.Empty;
 
             // Get the .EXE assembly
-            var assm = Assembly.GetEntryAssembly();
+            var assm = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
+
             // Build the User App Data Path
             path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), assm.GetName().Name);
 

@@ -123,6 +123,7 @@
     <Compile Include="WinRTFileTarget.cs" />
     <Compile Include="XamlApplicationState.cs" />
     <Compile Include="XamlExtensionMethods.cs" />
+    <Compile Include="ZipFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\MetroLog.snk">

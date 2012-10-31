@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -31,6 +32,16 @@ namespace MetroLog
                 
             }
             return _logFolder;
+        }
+
+        protected override async Task<Stream> GetCompressedLogsInternal()
+        {
+            var ms = new MemoryStream();
+
+            await ZipFile.CreateFromDirectory(_logFolder, ms);
+            ms.Position = 0;
+
+            return ms;
         }
 
 

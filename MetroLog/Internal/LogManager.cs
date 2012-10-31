@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
+using MetroLog.Targets;
 
 namespace MetroLog.Internal
 {
@@ -15,6 +16,20 @@ namespace MetroLog.Internal
         private readonly object _loggersLock = new object();
 
         public event EventHandler<LoggerEventArgs> LoggerCreated;
+        
+        public Task<Stream> GetCompressedLogs()
+        {
+            // get the first file target if there is one
+
+            var fsb = DefaultConfiguration.GetTargets().OfType<FileTargetBase>().FirstOrDefault();
+
+            if (fsb != null)
+            {
+                return fsb.GetCompressedLogs();
+            }
+
+            return Task.FromResult<Stream>(null);
+        }
 
         internal const string DateTimeFormat = "o";
 
