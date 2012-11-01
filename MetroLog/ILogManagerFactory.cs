@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MetroLog.Internal
+namespace MetroLog
 {
-    internal interface IAdapterResolver
+    public interface ILogManagerFactory
     {
-        object Resolve(Type type, object[] args);
+        ILogManager Create(LoggingConfiguration configuration);
     }
 }

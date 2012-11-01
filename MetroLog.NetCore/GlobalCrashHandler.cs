@@ -1,4 +1,6 @@
-﻿using System;
+﻿extern alias pcl;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +25,7 @@ namespace MetroLog
             e.Handled = true;
 
             // go...
-            var log = (ILoggerAsync)LogManagerFactory.DefaultLogManager.GetLogger<Application>();
+            var log = (ILoggerAsync)pcl::MetroLog.LogManagerFactory.DefaultLogManager.GetLogger<Application>();
             await log.FatalAsync("The application crashed: " + e.Message, e.Exception);
 
             // if we're aborting, fake a suspend to flush the targets...

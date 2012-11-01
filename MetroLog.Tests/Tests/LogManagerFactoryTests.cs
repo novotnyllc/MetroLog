@@ -7,7 +7,7 @@ using Xunit;
 
 namespace MetroLog.Tests.Tests
 {
-    public class LogManagerFactoryTests
+    public class LogManagerBaseFactoryTests
     {
        // [Fact]
         public void InitalizeCallsSetDefault()
@@ -15,9 +15,9 @@ namespace MetroLog.Tests.Tests
             bool wasCalled = false;
            // using (ShimsContext.Create())
             //{
-             //   ShimLogManagerFactoryBase.SetDefaultLogManagerILogManager = lm => wasCalled = true;
+             //   ShimLogManagerBaseFactoryBase.SetDefaultLogManagerBaseILogManager = lm => wasCalled = true;
 
-                //LogManagerFactory.Initialize();
+                //LogManagerBaseFactory.Initialize();
             //}
 
             Assert.True(wasCalled);

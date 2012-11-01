@@ -1,4 +1,6 @@
-﻿using System;
+﻿extern alias pcl;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +22,7 @@ namespace MetroLog
         /// <returns></returns>
         public static ILogger GetLogger(this UserControl control, LoggingConfiguration config = null)
         {
-            return LogManagerFactory.DefaultLogManager.GetLogger(control.GetType(), config);
+            return pcl::MetroLog.LogManagerFactory.DefaultLogManager.GetLogger(control.GetType(), config);
         }
     }
 }

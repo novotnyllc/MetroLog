@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
@@ -9,7 +8,6 @@ using System.Threading.Tasks;
 using MetroLog.Targets;
 using Windows.Foundation;
 using Windows.Storage;
-using Windows.Storage.Streams;
 using IPclLogger = MetroLog.ILogger;
 using PclLogLevel = MetroLog.LogLevel;
 
@@ -18,14 +16,14 @@ namespace MetroLog.WinRT
     public sealed class Logger : ILogger
     {
         private readonly IPclLogger _logger;
-        private static readonly Lazy<ILogManager> _logManager;
+        private static readonly Lazy<IWinRTLogManager> _logManager;
         public static event EventHandler<string> OnLogMessage;
 
         private static readonly SynchronizationContext _context = SynchronizationContext.Current;
 
         static Logger()
         {
-            _logManager = new Lazy<ILogManager>(() =>
+            _logManager = new Lazy<IWinRTLogManager>(() =>
                 {
                     // Log everything for now
                     var configuration = new LoggingConfiguration();
@@ -36,30 +34,17 @@ namespace MetroLog.WinRT
 
                     LogManagerFactory.DefaultConfiguration = configuration;
 
-                    return LogManagerFactory.DefaultLogManager;
+                    return (IWinRTLogManager)LogManagerFactory.DefaultLogManager;
                 });
         }
 
         /// <summary>
-        /// Returns a zip file stream of compressed logs
+        /// Returns a zip file of the compressed logs
         /// </summary>
         /// <returns></returns>
-        public static IAsyncOperation<IRandomAccessStream> GetCompressedLogs()
+        public static IAsyncOperation<IStorageFile> GetCompressedLogFile()
         {
-            return GetCompressedLogsInternal().AsAsyncOperation();
-        }
-
-        private static async Task<IRandomAccessStream> GetCompressedLogsInternal()
-        {
-            using (var stream = await _logManager.Value.GetCompressedLogs())
-            {
-                // Copy to a WinRT buffer
-                var dest = new InMemoryRandomAccessStream();
-                await stream.CopyToAsync(dest.AsStreamForWrite());
-                dest.Seek(0);
-
-                return dest;
-            }
+            return _logManager.Value.GetCompressedLogFile().AsAsyncOperation();
         }
 
         private static void OnLogMessageInternal(string message)

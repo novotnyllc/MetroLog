@@ -8,7 +8,7 @@ using MetroLog.Targets;
 
 namespace MetroLog.Internal
 {
-    internal class LogManager : ILogManager
+    internal class LogManagerBase : ILogManager
     {
         public LoggingConfiguration DefaultConfiguration { get; private set; }
 
@@ -33,7 +33,7 @@ namespace MetroLog.Internal
 
         internal const string DateTimeFormat = "o";
 
-        public LogManager(LoggingConfiguration configuration)
+        public LogManagerBase(LoggingConfiguration configuration)
         {
             if (configuration == null)
                 throw new ArgumentNullException("configuration");

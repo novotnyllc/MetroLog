@@ -1,10 +1,13 @@
-﻿using System;
+﻿extern alias pcl;
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MetroLog.Internal;
 using MetroLog.Targets;
 using Windows.Storage;
 using Xunit;
@@ -39,21 +42,32 @@ namespace MetroLog.NetCore.Tests
         [Fact]
         public async Task TestGetZipFile()
         {
-            var target = new FileSnapshotTarget();
+            var manager = pcl::MetroLog.LogManagerFactory.CreateLogManager() as IWinRTLogManager;
+
+            var logger = (ILoggerAsync)manager.GetLogger("test");
+
             // send through a log entry...
-            var op = await target.WriteAsync(new LogWriteContext(),
-                new LogEventInfo(LogLevel.Fatal, "TestLogger", "Testing file write...", new InvalidOperationException("An exception message...")));
+            var op = await logger.FatalAsync("Testing file write...", new InvalidOperationException("An exception message..."));
 
-            var folder = await FileSnapshotTarget.EnsureInitializedAsync();
+            var file = await manager.GetCompressedLogFile();
 
-            var str = await target.GetCompressedLogs();
+            Assert.True(file.Name.EndsWith(".zip"));
 
-            var file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync("logs.zip", CreationCollisionOption.ReplaceExisting);
+            var target = manager.DefaultConfiguration.GetTargets().OfType<FileTargetBase>().First();
 
-            using (var stream = (await file.OpenAsync(FileAccessMode.ReadWrite)).AsStream())
+            await target.ForceCleanupAsync();
+
+            var exceptionThrow = false;
+            try
             {
-                await str.CopyToAsync(stream);
+                var str = await file.OpenReadAsync();
             }
+            catch (FileNotFoundException)
+            {
+                exceptionThrow = true;
+            }
+
+            Assert.True(exceptionThrow);
         }
     }
 }

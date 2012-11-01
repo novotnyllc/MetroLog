@@ -99,7 +99,10 @@ namespace MetroLog
             using (Stream stream = (await sourceFile.OpenReadAsync()).AsStream())
             {
                 ZipArchiveEntry zipArchiveEntry = compressionLevel.HasValue ? destination.CreateEntry(entryName, compressionLevel.Value) : destination.CreateEntry(entryName);
-                DateTime dateTime = sourceFile.DateCreated.UtcDateTime; //File.GetLastWriteTime(sourceFileName);
+
+                var props = await sourceFile.GetBasicPropertiesAsync();
+
+                DateTime dateTime = props.DateModified.UtcDateTime;
                 if (dateTime.Year < 1980 || dateTime.Year > 2107)
                     dateTime = new DateTime(1980, 1, 1, 0, 0, 0);
                 zipArchiveEntry.LastWriteTime = (DateTimeOffset)dateTime;

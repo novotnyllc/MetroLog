@@ -29,7 +29,7 @@ namespace MetroLog
             Logger = logger;
             Message = message;
             Exception = ex;
-            TimeStamp = LogManager.GetDateTime();
+            TimeStamp = LogManagerBase.GetDateTime();
             SequenceID = GetNextSequenceId();
         }
 

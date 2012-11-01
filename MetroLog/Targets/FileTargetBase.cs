@@ -51,6 +51,17 @@ namespace MetroLog.Targets
             return GetCompressedLogsInternal();
         }
 
+        internal async Task ForceCleanupAsync()
+        {
+            // threshold...
+            var threshold = DateTime.UtcNow.AddDays(0 - RetainDays);
+
+            // walk...
+            var regex = FileNamingParameters.GetRegex();
+
+            await DoCleanup(regex, threshold);
+        }
+
         private async Task CheckCleanupAsync()
         {
             var now = DateTime.UtcNow;

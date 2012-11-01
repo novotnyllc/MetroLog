@@ -113,7 +113,7 @@ namespace MetroLog.Tests
 
             // check...
             var filename = naming.GetFilename(new LogWriteContext(), info);
-            Assert.Equal(string.Format("Log - {0}.log", LogManager.GetDateTime().ToString("yyyyMMdd")), filename);
+            Assert.Equal(string.Format("Log - {0}.log", LogManagerBase.GetDateTime().ToString("yyyyMMdd")), filename);
         }
 
         [Fact]
@@ -133,7 +133,7 @@ namespace MetroLog.Tests
 
             // check...
             var filename = naming.GetFilename(new LogWriteContext(), info);
-            Assert.Equal(string.Format("Log - {0}.log", LogManager.GetDateTime().ToString("HHmmss")), filename);
+            Assert.Equal(string.Format("Log - {0}.log", LogManagerBase.GetDateTime().ToString("HHmmss")), filename);
         }
 
         [Fact]
@@ -153,7 +153,7 @@ namespace MetroLog.Tests
 
             // check...
             var filename = naming.GetFilename(new LogWriteContext(), info);
-            Assert.Equal(string.Format("Log - {0}.log", LogManager.GetDateTime().ToString("yyyyMMdd HHmmss")), filename);
+            Assert.Equal(string.Format("Log - {0}.log", LogManagerBase.GetDateTime().ToString("yyyyMMdd HHmmss")), filename);
         }
 
         [Fact]
@@ -174,7 +174,7 @@ namespace MetroLog.Tests
             // check...
             var context = new LogWriteContext();
             var filename = naming.GetFilename(context, info);
-            Assert.Equal(string.Format("Log - INFO - foobar - {0} - {1} - {2}.log", LogManager.GetDateTime().ToString("yyyyMMdd HHmmss"),
+            Assert.Equal(string.Format("Log - INFO - foobar - {0} - {1} - {2}.log", LogManagerBase.GetDateTime().ToString("yyyyMMdd HHmmss"),
                 context.Environment.SessionId, info.SequenceID), filename);
         }
 

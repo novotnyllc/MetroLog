@@ -33,7 +33,7 @@ namespace MetroLog.Internal
             _assemblyLoader = assemblyLoader;
         }
 
-        public object Resolve(Type type)
+        public object Resolve(Type type, object[] args)
         {
             Debug.Assert(type != null);
 
@@ -43,7 +43,7 @@ namespace MetroLog.Internal
                 if (!_adapters.TryGetValue(type, out instance))
                 {
                     Assembly assembly = GetPlatformSpecificAssembly();
-                    instance = ResolveAdapter(assembly, type);
+                    instance = ResolveAdapter(assembly, type, args);
                     _adapters.Add(type, instance);
                 }
 
@@ -51,7 +51,7 @@ namespace MetroLog.Internal
             }
         }
 
-        private static object ResolveAdapter(Assembly assembly, Type interfaceType)
+        private static object ResolveAdapter(Assembly assembly, Type interfaceType, object[] args)
         {
             string typeName = MakeAdapterTypeName(interfaceType);
 
@@ -64,7 +64,9 @@ namespace MetroLog.Internal
                 // Fallback to looking in this assembly for a default
                 type = typeof (ProbingAdapterResolver).GetTypeInfo().Assembly.GetType(typeName);
                 if (type != null)
-                    return Activator.CreateInstance(type);
+                {
+                    return Activator.CreateInstance(type, args);
+                }
                 
                 return type;
             }

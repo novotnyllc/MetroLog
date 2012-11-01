@@ -20,7 +20,7 @@ namespace MetroLog.Tests
             config.AddTarget(LogLevel.Trace, LogLevel.Fatal, new BrokenTarget());
             config.AddTarget(LogLevel.Trace, LogLevel.Fatal, testTarget);
 
-            var target = new LogManager(config);
+            var target = new LogManagerBase(config);
 
             // this should ignore errors in the broken target and flip down to the working target...
             var logger = (Logger)target.GetLogger("Foobar");

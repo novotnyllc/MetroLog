@@ -17,7 +17,7 @@ namespace MetroLog.Tests
             var config = new LoggingConfiguration();
             config.AddTarget(min, max, testTarget);
 
-            return Tuple.Create<ILogManager, TestTarget>(new LogManager(config), testTarget);
+            return Tuple.Create<ILogManager, TestTarget>(new LogManagerBase(config), testTarget);
         }
 
         [Fact]
@@ -184,7 +184,7 @@ namespace MetroLog.Tests
         [Fact]
         public void TestIsFatalEnabled()
         {
-            var target = new LogManager(new LoggingConfiguration());
+            var target = new LogManagerBase(new LoggingConfiguration());
 
             // get a logger...
             var logger = target.GetLogger("foo");
@@ -201,9 +201,9 @@ namespace MetroLog.Tests
         //[Fact]
         //public void TestIsTraceEnabledForLoggable()
         //{
-        //    LogManager.Reset();
-        //    LogManager.DefaultConfiguration.ClearTargets();
-        //    LogManager.DefaultConfiguration.AddTarget(LogLevel.Debug, LogLevel.Fatal, TestTarget.Current);
+        //    LogManagerBase.Reset();
+        //    LogManagerBase.DefaultConfiguration.ClearTargets();
+        //    LogManagerBase.DefaultConfiguration.AddTarget(LogLevel.Debug, LogLevel.Fatal, TestTarget.Current);
 
         //    // get a loggable...
         //    var loggable = new TestLoggable();
@@ -220,9 +220,9 @@ namespace MetroLog.Tests
         //[Fact]
         //public void TestIsDebugEnabledForLoggable()
         //{
-        //    LogManager.Reset();
-        //    LogManager.DefaultConfiguration.ClearTargets();
-        //    LogManager.DefaultConfiguration.AddTarget(LogLevel.Info, LogLevel.Fatal, TestTarget.Current);
+        //    LogManagerBase.Reset();
+        //    LogManagerBase.DefaultConfiguration.ClearTargets();
+        //    LogManagerBase.DefaultConfiguration.AddTarget(LogLevel.Info, LogLevel.Fatal, TestTarget.Current);
 
         //    // get a loggable...
         //    var loggable = new TestLoggable();
@@ -239,9 +239,9 @@ namespace MetroLog.Tests
         //[Fact]
         //public void TestIsInfoEnabledForLoggable()
         //{
-        //    LogManager.Reset();
-        //    LogManager.DefaultConfiguration.ClearTargets();
-        //    LogManager.DefaultConfiguration.AddTarget(LogLevel.Warn, LogLevel.Fatal, TestTarget.Current);
+        //    LogManagerBase.Reset();
+        //    LogManagerBase.DefaultConfiguration.ClearTargets();
+        //    LogManagerBase.DefaultConfiguration.AddTarget(LogLevel.Warn, LogLevel.Fatal, TestTarget.Current);
 
         //    // get a loggable...
         //    var loggable = new TestLoggable();
@@ -258,9 +258,9 @@ namespace MetroLog.Tests
         //[Fact]
         //public void TestIsWarnEnabledForLoggable()
         //{
-        //    LogManager.Reset();
-        //    LogManager.DefaultConfiguration.ClearTargets();
-        //    LogManager.DefaultConfiguration.AddTarget(LogLevel.Error, LogLevel.Fatal, TestTarget.Current);
+        //    LogManagerBase.Reset();
+        //    LogManagerBase.DefaultConfiguration.ClearTargets();
+        //    LogManagerBase.DefaultConfiguration.AddTarget(LogLevel.Error, LogLevel.Fatal, TestTarget.Current);
 
         //    // get a loggable...
         //    var loggable = new TestLoggable();
@@ -277,9 +277,9 @@ namespace MetroLog.Tests
         //[Fact]
         //public void TestIsErrorEnabledForLoggable()
         //{
-        //    LogManager.Reset();
-        //    LogManager.DefaultConfiguration.ClearTargets();
-        //    LogManager.DefaultConfiguration.AddTarget(LogLevel.Fatal, TestTarget.Current);
+        //    LogManagerBase.Reset();
+        //    LogManagerBase.DefaultConfiguration.ClearTargets();
+        //    LogManagerBase.DefaultConfiguration.AddTarget(LogLevel.Fatal, TestTarget.Current);
 
 
 
@@ -298,8 +298,8 @@ namespace MetroLog.Tests
         //[Fact]
         //public void TestIsFatalEnabledForLoggable()
         //{
-        //    LogManager.Reset();
-        //    LogManager.DefaultConfiguration.ClearTargets();
+        //    LogManagerBase.Reset();
+        //    LogManagerBase.DefaultConfiguration.ClearTargets();
 
         //    // get a loggable...
         //    var loggable = new TestLoggable();

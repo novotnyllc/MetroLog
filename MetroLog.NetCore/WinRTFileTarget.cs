@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 using MetroLog.Layouts;
 using MetroLog.Targets;
 using Windows.Storage;
+using Windows.Storage.Search;
 
 namespace MetroLog
 {
@@ -43,8 +45,7 @@ namespace MetroLog
 
             return ms;
         }
-
-
+        
         protected override Task EnsureInitialized()
         {
             return EnsureInitializedAsync();
@@ -59,6 +60,18 @@ namespace MetroLog
                 if (pattern.Match(file.Name).Success && file.DateCreated <= threshold)
                     toDelete.Add(file);
             }
+
+            
+            var qo = new QueryOptions(CommonFileQuery.DefaultQuery, new [] {".zip"})
+                {
+                    FolderDepth = FolderDepth.Shallow,
+                    UserSearchFilter = "System.FileName:~<\"Log -\""
+                };
+
+            var query = ApplicationData.Current.TemporaryFolder.CreateFileQueryWithOptions(qo);
+
+            var oldLogs = await query.GetFilesAsync();
+            toDelete.AddRange(oldLogs);
 
             // walk...
             foreach (var file in toDelete)

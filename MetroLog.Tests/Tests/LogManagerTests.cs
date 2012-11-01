@@ -9,12 +9,12 @@ using Xunit;
 
 namespace MetroLog.Tests
 {
-    public class LogManagerTests
+    public class LogManagerBaseTests
     {
         [Fact]
         public void TestGetLogger()
         {
-            var manager = new LogManager(new LoggingConfiguration());
+            var manager = new LogManagerBase(new LoggingConfiguration());
 
             var logger = manager.GetLogger("Foobar");
             Assert.NotNull(logger);
@@ -23,9 +23,9 @@ namespace MetroLog.Tests
         [Fact]
         public void TestGetLoggerByType()
         {
-            var manager = new LogManager(new LoggingConfiguration());
+            var manager = new LogManagerBase(new LoggingConfiguration());
 
-            var logger = manager.GetLogger<LogManagerTests>();
+            var logger = manager.GetLogger<LogManagerBaseTests>();
             Assert.NotNull(logger);
         }
 
@@ -34,14 +34,14 @@ namespace MetroLog.Tests
         public void TestLoggerCreated()
         {
             bool called = false;
-            var manager = new LogManager(new LoggingConfiguration());
+            var manager = new LogManagerBase(new LoggingConfiguration());
             manager.LoggerCreated += (sender, args) =>
             {
                 called = true;
             };
 
             // call...
-            var logger = manager.GetLogger<LogManagerTests>();
+            var logger = manager.GetLogger<LogManagerBaseTests>();
             
             // check...
             Assert.True(called);
@@ -51,7 +51,7 @@ namespace MetroLog.Tests
         public async Task TestGetZipNetFile()
         {
 
-            var manager = new LogManager(LogManagerFactory.CreateLibraryDefaultSettings());
+            var manager = new LogManagerBase(LogManagerFactory.CreateLibraryDefaultSettings());
             manager.DefaultConfiguration.AddTarget(LogLevel.Trace, LogLevel.Fatal, new StreamingFileTarget());
 
             var logger = (ILoggerAsync)manager.GetLogger("test");

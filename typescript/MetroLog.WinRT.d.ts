@@ -55,7 +55,7 @@ module MetroLog {
 
         export class Logger {
             static getLogger(name : string): ILogger;
-            static getCompressedLogs(): Windows.Foundation.IAsyncOperation__IRandomAccessStream;
+            static getCompressedLogs(): Windows.Foundation.IAsyncOperation__StorageFile;
 
             static addEventListener(eventName: string, f: Function): void;
             static removeEventListener(eventName: string);

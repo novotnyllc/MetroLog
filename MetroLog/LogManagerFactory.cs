@@ -32,7 +32,13 @@ namespace MetroLog
             var cfg = config ?? DefaultConfiguration;
             cfg.Freeze();
 
-            var manager = new LogManager(cfg);
+
+            ILogManager manager;
+            var managerFactory = PlatformAdapter.Resolve<ILogManagerFactory>(false);
+            if (managerFactory != null)
+                manager = managerFactory.Create(cfg);
+            else
+                manager = new LogManagerBase(cfg);
 
             _configurator.OnLogManagerCreated(manager);
 

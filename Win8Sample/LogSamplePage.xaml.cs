@@ -1,5 +1,4 @@
 ﻿using MetroLog;
-using MetroLog.Packaging;
 using MetroLog.Targets;
 using System;
 using System.Collections.Generic;
