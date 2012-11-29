@@ -40,6 +40,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,6 +48,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\MetroLog\Targets\EtwTarget.cs">
+      <Link>Targets\EtwTarget.cs</Link>
+    </Compile>
+    <Compile Include="..\MetroLog\Targets\HttpClientEventHandler.cs">
+      <Link>Targets\HttpClientEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\MetroLog\Targets\JsonPostTarget.cs">
+      <Link>Targets\JsonPostTarget.cs</Link>
+    </Compile>
+    <Compile Include="..\MetroLog\Targets\JsonPostWrapper.cs">
+      <Link>Targets\JsonPostWrapper.cs</Link>
+    </Compile>
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>

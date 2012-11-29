@@ -48,15 +48,10 @@ namespace Win8Sample
 
             // you could even add Log as a property your LayoutAwarePage class...
 
-            // setup...
-            this.SetupSharing();
+          
         }
 
-        private void SetupSharing()
-        {
-            var manager = DataTransferManager.GetForCurrentView();
-            manager.DataRequested += manager_DataRequested;
-        }
+     
 
         void manager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
         {
@@ -214,8 +209,21 @@ namespace Win8Sample
                 await this.FileToShare.DeleteAsync();
             this.FileToShare = file;
 
+
+            var manager = DataTransferManager.GetForCurrentView();
+            manager.DataRequested += manager_DataRequested;
+
             // share...
             DataTransferManager.ShowShareUI();
+
+            manager.DataRequested -= manager_DataRequested;
+        }
+
+        private async void ShareLogs(object sender, RoutedEventArgs e)
+        {
+            var lm = (IWinRTLogManager)LogManagerFactory.DefaultLogManager;
+
+            await lm.ShareLogFile("Win 8 Sample app", "The description");
         }
     }
 }

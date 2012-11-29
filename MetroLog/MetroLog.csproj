@@ -15,10 +15,10 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Profile7</TargetFrameworkProfile>
+    <TargetFrameworkProfile>Profile78</TargetFrameworkProfile>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -147,14 +147,10 @@
     <Compile Include="Targets\AsyncTarget.cs" />
     <Compile Include="Targets\BufferedTarget.cs" />
     <Compile Include="Targets\DebugTarget.cs" />
-    <Compile Include="Targets\EtwTarget.cs" />
     <Compile Include="Targets\FileCreationMode.cs" />
     <Compile Include="Targets\FileNamingParameters.cs" />
     <Compile Include="Targets\FileTargetBase.cs" />
     <Compile Include="Targets\FileTimestampMode.cs" />
-    <Compile Include="Targets\HttpClientEventHandler.cs" />
-    <Compile Include="Targets\JsonPostTarget.cs" />
-    <Compile Include="Targets\JsonPostWrapper.cs" />
     <Compile Include="Targets\LogReadQuery.cs" />
     <Compile Include="Targets\SyncTarget.cs" />
     <Compile Include="Targets\TargetBinding.cs" />

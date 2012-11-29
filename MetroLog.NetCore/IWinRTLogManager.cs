@@ -10,5 +10,7 @@ namespace MetroLog
     public interface IWinRTLogManager : ILogManager
     {
         Task<IStorageFile> GetCompressedLogFile();
+        Task ShareLogFile(string title, string description);
+
     }
 }

@@ -30,7 +30,7 @@ namespace MetroLog
             }
         }
 
-        protected override async Task<Stream> GetCompressedLogsInternal()
+        protected override Task<Stream> GetCompressedLogsInternal()
         {
             var ms = new MemoryStream();
 
@@ -44,7 +44,7 @@ namespace MetroLog
 
             ms.Position = 0;
 
-            return ms;
+            return Task.FromResult<Stream>(ms);
         }
 
         protected FileTarget(Layout layout) : base(layout)

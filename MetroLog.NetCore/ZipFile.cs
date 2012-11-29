@@ -19,15 +19,15 @@ namespace MetroLog
 
         private static async Task DoCreateFromDirectory(IStorageFolder source, Stream destinationArchive, CompressionLevel? compressionLevel,  Encoding entryNameEncoding)
         {
-            var notCreated = true;
+           // var notCreated = true;
 
             var fullName = source.Path;
 
-            using (var destination = await Open(destinationArchive, ZipArchiveMode.Create, entryNameEncoding))
+            using (var destination = Open(destinationArchive, ZipArchiveMode.Create, entryNameEncoding))
             {
                 foreach (var item in await source.GetStorageItemsRecursive())
                 {
-                    notCreated = false;
+                 //   notCreated = false;
                     var length = item.Path.Length - fullName.Length;
                     var entryName = item.Path.Substring(fullName.Length, length).TrimStart('\\', '/');
 
@@ -44,12 +44,12 @@ namespace MetroLog
         }
 
 
-        public static Task<ZipArchive> OpenRead(Stream archive)
+        public static ZipArchive OpenRead(Stream archive)
         {
             return Open(archive, ZipArchiveMode.Read);
         }
 
-        public static async Task<ZipArchive> Open(Stream archive, ZipArchiveMode mode, Encoding entryNameEncoding = null)
+        public static ZipArchive Open(Stream archive, ZipArchiveMode mode, Encoding entryNameEncoding = null)
         {
             if (archive == null) throw new ArgumentNullException("archive");
             

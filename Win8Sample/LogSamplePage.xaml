@@ -48,6 +48,7 @@
             <Button Content="Crash/Fatal" Margin="0,30,0,0" Click="HandleFatal"></Button>
             <Button Content="Register FileStreamingTarget" Margin="0,30,0,0" Click="HandleRegisterStreamingTarget" x:Name="buttonFileStreaming"></Button>
             <Button Content="Register JsonPostTarget" Click="HandleRegisterJsonPostTarget" x:Name="buttonJsonPost"/>
+            <Button Content="Share Logs" Click="ShareLogs" x:Name="shareLogsButton" />
             <StackPanel Orientation="Horizontal">
                 <Button Content="Register SQLiteTarget" Click="HandleRegisterSQLiteTarget" x:Name="buttonSQLite"/>
                 <Button Content="Read SQLite Entries" Click="HandleReadSQLiteValues" x:Name="buttonReadSQLite" IsEnabled="false" />

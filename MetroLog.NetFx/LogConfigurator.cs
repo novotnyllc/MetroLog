@@ -16,6 +16,7 @@ namespace MetroLog
         {
             var def = base.CreateDefaultSettings();
             def.AddTarget(LogLevel.Trace, LogLevel.Fatal, new TraceTarget());
+            def.AddTarget(LogLevel.Trace, LogLevel.Fatal, new EtwTarget());
 
             return def;
         }
