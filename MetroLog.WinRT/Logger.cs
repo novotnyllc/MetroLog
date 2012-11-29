@@ -23,20 +23,29 @@ namespace MetroLog.WinRT
 
         static Logger()
         {
+            MaxLevel = LogLevel.Trace;
+
+            var max = (PclLogLevel)MaxLevel;
+
             _logManager = new Lazy<IWinRTLogManager>(() =>
                 {
                     // Log everything for now
                     var configuration = new LoggingConfiguration();
-                    configuration.AddTarget(PclLogLevel.Trace, PclLogLevel.Fatal, new DebugTarget());
-                    configuration.AddTarget(PclLogLevel.Trace, PclLogLevel.Fatal, new EtwTarget());
-                    configuration.AddTarget(PclLogLevel.Trace, PclLogLevel.Fatal, new EventTarget(OnLogMessageInternal));
-                    configuration.AddTarget(PclLogLevel.Trace, PclLogLevel.Fatal, new FileStreamingTarget());
+                    configuration.AddTarget(max, PclLogLevel.Fatal, new DebugTarget());
+                    configuration.AddTarget(max, PclLogLevel.Fatal, new EtwTarget());
+                    configuration.AddTarget(max, PclLogLevel.Fatal, new EventTarget(OnLogMessageInternal));
+                    configuration.AddTarget(max, PclLogLevel.Fatal, new FileStreamingTarget());
 
                     LogManagerFactory.DefaultConfiguration = configuration;
 
                     return (IWinRTLogManager)LogManagerFactory.DefaultLogManager;
                 });
         }
+
+        /// <summary>
+        /// Maximum verbosity to be returned. Default is all, which is Trace. Must be set prior to first access of GetLogger
+        /// </summary>
+        public static LogLevel MaxLevel { get; set; }
 
         /// <summary>
         /// Returns a zip file of the compressed logs
