@@ -25,10 +25,10 @@ namespace MetroLog.WinRT
         {
             MaxLevel = LogLevel.Trace;
 
-            var max = (PclLogLevel)MaxLevel;
 
             _logManager = new Lazy<IWinRTLogManager>(() =>
                 {
+                    var max = (PclLogLevel)MaxLevel;
                     // Log everything for now
                     var configuration = new LoggingConfiguration();
                     configuration.AddTarget(max, PclLogLevel.Fatal, new DebugTarget());

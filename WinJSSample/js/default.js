@@ -3,6 +3,8 @@
 (function () {
     "use strict";
 
+    MetroLog.WinRT.Logger.maxLevel = MetroLog.WinRT.LogLevel.info;
+
     WinJS.Binding.optimizeBindingReferences = true;
 
     var app = WinJS.Application;
@@ -29,6 +31,8 @@
             
 
             logger.info("Was activated");
+            logger.trace("Trace Active");
+            logger.debug("Debug active");
 
             if (app.sessionState.history) {
                 nav.history = app.sessionState.history;
