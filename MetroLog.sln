@@ -14,8 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		typescript\winrt.d.ts = typescript\winrt.d.ts
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroLog.NetFx", "MetroLog.NetFx\MetroLog.NetFx.csproj", "{B929FFC8-CA0D-43FD-A95B-8E454CCD7133}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroLog.NetCore", "MetroLog.NetCore\MetroLog.NetCore.csproj", "{429EE5FC-46FE-4249-BB40-8DC6D9023A04}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroLog.NetCore.Tests", "MetroLog.NetCore.Tests\MetroLog.NetCore.Tests.csproj", "{109459B6-0797-43CC-A8F5-56DF41A47AE6}"
@@ -91,16 +89,6 @@ Global
 		{DA25A63D-03A0-4866-84FF-48A2A8CF9101}.Release|x86.ActiveCfg = Release|x86
 		{DA25A63D-03A0-4866-84FF-48A2A8CF9101}.Release|x86.Build.0 = Release|x86
 		{DA25A63D-03A0-4866-84FF-48A2A8CF9101}.Release|x86.Deploy.0 = Release|x86
-		{B929FFC8-CA0D-43FD-A95B-8E454CCD7133}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B929FFC8-CA0D-43FD-A95B-8E454CCD7133}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B929FFC8-CA0D-43FD-A95B-8E454CCD7133}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{B929FFC8-CA0D-43FD-A95B-8E454CCD7133}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{B929FFC8-CA0D-43FD-A95B-8E454CCD7133}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{B929FFC8-CA0D-43FD-A95B-8E454CCD7133}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B929FFC8-CA0D-43FD-A95B-8E454CCD7133}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B929FFC8-CA0D-43FD-A95B-8E454CCD7133}.Release|ARM.ActiveCfg = Release|Any CPU
-		{B929FFC8-CA0D-43FD-A95B-8E454CCD7133}.Release|x64.ActiveCfg = Release|Any CPU
-		{B929FFC8-CA0D-43FD-A95B-8E454CCD7133}.Release|x86.ActiveCfg = Release|Any CPU
 		{429EE5FC-46FE-4249-BB40-8DC6D9023A04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{429EE5FC-46FE-4249-BB40-8DC6D9023A04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{429EE5FC-46FE-4249-BB40-8DC6D9023A04}.Debug|ARM.ActiveCfg = Debug|ARM

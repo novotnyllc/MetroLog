@@ -29,7 +29,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
-namespace SQLite
+namespace MetroLog.NetCore.Targets.SQLite
 {
 	public class SQLiteAsyncConnection
 	{

@@ -1,11 +1,11 @@
 ﻿using MetroLog.Layouts;
-using SQLite;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MetroLog.NetCore.Targets.SQLite;
 using Windows.Storage;
 
 namespace MetroLog.Targets
@@ -115,6 +115,8 @@ namespace MetroLog.Targets
                     // delete...
                     var conn = GetConnection();
                     await conn.ExecuteAsync("delete from LogEventInfoItem where datetimeutc <= ?", threshold);
+
+                    this.NextCleanupUtc = DateTime.UtcNow.AddHours(12);
                 }
                 catch (Exception ex)
                 {
@@ -123,7 +125,8 @@ namespace MetroLog.Targets
             }
         }
 
-        private async Task EnsureInitialize()
+        private Task _doEnsureInitializeTask;
+        private async Task DoEnsureInitialize()
         {
             // check the folder...
             if (this.DatabasePath.Contains("\\") || this.DatabasePath.Contains("/"))
@@ -142,6 +145,16 @@ namespace MetroLog.Targets
             // get...
             var conn = GetConnection();
             await conn.CreateTablesAsync<LogEventInfoItem, SessionHeaderItem>();
+        }
+        private async Task EnsureInitialize()
+        {
+            var task = _doEnsureInitializeTask;
+            if (task == null)
+            {
+                _doEnsureInitializeTask = DoEnsureInitialize();
+                task = _doEnsureInitializeTask;
+            }
+            await task;
         }
 
         private SQLiteAsyncConnection GetConnection()

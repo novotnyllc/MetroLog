@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using SQLite;
+﻿using MetroLog.NetCore.Targets.SQLite;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
