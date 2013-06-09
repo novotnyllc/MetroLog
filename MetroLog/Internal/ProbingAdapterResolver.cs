@@ -117,6 +117,13 @@ namespace MetroLog.Internal
             AssemblyName assemblyName = new AssemblyName(GetType().GetTypeInfo().Assembly.FullName);
             assemblyName.Name = "MetroLog." + platformName;    // for example, MetroLog.NetCore
 
+            if (platformName == "WP8")
+            {
+                // HACK...no real strong name support here
+                assemblyName.SetPublicKey(null);
+                assemblyName.SetPublicKeyToken(null); 
+            }
+
             try
             {
                 return _assemblyLoader(assemblyName);

@@ -12,7 +12,7 @@ namespace MetroLog.Internal
         public string Name { get; private set; }
         private readonly LoggingConfiguration _configuration;
 
-        internal Logger(string name, LoggingConfiguration config)
+        public Logger(string name, LoggingConfiguration config)
         {
             Name = name;
 
