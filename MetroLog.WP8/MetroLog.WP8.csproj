@@ -91,7 +91,6 @@
     <Compile Include="LogConfigurator.cs" />
     <Compile Include="LoggingEnvironment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Targets\TraceTarget.cs" />
     <Compile Include="Wp8FileTarget.cs" />
   </ItemGroup>
   <ItemGroup>
