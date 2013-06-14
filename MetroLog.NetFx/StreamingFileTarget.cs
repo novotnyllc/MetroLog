@@ -30,7 +30,6 @@ namespace MetroLog
 
         protected override Task WriteTextToFileCore(StreamWriter file, string contents)
         {
-        //    ZipFile sf;
             return file.WriteLineAsync(contents);
         }
     }

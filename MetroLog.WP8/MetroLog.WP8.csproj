@@ -91,6 +91,7 @@
     <Compile Include="LogConfigurator.cs" />
     <Compile Include="LoggingEnvironment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Wp8FileStreamingTarget.cs" />
     <Compile Include="Wp8FileTarget.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -100,15 +101,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Cimbalino.Phone.Toolkit.Background">
-      <HintPath>..\packages\Cimbalino.Phone.Toolkit.Background.3.0.0\lib\wp8\Cimbalino.Phone.Toolkit.Background.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\MetroLog.snk">
       <Link>MetroLog.snk</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

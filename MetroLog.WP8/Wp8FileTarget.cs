@@ -3,39 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Cimbalino.Phone.Toolkit.Services;
 using MetroLog.Layouts;
 using Windows.Storage;
 using Windows.Storage.Search;
 
 namespace MetroLog.Targets
 {
-    public class Wp8FileStreamingTarget : Wp8FileTarget
-    {
-        public Wp8FileStreamingTarget() 
-            : this(new SingleLineLayout())
-        {
-            
-        }
-
-        public Wp8FileStreamingTarget(Layout layout)
-            : base(layout)
-        {
-            this.FileNamingParameters.IncludeLevel = false;
-            this.FileNamingParameters.IncludeLogger = false;
-            this.FileNamingParameters.IncludeSequence = false;
-            this.FileNamingParameters.IncludeSession = false;
-            this.FileNamingParameters.IncludeTimestamp = FileTimestampMode.Date;
-            FileNamingParameters.CreationMode = FileCreationMode.AppendIfExisting;
-        }
-
-        protected override Task WriteTextToFileCore(IStorageFile file, string contents)
-        {
-            var storage = new AsyncStorageService();
-
-            return storage.AppendAllText(file.Path, contents + Environment.NewLine);
-        }
-    }
     public abstract class Wp8FileTarget : FileTargetBase
     {
         private static StorageFolder _logFolder = null;
@@ -57,14 +30,9 @@ namespace MetroLog.Targets
             return _logFolder;
         }
 
-        protected override async Task<Stream> GetCompressedLogsInternal()
+        protected override Task<Stream> GetCompressedLogsInternal()
         {
-            var ms = new MemoryStream();
-
-            //await ZipFile.CreateFromDirectory(_logFolder, ms);
-            //ms.Position = 0;
-
-            return ms;
+           throw new NotSupportedException("Compression not supported on WP8 yet");
         }
 
         protected override Task EnsureInitialized()
