@@ -95,6 +95,7 @@ namespace MetroLog.Internal
         {
             try
             {
+                if (_configuration.IsEnabled == false) return null;
                 var targets = _configuration.GetTargets(level);
                 if (!(targets.Any()))
                     return Task.FromResult(new LogWriteOperation[] { });
