@@ -7,6 +7,10 @@ using MetroLog.Layouts;
 using Windows.Storage;
 using Windows.Storage.Search;
 
+using Windows.Storage.Streams;
+using System.IO.Compression;
+using System.Runtime.InteropServices.WindowsRuntime;
+
 namespace MetroLog.Targets
 {
     public abstract class Wp8FileTarget : FileTargetBase
@@ -30,9 +34,72 @@ namespace MetroLog.Targets
             return _logFolder;
         }
 
-        protected override Task<Stream> GetCompressedLogsInternal()
+        private async static Task<byte[]> ReadStorageFileToByteBuffer(IStorageFile storageFile)
         {
-           throw new NotSupportedException("Compression not supported on WP8 yet");
+            IRandomAccessStream accessStream = await storageFile.OpenReadAsync();
+            byte[] content = null;
+
+            using (Stream stream = accessStream.AsStreamForRead((int)accessStream.Size))
+            {
+                content = new byte[stream.Length];
+                await stream.ReadAsync(content, 0, (int)stream.Length);
+            }
+
+            return content;
+        }
+
+        private string GetCompressedFileName(string baseDirPath, StorageFile file)
+        {
+            return file.Path.Remove(0, baseDirPath.Length);
+        }
+
+        private async Task ZipFolderContents(StorageFolder sourceFolder, ZipArchive archive, string baseDirPath)
+        {
+            IReadOnlyList<StorageFile> files = await sourceFolder.GetFilesAsync();
+            Regex pattern = FileNamingParameters.GetRegex();
+
+            foreach (StorageFile file in files)
+            {
+                if (pattern.Match(file.Name).Success)
+                {
+                    ZipArchiveEntry readmeEntry = archive.CreateEntry(GetCompressedFileName(baseDirPath, file));
+
+                    byte[] buffer = await ReadStorageFileToByteBuffer(file);
+
+                    Stream entryStream = readmeEntry.Open();
+                    await entryStream.WriteAsync(buffer, 0, buffer.Length);
+                    await entryStream.FlushAsync();
+                    entryStream.Dispose();
+                    //using (Stream entryStream = readmeEntry.Open())
+                    //{
+                    //    await entryStream.WriteAsync(buffer, 0, buffer.Length);
+                    //}
+                }
+            }
+
+        }
+
+        protected async override Task<Stream> GetCompressedLogsInternal()
+        {
+            String logFileName = "Logs-Dump.zip";
+            
+            // create log file and output stream
+            StorageFile zippedStorageFile = await _logFolder.CreateFileAsync(logFileName, CreationCollisionOption.ReplaceExisting);
+            Stream logoutputStream = await zippedStorageFile.OpenStreamForWriteAsync();
+           
+            // archive 
+            ZipArchive zipArchive = new ZipArchive(logoutputStream, ZipArchiveMode.Create, false);
+            await ZipFolderContents(_logFolder, zipArchive, logFileName);
+            
+            // release outfile stream
+            await logoutputStream.FlushAsync();
+            zipArchive.Dispose();
+            logoutputStream.Dispose();
+
+            // get inputstream for reading
+            Stream loginputStream = await _logFolder.OpenStreamForReadAsync(logFileName);
+          
+            return loginputStream;
         }
 
         protected override Task EnsureInitialized()
