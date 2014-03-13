@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -43,24 +43,33 @@ namespace MetroLog.Targets
         sealed protected override async Task DoCleanup(Regex pattern, DateTime threshold)
         {
 
+            Regex zipPattern = new Regex(@"^Log(.*).zip$");
             var toDelete = new List<StorageFile>();
+
             foreach (var file in await _logFolder.GetFilesAsync())
             {
                 if (pattern.Match(file.Name).Success && file.DateCreated <= threshold)
                     toDelete.Add(file);
+
+                if (zipPattern.Match(file.Name).Success)
+                    toDelete.Add(file);
             }
 
 
-            var qo = new QueryOptions(CommonFileQuery.DefaultQuery, new[] { ".zip" })
+            // QueryOptions class is not available in Windows Phone 8 
+
+            /* 
+            var qo = new queryoptions(commonfilequery.defaultquery, new[] { ".zip" })
             {
-                FolderDepth = FolderDepth.Shallow,
-                UserSearchFilter = "System.FileName:~<\"Log -\""
+                folderdepth = folderdepth.shallow,
+                usersearchfilter = "system.filename:~<\"log -\""
             };
 
-            var query = ApplicationData.Current.TemporaryFolder.CreateFileQueryWithOptions(qo);
+            var query = applicationdata.current.temporaryfolder.createfilequerywithoptions(qo);
 
-            var oldLogs = await query.GetFilesAsync();
-            toDelete.AddRange(oldLogs);
+            var oldlogs = await query.getfilesasync();
+            todelete.addrange(oldlogs);
+            */
 
             // walk...
             foreach (var file in toDelete)
