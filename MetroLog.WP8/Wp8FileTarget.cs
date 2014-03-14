@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using MetroLog.Layouts;
 using Windows.Storage;
 using Windows.Storage.Search;
+
+using Windows.Storage.Streams;
+using System.IO.Compression;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace MetroLog.Targets
 {
@@ -30,9 +34,64 @@ namespace MetroLog.Targets
             return _logFolder;
         }
 
-        protected override Task<Stream> GetCompressedLogsInternal()
+        private async static Task<byte[]> ReadStorageFileToByteBuffer(IStorageFile storageFile)
         {
-           throw new NotSupportedException("Compression not supported on WP8 yet");
+            IRandomAccessStream accessStream = await storageFile.OpenReadAsync();
+            byte[] content = null;
+
+            using (Stream stream = accessStream.AsStreamForRead((int)accessStream.Size))
+            {
+                content = new byte[stream.Length];
+                await stream.ReadAsync(content, 0, (int)stream.Length);
+            }
+
+            return content;
+        }
+
+        private async Task ZipFolderContents(StorageFolder sourceFolder, ZipArchive archive, string baseDirPath)
+        {
+            IReadOnlyList<StorageFile> files = await sourceFolder.GetFilesAsync();
+            Regex pattern = FileNamingParameters.GetRegex();
+
+            foreach (StorageFile file in files)
+            {
+                if (pattern.Match(file.Name).Success)
+                {
+                    ZipArchiveEntry readmeEntry = archive.CreateEntry(file.Name);
+
+                    byte[] buffer = await ReadStorageFileToByteBuffer(file);
+
+                    Stream entryStream = readmeEntry.Open();
+                    await entryStream.WriteAsync(buffer, 0, buffer.Length);
+                    await entryStream.FlushAsync();
+                    entryStream.Dispose();
+                   
+                }
+            }
+
+        }
+
+        protected async override Task<Stream> GetCompressedLogsInternal()
+        {
+            String logFileName = "Logs-Dump.zip";
+            
+            // create log file and output stream
+            StorageFile zippedStorageFile = await _logFolder.CreateFileAsync(logFileName, CreationCollisionOption.ReplaceExisting);
+            Stream logoutputStream = await zippedStorageFile.OpenStreamForWriteAsync();
+           
+            // archive 
+            ZipArchive zipArchive = new ZipArchive(logoutputStream, ZipArchiveMode.Create, false);
+            await ZipFolderContents(_logFolder, zipArchive, logFileName);
+            
+            // release outfile stream
+            await logoutputStream.FlushAsync();
+            zipArchive.Dispose();
+            logoutputStream.Dispose();
+
+            // get inputstream for reading
+            Stream loginputStream = await _logFolder.OpenStreamForReadAsync(logFileName);
+            return loginputStream;
+
         }
 
         protected override Task EnsureInitialized()
@@ -43,24 +102,31 @@ namespace MetroLog.Targets
         sealed protected override async Task DoCleanup(Regex pattern, DateTime threshold)
         {
 
+            Regex zipPattern = new Regex(@"^Log(.*).zip$");
             var toDelete = new List<StorageFile>();
+
             foreach (var file in await _logFolder.GetFilesAsync())
             {
                 if (pattern.Match(file.Name).Success && file.DateCreated <= threshold)
                     toDelete.Add(file);
+
+                if (zipPattern.Match(file.Name).Success)
+                    toDelete.Add(file);
             }
 
 
-            var qo = new QueryOptions(CommonFileQuery.DefaultQuery, new[] { ".zip" })
-            {
-                FolderDepth = FolderDepth.Shallow,
-                UserSearchFilter = "System.FileName:~<\"Log -\""
-            };
+            // QueryOptions class is not implemented in Windows Phone 8 
+            //var qo = new queryoptions(commonfilequery.defaultquery, new[] { ".zip" })
+            //{
+            //    folderdepth = folderdepth.shallow,
+            //    usersearchfilter = "system.filename:~<\"log -\""
+            //};
 
-            var query = ApplicationData.Current.TemporaryFolder.CreateFileQueryWithOptions(qo);
+            //var query = applicationdata.current.temporaryfolder.createfilequerywithoptions(qo);
 
-            var oldLogs = await query.GetFilesAsync();
-            toDelete.AddRange(oldLogs);
+            //var oldlogs = await query.getfilesasync();
+            //todelete.addrange(oldlogs);
+           
 
             // walk...
             foreach (var file in toDelete)
