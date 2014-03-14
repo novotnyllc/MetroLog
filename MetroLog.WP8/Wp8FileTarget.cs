@@ -48,11 +48,6 @@ namespace MetroLog.Targets
             return content;
         }
 
-        private string GetCompressedFileName(string baseDirPath, StorageFile file)
-        {
-            return file.Path.Remove(0, baseDirPath.Length);
-        }
-
         private async Task ZipFolderContents(StorageFolder sourceFolder, ZipArchive archive, string baseDirPath)
         {
             IReadOnlyList<StorageFile> files = await sourceFolder.GetFilesAsync();
@@ -62,7 +57,7 @@ namespace MetroLog.Targets
             {
                 if (pattern.Match(file.Name).Success)
                 {
-                    ZipArchiveEntry readmeEntry = archive.CreateEntry(GetCompressedFileName(baseDirPath, file));
+                    ZipArchiveEntry readmeEntry = archive.CreateEntry(file.Name);
 
                     byte[] buffer = await ReadStorageFileToByteBuffer(file);
 
@@ -70,10 +65,7 @@ namespace MetroLog.Targets
                     await entryStream.WriteAsync(buffer, 0, buffer.Length);
                     await entryStream.FlushAsync();
                     entryStream.Dispose();
-                    //using (Stream entryStream = readmeEntry.Open())
-                    //{
-                    //    await entryStream.WriteAsync(buffer, 0, buffer.Length);
-                    //}
+                   
                 }
             }
 
@@ -98,8 +90,8 @@ namespace MetroLog.Targets
 
             // get inputstream for reading
             Stream loginputStream = await _logFolder.OpenStreamForReadAsync(logFileName);
-          
             return loginputStream;
+
         }
 
         protected override Task EnsureInitialized()
@@ -123,20 +115,18 @@ namespace MetroLog.Targets
             }
 
 
-            // QueryOptions class is not available in Windows Phone 8 
+            // QueryOptions class is not implemented in Windows Phone 8 
+            //var qo = new queryoptions(commonfilequery.defaultquery, new[] { ".zip" })
+            //{
+            //    folderdepth = folderdepth.shallow,
+            //    usersearchfilter = "system.filename:~<\"log -\""
+            //};
 
-            /* 
-            var qo = new queryoptions(commonfilequery.defaultquery, new[] { ".zip" })
-            {
-                folderdepth = folderdepth.shallow,
-                usersearchfilter = "system.filename:~<\"log -\""
-            };
+            //var query = applicationdata.current.temporaryfolder.createfilequerywithoptions(qo);
 
-            var query = applicationdata.current.temporaryfolder.createfilequerywithoptions(qo);
-
-            var oldlogs = await query.getfilesasync();
-            todelete.addrange(oldlogs);
-            */
+            //var oldlogs = await query.getfilesasync();
+            //todelete.addrange(oldlogs);
+           
 
             // walk...
             foreach (var file in toDelete)
