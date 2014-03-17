@@ -10,26 +10,23 @@ using System.IO;
 namespace MetroLog.Internal
 {
     // An implementation IAdapterResolver that probes for platforms-specific adapters by dynamically
-    // looking for concrete types in platform-specific assemblies, such as Portable.Silverlight.
+    // looking for concrete types in platform-specific assemblies named MyBase.Platform
     internal class ProbingAdapterResolver : IAdapterResolver
     {
-        private readonly string[] _platformNames;
         private readonly Func<AssemblyName, Assembly> _assemblyLoader;
         private readonly object _lock = new object();
         private readonly Dictionary<Type, object> _adapters = new Dictionary<Type, object>();
         private Assembly _assembly;
 
-        public ProbingAdapterResolver(params string[] platformNames)
-            : this(Assembly.Load, platformNames)
+        public ProbingAdapterResolver()
+            : this(Assembly.Load)
         {
         }
 
-        public ProbingAdapterResolver(Func<AssemblyName, Assembly> assemblyLoader, params string[] platformNames)
+        public ProbingAdapterResolver(Func<AssemblyName, Assembly> assemblyLoader)
         {
-            Debug.Assert(platformNames != null);
             Debug.Assert(assemblyLoader != null);
 
-            _platformNames = platformNames;
             _assemblyLoader = assemblyLoader;
         }
 
@@ -100,39 +97,35 @@ namespace MetroLog.Internal
             return _assembly;
         }
 
-        private Assembly ProbeForPlatformSpecificAssembly()
-        {
-            foreach (string platformName in _platformNames)
-            {
-                Assembly assembly = ProbeForPlatformSpecificAssembly(platformName);
-                if (assembly != null)
-                    return assembly;
-            }
-
-            return null;
-        }
-
-        private Assembly ProbeForPlatformSpecificAssembly(string platformName)
+     private Assembly ProbeForPlatformSpecificAssembly()
         {
             AssemblyName assemblyName = new AssemblyName(GetType().GetTypeInfo().Assembly.FullName);
-            assemblyName.Name = "MetroLog." + platformName;    // for example, MetroLog.NetCore
+            assemblyName.Name = "MetroLog.Platform" ;   
 
-            if (platformName == "WP8")
-            {
-                // HACK...no real strong name support here
-                assemblyName.SetPublicKey(null);
-                assemblyName.SetPublicKeyToken(null); 
-            }
-
+            Assembly assm = null;
             try
             {
-                return _assemblyLoader(assemblyName);
+                assm = _assemblyLoader(assemblyName);
             }
-            catch (FileNotFoundException)
+            catch (Exception)
             {
+                // Try again without the SN for WP8
+                // HACK...no real strong name support here
+                assemblyName.SetPublicKey(null);
+                assemblyName.SetPublicKeyToken(null);
+
+                try
+                {
+                    assm = _assemblyLoader(assemblyName);
+                }
+                catch (Exception)
+                {
+                }
+
             }
 
-            return null;
+            return assm;
+
         }
     }
 }

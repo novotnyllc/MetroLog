@@ -9,7 +9,6 @@ namespace MetroLog.Internal
     // Enables types within PclContrib to use platform-specific features in a platform-agnostic way
     internal static class PlatformAdapter
     {
-        private static readonly string[] KnownPlatformNames = new[] { "NetFx", "NetCore", "WP8" };
         private static IAdapterResolver _resolver = new ProbingAdapterResolver(KnownPlatformNames);
 
         public static T Resolve<T>(bool throwIfNotFound = true, params object[] args)
