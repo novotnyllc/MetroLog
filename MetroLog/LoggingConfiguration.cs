@@ -9,6 +9,7 @@ namespace MetroLog
 {
     public class LoggingConfiguration
     {
+        public bool IsEnabled { get; set; }
         private readonly List<TargetBinding> _bindings;
         private readonly object _bindingsLock = new object();
 
