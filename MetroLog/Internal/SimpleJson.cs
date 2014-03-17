@@ -26,7 +26,7 @@
 #define SIMPLE_JSON_OBJARRAYINTERNAL
 
 // NOTE: uncomment the following line to enable dynamic support.
-#define SIMPLE_JSON_DYNAMIC
+//#define SIMPLE_JSON_DYNAMIC
 
 // NOTE: uncomment the following line to enable DataContract support.
 #define SIMPLE_JSON_DATACONTRACT

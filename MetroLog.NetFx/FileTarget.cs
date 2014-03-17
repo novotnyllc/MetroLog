@@ -26,7 +26,7 @@ namespace MetroLog
                 if (string.IsNullOrWhiteSpace(value))
                     throw new ArgumentNullException("value");
 
-                _appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), value);
+                _appDataPath = Path.Combine(GetUserAppDataPath(), value);
             }
         }
 
@@ -122,13 +122,22 @@ namespace MetroLog
 
         private static string GetUserAppDataPath()
         {
+#if __ANDROID__
+                var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+#elif __IOS__
+                var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                var localAppData = Path.Combine(documents, "..", "Library");
+#else
+            var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+#endif
+
             var path = string.Empty;
 
             // Get the .EXE assembly
             var assm = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
 
             // Build the User App Data Path
-            path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), assm.GetName().Name);
+            path = Path.Combine(localAppData, assm.GetName().Name);
 
             return path;
         }
