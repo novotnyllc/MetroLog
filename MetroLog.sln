@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B59C05D2-3F0D-40CB-8753-7F63D458AF00}"
 	ProjectSection(SolutionItems) = preProject
 		MetroLog ReadMe.txt = MetroLog ReadMe.txt
+		MetroLog.nuspec = MetroLog.nuspec
 		typescript\MetroLog.WinRT.d.ts = typescript\MetroLog.WinRT.d.ts
 		README.mdown = README.mdown
 		SharedAssemblyInfo.cs = SharedAssemblyInfo.cs
