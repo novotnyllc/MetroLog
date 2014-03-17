@@ -15,7 +15,7 @@ namespace MetroLog
     /// This class maintains a list of the managers and tracks application suspension. When the app is suspended,
     /// any discovered targets tht implement ISuspendNotify are called.
     /// </remarks>
-    internal class LazyFlushManager
+    public class LazyFlushManager
     {
         private ILogManager Owner { get; set; }
         private List<ILazyFlushable> Clients { get; set; }
@@ -68,7 +68,7 @@ namespace MetroLog
             await FlushAllAsync(new LogWriteContext());
         }
 
-        internal static async Task FlushAllAsync(LogWriteContext context)
+        public static async Task FlushAllAsync(LogWriteContext context)
         {
             var tasks = new List<Task>();
             foreach (var manager in Owners.Values)

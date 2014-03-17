@@ -1,4 +1,4 @@
-﻿using SQLite;
+﻿using MetroLog.NetCore.Targets.SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
