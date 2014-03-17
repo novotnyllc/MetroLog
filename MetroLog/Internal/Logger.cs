@@ -12,6 +12,8 @@ namespace MetroLog.Internal
         public string Name { get; private set; }
         private readonly LoggingConfiguration _configuration;
 
+        private static readonly Task<LogWriteOperation[]> EmptyOperations = Task.FromResult(new LogWriteOperation[] { });
+
         public Logger(string name, LoggingConfiguration config)
         {
             Name = name;
@@ -95,11 +97,11 @@ namespace MetroLog.Internal
         {
             try
             {
-                if (_configuration.IsEnabled == false) 
-                    return null;
+                if (_configuration.IsEnabled == false)
+                    return EmptyOperations;
                 var targets = _configuration.GetTargets(level);
                 if (!(targets.Any()))
-                    return Task.FromResult(new LogWriteOperation[] { });
+                    return EmptyOperations;
 
                 // format?
                 if (doFormat)
@@ -122,7 +124,7 @@ namespace MetroLog.Internal
             catch (Exception logEx)
             {
                 InternalLogger.Current.Error("Logging operation failed.", logEx);
-                return Task.FromResult(new LogWriteOperation[] {});
+                return EmptyOperations;
             }
         }
 
