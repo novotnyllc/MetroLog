@@ -55,6 +55,18 @@
     <file src="MetroLog.WP8\bin\Release\MetroLog.Platform.pdb" target="lib\wp8\MetroLog.Platform.pdb" />
     <file src="MetroLog.WP8\bin\Release\MetroLog.Platform.dll" target="lib\wp8\MetroLog.Platform.dll" />
 
+    <!-- iOS -->
+    <file src="MetroLog.iOS\bin\Release\MetroLog.pdb" target="lib\MonoTouch\MetroLog.pdb" />
+    <file src="MetroLog.iOS\bin\Release\MetroLog.dll" target="lib\MonoTouch\MetroLog.dll" />
+    <file src="MetroLog.iOS\bin\Release\MetroLog.Platform.pdb" target="lib\MonoTouch\MetroLog.Platform.pdb" />
+    <file src="MetroLog.iOS\bin\Release\MetroLog.Platform.dll" target="lib\MonoTouch\MetroLog.Platform.dll" />
+
+    <!-- Android -->
+    <file src="MetroLog.Android\bin\Release\MetroLog.pdb" target="lib\MonoAndroid\MetroLog.pdb" />
+    <file src="MetroLog.Android\bin\Release\MetroLog.dll" target="lib\MonoAndroid\MetroLog.dll" />
+    <file src="MetroLog.Android\bin\Release\MetroLog.Platform.pdb" target="lib\MonoAndroid\MetroLog.Platform.pdb" />
+    <file src="MetroLog.Android\bin\Release\MetroLog.Platform.dll" target="lib\MonoAndroid\MetroLog.Platform.dll" />
+
     <file src="**\*.cs" target="src"
           exclude="_ReSharper.*\**\*.*;packages\**\*.*;**\Debug\**\*.*;Samples\**\*.*;Win8Sample\**\*.*;WebTargetSample\**\*.*" />
   </files>

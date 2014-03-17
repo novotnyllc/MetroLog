@@ -48,6 +48,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroLog.WP8.Tests", "Metro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroLog.NetFx", "MetroLog.NetFx\MetroLog.NetFx.csproj", "{B929FFC8-CA0D-43FD-A95B-8E454CCD7133}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroLog.iOS", "MetroLog.iOS\MetroLog.iOS.csproj", "{B3C9B85A-A54E-4ABF-A552-5CF6D8DDB57F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroLog.Android", "MetroLog.Android\MetroLog.Android.csproj", "{B60E2980-845E-40E0-A623-F8558765F9FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -338,6 +342,34 @@ Global
 		{B929FFC8-CA0D-43FD-A95B-8E454CCD7133}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B929FFC8-CA0D-43FD-A95B-8E454CCD7133}.Release|x64.ActiveCfg = Release|Any CPU
 		{B929FFC8-CA0D-43FD-A95B-8E454CCD7133}.Release|x86.ActiveCfg = Release|Any CPU
+		{B3C9B85A-A54E-4ABF-A552-5CF6D8DDB57F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3C9B85A-A54E-4ABF-A552-5CF6D8DDB57F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3C9B85A-A54E-4ABF-A552-5CF6D8DDB57F}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{B3C9B85A-A54E-4ABF-A552-5CF6D8DDB57F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B3C9B85A-A54E-4ABF-A552-5CF6D8DDB57F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B3C9B85A-A54E-4ABF-A552-5CF6D8DDB57F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B3C9B85A-A54E-4ABF-A552-5CF6D8DDB57F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B3C9B85A-A54E-4ABF-A552-5CF6D8DDB57F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3C9B85A-A54E-4ABF-A552-5CF6D8DDB57F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3C9B85A-A54E-4ABF-A552-5CF6D8DDB57F}.Release|ARM.ActiveCfg = Release|Any CPU
+		{B3C9B85A-A54E-4ABF-A552-5CF6D8DDB57F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B3C9B85A-A54E-4ABF-A552-5CF6D8DDB57F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B3C9B85A-A54E-4ABF-A552-5CF6D8DDB57F}.Release|x64.ActiveCfg = Release|Any CPU
+		{B3C9B85A-A54E-4ABF-A552-5CF6D8DDB57F}.Release|x86.ActiveCfg = Release|Any CPU
+		{B60E2980-845E-40E0-A623-F8558765F9FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B60E2980-845E-40E0-A623-F8558765F9FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B60E2980-845E-40E0-A623-F8558765F9FA}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{B60E2980-845E-40E0-A623-F8558765F9FA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B60E2980-845E-40E0-A623-F8558765F9FA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B60E2980-845E-40E0-A623-F8558765F9FA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B60E2980-845E-40E0-A623-F8558765F9FA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B60E2980-845E-40E0-A623-F8558765F9FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B60E2980-845E-40E0-A623-F8558765F9FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B60E2980-845E-40E0-A623-F8558765F9FA}.Release|ARM.ActiveCfg = Release|Any CPU
+		{B60E2980-845E-40E0-A623-F8558765F9FA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B60E2980-845E-40E0-A623-F8558765F9FA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B60E2980-845E-40E0-A623-F8558765F9FA}.Release|x64.ActiveCfg = Release|Any CPU
+		{B60E2980-845E-40E0-A623-F8558765F9FA}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
