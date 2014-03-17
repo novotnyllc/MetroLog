@@ -1,11 +1,11 @@
 ///<reference path='winrt.d.ts' static='true' />
 
 // This is built-in to WinJS
-class Debug {
+declare class Debug {
     static writeln(message: string): void;
 }    
 
-module MetroLog {
+declare module MetroLog {
 
     export module WinRT {
 
@@ -19,7 +19,7 @@ module MetroLog {
             }
 
         export interface ILogger {
-            isEnabled(level: LogLevel): bool;
+            isEnabled(level: LogLevel): boolean;
 
             info(message: string): void;
             info(message: string, ps: any[]): void;
@@ -43,19 +43,19 @@ module MetroLog {
             log(level: LogLevel, message: string, ps: any[]): void;
 
             name: string;
-            isTraceEnabled: bool;
-            isDebugEnabled: bool;
-            isInfoEnabled: bool;
-            isWarnEnabled: bool;
-            isErrorEnabled: bool;
-            isFatalEnabled: bool;
+            isTraceEnabled: boolean;
+            isDebugEnabled: boolean;
+            isInfoEnabled: boolean;
+            isWarnEnabled: boolean;
+            isErrorEnabled: boolean;
+            isFatalEnabled: boolean;
         }
 
 
 
         export class Logger {
             static getLogger(name : string): ILogger;
-            static getCompressedLogs(): Windows.Foundation.IAsyncOperation__StorageFile;
+            static getCompressedLogs(): Windows.Foundation.IAsyncOperation<Windows.Storage.StorageFile>;
             static maxLevel: LogLevel;
             static addEventListener(eventName: string, f: Function): void;
             static removeEventListener(eventName: string);
