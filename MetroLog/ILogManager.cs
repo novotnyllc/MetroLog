@@ -24,4 +24,20 @@ namespace MetroLog
         /// <returns>Null if no file logger is attached</returns>
         Task<Stream> GetCompressedLogs();
     }
+
+    /// <summary>
+    /// Marker interface for enabling the Log() mixin
+    /// </summary>
+    public interface ICanLog
+    {
+    }
+
+    public static class LogManagerMixins
+    {
+        public static ILogger Log<T>(this T This, LoggingConfiguration config = null) where T : ICanLog
+        {
+            return LogManagerFactory.DefaultLogManager.GetLogger<T>(config);
+        }
+    }
+    
 }
