@@ -64,10 +64,10 @@
     <file src="MetroLog\bin\Release\MetroLog.pdb" target="lib\wpa81\MetroLog.pdb" />
 
     <!-- iOS -->
-    <file src="MetroLog.iOS\bin\Release\MetroLog.pdb" target="lib\MonoTouch\MetroLog.pdb" />
-    <file src="MetroLog.iOS\bin\Release\MetroLog.dll" target="lib\MonoTouch\MetroLog.dll" />
-    <file src="MetroLog.iOS\bin\Release\MetroLog.Platform.pdb" target="lib\MonoTouch\MetroLog.Platform.pdb" />
-    <file src="MetroLog.iOS\bin\Release\MetroLog.Platform.dll" target="lib\MonoTouch\MetroLog.Platform.dll" />
+    <file src="MetroLog.iOS\bin\iPhone\Release\MetroLog.pdb" target="lib\MonoTouch\MetroLog.pdb" />
+    <file src="MetroLog.iOS\bin\iPhone\Release\MetroLog.dll" target="lib\MonoTouch\MetroLog.dll" />
+    <file src="MetroLog.iOS\bin\iPhone\Release\MetroLog.Platform.pdb" target="lib\MonoTouch\MetroLog.Platform.pdb" />
+    <file src="MetroLog.iOS\bin\iPhone\Release\MetroLog.Platform.dll" target="lib\MonoTouch\MetroLog.Platform.dll" />
 
     <!-- Android -->
     <file src="MetroLog.Android\bin\Release\MetroLog.pdb" target="lib\MonoAndroid\MetroLog.pdb" />
