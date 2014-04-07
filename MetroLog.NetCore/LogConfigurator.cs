@@ -14,7 +14,9 @@ namespace MetroLog
         {
             var def = base.CreateDefaultSettings();
             def.AddTarget(LogLevel.Error, LogLevel.Fatal, new FileSnapshotTarget());
+#if !WINDOWS_PHONE_APP
             def.AddTarget(LogLevel.Trace, LogLevel.Fatal, new EtwTarget());
+#endif
 
             return def;
         }

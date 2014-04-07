@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="com.mbrit.MetroLogWindowsStoreSample" Publisher="CN=Matthew" Version="0.6.2.0" />
+  <Identity Name="com.mbrit.MetroLogWindowsStoreSample" Publisher="CN=Oren" Version="0.6.2.0" />
   <Properties>
     <DisplayName>MetroLog Windows Store App Sample</DisplayName>
     <PublisherDisplayName>Matthew</PublisherDisplayName>
@@ -16,7 +16,7 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Win8Sample.App">
       <VisualElements DisplayName="Win8Sample" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Win8Sample" ForegroundText="light" BackgroundColor="#464646">
-        <DefaultTile ShowName="allLogos" />
+        <DefaultTile ShowName="logoOnly" />
         <SplashScreen Image="Assets\SplashScreen.png" />
       </VisualElements>
     </Application>

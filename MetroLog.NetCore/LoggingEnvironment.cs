@@ -36,7 +36,11 @@ namespace MetroLog
         private static XamlApplicationState _xamlApplicationState; 
 
         public LoggingEnvironment()
+#if WINDOWS_PHONE_APP
+        : base("Windows Phone App 8.1")
+#else
             : base(".NET Core")
+#endif
         {
             // id...
             var id = Package.Current.Id;

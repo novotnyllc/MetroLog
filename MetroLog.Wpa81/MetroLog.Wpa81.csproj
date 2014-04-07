@@ -1,28 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{429EE5FC-46FE-4249-BB40-8DC6D9023A04}</ProjectGuid>
+    <ProjectGuid>{C2CEB5C6-43D2-45A0-B4C4-B196ECE86F62}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MetroLog</RootNamespace>
     <AssemblyName>MetroLog.Platform</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformVersion>8.1</TargetPlatformVersion>
+    <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
+    <ProjectTypeGuids>{76F1466A-8B6D-4E39-A767-685A06062A39};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -30,14 +30,14 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\ARM\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>ARM</PlatformTarget>
@@ -47,7 +47,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
     <OutputPath>bin\ARM\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
     <DebugType>pdbonly</DebugType>
@@ -56,32 +56,10 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
-    <NoWarn>;2008</NoWarn>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-    <ErrorReport>prompt</ErrorReport>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
-    <Optimize>true</Optimize>
-    <NoWarn>;2008</NoWarn>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-    <ErrorReport>prompt</ErrorReport>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -91,7 +69,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
     <DebugType>pdbonly</DebugType>
@@ -109,8 +87,47 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\MetroLog\Targets\EtwTarget.cs">
-      <Link>Targets\EtwTarget.cs</Link>
+    <Compile Include="..\MetroLog.NetCore\FileNamingMode.cs">
+      <Link>FileNamingMode.cs</Link>
+    </Compile>
+    <Compile Include="..\MetroLog.NetCore\FileSnapshotTarget.cs">
+      <Link>FileSnapshotTarget.cs</Link>
+    </Compile>
+    <Compile Include="..\MetroLog.NetCore\FileStreamingTarget.cs">
+      <Link>FileStreamingTarget.cs</Link>
+    </Compile>
+    <Compile Include="..\MetroLog.NetCore\GlobalCrashHandler.cs">
+      <Link>GlobalCrashHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\MetroLog.NetCore\IWinRTLogManager.cs">
+      <Link>IWinRTLogManager.cs</Link>
+    </Compile>
+    <Compile Include="..\MetroLog.NetCore\LazyFlushManager.cs">
+      <Link>LazyFlushManager.cs</Link>
+    </Compile>
+    <Compile Include="..\MetroLog.NetCore\LogConfigurator.cs">
+      <Link>LogConfigurator.cs</Link>
+    </Compile>
+    <Compile Include="..\MetroLog.NetCore\LoggingEnvironment.cs">
+      <Link>LoggingEnvironment.cs</Link>
+    </Compile>
+    <Compile Include="..\MetroLog.NetCore\LogManager.cs">
+      <Link>LogManager.cs</Link>
+    </Compile>
+    <Compile Include="..\MetroLog.NetCore\LogManagerFactory.cs">
+      <Link>LogManagerFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\MetroLog.NetCore\WinRTFileTarget.cs">
+      <Link>WinRTFileTarget.cs</Link>
+    </Compile>
+    <Compile Include="..\MetroLog.NetCore\XamlApplicationState.cs">
+      <Link>XamlApplicationState.cs</Link>
+    </Compile>
+    <Compile Include="..\MetroLog.NetCore\XamlExtensionMethods.cs">
+      <Link>XamlExtensionMethods.cs</Link>
+    </Compile>
+    <Compile Include="..\MetroLog.NetCore\ZipFile.cs">
+      <Link>ZipFile.cs</Link>
     </Compile>
     <Compile Include="..\MetroLog\Targets\HttpClientEventHandler.cs">
       <Link>Targets\HttpClientEventHandler.cs</Link>
@@ -124,29 +141,18 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="FileSnapshotTarget.cs" />
-    <Compile Include="FileNamingMode.cs" />
-    <Compile Include="FileStreamingTarget.cs" />
-    <Compile Include="IWinRTLogManager.cs" />
-    <Compile Include="LoggingEnvironment.cs" />
-    <Compile Include="LogConfigurator.cs" />
-    <Compile Include="GlobalCrashHandler.cs" />
-    <Compile Include="LogManager.cs" />
-    <Compile Include="LogManagerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="LazyFlushManager.cs" />
-    <Compile Include="WinRTFileTarget.cs" />
-    <Compile Include="XamlApplicationState.cs" />
-    <Compile Include="XamlExtensionMethods.cs" />
-    <Compile Include="ZipFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\MetroLog.snk">
       <Link>MetroLog.snk</Link>
     </None>
   </ItemGroup>
-  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
-    <VisualStudioVersion>11.0</VisualStudioVersion>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
+    <VisualStudioVersion>12.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetPlatformIdentifier)' == '' ">
+    <TargetPlatformIdentifier>WindowsPhoneApp</TargetPlatformIdentifier>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
