@@ -65,9 +65,6 @@
     <Compile Include="..\MetroLog\Targets\JsonPostWrapper.cs">
       <Link>Targets\JsonPostWrapper.cs</Link>
     </Compile>
-    <Compile Include="..\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -90,5 +87,6 @@
       <Link>MetroLog.snk</Link>
     </None>
   </ItemGroup>
+  <Import Project="..\MetroLog.Shared\MetroLog.Shared.projitems" Label="Shared" Condition="Exists('..\MetroLog.Shared\MetroLog.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
 </Project>

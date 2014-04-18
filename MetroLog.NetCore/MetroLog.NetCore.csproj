@@ -124,21 +124,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="FileSnapshotTarget.cs" />
-    <Compile Include="FileNamingMode.cs" />
-    <Compile Include="FileStreamingTarget.cs" />
-    <Compile Include="IWinRTLogManager.cs" />
-    <Compile Include="LoggingEnvironment.cs" />
-    <Compile Include="LogConfigurator.cs" />
-    <Compile Include="GlobalCrashHandler.cs" />
-    <Compile Include="LogManager.cs" />
-    <Compile Include="LogManagerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="LazyFlushManager.cs" />
-    <Compile Include="WinRTFileTarget.cs" />
-    <Compile Include="XamlApplicationState.cs" />
-    <Compile Include="XamlExtensionMethods.cs" />
-    <Compile Include="ZipFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\MetroLog.snk">
@@ -154,6 +140,7 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\MetroLog.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <Import Project="..\MetroLog.Shared.WinRT\MetroLog.Shared.WinRT.projitems" Label="Shared" Condition="Exists('..\MetroLog.Shared.WinRT\MetroLog.Shared.WinRT.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

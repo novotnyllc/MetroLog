@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>2da83e6c-1f39-4a81-8dc2-a6cd9cac9f8e</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>MetroLog</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)FileNamingMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileSnapshotTarget.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileStreamingTarget.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GlobalCrashHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IWinRTLogManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LazyFlushManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LogConfigurator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoggingEnvironment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LogManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LogManagerFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WinRTFileTarget.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)XamlApplicationState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)XamlExtensionMethods.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ZipFile.cs" />
+  </ItemGroup>
+</Project>

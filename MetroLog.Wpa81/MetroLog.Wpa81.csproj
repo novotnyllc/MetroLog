@@ -87,48 +87,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\MetroLog.NetCore\FileNamingMode.cs">
-      <Link>FileNamingMode.cs</Link>
-    </Compile>
-    <Compile Include="..\MetroLog.NetCore\FileSnapshotTarget.cs">
-      <Link>FileSnapshotTarget.cs</Link>
-    </Compile>
-    <Compile Include="..\MetroLog.NetCore\FileStreamingTarget.cs">
-      <Link>FileStreamingTarget.cs</Link>
-    </Compile>
-    <Compile Include="..\MetroLog.NetCore\GlobalCrashHandler.cs">
-      <Link>GlobalCrashHandler.cs</Link>
-    </Compile>
-    <Compile Include="..\MetroLog.NetCore\IWinRTLogManager.cs">
-      <Link>IWinRTLogManager.cs</Link>
-    </Compile>
-    <Compile Include="..\MetroLog.NetCore\LazyFlushManager.cs">
-      <Link>LazyFlushManager.cs</Link>
-    </Compile>
-    <Compile Include="..\MetroLog.NetCore\LogConfigurator.cs">
-      <Link>LogConfigurator.cs</Link>
-    </Compile>
-    <Compile Include="..\MetroLog.NetCore\LoggingEnvironment.cs">
-      <Link>LoggingEnvironment.cs</Link>
-    </Compile>
-    <Compile Include="..\MetroLog.NetCore\LogManager.cs">
-      <Link>LogManager.cs</Link>
-    </Compile>
-    <Compile Include="..\MetroLog.NetCore\LogManagerFactory.cs">
-      <Link>LogManagerFactory.cs</Link>
-    </Compile>
-    <Compile Include="..\MetroLog.NetCore\WinRTFileTarget.cs">
-      <Link>WinRTFileTarget.cs</Link>
-    </Compile>
-    <Compile Include="..\MetroLog.NetCore\XamlApplicationState.cs">
-      <Link>XamlApplicationState.cs</Link>
-    </Compile>
-    <Compile Include="..\MetroLog.NetCore\XamlExtensionMethods.cs">
-      <Link>XamlExtensionMethods.cs</Link>
-    </Compile>
-    <Compile Include="..\MetroLog.NetCore\ZipFile.cs">
-      <Link>ZipFile.cs</Link>
-    </Compile>
     <Compile Include="..\MetroLog\Targets\HttpClientEventHandler.cs">
       <Link>Targets\HttpClientEventHandler.cs</Link>
     </Compile>
@@ -160,6 +118,7 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\MetroLog.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <Import Project="..\MetroLog.Shared.WinRT\MetroLog.Shared.WinRT.projitems" Label="Shared" Condition="Exists('..\MetroLog.Shared.WinRT\MetroLog.Shared.WinRT.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
