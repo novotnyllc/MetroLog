@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>MetroLog</id>
-    <version>0.8.6</version>
+    <version>0.8.6.1</version>
     <title>MetroLog Lightweight Logging for Portable and WinJS</title>
     <authors>Matt Baxter-Reynolds,Oren Novotny</authors>
     <owners>onovotny</owners>
@@ -15,7 +15,7 @@
       This version targets .NET 4.5,.NET Core 4.5 (Windows Store apps), Windows Phone 8, WinPhone 8.1 and WinJS
     </description>
     <summary />
-    <releaseNotes>Added a WinRT wrapper to enable use by WinJS apps</releaseNotes>
+    <releaseNotes>Fixed bug where logging was disabled by default</releaseNotes>
     <tags>Logging log WinRT NLog log4net portable pcl WinJS wp wp8 wpa81</tags>
     <dependencies>
       <group targetFramework="wp8">

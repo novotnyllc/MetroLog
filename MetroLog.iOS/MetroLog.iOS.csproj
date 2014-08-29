@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\iPhone\Debug</OutputPath>
-    <DefineConstants>DEBUG</DefineConstants>
+    <DefineConstants>DEBUG;__IOS__</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -33,6 +33,7 @@
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Developer</CodesignKey>
     <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>__IOS__</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>

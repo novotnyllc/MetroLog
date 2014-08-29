@@ -17,6 +17,7 @@ namespace MetroLog
 
         public LoggingConfiguration()
         {
+            IsEnabled = true; // default to true to enable logging
             _bindings = new List<TargetBinding>();
         }
 
