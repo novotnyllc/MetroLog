@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>MetroLog</id>
-    <version>0.8.7</version>
+    <version>0.8.7.1</version>
     <title>MetroLog Lightweight Logging for Portable and WinJS</title>
     <authors>Matt Baxter-Reynolds,Oren Novotny</authors>
     <owners>onovotny</owners>
@@ -19,7 +19,7 @@
     <tags>Logging log WinRT NLog log4net portable pcl WinJS wp wp8 wpa81 ios android xamarin</tags>
     <dependencies>
       <group targetFramework="wp8">
-        <dependency id="Microsoft.Bcl.Compression" version="3.9.73" />
+        <dependency id="Microsoft.Bcl.Compression" version="3.9.85" />
       </group>
     </dependencies>
   </metadata>

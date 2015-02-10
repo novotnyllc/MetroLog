@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MetroLog
 {
-    class LogManagerFactory : ILogManagerCreator
+    class LogManagerCreator : ILogManagerCreator
     {
         public ILogManager Create(LoggingConfiguration configuration)
         {
