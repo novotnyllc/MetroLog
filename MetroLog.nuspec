@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>MetroLog</id>
-    <version>0.8.6.1</version>
+    <version>0.8.7</version>
     <title>MetroLog Lightweight Logging for Portable and WinJS</title>
     <authors>Matt Baxter-Reynolds,Oren Novotny</authors>
     <owners>onovotny</owners>
@@ -12,11 +12,11 @@
     <description>
       MetroLog is a lightweight logging framework designed for portable code and WinJS. Although the API is based on NLog and log4net, the intention is that it's a very basic logging system.
 
-      This version targets .NET 4.5, Windows 8.1 (Windows Store apps), Windows Phone 8, WinPhone 8.1 and WinJS
+      This version targets .NET 4.5, Windows 8.1 (Windows Store apps), Windows Phone 8, WinPhone 8.1, WinJS, Xamarin.iOS, Xamarin.Android
     </description>
     <summary />
-    <releaseNotes>Fixed bug where logging was disabled by default</releaseNotes>
-    <tags>Logging log WinRT NLog log4net portable pcl WinJS wp wp8 wpa81</tags>
+    <releaseNotes>Added Xamarin.iOS Unified support</releaseNotes>
+    <tags>Logging log WinRT NLog log4net portable pcl WinJS wp wp8 wpa81 ios android xamarin</tags>
     <dependencies>
       <group targetFramework="wp8">
         <dependency id="Microsoft.Bcl.Compression" version="3.9.73" />
@@ -63,11 +63,17 @@
     <file src="MetroLog\bin\Release\MetroLog.dll" target="lib\wpa81\MetroLog.dll" />
     <file src="MetroLog\bin\Release\MetroLog.pdb" target="lib\wpa81\MetroLog.pdb" />
 
-    <!-- iOS -->
+    <!-- iOS Classic -->
     <file src="MetroLog.iOS\bin\iPhone\Release\MetroLog.pdb" target="lib\MonoTouch\MetroLog.pdb" />
     <file src="MetroLog.iOS\bin\iPhone\Release\MetroLog.dll" target="lib\MonoTouch\MetroLog.dll" />
     <file src="MetroLog.iOS\bin\iPhone\Release\MetroLog.Platform.pdb" target="lib\MonoTouch\MetroLog.Platform.pdb" />
     <file src="MetroLog.iOS\bin\iPhone\Release\MetroLog.Platform.dll" target="lib\MonoTouch\MetroLog.Platform.dll" />
+
+    <!-- iOS Unified -->
+    <file src="MetroLog.iOS-Unified\bin\iPhone\Release\MetroLog.pdb" target="lib\Xamarin.iOS\MetroLog.pdb" />
+    <file src="MetroLog.iOS-Unified\bin\iPhone\Release\MetroLog.dll" target="lib\Xamarin.iOS\MetroLog.dll" />
+    <file src="MetroLog.iOS-Unified\bin\iPhone\Release\MetroLog.Platform.pdb" target="lib\Xamarin.iOS\MetroLog.Platform.pdb" />
+    <file src="MetroLog.iOS-Unified\bin\iPhone\Release\MetroLog.Platform.dll" target="lib\Xamarin.iOS\MetroLog.Platform.dll" />
 
     <!-- Android -->
     <file src="MetroLog.Android\bin\Release\MetroLog.pdb" target="lib\MonoAndroid\MetroLog.pdb" />
