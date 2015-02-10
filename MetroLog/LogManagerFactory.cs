@@ -34,7 +34,7 @@ namespace MetroLog
 
 
             ILogManager manager;
-            var managerFactory = PlatformAdapter.Resolve<ILogManagerFactory>(false);
+            var managerFactory = PlatformAdapter.Resolve<ILogManagerCreator>(false);
             if (managerFactory != null)
                 manager = managerFactory.Create(cfg);
             else

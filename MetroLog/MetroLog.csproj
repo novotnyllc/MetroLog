@@ -106,7 +106,7 @@
   <ItemGroup>
     <Compile Include="ExceptionWrapper.cs" />
     <Compile Include="ILogConfigurator.cs" />
-    <Compile Include="ILogManagerFactory.cs" />
+    <Compile Include="ILogManagerCreator.cs" />
     <Compile Include="Internal\AsyncLock.cs" />
     <Compile Include="Internal\SimpleJson.cs" />
     <Compile Include="LogConfigurator.cs" />
