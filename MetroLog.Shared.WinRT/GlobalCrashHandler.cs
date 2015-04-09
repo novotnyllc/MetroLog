@@ -26,7 +26,7 @@ namespace MetroLog
 
             // go...
             var log = (ILoggerAsync)pcl::MetroLog.LogManagerFactory.DefaultLogManager.GetLogger<Application>();
-            await log.FatalAsync("The application crashed: " + e.Message, e.Exception);
+            await log.FatalAsync("The application crashed: " + e.Message, e);
 
             // if we're aborting, fake a suspend to flush the targets...
             await LazyFlushManager.FlushAllAsync(new LogWriteContext());
