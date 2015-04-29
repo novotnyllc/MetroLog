@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Threading;
-using System.Threading.Tasks;
 using MetroLog.Internal;
 
 namespace MetroLog
@@ -25,6 +22,11 @@ namespace MetroLog
         public static LoggingConfiguration CreateLibraryDefaultSettings()
         {
             return _configurator.CreateDefaultSettings();
+        }
+
+        public static LoggingConfiguration CreateLibrarySettings(Stream configFileStream)
+        {
+            return _configurator.CreateFromXml(configFileStream);
         }
 
         public static ILogManager CreateLogManager(LoggingConfiguration config = null)

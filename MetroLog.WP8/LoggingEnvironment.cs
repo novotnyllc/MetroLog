@@ -1,9 +1,7 @@
-﻿using MetroLog.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+
+
+using MetroLog.Internal;
 
 namespace MetroLog
 {
@@ -12,8 +10,6 @@ namespace MetroLog
     /// </summary>
     public class LoggingEnvironment : LoggingEnvironmentBase
     {
-        public string MachineName { get; private set; }
-
         public LoggingEnvironment()
             : base(Environment.Version.ToString())
         {

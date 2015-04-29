@@ -1,15 +1,10 @@
 ﻿using MetroLog.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MetroLog
 {
     public class LogWriteContext
     {
-        private static ILoggingEnvironment _environment;
+        private static readonly ILoggingEnvironment environment;
 
         public LogWriteContext()
         {
@@ -17,14 +12,14 @@ namespace MetroLog
 
         static LogWriteContext()
         {
-            _environment = PlatformAdapter.Resolve<ILoggingEnvironment>();
+            environment = PlatformAdapter.Resolve<ILoggingEnvironment>();
         }
 
         public ILoggingEnvironment Environment
         {
             get
             {
-                return _environment;
+                return environment;
             }
         }
     }

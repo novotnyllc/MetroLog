@@ -9,26 +9,26 @@ namespace MetroLog.Layouts
 {
     public class FileSnapshotLayout : Layout
     {
-        public override string GetFormattedString(LogWriteContext context, LogEventInfo info)
+        public override string GetFormattedString(LogWriteContext context, LogEventInfo logEventInfo)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append("Sequence: ");
-            builder.Append(info.SequenceID);
+            builder.Append(logEventInfo.SequenceID);
             builder.Append("\r\nDate/time: ");
-            builder.Append(info.TimeStamp.ToString(LogManagerBase.DateTimeFormat));
+            builder.Append(logEventInfo.TimeStamp.ToString(LogManagerBase.DateTimeFormat));
             builder.Append("\r\nLevel: ");
-            builder.Append(info.Level.ToString().ToUpper());
+            builder.Append(logEventInfo.Level.ToString().ToUpper());
             builder.Append("\r\nThread: ");
             builder.Append(Environment.CurrentManagedThreadId);
             builder.Append("\r\nLogger: ");
-            builder.Append(info.Logger);
+            builder.Append(logEventInfo.Logger);
             builder.Append("\r\n------------------------\r\n");
-            builder.Append(info.Message);
+            builder.Append(logEventInfo.Message);
 
-            if(info.Exception != null)
+            if(logEventInfo.Exception != null)
             {
                 builder.Append("\r\n------------------------\r\n");
-                builder.Append(info.Exception);
+                builder.Append(logEventInfo.Exception);
             }
 
             builder.Append("\r\n------------------------\r\n");

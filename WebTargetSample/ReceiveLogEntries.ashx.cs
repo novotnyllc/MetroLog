@@ -1,10 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Web;
+using Newtonsoft.Json;
 using WebTargetSample.Model;
 
 namespace WebTargetSample
@@ -25,7 +22,7 @@ namespace WebTargetSample
             var wrapper = JsonConvert.DeserializeObject<JsonPostWrapper>(json);
 
             //Console.WriteLine(info);
-            Debug.WriteLine(wrapper);
+            Debug.WriteLine("ReceiveLogEntries: " + wrapper);
         }
 
         public bool IsReusable

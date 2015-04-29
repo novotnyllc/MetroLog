@@ -86,17 +86,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\MetroLog.NetFx\AssemblyService.cs">
+      <Link>AssemblyService.cs</Link>
+    </Compile>
+    <Compile Include="..\MetroLog\Targets\HttpClientEventHandler.cs">
+      <Link>Targets\HttpClientEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\MetroLog\Targets\JsonPostTarget.cs">
+      <Link>Targets\JsonPostTarget.cs</Link>
+    </Compile>
+    <Compile Include="..\MetroLog\Targets\JsonPostWrapper.cs">
+      <Link>Targets\JsonPostWrapper.cs</Link>
+    </Compile>
     <Compile Include="LogConfigurator.cs" />
     <Compile Include="LoggingEnvironment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Wp8FileStreamingTarget.cs" />
-    <Compile Include="Wp8FileTarget.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MetroLog\MetroLog.csproj">
-      <Project>{65E2062E-AAC2-4054-AAE6-D6764040C769}</Project>
-      <Name>MetroLog</Name>
-    </ProjectReference>
+    <Compile Include="Targets\StreamingFileTarget.cs" />
+    <Compile Include="Targets\Wp8FileTarget.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\MetroLog.snk">
@@ -109,6 +115,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Bcl.Compression.3.9.85\lib\wp8\System.IO.Compression.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net.Http">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\sl4-windowsphone71\System.Net.Http.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MetroLog\MetroLog.csproj">
+      <Project>{65e2062e-aac2-4054-aae6-d6764040c769}</Project>
+      <Name>MetroLog</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\MetroLog.Shared\MetroLog.Shared.projitems" Label="Shared" Condition="Exists('..\MetroLog.Shared\MetroLog.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />

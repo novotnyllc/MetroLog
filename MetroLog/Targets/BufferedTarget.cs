@@ -1,18 +1,16 @@
-﻿using MetroLog.Internal;
-using MetroLog.Layouts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using MetroLog.Layouts;
 
 namespace MetroLog.Targets
 {
     public abstract class BufferedTarget : AsyncTarget, ILazyFlushable
     {
         private List<LogEventInfo> Buffer { get; set; }
-        private object _lock = new object();
-        private int Threshold { get; set; }
+        private readonly object _lock = new object();
+        public int Threshold { get; set; }
 
         public BufferedTarget(Layout layout, int threshold)
             : base(layout)

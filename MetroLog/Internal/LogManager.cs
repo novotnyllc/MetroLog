@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using MetroLog.Targets;
 
 namespace MetroLog.Internal
 {
-    internal class LogManagerBase : ILogManager
+    public class LogManagerBase : ILogManager
     {
         public LoggingConfiguration DefaultConfiguration { get; private set; }
 

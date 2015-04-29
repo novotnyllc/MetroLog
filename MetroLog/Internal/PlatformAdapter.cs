@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MetroLog.Internal
 {
     // Enables types within PclContrib to use platform-specific features in a platform-agnostic way
-    internal static class PlatformAdapter
+    public static class PlatformAdapter
     {
         private static IAdapterResolver _resolver = new ProbingAdapterResolver();
 

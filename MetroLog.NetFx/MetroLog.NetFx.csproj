@@ -60,11 +60,12 @@
     <Compile Include="..\MetroLog\Targets\JsonPostWrapper.cs">
       <Link>Targets\JsonPostWrapper.cs</Link>
     </Compile>
-    <Compile Include="FileTarget.cs" />
+    <Compile Include="AssemblyService.cs" />
+    <Compile Include="Targets\FileTarget.cs" />
     <Compile Include="LoggingEnvironment.cs" />
     <Compile Include="LogConfigurator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StreamingFileTarget.cs" />
+    <Compile Include="Targets\StreamingFileTarget.cs" />
     <Compile Include="Targets\TraceTarget.cs" />
   </ItemGroup>
   <ItemGroup>

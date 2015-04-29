@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
+
+using MetroLog.Config;
 using MetroLog.Targets;
 
 namespace MetroLog.Internal
@@ -14,9 +12,14 @@ namespace MetroLog.Internal
             // default logging config...
             var configuration = new LoggingConfiguration();
             configuration.AddTarget(LogLevel.Trace, LogLevel.Fatal, new DebugTarget());
-            //configuration.AddTarget(LogLevel.Trace, LogLevel.Fatal, new EtwTarget());
 
             return configuration;
+        }
+
+        public LoggingConfiguration CreateFromXml(Stream configFileStream)
+        {
+            XmlConfigurator xmlConfigurator = new XmlConfigurator();
+            return xmlConfigurator.Configure(configFileStream);
         }
 
         public virtual void OnLogManagerCreated(ILogManager manager)

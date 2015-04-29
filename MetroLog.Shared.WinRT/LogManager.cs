@@ -12,7 +12,7 @@ using Windows.Storage;
 
 namespace MetroLog
 {
-    class LogManager : LogManagerBase, IWinRTLogManager
+    public class LogManager : LogManagerBase, IWinRTLogManager
     {
         public LogManager(LoggingConfiguration configuration) : base(configuration)
         {

@@ -20,10 +20,10 @@
 // VERSION:
 
 // NOTE: uncomment the following line to make SimpleJson class internal.
-#define SIMPLE_JSON_INTERNAL
+////#define SIMPLE_JSON_INTERNAL
 
 // NOTE: uncomment the following line to make JsonArray and JsonObject class internal.
-#define SIMPLE_JSON_OBJARRAYINTERNAL
+////#define SIMPLE_JSON_OBJARRAYINTERNAL
 
 // NOTE: uncomment the following line to enable dynamic support.
 //#define SIMPLE_JSON_DYNAMIC
@@ -61,6 +61,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Dynamic;
 #endif
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
@@ -1660,7 +1661,12 @@ namespace MetroLog.Internal
             public static IEnumerable<PropertyInfo> GetProperties(Type type)
             {
 #if SIMPLE_JSON_TYPEINFO
-                return type.GetTypeInfo().DeclaredProperties;
+                var properties = type.GetTypeInfo().DeclaredProperties;
+                if (type.GetTypeInfo().BaseType != null)
+                {
+                    properties = properties.Concat(GetProperties(type.GetTypeInfo().BaseType));
+                }
+                return properties;
 #else
                 return type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
 #endif

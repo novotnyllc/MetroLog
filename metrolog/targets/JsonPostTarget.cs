@@ -1,37 +1,55 @@
-﻿using MetroLog.Internal;
-using MetroLog.Layouts;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
+using MetroLog.Internal;
+using MetroLog.Layouts;
 
 namespace MetroLog.Targets
 {
     public class JsonPostTarget : BufferedTarget
     {
-        public Uri Url { get; private set; }
+        public ILoggingEnvironment LoggingEnvironment { get; private set; }
+
+        public Uri Uri { get; private set; }
 
         public event EventHandler<HttpClientEventArgs> BeforePost;
 
-        public JsonPostTarget(int threshold, Uri uri)
-            : this(new NullLayout(), threshold, uri)
+        public JsonPostTarget() : base(new NullLayout(), 1)
+        {
+            
+        }
+
+        public JsonPostTarget(int threshold, Uri uri, ILoggingEnvironment loggingEnvironment)
+            : this(threshold, uri, loggingEnvironment, new NullLayout())
         {
         }
 
-        public JsonPostTarget(Layout layout, int threshold, Uri url)
+        public JsonPostTarget(int threshold, Uri uri, Layout layout)
+            : this(threshold, uri, null, layout)
+        {
+            
+        }
+
+        public JsonPostTarget(int threshold, Uri uri, ILoggingEnvironment loggingEnvironment, Layout layout)
             : base(layout, threshold)
         {
-            this.Url = url;
+            this.Uri = uri;
+
+            if (loggingEnvironment != null)
+            {
+                this.LoggingEnvironment = loggingEnvironment;
+            }
+            else
+            {
+                this.LoggingEnvironment = PlatformAdapter.Resolve<ILoggingEnvironment>();
+            }
         }
 
         protected override async Task DoFlushAsync(LogWriteContext context, IEnumerable<LogEventInfo> toFlush)
         {
             // create a json object...
-
-            var env = PlatformAdapter.Resolve<ILoggingEnvironment>();
-            var wrapper = new JsonPostWrapper(env, toFlush);
+            var wrapper = new JsonPostWrapper(this.LoggingEnvironment, toFlush);
             var json = wrapper.ToJson();
 
             // send...
@@ -43,7 +61,7 @@ namespace MetroLog.Targets
             this.OnBeforePost(new HttpClientEventArgs(client));
 
             // send...
-            await client.PostAsync(this.Url, content);
+            await client.PostAsync(this.Uri, content);
         }
 
         protected virtual void OnBeforePost(HttpClientEventArgs args)
