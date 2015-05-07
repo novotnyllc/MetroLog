@@ -98,6 +98,7 @@
     <Compile Include="..\MetroLog\Targets\JsonPostWrapper.cs">
       <Link>Targets\JsonPostWrapper.cs</Link>
     </Compile>
+    <Compile Include="Internal\WebClientWrapper.cs" />
     <Compile Include="LogConfigurator.cs" />
     <Compile Include="LoggingEnvironment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

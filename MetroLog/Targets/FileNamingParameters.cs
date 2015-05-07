@@ -1,22 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace MetroLog.Targets
 {
     /// <summary>
-    /// Defines a class that allows the user to configure file naming.
+    ///     Defines a class that allows the user to configure file naming.
     /// </summary>
     public class FileNamingParameters
     {
         public bool IncludeLevel { get; set; }
+
         public FileTimestampMode IncludeTimestamp { get; set; }
+
         public bool IncludeLogger { get; set; }
+
         public bool IncludeSession { get; set; }
+
         public bool IncludeSequence { get; set; }
+
         public FileCreationMode CreationMode { get; set; }
 
         public FileNamingParameters()
@@ -26,7 +27,7 @@ namespace MetroLog.Targets
             this.IncludeLogger = false;
             this.IncludeSession = true;
             this.IncludeSequence = false;
-            CreationMode = FileCreationMode.AppendIfExisting;
+            this.CreationMode = FileCreationMode.AppendIfExisting;
         }
 
         public string GetFilename(LogWriteContext context, LogEventInfo entry)
@@ -53,12 +54,16 @@ namespace MetroLog.Targets
                 }
 
                 bool time = ((int)this.IncludeTimestamp & (int)FileTimestampMode.Time) != 0;
-                if(time)
+                if (time)
                 {
-                    if(date)
+                    if (date)
+                    {
                         builder.Append(" ");
+                    }
                     else
+                    {
                         builder.Append(" - ");
+                    }
                     builder.Append(entry.TimeStamp.ToString("HHmmss"));
                 }
             }
@@ -107,9 +112,13 @@ namespace MetroLog.Targets
                 if (time)
                 {
                     if (date)
+                    {
                         builder.Append(@"\s+");
+                    }
                     else
+                    {
                         builder.Append(@"\s*-\s*");
+                    }
                     builder.Append("[0-9]{6}");
                 }
             }

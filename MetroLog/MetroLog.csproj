@@ -119,6 +119,10 @@
     <Compile Include="ILogConfigurator.cs" />
     <Compile Include="ILogManagerCreator.cs" />
     <Compile Include="Internal\AsyncLock.cs" />
+    <Compile Include="Internal\FixedSizeQueue.cs" />
+    <Compile Include="Internal\CrashRecorder.cs" />
+    <Compile Include="Internal\ICrashRecorder.cs" />
+    <Compile Include="Internal\IWebClientWrapper.cs" />
     <Compile Include="Internal\SimpleJson.cs" />
     <Compile Include="Layouts\IPatternExtension.cs" />
     <Compile Include="Layouts\PatternLayout.cs" />

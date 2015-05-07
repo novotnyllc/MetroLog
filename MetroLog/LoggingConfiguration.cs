@@ -2,24 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using MetroLog.Internal;
 using MetroLog.Targets;
 
 namespace MetroLog
 {
     public class LoggingConfiguration
     {
-        public bool IsEnabled { get; set; }
+        private readonly List<TargetBinding> bindings;
+        private readonly object bindingsLock = new object();
 
-        private readonly List<TargetBinding> _bindings;
-        private readonly object _bindingsLock = new object();
-
-        private bool _frozen;
+        private bool isFrozen;
 
         public LoggingConfiguration()
         {
             this.IsEnabled = true; // default to true to enable logging
-            this._bindings = new List<TargetBinding>();
+            this.CrashRecorder = new CrashRecorder(10); // TODO: add configuration to xmlConfigurator
+            this.CrashRecorder.IsEnabled = true;
+            this.bindings = new List<TargetBinding>();
         }
+
+        public ICrashRecorder CrashRecorder { get; private set; }
+
+        public bool IsEnabled { get; set; }
 
         public void AddTarget(LogLevel level, Target target)
         {
@@ -28,36 +33,36 @@ namespace MetroLog
 
         public void AddTarget(LogLevel min, LogLevel max, Target target)
         {
-            if (this._frozen)
+            if (this.isFrozen)
             {
                 throw new InvalidOperationException("Cannot modify config after initialization");
             }
 
-            lock (this._bindingsLock) this._bindings.Add(new TargetBinding(min, max, target));
+            lock (this.bindingsLock)
+            {
+                this.bindings.Add(new TargetBinding(min, max, target));
+            }
         }
 
         internal IEnumerable<Target> GetTargets()
         {
-            lock (this._bindingsLock)
+            lock (this.bindingsLock)
             {
-                var results = new List<Target>();
-                foreach (var binding in this._bindings)
-                {
-                    results.Add(binding.Target);
-                }
-
-                return results;
+                return this.bindings.Select(binding => binding.Target).ToList();
             }
         }
 
         internal IEnumerable<Target> GetTargets(LogLevel level)
         {
-            lock (this._bindingsLock) return this._bindings.Where(v => v.SupportsLevel(level)).Select(binding => binding.Target).ToList();
+            lock (this.bindingsLock)
+            {
+                return this.bindings.Where(v => v.SupportsLevel(level)).Select(binding => binding.Target).ToList();
+            }
         }
 
         internal void Freeze()
         {
-            this._frozen = true;
+            this.isFrozen = true;
         }
     }
 }

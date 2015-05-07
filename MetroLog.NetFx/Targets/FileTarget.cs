@@ -83,15 +83,30 @@ namespace MetroLog.Targets
             using (var file = new StreamWriter(Path.Combine(_logFolder.FullName, fileName), this.FileNamingParameters.CreationMode == FileCreationMode.AppendIfExisting, Encoding.UTF8))
             {
                 // Write contents
-                await this.WriteTextToFileCore(file, contents);
+                await this.WriteTextToFileAsync(file, contents);
                 await file.FlushAsync();
             }
            
-            // return...
             return new LogWriteOperation(this, entry, true);
         }
 
-        protected abstract Task WriteTextToFileCore(StreamWriter file, string contents);
+        protected abstract Task WriteTextToFileAsync(StreamWriter file, string contents);
+
+
+        protected sealed override LogWriteOperation DoWrite(string fileName, string contents, LogEventInfo entry)
+        {
+            // Create writer
+            using (var file = new StreamWriter(Path.Combine(_logFolder.FullName, fileName), this.FileNamingParameters.CreationMode == FileCreationMode.AppendIfExisting, Encoding.UTF8))
+            {
+                // Write contents
+                this.WriteTextToFile(file, contents);
+                file.Flush();
+            }
+
+            return new LogWriteOperation(this, entry, true);
+        }
+
+        protected abstract void WriteTextToFile(StreamWriter file, string contents);
 
         sealed protected override Task DoCleanup(Regex pattern, DateTime threshold)
         {
@@ -119,7 +134,7 @@ namespace MetroLog.Targets
                 });
         }
 
-        private static string GetUserAppDataPath()
+        private static string GetUserAppDataPath() // TODO GATH: Refactor so that we do not depend on the real filesystem resp. Assembly
         {
 #if __ANDROID__
                 var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);

@@ -1,16 +1,14 @@
-﻿using MetroLog.Layouts;
-using MetroLog.Targets;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
+
 using Windows.Storage;
+
+using MetroLog.Layouts;
 
 namespace MetroLog.Targets
 {
     /// <summary>
-    /// Defines a target that will append messages to a single file.
+    ///     Defines a target that will append messages to a single file.
     /// </summary>
     public class FileStreamingTarget : WinRTFileTarget
     {
@@ -27,12 +25,17 @@ namespace MetroLog.Targets
             this.FileNamingParameters.IncludeSequence = false;
             this.FileNamingParameters.IncludeSession = false;
             this.FileNamingParameters.IncludeTimestamp = FileTimestampMode.Date;
-            FileNamingParameters.CreationMode = FileCreationMode.AppendIfExisting;
+            this.FileNamingParameters.CreationMode = FileCreationMode.AppendIfExisting;
         }
 
         protected override Task WriteTextToFileCore(IStorageFile file, string contents)
         {
             return FileIO.AppendTextAsync(file, contents + Environment.NewLine).AsTask();
+        }
+
+        protected override void WriteTextToFile(IStorageFile file, string contents)
+        {
+            FileIO.AppendTextAsync(file, contents + Environment.NewLine).GetResults();
         }
     }
 }

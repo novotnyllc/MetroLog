@@ -45,6 +45,9 @@
     <Compile Include="..\MetroLog.NetFx\AssemblyService.cs">
       <Link>AssemblyService.cs</Link>
     </Compile>
+    <Compile Include="..\MetroLog.NetFx\Internal\WebClientWrapper.cs">
+      <Link>Internal\WebClientWrapper.cs</Link>
+    </Compile>
     <Compile Include="..\MetroLog.NetFx\LogConfigurator.cs">
       <Link>LogConfigurator.cs</Link>
     </Compile>
@@ -72,12 +75,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MetroLog\MetroLog.csproj">
-      <Project>{65e2062e-aac2-4054-aae6-d6764040c769}</Project>
-      <Name>MetroLog</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
+    <Reference Include="MetroLog, Version=0.8.6.0, Culture=neutral, PublicKeyToken=ba4ace74c3b410f3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MetroLog\bin\Debug\MetroLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />

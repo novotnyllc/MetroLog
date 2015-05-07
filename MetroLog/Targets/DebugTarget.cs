@@ -1,11 +1,7 @@
 ﻿#define DEBUG
 
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using MetroLog.Layouts;
 
 namespace MetroLog.Targets
@@ -24,7 +20,7 @@ namespace MetroLog.Targets
 
         protected override void Write(LogWriteContext context, LogEventInfo entry)
         {
-            var message = Layout.GetFormattedString(context, entry);
+            var message = this.Layout.GetFormattedString(context, entry);
 
             Debug.WriteLine(message);
         }

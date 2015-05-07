@@ -22,5 +22,7 @@ namespace MetroLog
                 return environment;
             }
         }
+
+        public bool IsFatalException { get; set; }
     }
 }

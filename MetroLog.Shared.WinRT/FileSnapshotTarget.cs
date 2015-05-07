@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using MetroLog.Layouts;
+
 using Windows.Storage;
+
+using MetroLog.Layouts;
 
 namespace MetroLog.Targets
 {
@@ -23,12 +22,17 @@ namespace MetroLog.Targets
             this.FileNamingParameters.IncludeSession = false;
             this.FileNamingParameters.IncludeSequence = true;
             this.FileNamingParameters.IncludeTimestamp = FileTimestampMode.DateTime;
-            FileNamingParameters.CreationMode = FileCreationMode.ReplaceIfExisting;
+            this.FileNamingParameters.CreationMode = FileCreationMode.ReplaceIfExisting;
         }
 
         protected override Task WriteTextToFileCore(IStorageFile file, string contents)
         {
             return FileIO.WriteTextAsync(file, contents).AsTask();
+        }
+
+        protected override void WriteTextToFile(IStorageFile file, string contents)
+        {
+            FileIO.WriteTextAsync(file, contents).GetResults();
         }
     }
 }

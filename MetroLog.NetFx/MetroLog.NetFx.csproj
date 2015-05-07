@@ -61,6 +61,7 @@
       <Link>Targets\JsonPostWrapper.cs</Link>
     </Compile>
     <Compile Include="AssemblyService.cs" />
+    <Compile Include="Internal\WebClientWrapper.cs" />
     <Compile Include="Targets\FileTarget.cs" />
     <Compile Include="LoggingEnvironment.cs" />
     <Compile Include="LogConfigurator.cs" />

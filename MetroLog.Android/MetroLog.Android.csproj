@@ -62,6 +62,9 @@
     <Compile Include="..\MetroLog.NetFx\AssemblyService.cs">
       <Link>AssemblyService.cs</Link>
     </Compile>
+    <Compile Include="..\MetroLog.NetFx\Internal\WebClientWrapper.cs">
+      <Link>Internal\WebClientWrapper.cs</Link>
+    </Compile>
     <Compile Include="..\MetroLog.NetFx\LogConfigurator.cs">
       <Link>LogConfigurator.cs</Link>
     </Compile>

@@ -38,7 +38,6 @@
 // Uncomment this to serialize enum's as a string instead of the base type
 #define SERIALIZE_ENUM_AS_STRING
 
-
 // NOTE: uncomment the following line if you are compiling under Window Metro style application/library.
 // usually already defined in properties
 //#define NETFX_CORE;
@@ -52,28 +51,30 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-#if !SIMPLE_JSON_NO_LINQ_EXPRESSION
-using System.Linq.Expressions;
-#endif
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-#if SIMPLE_JSON_DYNAMIC
-using System.Dynamic;
-#endif
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
+
 using MetroLog.Internal.Reflection;
+#if !SIMPLE_JSON_NO_LINQ_EXPRESSION
+using System.Linq.Expressions;
+#endif
+#if SIMPLE_JSON_DYNAMIC
+using System.Dynamic;
+#endif
 
 // ReSharper disable LoopCanBeConvertedToQuery
 // ReSharper disable RedundantExplicitArrayCreation
 // ReSharper disable SuggestUseVarKeywordEvident
+
 namespace MetroLog.Internal
 {
     /// <summary>
-    /// Represents the json array.
+    ///     Represents the json array.
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
     [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
@@ -82,21 +83,26 @@ namespace MetroLog.Internal
 #else
     public
 #endif
- class JsonArray : List<object>
+        class JsonArray : List<object>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonArray"/> class. 
+        ///     Initializes a new instance of the <see cref="JsonArray" /> class.
         /// </summary>
-        public JsonArray() { }
+        public JsonArray()
+        {
+        }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonArray"/> class. 
+        ///     Initializes a new instance of the <see cref="JsonArray" /> class.
         /// </summary>
         /// <param name="capacity">The capacity of the json array.</param>
-        public JsonArray(int capacity) : base(capacity) { }
+        public JsonArray(int capacity)
+            : base(capacity)
+        {
+        }
 
         /// <summary>
-        /// The json representation of the array.
+        ///     The json representation of the array.
         /// </summary>
         /// <returns>The json representation of the array.</returns>
         public override string ToString()
@@ -106,7 +112,7 @@ namespace MetroLog.Internal
     }
 
     /// <summary>
-    /// Represents the json object.
+    ///     Represents the json object.
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
     [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
@@ -115,209 +121,241 @@ namespace MetroLog.Internal
 #else
     public
 #endif
- class JsonObject :
+        class JsonObject :
 #if SIMPLE_JSON_DYNAMIC
  DynamicObject,
 #endif
- IDictionary<string, object>
+            IDictionary<string, object>
     {
         /// <summary>
-        /// The internal member dictionary.
+        ///     The internal member dictionary.
         /// </summary>
         private readonly Dictionary<string, object> _members = new Dictionary<string, object>();
 
         /// <summary>
-        /// Gets the <see cref="System.Object"/> at the specified index.
+        ///     Gets the <see cref="System.Object" /> at the specified index.
         /// </summary>
         /// <value></value>
         public object this[int index]
         {
-            get { return GetAtIndex(_members, index); }
+            get
+            {
+                return GetAtIndex(this._members, index);
+            }
         }
 
         internal static object GetAtIndex(IDictionary<string, object> obj, int index)
         {
             if (obj == null)
+            {
                 throw new ArgumentNullException("obj");
+            }
             if (index >= obj.Count)
+            {
                 throw new ArgumentOutOfRangeException("index");
+            }
             int i = 0;
             foreach (KeyValuePair<string, object> o in obj)
-                if (i++ == index) return o.Value;
+            {
+                if (i++ == index)
+                {
+                    return o.Value;
+                }
+            }
             return null;
         }
 
         /// <summary>
-        /// Adds the specified key.
+        ///     Adds the specified key.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
         public void Add(string key, object value)
         {
-            _members.Add(key, value);
+            this._members.Add(key, value);
         }
 
         /// <summary>
-        /// Determines whether the specified key contains key.
+        ///     Determines whether the specified key contains key.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>
-        /// 	<c>true</c> if the specified key contains key; otherwise, <c>false</c>.
+        ///     <c>true</c> if the specified key contains key; otherwise, <c>false</c>.
         /// </returns>
         public bool ContainsKey(string key)
         {
-            return _members.ContainsKey(key);
+            return this._members.ContainsKey(key);
         }
 
         /// <summary>
-        /// Gets the keys.
+        ///     Gets the keys.
         /// </summary>
         /// <value>The keys.</value>
         public ICollection<string> Keys
         {
-            get { return _members.Keys; }
+            get
+            {
+                return this._members.Keys;
+            }
         }
 
         /// <summary>
-        /// Removes the specified key.
+        ///     Removes the specified key.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns></returns>
         public bool Remove(string key)
         {
-            return _members.Remove(key);
+            return this._members.Remove(key);
         }
 
         /// <summary>
-        /// Tries the get value.
+        ///     Tries the get value.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
         /// <returns></returns>
         public bool TryGetValue(string key, out object value)
         {
-            return _members.TryGetValue(key, out value);
+            return this._members.TryGetValue(key, out value);
         }
 
         /// <summary>
-        /// Gets the values.
+        ///     Gets the values.
         /// </summary>
         /// <value>The values.</value>
         public ICollection<object> Values
         {
-            get { return _members.Values; }
+            get
+            {
+                return this._members.Values;
+            }
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="System.Object"/> with the specified key.
+        ///     Gets or sets the <see cref="System.Object" /> with the specified key.
         /// </summary>
         /// <value></value>
         public object this[string key]
         {
-            get { return _members[key]; }
-            set { _members[key] = value; }
+            get
+            {
+                return this._members[key];
+            }
+            set
+            {
+                this._members[key] = value;
+            }
         }
 
         /// <summary>
-        /// Adds the specified item.
+        ///     Adds the specified item.
         /// </summary>
         /// <param name="item">The item.</param>
         public void Add(KeyValuePair<string, object> item)
         {
-            _members.Add(item.Key, item.Value);
+            this._members.Add(item.Key, item.Value);
         }
 
         /// <summary>
-        /// Clears this instance.
+        ///     Clears this instance.
         /// </summary>
         public void Clear()
         {
-            _members.Clear();
+            this._members.Clear();
         }
 
         /// <summary>
-        /// Determines whether [contains] [the specified item].
+        ///     Determines whether [contains] [the specified item].
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns>
-        /// 	<c>true</c> if [contains] [the specified item]; otherwise, <c>false</c>.
+        ///     <c>true</c> if [contains] [the specified item]; otherwise, <c>false</c>.
         /// </returns>
         public bool Contains(KeyValuePair<string, object> item)
         {
-            return _members.ContainsKey(item.Key) && _members[item.Key] == item.Value;
+            return this._members.ContainsKey(item.Key) && this._members[item.Key] == item.Value;
         }
 
         /// <summary>
-        /// Copies to.
+        ///     Copies to.
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="arrayIndex">Index of the array.</param>
         public void CopyTo(KeyValuePair<string, object>[] array, int arrayIndex)
         {
-            int num = Count;
+            int num = this.Count;
             foreach (KeyValuePair<string, object> kvp in this)
             {
                 array[arrayIndex++] = kvp;
                 if (--num <= 0)
+                {
                     return;
+                }
             }
         }
 
         /// <summary>
-        /// Gets the count.
+        ///     Gets the count.
         /// </summary>
         /// <value>The count.</value>
         public int Count
         {
-            get { return _members.Count; }
+            get
+            {
+                return this._members.Count;
+            }
         }
 
         /// <summary>
-        /// Gets a value indicating whether this instance is read only.
+        ///     Gets a value indicating whether this instance is read only.
         /// </summary>
         /// <value>
-        /// 	<c>true</c> if this instance is read only; otherwise, <c>false</c>.
+        ///     <c>true</c> if this instance is read only; otherwise, <c>false</c>.
         /// </value>
         public bool IsReadOnly
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
 
         /// <summary>
-        /// Removes the specified item.
+        ///     Removes the specified item.
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns></returns>
         public bool Remove(KeyValuePair<string, object> item)
         {
-            return _members.Remove(item.Key);
+            return this._members.Remove(item.Key);
         }
 
         /// <summary>
-        /// Gets the enumerator.
+        ///     Gets the enumerator.
         /// </summary>
         /// <returns></returns>
         public IEnumerator<KeyValuePair<string, object>> GetEnumerator()
         {
-            return _members.GetEnumerator();
+            return this._members.GetEnumerator();
         }
 
         /// <summary>
-        /// Returns an enumerator that iterates through a collection.
+        ///     Returns an enumerator that iterates through a collection.
         /// </summary>
         /// <returns>
-        /// An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
+        ///     An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
         /// </returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return _members.GetEnumerator();
+            return this._members.GetEnumerator();
         }
 
         /// <summary>
-        /// Returns a json <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+        ///     Returns a json <see cref="T:System.String" /> that represents the current <see cref="T:System.Object" />.
         /// </summary>
         /// <returns>
-        /// A json <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+        ///     A json <see cref="T:System.String" /> that represents the current <see cref="T:System.Object" />.
         /// </returns>
         public override string ToString()
         {
@@ -325,14 +363,14 @@ namespace MetroLog.Internal
         }
 
 #if SIMPLE_JSON_DYNAMIC
-        /// <summary>
-        /// Provides implementation for type conversion operations. Classes derived from the <see cref="T:System.Dynamic.DynamicObject"/> class can override this method to specify dynamic behavior for operations that convert an object from one type to another.
-        /// </summary>
-        /// <param name="binder">Provides information about the conversion operation. The binder.Type property provides the type to which the object must be converted. For example, for the statement (String)sampleObject in C# (CType(sampleObject, Type) in Visual Basic), where sampleObject is an instance of the class derived from the <see cref="T:System.Dynamic.DynamicObject"/> class, binder.Type returns the <see cref="T:System.String"/> type. The binder.Explicit property provides information about the kind of conversion that occurs. It returns true for explicit conversion and false for implicit conversion.</param>
-        /// <param name="result">The result of the type conversion operation.</param>
-        /// <returns>
-        /// Alwasy returns true.
-        /// </returns>
+    /// <summary>
+    /// Provides implementation for type conversion operations. Classes derived from the <see cref="T:System.Dynamic.DynamicObject"/> class can override this method to specify dynamic behavior for operations that convert an object from one type to another.
+    /// </summary>
+    /// <param name="binder">Provides information about the conversion operation. The binder.Type property provides the type to which the object must be converted. For example, for the statement (String)sampleObject in C# (CType(sampleObject, Type) in Visual Basic), where sampleObject is an instance of the class derived from the <see cref="T:System.Dynamic.DynamicObject"/> class, binder.Type returns the <see cref="T:System.String"/> type. The binder.Explicit property provides information about the kind of conversion that occurs. It returns true for explicit conversion and false for implicit conversion.</param>
+    /// <param name="result">The result of the type conversion operation.</param>
+    /// <returns>
+    /// Alwasy returns true.
+    /// </returns>
         public override bool TryConvert(ConvertBinder binder, out object result)
         {
             // <pex>
@@ -463,30 +501,39 @@ namespace MetroLog.Internal
 
 namespace MetroLog.Internal
 {
-
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
-  #if SIMPLE_JSON_INTERNAL
+#if SIMPLE_JSON_INTERNAL
     internal
 #else
     public
 #endif
-        sealed class JsonIgnoreAttribute : Attribute
-  {
-  }
+    sealed class JsonIgnoreAttribute : Attribute
+    {
+    }
+
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
+#if SIMPLE_JSON_INTERNAL
+    internal
+#else
+    public
+#endif
+    sealed class DataMemberIgnoreAttribute : Attribute
+    {
+    }
 
     /// <summary>
-    /// This class encodes and decodes JSON strings.
-    /// Spec. details, see http://www.json.org/
-    /// 
-    /// JSON uses Arrays and Objects. These correspond here to the datatypes JsonArray(IList&lt;object>) and JsonObject(IDictionary&lt;string,object>).
-    /// All numbers are parsed to doubles.
+    ///     This class encodes and decodes JSON strings.
+    ///     Spec. details, see http://www.json.org/
+    ///     JSON uses Arrays and Objects. These correspond here to the datatypes JsonArray(IList&lt;object>) and
+    ///     JsonObject(IDictionary&lt;string,object>).
+    ///     All numbers are parsed to doubles.
     /// </summary>
 #if SIMPLE_JSON_INTERNAL
     internal
 #else
     public
 #endif
- class SimpleJson
+        class SimpleJson
     {
         private const int TOKEN_NONE = 0;
         private const int TOKEN_CURLY_OPEN = 1;
@@ -503,7 +550,7 @@ namespace MetroLog.Internal
         private const int BUILDER_CAPACITY = 2000;
 
         /// <summary>
-        /// Parses the string json into a value
+        ///     Parses the string json into a value
         /// </summary>
         /// <param name="json">A JSON string.</param>
         /// <returns>An IList&lt;object>, a IDictionary&lt;string,object>, a double, a string, null, true, or false</returns>
@@ -511,21 +558,23 @@ namespace MetroLog.Internal
         {
             object obj;
             if (TryDeserializeObject(json, out obj))
+            {
                 return obj;
+            }
             throw new SerializationException("Invalid JSON string");
         }
 
         /// <summary>
-        /// Try parsing the json string into a value.
+        ///     Try parsing the json string into a value.
         /// </summary>
         /// <param name="json">
-        /// A JSON string.
+        ///     A JSON string.
         /// </param>
         /// <param name="obj">
-        /// The object.
+        ///     The object.
         /// </param>
         /// <returns>
-        /// Returns true if successfull otherwise false.
+        ///     Returns true if successfull otherwise false.
         /// </returns>
         public static bool TryDeserializeObject(string json, out object obj)
         {
@@ -537,7 +586,9 @@ namespace MetroLog.Internal
                 obj = ParseValue(charArray, ref index, ref success);
             }
             else
+            {
                 obj = null;
+            }
 
             return success;
         }
@@ -566,7 +617,7 @@ namespace MetroLog.Internal
         }
 
         /// <summary>
-        /// Converts a IDictionary&lt;string,object> / IList&lt;object> object into a JSON string
+        ///     Converts a IDictionary&lt;string,object> / IList&lt;object> object into a JSON string
         /// </summary>
         /// <param name="json">A IDictionary&lt;string,object> / IList&lt;object></param>
         /// <param name="jsonSerializerStrategy">Serializer strategy to use</param>
@@ -586,12 +637,14 @@ namespace MetroLog.Internal
         public static string EscapeToJavascriptString(string jsonString)
         {
             if (string.IsNullOrEmpty(jsonString))
+            {
                 return jsonString;
+            }
 
             StringBuilder sb = new StringBuilder();
             char c;
 
-            for (int i = 0; i < jsonString.Length; )
+            for (int i = 0; i < jsonString.Length;)
             {
                 c = jsonString[i++];
 
@@ -659,7 +712,9 @@ namespace MetroLog.Internal
                     return null;
                 }
                 else if (token == TOKEN_COMMA)
+                {
                     NextToken(json, ref index);
+                }
                 else if (token == TOKEN_CURLY_CLOSE)
                 {
                     NextToken(json, ref index);
@@ -711,7 +766,9 @@ namespace MetroLog.Internal
                     return null;
                 }
                 else if (token == TOKEN_COMMA)
+                {
                     NextToken(json, ref index);
+                }
                 else if (token == TOKEN_SQUARED_CLOSE)
                 {
                     NextToken(json, ref index);
@@ -721,7 +778,9 @@ namespace MetroLog.Internal
                 {
                     object value = ParseValue(json, ref index, ref success);
                     if (!success)
+                    {
                         return null;
+                    }
                     array.Add(value);
                 }
             }
@@ -769,7 +828,9 @@ namespace MetroLog.Internal
             while (!complete)
             {
                 if (index == json.Length)
+                {
                     break;
+                }
 
                 c = json[index++];
                 if (c == '"')
@@ -780,24 +841,42 @@ namespace MetroLog.Internal
                 else if (c == '\\')
                 {
                     if (index == json.Length)
+                    {
                         break;
+                    }
                     c = json[index++];
                     if (c == '"')
+                    {
                         s.Append('"');
+                    }
                     else if (c == '\\')
+                    {
                         s.Append('\\');
+                    }
                     else if (c == '/')
+                    {
                         s.Append('/');
+                    }
                     else if (c == 'b')
+                    {
                         s.Append('\b');
+                    }
                     else if (c == 'f')
+                    {
                         s.Append('\f');
+                    }
                     else if (c == 'n')
+                    {
                         s.Append('\n');
+                    }
                     else if (c == 'r')
+                    {
                         s.Append('\r');
+                    }
                     else if (c == 't')
+                    {
                         s.Append('\t');
+                    }
                     else if (c == 'u')
                     {
                         int remainingLength = json.Length - index;
@@ -806,10 +885,12 @@ namespace MetroLog.Internal
                             // parse the 32 bit hex into an integer codepoint
                             uint codePoint;
                             if (!(success = UInt32.TryParse(new string(json, index, 4), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out codePoint)))
+                            {
                                 return "";
+                            }
 
                             // convert the integer codepoint to a unicode char and add to string
-                            if (0xD800 <= codePoint && codePoint <= 0xDBFF)  // if high surrogate
+                            if (0xD800 <= codePoint && codePoint <= 0xDBFF) // if high surrogate
                             {
                                 index += 4; // skip 4 chars
                                 remainingLength = json.Length - index;
@@ -818,7 +899,7 @@ namespace MetroLog.Internal
                                     uint lowCodePoint;
                                     if (new string(json, index, 2) == "\\u" && UInt32.TryParse(new string(json, index + 2, 4), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out lowCodePoint))
                                     {
-                                        if (0xDC00 <= lowCodePoint && lowCodePoint <= 0xDFFF)    // if low surrogate
+                                        if (0xDC00 <= lowCodePoint && lowCodePoint <= 0xDFFF) // if low surrogate
                                         {
                                             s.Append((char)codePoint);
                                             s.Append((char)lowCodePoint);
@@ -827,7 +908,7 @@ namespace MetroLog.Internal
                                         }
                                     }
                                 }
-                                success = false;    // invalid surrogate pair
+                                success = false; // invalid surrogate pair
                                 return "";
                             }
                             s.Append(ConvertFromUtf32((int)codePoint));
@@ -835,11 +916,15 @@ namespace MetroLog.Internal
                             index += 4;
                         }
                         else
+                        {
                             break;
+                        }
                     }
                 }
                 else
+                {
                     s.Append(c);
+                }
             }
             if (!complete)
             {
@@ -853,11 +938,17 @@ namespace MetroLog.Internal
         {
             // http://www.java2s.com/Open-Source/CSharp/2.6.4-mono-.net-core/System/System/Char.cs.htm
             if (utf32 < 0 || utf32 > 0x10FFFF)
+            {
                 throw new ArgumentOutOfRangeException("utf32", "The argument must be from 0 to 0x10FFFF.");
+            }
             if (0xD800 <= utf32 && utf32 <= 0xDFFF)
+            {
                 throw new ArgumentOutOfRangeException("utf32", "The argument must not be in surrogate pair range.");
+            }
             if (utf32 < 0x10000)
+            {
                 return new string((char)utf32, 1);
+            }
             utf32 -= 0x10000;
             return new string(new char[] { (char)((utf32 >> 10) + 0xD800), (char)(utf32 % 0x0400 + 0xDC00) });
         }
@@ -889,14 +980,24 @@ namespace MetroLog.Internal
         {
             int lastIndex;
             for (lastIndex = index; lastIndex < json.Length; lastIndex++)
-                if ("0123456789+-.eE".IndexOf(json[lastIndex]) == -1) break;
+            {
+                if ("0123456789+-.eE".IndexOf(json[lastIndex]) == -1)
+                {
+                    break;
+                }
+            }
             return lastIndex - 1;
         }
 
         protected static void EatWhitespace(char[] json, ref int index)
         {
             for (; index < json.Length; index++)
-                if (" \t\n\r\b\f".IndexOf(json[index]) == -1) break;
+            {
+                if (" \t\n\r\b\f".IndexOf(json[index]) == -1)
+                {
+                    break;
+                }
+            }
         }
 
         protected static int LookAhead(char[] json, int index)
@@ -910,7 +1011,9 @@ namespace MetroLog.Internal
         {
             EatWhitespace(json, ref index);
             if (index == json.Length)
+            {
                 return TOKEN_NONE;
+            }
             char c = json[index];
             index++;
             switch (c)
@@ -978,7 +1081,9 @@ namespace MetroLog.Internal
         {
             bool success = true;
             if (value is string)
+            {
                 success = SerializeString((string)value, builder);
+            }
             else if (value is IDictionary<string, object>)
             {
                 IDictionary<string, object> dict = (IDictionary<string, object>)value;
@@ -990,19 +1095,33 @@ namespace MetroLog.Internal
                 success = SerializeObject(jsonSerializerStrategy, dict.Keys, dict.Values, builder);
             }
             else if (value is IEnumerable)
+            {
                 success = SerializeArray(jsonSerializerStrategy, (IEnumerable)value, builder);
+            }
             else if (IsNumeric(value))
+            {
                 success = SerializeNumber(value, builder);
+            }
             else if (value is Boolean)
+            {
                 builder.Append((bool)value ? "true" : "false");
+            }
             else if (value == null)
+            {
                 builder.Append("null");
+            }
             else
             {
                 object serializedObject;
                 success = jsonSerializerStrategy.SerializeNonPrimitiveObject(value, out serializedObject);
                 if (success)
+                {
                     SerializeValue(jsonSerializerStrategy, serializedObject, builder);
+                }
+                else
+                {
+                    builder.Append("null");
+                }
             }
             return success;
         }
@@ -1018,14 +1137,22 @@ namespace MetroLog.Internal
                 object key = ke.Current;
                 object value = ve.Current;
                 if (!first)
+                {
                     builder.Append(",");
+                }
                 if (key is string)
+                {
                     SerializeString((string)key, builder);
-                else
-                    if (!SerializeValue(jsonSerializerStrategy, value, builder)) return false;
+                }
+                else if (!SerializeValue(jsonSerializerStrategy, value, builder))
+                {
+                    return false;
+                }
                 builder.Append(":");
                 if (!SerializeValue(jsonSerializerStrategy, value, builder))
+                {
                     return false;
+                }
                 first = false;
             }
             builder.Append("}");
@@ -1039,9 +1166,13 @@ namespace MetroLog.Internal
             foreach (object value in anArray)
             {
                 if (!first)
+                {
                     builder.Append(",");
+                }
                 if (!SerializeValue(jsonSerializerStrategy, value, builder))
+                {
                     return false;
+                }
                 first = false;
             }
             builder.Append("]");
@@ -1056,21 +1187,37 @@ namespace MetroLog.Internal
             {
                 char c = charArray[i];
                 if (c == '"')
+                {
                     builder.Append("\\\"");
+                }
                 else if (c == '\\')
+                {
                     builder.Append("\\\\");
+                }
                 else if (c == '\b')
+                {
                     builder.Append("\\b");
+                }
                 else if (c == '\f')
+                {
                     builder.Append("\\f");
+                }
                 else if (c == '\n')
+                {
                     builder.Append("\\n");
+                }
                 else if (c == '\r')
+                {
                     builder.Append("\\r");
+                }
                 else if (c == '\t')
+                {
                     builder.Append("\\t");
+                }
                 else
+                {
                     builder.Append(c);
+                }
             }
             builder.Append("\"");
             return true;
@@ -1079,55 +1226,102 @@ namespace MetroLog.Internal
         protected static bool SerializeNumber(object number, StringBuilder builder)
         {
             if (number is long)
+            {
                 builder.Append(((long)number).ToString(CultureInfo.InvariantCulture));
+            }
             else if (number is ulong)
+            {
                 builder.Append(((ulong)number).ToString(CultureInfo.InvariantCulture));
+            }
             else if (number is int)
+            {
                 builder.Append(((int)number).ToString(CultureInfo.InvariantCulture));
+            }
             else if (number is uint)
+            {
                 builder.Append(((uint)number).ToString(CultureInfo.InvariantCulture));
+            }
             else if (number is decimal)
+            {
                 builder.Append(((decimal)number).ToString(CultureInfo.InvariantCulture));
+            }
             else if (number is float)
+            {
                 builder.Append(((float)number).ToString(CultureInfo.InvariantCulture));
+            }
             else
+            {
                 builder.Append(Convert.ToDouble(number, CultureInfo.InvariantCulture).ToString("r", CultureInfo.InvariantCulture));
+            }
             return true;
         }
 
         /// <summary>
-        /// Determines if a given object is numeric in any way
-        /// (can be integer, double, null, etc).
+        ///     Determines if a given object is numeric in any way
+        ///     (can be integer, double, null, etc).
         /// </summary>
         protected static bool IsNumeric(object value)
         {
-            if (value is sbyte) return true;
-            if (value is byte) return true;
-            if (value is short) return true;
-            if (value is ushort) return true;
-            if (value is int) return true;
-            if (value is uint) return true;
-            if (value is long) return true;
-            if (value is ulong) return true;
-            if (value is float) return true;
-            if (value is double) return true;
-            if (value is decimal) return true;
+            if (value is sbyte)
+            {
+                return true;
+            }
+            if (value is byte)
+            {
+                return true;
+            }
+            if (value is short)
+            {
+                return true;
+            }
+            if (value is ushort)
+            {
+                return true;
+            }
+            if (value is int)
+            {
+                return true;
+            }
+            if (value is uint)
+            {
+                return true;
+            }
+            if (value is long)
+            {
+                return true;
+            }
+            if (value is ulong)
+            {
+                return true;
+            }
+            if (value is float)
+            {
+                return true;
+            }
+            if (value is double)
+            {
+                return true;
+            }
+            if (value is decimal)
+            {
+                return true;
+            }
             return false;
         }
 
         private static IJsonSerializerStrategy _currentJsonSerializerStrategy;
+
         public static IJsonSerializerStrategy CurrentJsonSerializerStrategy
         {
             get
             {
-                return _currentJsonSerializerStrategy ??
-                    (_currentJsonSerializerStrategy =
+                return _currentJsonSerializerStrategy ?? (_currentJsonSerializerStrategy =
 #if SIMPLE_JSON_DATACONTRACT
- DataContractJsonSerializerStrategy
+                                                          DataContractJsonSerializerStrategy
 #else
  PocoJsonSerializerStrategy
 #endif
-);
+                                                         );
             }
             set
             {
@@ -1136,6 +1330,7 @@ namespace MetroLog.Internal
         }
 
         private static PocoJsonSerializerStrategy _pocoJsonSerializerStrategy;
+
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public static PocoJsonSerializerStrategy PocoJsonSerializerStrategy
         {
@@ -1148,7 +1343,8 @@ namespace MetroLog.Internal
 #if SIMPLE_JSON_DATACONTRACT
 
         private static DataContractJsonSerializerStrategy _dataContractJsonSerializerStrategy;
-        [System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)]
+
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         public static DataContractJsonSerializerStrategy DataContractJsonSerializerStrategy
         {
             get
@@ -1165,9 +1361,10 @@ namespace MetroLog.Internal
 #else
     public
 #endif
- interface IJsonSerializerStrategy
+        interface IJsonSerializerStrategy
     {
         bool SerializeNonPrimitiveObject(object input, out object output);
+
         object DeserializeObject(object value, Type type);
     }
 
@@ -1176,7 +1373,7 @@ namespace MetroLog.Internal
 #else
     public
 #endif
- class PocoJsonSerializerStrategy : IJsonSerializerStrategy
+        class PocoJsonSerializerStrategy : IJsonSerializerStrategy
     {
         internal IDictionary<Type, ReflectionUtils.ConstructorDelegate> ConstructorCache;
         internal IDictionary<Type, IDictionary<string, ReflectionUtils.GetDelegate>> GetCache;
@@ -1185,18 +1382,13 @@ namespace MetroLog.Internal
         internal static readonly Type[] EmptyTypes = new Type[0];
         internal static readonly Type[] ArrayConstructorParameterTypes = new Type[] { typeof(int) };
 
-        private static readonly string[] Iso8601Format = new string[]
-                                                             {
-                                                                 @"yyyy-MM-dd\THH:mm:ss.FFFFFFF\Z",
-                                                                 @"yyyy-MM-dd\THH:mm:ss\Z",
-                                                                 @"yyyy-MM-dd\THH:mm:ssK"
-                                                             };
+        private static readonly string[] Iso8601Format = new string[] { @"yyyy-MM-dd\THH:mm:ss.FFFFFFF\Z", @"yyyy-MM-dd\THH:mm:ss\Z", @"yyyy-MM-dd\THH:mm:ssK" };
 
         public PocoJsonSerializerStrategy()
         {
-            ConstructorCache = new ReflectionUtils.ThreadSafeDictionary<Type, ReflectionUtils.ConstructorDelegate>(ContructorDelegateFactory);
-            GetCache = new ReflectionUtils.ThreadSafeDictionary<Type, IDictionary<string, ReflectionUtils.GetDelegate>>(GetterValueFactory);
-            SetCache = new ReflectionUtils.ThreadSafeDictionary<Type, IDictionary<string, KeyValuePair<Type, ReflectionUtils.SetDelegate>>>(SetterValueFactory);
+            this.ConstructorCache = new ReflectionUtils.ThreadSafeDictionary<Type, ReflectionUtils.ConstructorDelegate>(this.ContructorDelegateFactory);
+            this.GetCache = new ReflectionUtils.ThreadSafeDictionary<Type, IDictionary<string, ReflectionUtils.GetDelegate>>(this.GetterValueFactory);
+            this.SetCache = new ReflectionUtils.ThreadSafeDictionary<Type, IDictionary<string, KeyValuePair<Type, ReflectionUtils.SetDelegate>>>(this.SetterValueFactory);
         }
 
         internal virtual ReflectionUtils.ConstructorDelegate ContructorDelegateFactory(Type key)
@@ -1209,18 +1401,27 @@ namespace MetroLog.Internal
             IDictionary<string, ReflectionUtils.GetDelegate> result = new Dictionary<string, ReflectionUtils.GetDelegate>();
             foreach (PropertyInfo propertyInfo in ReflectionUtils.GetProperties(type))
             {
+                if (propertyInfo.IsDefined(typeof(JsonIgnoreAttribute)))
+                {
+                    continue;
+                }
+
                 if (propertyInfo.CanRead)
                 {
                     MethodInfo getMethod = ReflectionUtils.GetGetterMethodInfo(propertyInfo);
                     if (getMethod.IsStatic || !getMethod.IsPublic)
+                    {
                         continue;
+                    }
                     result[propertyInfo.Name] = ReflectionUtils.GetGetMethod(propertyInfo);
                 }
             }
             foreach (FieldInfo fieldInfo in ReflectionUtils.GetFields(type))
             {
                 if (fieldInfo.IsStatic || !fieldInfo.IsPublic)
+                {
                     continue;
+                }
                 result[fieldInfo.Name] = ReflectionUtils.GetGetMethod(fieldInfo);
             }
             return result;
@@ -1235,14 +1436,18 @@ namespace MetroLog.Internal
                 {
                     MethodInfo setMethod = ReflectionUtils.GetSetterMethodInfo(propertyInfo);
                     if (setMethod.IsStatic || !setMethod.IsPublic)
+                    {
                         continue;
+                    }
                     result[propertyInfo.Name] = new KeyValuePair<Type, ReflectionUtils.SetDelegate>(propertyInfo.PropertyType, ReflectionUtils.GetSetMethod(propertyInfo));
                 }
             }
             foreach (FieldInfo fieldInfo in ReflectionUtils.GetFields(type))
             {
                 if (fieldInfo.IsInitOnly || fieldInfo.IsStatic || !fieldInfo.IsPublic)
+                {
                     continue;
+                }
                 result[fieldInfo.Name] = new KeyValuePair<Type, ReflectionUtils.SetDelegate>(fieldInfo.FieldType, ReflectionUtils.GetSetMethod(fieldInfo));
             }
             return result;
@@ -1250,7 +1455,7 @@ namespace MetroLog.Internal
 
         public virtual bool SerializeNonPrimitiveObject(object input, out object output)
         {
-            return TrySerializeKnownTypes(input, out output) || TrySerializeUnknownTypes(input, out output);
+            return this.TrySerializeKnownTypes(input, out output) || this.TrySerializeUnknownTypes(input, out output);
         }
 
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
@@ -1263,37 +1468,57 @@ namespace MetroLog.Internal
                 if (!string.IsNullOrEmpty(str))
                 {
                     if (type == typeof(DateTime) || (ReflectionUtils.IsNullableType(type) && Nullable.GetUnderlyingType(type) == typeof(DateTime)))
+                    {
                         obj = DateTime.ParseExact(str, Iso8601Format, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal);
+                    }
                     else if (type == typeof(Guid) || (ReflectionUtils.IsNullableType(type) && Nullable.GetUnderlyingType(type) == typeof(Guid)))
+                    {
                         obj = new Guid(str);
+                    }
                     else
+                    {
                         obj = str;
+                    }
                 }
                 else
                 {
                     if (type == typeof(Guid))
+                    {
                         obj = default(Guid);
+                    }
                     else if (ReflectionUtils.IsNullableType(type) && Nullable.GetUnderlyingType(type) == typeof(Guid))
+                    {
                         obj = null;
+                    }
                     else
+                    {
                         obj = str;
+                    }
                 }
             }
             else if (value is bool)
+            {
                 obj = value;
+            }
             else if (value == null)
+            {
                 obj = null;
+            }
             else if ((value is long && type == typeof(long)) || (value is double && type == typeof(double)))
+            {
                 obj = value;
+            }
             else if ((value is double && type != typeof(double)) || (value is long && type != typeof(long)))
             {
                 obj =
 #if NETFX_CORE
- type == typeof(int) || type == typeof(long) || type == typeof(double) || type == typeof(float) || type == typeof(bool) || type == typeof(decimal) || type == typeof(byte) || type == typeof(short)
+                    type == typeof(int) || type == typeof(long) || type == typeof(double) || type == typeof(float) || type == typeof(bool) || type == typeof(decimal) || type == typeof(byte)
+                    || type == typeof(short)
 #else
  typeof(IConvertible).IsAssignableFrom(type)
 #endif
- ? Convert.ChangeType(value, type, CultureInfo.InvariantCulture) : value;
+                        ? Convert.ChangeType(value, type, CultureInfo.InvariantCulture)
+                        : value;
             }
             else
             {
@@ -1310,26 +1535,30 @@ namespace MetroLog.Internal
 
                         Type genericType = typeof(Dictionary<,>).MakeGenericType(keyType, valueType);
 
-                        IDictionary dict = (IDictionary)ConstructorCache[genericType]();
+                        IDictionary dict = (IDictionary)this.ConstructorCache[genericType]();
 
                         foreach (KeyValuePair<string, object> kvp in jsonObject)
-                            dict.Add(kvp.Key, DeserializeObject(kvp.Value, valueType));
+                        {
+                            dict.Add(kvp.Key, this.DeserializeObject(kvp.Value, valueType));
+                        }
 
                         obj = dict;
                     }
                     else
                     {
                         if (type == typeof(object))
+                        {
                             obj = value;
+                        }
                         else
                         {
-                            obj = ConstructorCache[type]();
-                            foreach (KeyValuePair<string, KeyValuePair<Type, ReflectionUtils.SetDelegate>> setter in SetCache[type])
+                            obj = this.ConstructorCache[type]();
+                            foreach (KeyValuePair<string, KeyValuePair<Type, ReflectionUtils.SetDelegate>> setter in this.SetCache[type])
                             {
                                 object jsonValue;
                                 if (jsonObject.TryGetValue(setter.Key, out jsonValue))
                                 {
-                                    jsonValue = DeserializeObject(jsonValue, setter.Value.Key);
+                                    jsonValue = this.DeserializeObject(jsonValue, setter.Value.Key);
                                     setter.Value.Value(obj, jsonValue);
                                 }
                             }
@@ -1343,29 +1572,37 @@ namespace MetroLog.Internal
 
                     if (type.IsArray)
                     {
-                        list = (IList)ConstructorCache[type](jsonObject.Count);
+                        list = (IList)this.ConstructorCache[type](jsonObject.Count);
                         int i = 0;
                         foreach (object o in jsonObject)
-                            list[i++] = DeserializeObject(o, type.GetElementType());
+                        {
+                            list[i++] = this.DeserializeObject(o, type.GetElementType());
+                        }
                     }
                     else if (ReflectionUtils.IsTypeGenericeCollectionInterface(type) || ReflectionUtils.IsAssignableFrom(typeof(IList), type))
                     {
                         Type innerType = ReflectionUtils.GetGenericTypeArguments(type)[0];
                         Type genericType = typeof(List<>).MakeGenericType(innerType);
-                        list = (IList)ConstructorCache[genericType](jsonObject.Count);
+                        list = (IList)this.ConstructorCache[genericType](jsonObject.Count);
                         foreach (object o in jsonObject)
-                            list.Add(DeserializeObject(o, innerType));
+                        {
+                            list.Add(this.DeserializeObject(o, innerType));
+                        }
                     }
                     obj = list;
                 }
                 return obj;
             }
             if (ReflectionUtils.IsNullableType(type))
+            {
                 return ReflectionUtils.ToNullableType(obj, type);
+            }
             if (obj == null)
             {
                 if (type == typeof(Guid))
+                {
                     return default(Guid);
+                }
             }
             return obj;
         }
@@ -1379,43 +1616,88 @@ namespace MetroLog.Internal
 #endif
         }
 
+        ////protected virtual object SerializeException(Exception exception)
+        ////{
+        ////    return exception.StackTrace;
+        ////}
+
         protected virtual bool TrySerializeKnownTypes(object input, out object output)
         {
             bool returnValue = true;
-            if (input is DateTime)
-                output = ((DateTime)input).ToUniversalTime().ToString(Iso8601Format[0], CultureInfo.InvariantCulture);
-            else if (input is DateTimeOffset)
-                output = ((DateTimeOffset)input).ToUniversalTime()
-                                                .ToString(Iso8601Format[0], CultureInfo.InvariantCulture);
-            else if (input is Guid)
-                output = ((Guid)input).ToString("D");
-            else if (input is Uri)
-                output = input.ToString();
-            else if (input is Enum)
-                output = SerializeEnum((Enum)input);
-            else
+
+            try
             {
+                if (input is DateTime)
+                {
+                    output = ((DateTime)input).ToUniversalTime().ToString(Iso8601Format[0], CultureInfo.InvariantCulture);
+                }
+                else if (input is DateTimeOffset)
+                {
+                    output = ((DateTimeOffset)input).ToUniversalTime().ToString(Iso8601Format[0], CultureInfo.InvariantCulture);
+                }
+                else if (input is Guid)
+                {
+                    output = ((Guid)input).ToString("D");
+                }
+                else if (input is Uri)
+                {
+                    output = input.ToString();
+                }
+                else if (input is Enum)
+                {
+                    output = this.SerializeEnum((Enum)input);
+                }
+                ////else if (input is Exception)
+                ////{
+                ////    output = this.SerializeException((Exception)input);
+                ////}
+                else
+                {
+                    returnValue = false;
+                    output = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                InternalLogger.Current.Error("TrySerializeKnownTypes", ex);
                 returnValue = false;
                 output = null;
             }
+           
             return returnValue;
         }
 
         protected virtual bool TrySerializeUnknownTypes(object input, out object output)
         {
+            bool returnValue = true;
             output = null;
             Type type = input.GetType();
-            if (type.FullName == null)
-                return false;
-            IDictionary<string, object> obj = new JsonObject();
-            IDictionary<string, ReflectionUtils.GetDelegate> getters = GetCache[type];
-            foreach (KeyValuePair<string, ReflectionUtils.GetDelegate> getter in getters)
+
+            try
             {
-                if (getter.Value != null)
-                    obj.Add(getter.Key, getter.Value(input));
+                if (type.FullName == null)
+                {
+                    return false;
+                }
+                IDictionary<string, object> obj = new JsonObject();
+                IDictionary<string, ReflectionUtils.GetDelegate> getters = this.GetCache[type];
+                foreach (KeyValuePair<string, ReflectionUtils.GetDelegate> getter in getters)
+                {
+                    if (getter.Value != null)
+                    {
+                        obj.Add(getter.Key, getter.Value(input));
+                    }
+                }
+                output = obj;
             }
-            output = obj;
-            return true;
+            catch (Exception ex)
+            {
+                InternalLogger.Current.Error(string.Format("Failed to TrySerializeUnknownTypes with object of type {0}", type.Name), ex);
+                returnValue = false;
+                output = null;
+            }
+
+            return returnValue;
         }
     }
 
@@ -1425,37 +1707,45 @@ namespace MetroLog.Internal
 #else
     public
 #endif
- class DataContractJsonSerializerStrategy : PocoJsonSerializerStrategy
+        class DataContractJsonSerializerStrategy : PocoJsonSerializerStrategy
     {
         public DataContractJsonSerializerStrategy()
         {
-            GetCache = new ReflectionUtils.ThreadSafeDictionary<Type, IDictionary<string, ReflectionUtils.GetDelegate>>(GetterValueFactory);
-            SetCache = new ReflectionUtils.ThreadSafeDictionary<Type, IDictionary<string, KeyValuePair<Type, ReflectionUtils.SetDelegate>>>(SetterValueFactory);
+            this.GetCache = new ReflectionUtils.ThreadSafeDictionary<Type, IDictionary<string, ReflectionUtils.GetDelegate>>(this.GetterValueFactory);
+            this.SetCache = new ReflectionUtils.ThreadSafeDictionary<Type, IDictionary<string, KeyValuePair<Type, ReflectionUtils.SetDelegate>>>(this.SetterValueFactory);
         }
 
         internal override IDictionary<string, ReflectionUtils.GetDelegate> GetterValueFactory(Type type)
         {
             bool hasDataContract = ReflectionUtils.GetAttribute(type, typeof(DataContractAttribute)) != null;
             if (!hasDataContract)
+            {
                 return base.GetterValueFactory(type);
+            }
             string jsonKey;
             IDictionary<string, ReflectionUtils.GetDelegate> result = new Dictionary<string, ReflectionUtils.GetDelegate>();
             foreach (PropertyInfo propertyInfo in ReflectionUtils.GetProperties(type))
             {
-                if (propertyInfo.IsDefined(typeof(JsonIgnoreAttribute)))
+                if (propertyInfo.IsDefined(typeof(DataMemberIgnoreAttribute)))
+                {
                     continue;
+                }
 
                 if (propertyInfo.CanRead)
                 {
                     MethodInfo getMethod = ReflectionUtils.GetGetterMethodInfo(propertyInfo);
                     if (!getMethod.IsStatic && CanAdd(propertyInfo, out jsonKey))
+                    {
                         result[jsonKey] = ReflectionUtils.GetGetMethod(propertyInfo);
+                    }
                 }
             }
             foreach (FieldInfo fieldInfo in ReflectionUtils.GetFields(type))
             {
                 if (!fieldInfo.IsStatic && CanAdd(fieldInfo, out jsonKey))
+                {
                     result[jsonKey] = ReflectionUtils.GetGetMethod(fieldInfo);
+                }
             }
             return result;
         }
@@ -1464,7 +1754,9 @@ namespace MetroLog.Internal
         {
             bool hasDataContract = ReflectionUtils.GetAttribute(type, typeof(DataContractAttribute)) != null;
             if (!hasDataContract)
+            {
                 return base.SetterValueFactory(type);
+            }
             string jsonKey;
             IDictionary<string, KeyValuePair<Type, ReflectionUtils.SetDelegate>> result = new Dictionary<string, KeyValuePair<Type, ReflectionUtils.SetDelegate>>();
             foreach (PropertyInfo propertyInfo in ReflectionUtils.GetProperties(type))
@@ -1473,13 +1765,17 @@ namespace MetroLog.Internal
                 {
                     MethodInfo setMethod = ReflectionUtils.GetSetterMethodInfo(propertyInfo);
                     if (!setMethod.IsStatic && CanAdd(propertyInfo, out jsonKey))
+                    {
                         result[jsonKey] = new KeyValuePair<Type, ReflectionUtils.SetDelegate>(propertyInfo.PropertyType, ReflectionUtils.GetSetMethod(propertyInfo));
+                    }
                 }
             }
             foreach (FieldInfo fieldInfo in ReflectionUtils.GetFields(type))
             {
                 if (!fieldInfo.IsInitOnly && !fieldInfo.IsStatic && CanAdd(fieldInfo, out jsonKey))
+                {
                     result[jsonKey] = new KeyValuePair<Type, ReflectionUtils.SetDelegate>(fieldInfo.FieldType, ReflectionUtils.GetSetMethod(fieldInfo));
+                }
             }
             // todo implement sorting for DATACONTRACT.
             return result;
@@ -1489,10 +1785,14 @@ namespace MetroLog.Internal
         {
             jsonKey = null;
             if (ReflectionUtils.GetAttribute(info, typeof(IgnoreDataMemberAttribute)) != null)
+            {
                 return false;
+            }
             DataMemberAttribute dataMemberAttribute = (DataMemberAttribute)ReflectionUtils.GetAttribute(info, typeof(DataMemberAttribute));
             if (dataMemberAttribute == null)
+            {
                 return false;
+            }
             jsonKey = string.IsNullOrEmpty(dataMemberAttribute.Name) ? info.Name : dataMemberAttribute.Name;
             return true;
         }
@@ -1507,12 +1807,14 @@ namespace MetroLog.Internal
 #else
         internal
 #endif
- class ReflectionUtils
+            class ReflectionUtils
         {
             private static readonly object[] EmptyObjects = new object[] { };
 
             public delegate object GetDelegate(object source);
+
             public delegate void SetDelegate(object source, object value);
+
             public delegate object ConstructorDelegate(params object[] args);
 
             public delegate TValue ThreadSafeDictionaryValueFactory<TKey, TValue>(TKey key);
@@ -1521,7 +1823,9 @@ namespace MetroLog.Internal
             {
 #if SIMPLE_JSON_TYPEINFO
                 if (info == null || type == null || !info.IsDefined(type))
+                {
                     return null;
+                }
                 return info.GetCustomAttribute(type);
 #else
                 if (info == null || type == null || !Attribute.IsDefined(info, type))
@@ -1532,10 +1836,11 @@ namespace MetroLog.Internal
 
             public static Attribute GetAttribute(Type objectType, Type attributeType)
             {
-
 #if SIMPLE_JSON_TYPEINFO
                 if (objectType == null || attributeType == null || !objectType.GetTypeInfo().IsDefined(attributeType))
+                {
                     return null;
+                }
                 return objectType.GetTypeInfo().GetCustomAttribute(attributeType);
 #else
                 if (objectType == null || attributeType == null || !Attribute.IsDefined(objectType, attributeType))
@@ -1557,10 +1862,12 @@ namespace MetroLog.Internal
             {
 #if SIMPLE_JSON_TYPEINFO
                 if (!type.GetTypeInfo().IsGenericType)
+                {
 #else
                 if (!type.IsGenericType)
 #endif
                     return false;
+                }
 
                 Type genericDefinition = type.GetGenericTypeDefinition();
 
@@ -1580,10 +1887,14 @@ namespace MetroLog.Internal
             {
 #if SIMPLE_JSON_TYPEINFO
                 if (typeof(IDictionary<,>).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo()))
+                {
                     return true;
+                }
 
                 if (!type.GetTypeInfo().IsGenericType)
+                {
                     return false;
+                }
 #else
                 if (typeof(System.Collections.IDictionary).IsAssignableFrom(type))
                     return true;
@@ -1599,11 +1910,11 @@ namespace MetroLog.Internal
             {
                 return
 #if SIMPLE_JSON_TYPEINFO
- type.GetTypeInfo().IsGenericType
+                    type.GetTypeInfo().IsGenericType
 #else
  type.IsGenericType
 #endif
- && type.GetGenericTypeDefinition() == typeof(Nullable<>);
+                    && type.GetGenericTypeDefinition() == typeof(Nullable<>);
             }
 
             public static object ToNullableType(object obj, Type nullableType)
@@ -1638,7 +1949,9 @@ namespace MetroLog.Internal
                 {
                     ParameterInfo[] parameters = constructorInfo.GetParameters();
                     if (argsType.Length != parameters.Length)
+                    {
                         continue;
+                    }
 
                     i = 0;
                     matches = true;
@@ -1652,7 +1965,9 @@ namespace MetroLog.Internal
                     }
 
                     if (matches)
+                    {
                         return constructorInfo;
+                    }
                 }
 
                 return null;
@@ -1887,37 +2202,43 @@ namespace MetroLog.Internal
 
                 public ThreadSafeDictionary(ThreadSafeDictionaryValueFactory<TKey, TValue> valueFactory)
                 {
-                    _valueFactory = valueFactory;
+                    this._valueFactory = valueFactory;
                 }
 
                 private TValue Get(TKey key)
                 {
-                    if (_dictionary == null)
-                        return AddValue(key);
+                    if (this._dictionary == null)
+                    {
+                        return this.AddValue(key);
+                    }
                     TValue value;
-                    if (!_dictionary.TryGetValue(key, out value))
-                        return AddValue(key);
+                    if (!this._dictionary.TryGetValue(key, out value))
+                    {
+                        return this.AddValue(key);
+                    }
                     return value;
                 }
 
                 private TValue AddValue(TKey key)
                 {
-                    TValue value = _valueFactory(key);
-                    lock (_lock)
+                    TValue value = this._valueFactory(key);
+                    lock (this._lock)
                     {
-                        if (_dictionary == null)
+                        if (this._dictionary == null)
                         {
-                            _dictionary = new Dictionary<TKey, TValue>();
-                            _dictionary[key] = value;
+                            this._dictionary = new Dictionary<TKey, TValue>();
+                            this._dictionary[key] = value;
                         }
                         else
                         {
                             TValue val;
-                            if (_dictionary.TryGetValue(key, out val))
+                            if (this._dictionary.TryGetValue(key, out val))
+                            {
                                 return val;
-                            Dictionary<TKey, TValue> dict = new Dictionary<TKey, TValue>(_dictionary);
+                            }
+                            Dictionary<TKey, TValue> dict = new Dictionary<TKey, TValue>(this._dictionary);
                             dict[key] = value;
-                            _dictionary = dict;
+                            this._dictionary = dict;
                         }
                     }
                     return value;
@@ -1930,12 +2251,15 @@ namespace MetroLog.Internal
 
                 public bool ContainsKey(TKey key)
                 {
-                    return _dictionary.ContainsKey(key);
+                    return this._dictionary.ContainsKey(key);
                 }
 
                 public ICollection<TKey> Keys
                 {
-                    get { return _dictionary.Keys; }
+                    get
+                    {
+                        return this._dictionary.Keys;
+                    }
                 }
 
                 public bool Remove(TKey key)
@@ -1951,13 +2275,22 @@ namespace MetroLog.Internal
 
                 public ICollection<TValue> Values
                 {
-                    get { return _dictionary.Values; }
+                    get
+                    {
+                        return this._dictionary.Values;
+                    }
                 }
 
                 public TValue this[TKey key]
                 {
-                    get { return Get(key); }
-                    set { throw new NotImplementedException(); }
+                    get
+                    {
+                        return this.Get(key);
+                    }
+                    set
+                    {
+                        throw new NotImplementedException();
+                    }
                 }
 
                 public void Add(KeyValuePair<TKey, TValue> item)
@@ -1982,12 +2315,18 @@ namespace MetroLog.Internal
 
                 public int Count
                 {
-                    get { return _dictionary.Count; }
+                    get
+                    {
+                        return this._dictionary.Count;
+                    }
                 }
 
                 public bool IsReadOnly
                 {
-                    get { throw new NotImplementedException(); }
+                    get
+                    {
+                        throw new NotImplementedException();
+                    }
                 }
 
                 public bool Remove(KeyValuePair<TKey, TValue> item)
@@ -1997,18 +2336,18 @@ namespace MetroLog.Internal
 
                 public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
                 {
-                    return _dictionary.GetEnumerator();
+                    return this._dictionary.GetEnumerator();
                 }
 
-                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                IEnumerator IEnumerable.GetEnumerator()
                 {
-                    return _dictionary.GetEnumerator();
+                    return this._dictionary.GetEnumerator();
                 }
             }
-
         }
     }
 }
+
 // ReSharper restore LoopCanBeConvertedToQuery
 // ReSharper restore RedundantExplicitArrayCreation
 // ReSharper restore SuggestUseVarKeywordEvident

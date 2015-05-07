@@ -11,13 +11,13 @@ namespace MetroLog.Targets
         public ILoggingEnvironment Environment { get; set; }
         public LogEventInfo[] Events { get; set; }
 
-        internal JsonPostWrapper(ILoggingEnvironment environment, IEnumerable<LogEventInfo> events)
+        public JsonPostWrapper(ILoggingEnvironment environment, IEnumerable<LogEventInfo> events)
         {
             this.Environment = environment;
             this.Events = events.ToArray();
         }
 
-        internal string ToJson()
+        public string ToJson()
         {
             return SimpleJson.SerializeObject(this);
         }

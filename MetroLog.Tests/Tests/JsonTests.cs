@@ -1,10 +1,6 @@
 ﻿extern alias netfx;
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -70,7 +66,11 @@ namespace MetroLog.Tests
 
             // check...
             Assert.Equal(typeof(InvalidOperationException).AssemblyQualifiedName, log.ExceptionWrapper.TypeName);
+#if SHOW_NESTED_INNEREXCEPTIONS
             Assert.False(string.IsNullOrEmpty(log.ExceptionWrapper.AsString));
+#else
+            Assert.False(log.ExceptionWrapper == null);
+#endif
             Assert.Equal(80131509, log.ExceptionWrapper.Hresult);
         }
 

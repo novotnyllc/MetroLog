@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MetroLog.Layouts;
+﻿using MetroLog.Layouts;
 
 namespace MetroLog.Targets
 {
@@ -13,7 +8,5 @@ namespace MetroLog.Targets
             : base(layout)
         {
         }
-
-        
     }
 }

@@ -23,9 +23,14 @@ namespace MetroLog.Targets
             this.FileNamingParameters.CreationMode = FileCreationMode.AppendIfExisting;
         }
 
-        protected override Task WriteTextToFileCore(StreamWriter file, string contents)
+        protected override Task WriteTextToFileAsync(StreamWriter file, string contents)
         {
             return file.WriteLineAsync(contents);
+        }
+
+        protected override void WriteTextToFile(StreamWriter file, string contents)
+        {
+            file.WriteLine(contents);
         }
     }
 }

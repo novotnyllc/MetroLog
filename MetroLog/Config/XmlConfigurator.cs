@@ -60,12 +60,14 @@ namespace MetroLog.Config
                 throw new Exception(errorMessage);
             }
 
-            foreach (var currentElement in element.Nodes().Where(n => n.NodeType == XmlNodeType.Element).OfType<XElement>())
+            var rootElement = element.Nodes()
+                .Where(n => n.NodeType == XmlNodeType.Element)
+                .OfType<XElement>()
+                .FirstOrDefault(e => e.Name.LocalName == ROOT_TAG);
+
+            if (rootElement != null)
             {
-                if (currentElement.Name.LocalName == ROOT_TAG)
-                {
-                    return this.ParseRoot(currentElement);
-                }
+                return this.ParseRoot(rootElement);
             }
 
             InternalLogger.Current.Error("XmlConfigurator: Unable to configure from xml.");
@@ -162,138 +164,6 @@ namespace MetroLog.Config
             return target;
         }
 
-        ////private Target ParseTarget(XElement targetElement)
-        ////{
-        ////    string targetName = GetAttributeValue(targetElement, NAME_ATTR);
-        ////    string targetTypeName = GetAttributeValue(targetElement, TYPE_ATTR);
-
-        ////    InternalLogger.Current.Debug("Loading target [" + targetName + "] type: [" + targetTypeName + "]");
-        ////    try
-        ////    {
-        ////        Type targetType = GetTypeFromString(this.callingAssembly, targetTypeName, false);
-        ////        int commaIndex = targetTypeName.IndexOf(",", StringComparison.Ordinal);
-        ////        if (targetType == null && commaIndex > 0) // Try to find type again without specifying the assembly
-        ////        {
-        ////            targetTypeName = targetTypeName.Substring(0, commaIndex);
-        ////            targetType = GetTypeFromString(this.callingAssembly, targetTypeName, false);
-        ////        }
-
-        ////        if (targetType == null)
-        ////        {
-        ////            InternalLogger.Current.Error("XmlConfigurator: Error loading target [" + targetName + "]. Could not find type [" + targetTypeName + "].");
-        ////            return null;
-        ////        }
-
-        ////        Target target = (Target)Activator.CreateInstance(targetType, new object[] { });
-        ////        InternalLogger.Current.Debug("Created target [" + targetName + "] with default constructor.");
-
-        ////        var propertiesOfTarget = targetElement.Nodes()
-        ////            .Where(n => n.NodeType == XmlNodeType.Element)
-        ////            .OfType<XElement>()
-        ////            .ToList();
-
-        ////        Layout layout = null;
-        ////        foreach (var propertyOfTarget in propertiesOfTarget)
-        ////        {
-        ////            if (propertyOfTarget.Name.LocalName == TARGET_LOGLEVELMIN_TAG || propertyOfTarget.Name.LocalName == TARGET_LOGLEVELMAX_TAG)
-        ////            {
-        ////                // these two values are ignored
-        ////                continue;
-        ////            }
-
-        ////            if (propertyOfTarget.Name.LocalName == TARGET_LAYOUT_TAG)
-        ////            {
-        ////                if (layout == null)
-        ////                {
-        ////                    layout = this.ParseLayout(propertyOfTarget, targetName);
-        ////                    layout = this.CreateObjectFromXml(propertyOfTarget) as Layout;
-        ////                    SetParameter(target, TARGET_LAYOUT_TAG, layout);
-        ////                }
-        ////                else
-        ////                {
-        ////                    InternalLogger.Current.Warn("Target [" + targetName + "] cannot have more than one layouts.");
-        ////                }
-        ////            }
-        ////            else
-        ////            {
-        ////                this.SetParameter(propertyOfTarget, target);
-        ////            }
-        ////        }
-
-        ////        ////var targetLayoutElements = targetElement.Nodes()
-        ////        ////    .Where(n => n.NodeType == XmlNodeType.Element)
-        ////        ////    .OfType<XElement>()
-        ////        ////    .Where(xe => xe.Name.LocalName == TARGET_LAYOUT_TAG)
-        ////        ////    .ToList();
-
-        ////        ////if (targetLayoutElements.Count > 1)
-        ////        ////{
-        ////        ////    InternalLogger.Current.Warn("Target [" + targetName + "] cannot have more than one layouts.");
-        ////        ////}
-
-
-        ////        ////var layoutXElement = targetLayoutElements.FirstOrDefault();
-        ////        ////Layout layout = ParseLayout(layoutXElement);
-
-        ////        ////Target target = null;
-        ////        ////if (layout != null)
-        ////        ////{
-        ////        ////    target = (Target)Activator.CreateInstance(targetType, layout);
-        ////        ////    InternalLogger.Current.Debug("Created target [" + targetName + "] with layout [" + layout.GetType() + "].");
-        ////        ////}
-        ////        ////else
-        ////        ////{
-
-        ////        ////    target = (Target)Activator.CreateInstance(targetType, new object[]{});
-        ////        ////    InternalLogger.Current.Debug("Created target [" + targetName + "] with default layout.");
-        ////        ////}
-
-        ////        return target;
-        ////    }
-        ////    catch (Exception ex)
-        ////    {
-        ////        InternalLogger.Current.Error("XmlConfigurator: Could not create target [" + targetName + "] of type [" + targetTypeName + "]. Reported error follows.", ex);
-        ////        return null;
-        ////    }
-        ////}
-
-        ////private Layout ParseLayout(XElement layoutXElement, string targetName)
-        ////{
-        ////    Layout layout = null;
-        ////    if (layoutXElement != null)
-        ////    {
-        ////        string targetLayoutTypeName = GetAttributeValue(layoutXElement, TYPE_ATTR);
-        ////        string targetLayoutParameter = GetAttributeValue(layoutXElement, VALUE_ATTR);
-
-        ////        try
-        ////        {
-        ////            Type targetLayoutType = GetTypeFromString(this.callingAssembly, targetLayoutTypeName, false);
-
-        ////            if (!string.IsNullOrEmpty(targetLayoutParameter))
-        ////            {
-        ////                InternalLogger.Current.Debug("Creating layout of type [" + targetLayoutTypeName + "] with parameter [" + targetLayoutParameter + "] for target [" + targetName + "]");
-        ////                layout = (Layout)Activator.CreateInstance(targetLayoutType, targetLayoutParameter); // TODO GATH: Create new interface IXMLConfigurable to inject configuration parameters into Layout
-        ////            }
-        ////            else
-        ////            {
-        ////                InternalLogger.Current.Debug("Creating layout of type [" + targetLayoutTypeName + "] for target [" + targetName + "]");
-        ////                layout = (Layout)Activator.CreateInstance(targetLayoutType, new object[] { });
-        ////            }
-
-        ////        }
-        ////        catch (Exception ex)
-        ////        {
-        ////            InternalLogger.Current.Error("XmlConfigurator: Could not create layout of type [" + targetLayoutTypeName + "] for target [" + targetName + "]. Reported error follows.", ex);
-        ////        }
-        ////    }
-        ////    else
-        ////    {
-        ////        InternalLogger.Current.Debug("Target [" + targetName + "] has no layouts configured. Default layout is applied.");
-        ////    }
-
-        ////    return layout;
-        ////}
-
         private void SetParameter(XElement element, object target)
         {
             // Get the property name
@@ -383,7 +253,7 @@ namespace MetroLog.Config
             }
             catch (Exception ex)
             {
-                InternalLogger.Current.Error("XmlHierarchyConfigurator: Failed to construct object of type [" + objectType.FullName + "]. Exception: " + ex.ToString());
+                InternalLogger.Current.Error("XmlConfigurator: Failed to construct object of type [" + objectType.FullName + "]. Exception: " + ex.ToString());
             }
 
             // Set any params on object
@@ -418,7 +288,7 @@ namespace MetroLog.Config
                 if (type != null)
                 {
                     // Found type in relative assembly
-                    InternalLogger.Current.Error("XmlConfigurator: Loaded type [" + typeName + "] from assembly [" + executingAssembly.FullName + "]");
+                    InternalLogger.Current.Debug("XmlConfigurator: Loaded type [" + typeName + "] from assembly [" + executingAssembly.FullName + "]");
                     return type;
                 }
 
