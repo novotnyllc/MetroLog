@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22512.0
+VisualStudioVersion = 14.0.22823.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroLog", "MetroLog\MetroLog.csproj", "{65E2062E-AAC2-4054-AAE6-D6764040C769}"
 EndProject
@@ -72,6 +72,7 @@ Global
 		MetroLog.Shared\MetroLog.Shared.projitems*{e400992a-f3c6-4828-a996-c3c72ce793bf}*SharedItemsImports = 4
 		MetroLog.Shared\MetroLog.Shared.projitems*{b929ffc8-ca0d-43fd-a95b-8e454ccd7133}*SharedItemsImports = 4
 		MetroLog.Shared\MetroLog.Shared.projitems*{65e2062e-aac2-4054-aae6-d6764040c769}*SharedItemsImports = 4
+		MetroLog.Shared\MetroLog.Shared.projitems*{c2ceb5c6-43d2-45a0-b4c4-b196ece86f62}*SharedItemsImports = 4
 		MetroLog.Shared.WinRT\MetroLog.Shared.WinRT.projitems*{c2ceb5c6-43d2-45a0-b4c4-b196ece86f62}*SharedItemsImports = 4
 		MetroLog.Shared\MetroLog.Shared.projitems*{87b9adc4-8888-43f7-a711-39edb0cfa9c0}*SharedItemsImports = 13
 		MetroLog.Shared\MetroLog.Shared.projitems*{b3c9b85a-a54e-4abf-a552-5cf6d8ddb57f}*SharedItemsImports = 4
