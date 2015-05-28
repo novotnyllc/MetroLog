@@ -126,9 +126,6 @@
     <Compile Include="..\MetroLog\Targets\JsonPostWrapper.cs">
       <Link>Targets\JsonPostWrapper.cs</Link>
     </Compile>
-    <Compile Include="..\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -147,6 +144,7 @@
     <AssemblyOriginatorKeyFile>..\MetroLog.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <Import Project="..\MetroLog.Shared.WinRT\MetroLog.Shared.WinRT.projitems" Label="Shared" Condition="Exists('..\MetroLog.Shared.WinRT\MetroLog.Shared.WinRT.projitems')" />
+  <Import Project="..\MetroLog.Shared\MetroLog.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <Import Project="..\packages\GitVersionTask.3.0.0-beta0002\Build\GitVersionTask.targets" Condition="Exists('..\packages\GitVersionTask.3.0.0-beta0002\Build\GitVersionTask.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -12,16 +12,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers 
-// by using the '*' as shown below:
-
 
 [assembly: InternalsVisibleTo("MetroLog.Tests, PublicKey=00240000048000009400000006020000002400005253413100040000010001002b4b7e56af036d" +
                                                         "ed95a703d3ffc367837e047f6fbdba8fae1d1295a5c031a108aa452c62f14b7a12766f86a0f94f" +
