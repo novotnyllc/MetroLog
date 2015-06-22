@@ -74,19 +74,27 @@ namespace MetroLog
             {
                 if (_xamlApplicationState == MetroLog.XamlApplicationState.Unknown)
                 {
-                    // the expected behaviour here is the exception - the else case is provided to
-                    // ensure the compiler doesn't optimize out the check (and to be thorough)...
-                    try
-                    {
-                        if (Application.Current != null)
-                            _xamlApplicationState = XamlApplicationState.Available;
-                        else
-                            _xamlApplicationState = XamlApplicationState.Unavailable;
-                    }
-                    catch
+                    if (DesignMode.DesignModeEnabled)
                     {
                         _xamlApplicationState = XamlApplicationState.Unavailable;
                     }
+                    else
+                    {
+                        // the expected behaviour here is the exception - the else case is provided to
+                        // ensure the compiler doesn't optimize out the check (and to be thorough)...
+                        try
+                        {
+                            if (Application.Current != null)
+                                _xamlApplicationState = XamlApplicationState.Available;
+                            else
+                                _xamlApplicationState = XamlApplicationState.Unavailable;
+                        }
+                        catch
+                        {
+                            _xamlApplicationState = XamlApplicationState.Unavailable;
+                        }
+                    }
+                    
                 }
                 return _xamlApplicationState;
             }
