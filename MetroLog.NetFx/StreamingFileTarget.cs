@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using System.Text;
+﻿using System.IO;
 using System.Threading.Tasks;
 using MetroLog.Layouts;
-using MetroLog.Targets;
 
-namespace MetroLog
+namespace MetroLog.Targets
 {
     public class StreamingFileTarget : FileTarget
     {
@@ -27,6 +21,10 @@ namespace MetroLog
             FileNamingParameters.CreationMode = FileCreationMode.AppendIfExisting;
         }
 
+        protected override void WriteTextToFile(StreamWriter file, string contents)
+        {
+            file.WriteLine(contents);
+        }
 
         protected override Task WriteTextToFileCore(StreamWriter file, string contents)
         {

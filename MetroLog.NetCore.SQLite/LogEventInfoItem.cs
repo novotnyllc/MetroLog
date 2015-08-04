@@ -1,12 +1,6 @@
-﻿using MetroLog.NetCore.Targets.SQLite;
+﻿using System;
+using MetroLog.NetCore.Targets.SQLite;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MetroLog.Internal;
-
 
 namespace MetroLog.Targets
 {
@@ -74,13 +68,13 @@ namespace MetroLog.Targets
             {
                 return new ExceptionWrapper()
                 {
-                    AsString = this.Exception,
+                    Message =  this.Exception,
                     TypeName = this.ExceptionTypeName,
                     Hresult = this.ExceptionHresult
                 };
             }
-            else
-                return null;
+
+            return null;
         }
     }
 }
