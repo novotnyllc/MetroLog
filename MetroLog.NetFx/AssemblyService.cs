@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-
 namespace MetroLog
 {
     internal sealed class AssemblyService : IAssemblyService

@@ -63,6 +63,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroLog.iOS-Unified", "Met
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iOSUnifiedSample", "iOSUnifiedSample\iOSUnifiedSample.csproj", "{A2D57852-C9D4-4357-84FC-C15881711DD1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroLog.Extended.NuGet", "MetroLog.Extended.NuGet\MetroLog.Extended.NuGet.csproj", "{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		MetroLog.Shared.WinRT\MetroLog.Shared.WinRT.projitems*{429ee5fc-46fe-4249-bb40-8dc6d9023a04}*SharedItemsImports = 4
@@ -1192,6 +1194,42 @@ Global
 		{A2D57852-C9D4-4357-84FC-C15881711DD1}.Release|Mixed Platforms.Build.0 = Release|iPhone
 		{A2D57852-C9D4-4357-84FC-C15881711DD1}.Release|x64.ActiveCfg = Release|iPhone
 		{A2D57852-C9D4-4357-84FC-C15881711DD1}.Release|x86.ActiveCfg = Release|iPhone
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Ad-Hoc|Any CPU.Build.0 = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Ad-Hoc|ARM.ActiveCfg = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Ad-Hoc|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Ad-Hoc|Mixed Platforms.Build.0 = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Ad-Hoc|x64.ActiveCfg = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Ad-Hoc|x86.ActiveCfg = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.AppStore|Any CPU.Build.0 = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.AppStore|ARM.ActiveCfg = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.AppStore|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.AppStore|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.AppStore|Mixed Platforms.Build.0 = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.AppStore|x64.ActiveCfg = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.AppStore|x86.ActiveCfg = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Release|ARM.ActiveCfg = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Release|x64.ActiveCfg = Release|Any CPU
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1206,5 +1244,6 @@ Global
 		{991F0C48-3F70-441B-8DBF-DEEF3D66081C} = {330C34B6-970D-43C8-BBF2-FC9BED6DE53D}
 		{C8231912-EAC7-4E71-9E5D-4B51869A1BA2} = {3ADE1B40-4C2F-4633-9006-00AF3FB361E8}
 		{A2D57852-C9D4-4357-84FC-C15881711DD1} = {3ADE1B40-4C2F-4633-9006-00AF3FB361E8}
+		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE} = {B59C05D2-3F0D-40CB-8753-7F63D458AF00}
 	EndGlobalSection
 EndGlobal

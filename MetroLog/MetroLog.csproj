@@ -177,7 +177,6 @@
     <None Include="..\MetroLog.snk">
       <Link>MetroLog.snk</Link>
     </None>
-    <None Include="Internal\PlatformAdapter.cd" />
     <None Include="LogConfigurator.dgml" />
     <None Include="packages.config" />
   </ItemGroup>
