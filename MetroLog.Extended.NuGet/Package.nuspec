@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>MetroLog.Extended</id>
-    <version>0.8.10</version>
+    <version>0.8.11</version>
     <title>MetroLog Extended</title>
     <authors>Matt Baxter-Reynolds, Oren Novotny, Thomas Galliker</authors>
     <owners>onovotny</owners>
@@ -22,6 +22,9 @@
     <releaseNotes>Added Xamarin.iOS Unified support</releaseNotes>
     <tags>Logging log WinRT NLog log4net portable pcl WinJS wp wp8 wpa81 ios android xamarin</tags>
     <dependencies>
+      <group targetFramework="portable-net45+wp8+win81+wpa81">
+        <dependency id="TypeConverter" version="1.0.5" />
+      </group>
       <group targetFramework="wp8">
         <dependency id="Microsoft.Bcl.Compression" version="3.9.85" />
       </group>
