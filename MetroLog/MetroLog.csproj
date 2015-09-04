@@ -19,8 +19,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>0db41fe5</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -106,15 +105,6 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Config\Converters\DoubleTypeConverter.cs" />
-    <Compile Include="Config\Converters\IntegerTypeConverter.cs" />
-    <Compile Include="Config\Converters\BooleanTypeConverter.cs" />
-    <Compile Include="Config\ConverterRegistry.cs" />
-    <Compile Include="Config\Converters\ITypeConverter.cs" />
-    <Compile Include="Config\Converters\StringTypeConverter.cs" />
-    <Compile Include="Config\Converters\TypeConverterBase.cs" />
-    <Compile Include="Config\Converters\UriTypeConverter.cs" />
-    <Compile Include="Config\Exceptions\ConversionNotSupportedException.cs" />
     <Compile Include="Config\XmlConfigurator.cs" />
     <Compile Include="ExceptionWrapper.cs" />
     <Compile Include="IAssemblyService.cs" />
@@ -178,7 +168,9 @@
       <Link>MetroLog.snk</Link>
     </None>
     <None Include="LogConfigurator.dgml" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Strings.resx">
@@ -189,6 +181,10 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Runtime" />
+    <Reference Include="TypeConverter">
+      <HintPath>..\packages\TypeConverter.1.0.5\lib\portable-net45+wp8+wpa81+netcore45+monoandroid1+xamarin.ios10\TypeConverter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
@@ -204,12 +200,12 @@
   </PropertyGroup>
   <Import Project="..\MetroLog.Shared\MetroLog.Shared.projitems" Label="Shared" Condition="Exists('..\MetroLog.Shared\MetroLog.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
-  <Import Project="..\packages\GitVersionTask.3.0.0-beta0002\Build\GitVersionTask.targets" Condition="Exists('..\packages\GitVersionTask.3.0.0-beta0002\Build\GitVersionTask.targets')" />
+  <Import Project="..\packages\GitVersionTask.3.0.2\Build\GitVersionTask.targets" Condition="Exists('..\packages\GitVersionTask.3.0.2\Build\GitVersionTask.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\GitVersionTask.3.0.0-beta0002\Build\GitVersionTask.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitVersionTask.3.0.0-beta0002\Build\GitVersionTask.targets'))" />
+    <Error Condition="!Exists('..\packages\GitVersionTask.3.0.2\Build\GitVersionTask.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitVersionTask.3.0.2\Build\GitVersionTask.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

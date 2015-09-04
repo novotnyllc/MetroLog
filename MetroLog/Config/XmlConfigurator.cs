@@ -6,8 +6,11 @@ using System.Reflection;
 using System.Xml;
 using System.Xml.Linq;
 
-using MetroLog.Internal;
 using MetroLog.Targets;
+
+using TypeConverter;
+using TypeConverter.Converters;
+using TypeConverter.Tests.Testdata;
 
 namespace MetroLog.Config
 {
@@ -26,14 +29,32 @@ namespace MetroLog.Config
         private const string TARGET_LOGLEVELMIN_TAG = "logLevelMin";
         private const string TARGET_LOGLEVELMAX_TAG = "logLevelMax";
 
-        private readonly Dictionary<string, Target> targets = new Dictionary<string, Target>();
+        private readonly IAssemblyService callingAssembly;
+        private readonly Dictionary<string, Target> targets;
+        private readonly ConverterRegistry converterRegistry;
 
-        private IAssemblyService callingAssembly;
+        public XmlConfigurator(IAssemblyService assemblyService)
+        {
+            this.callingAssembly = assemblyService;
+
+            this.targets = new Dictionary<string, Target>();
+
+            this.converterRegistry = new ConverterRegistry();
+            this.converterRegistry.RegisterConverter<string, Uri>(() => new StringToUriConverter());
+            this.converterRegistry.RegisterConverter<Uri, string>(() => new StringToUriConverter());
+
+            this.converterRegistry.RegisterConverter<string, bool>(() => new StringToBoolConverter());
+            this.converterRegistry.RegisterConverter<bool, string>(() => new StringToBoolConverter());
+
+            this.converterRegistry.RegisterConverter<string, double>(() => new StringToDoubleConverter());
+            this.converterRegistry.RegisterConverter<double, string>(() => new StringToDoubleConverter());
+
+            this.converterRegistry.RegisterConverter<string, int>(() => new StringToIntegerConverter());
+            this.converterRegistry.RegisterConverter<int, string>(() => new StringToIntegerConverter());
+        }
 
         public LoggingConfiguration Configure(Stream stream)
         {
-            this.callingAssembly = PlatformAdapter.Resolve<IAssemblyService>();
-
             XDocument doc = XDocument.Load(stream);
             var configurationSection = doc.Element(CONFIGURATION_TAG);
             if (configurationSection != null)
@@ -111,12 +132,12 @@ namespace MetroLog.Config
                 {
                     
                     var logLevelMinValue = GetAttributeValue(currentElement, VALUE_ATTR);
-                    targetConfig.LogLevelMin = (LogLevel)ConverterRegistry.ConvertTo(typeof(LogLevel), logLevelMinValue);
+                    targetConfig.LogLevelMin = this.converterRegistry.Convert<string, LogLevel>(logLevelMinValue);
                 }
                 else if (currentElement.Name.LocalName == TARGET_LOGLEVELMAX_TAG)
                 {
                     var logLevelMaxValue = GetAttributeValue(currentElement, VALUE_ATTR);
-                    targetConfig.LogLevelMax = (LogLevel)ConverterRegistry.ConvertTo(typeof(LogLevel), logLevelMaxValue);
+                    targetConfig.LogLevelMax = this.converterRegistry.Convert<string, LogLevel>(logLevelMaxValue);
                 }
             }
 
@@ -195,7 +216,7 @@ namespace MetroLog.Config
                     var attributeValue = GetAttributeValue(element, VALUE_ATTR);
                     if (attributeValue != null)
                     {
-                        propertyValue = ConverterRegistry.ConvertTo(propInfo.PropertyType, attributeValue);
+                        propertyValue = this.converterRegistry.Convert(propInfo.PropertyType, attributeValue);
                     }
                     else
                     {

@@ -18,7 +18,8 @@ namespace MetroLog.Internal
 
         public LoggingConfiguration CreateFromXml(Stream configFileStream)
         {
-            XmlConfigurator xmlConfigurator = new XmlConfigurator();
+            var assemblyService = PlatformAdapter.Resolve<IAssemblyService>();
+            XmlConfigurator xmlConfigurator = new XmlConfigurator(assemblyService);
             return xmlConfigurator.Configure(configFileStream);
         }
 
