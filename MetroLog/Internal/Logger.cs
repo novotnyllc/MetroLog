@@ -97,6 +97,12 @@ namespace MetroLog.Internal
                     return EmptyOperations;
                 }
 
+                // format?
+                if (doFormat)
+                {
+                    message = string.Format(message, ps);
+                }
+
                 // create an event entry and pass it through...
                 var entry = new LogEventInfo(level, this.Name, message, ex);
                 var isFatalException = level == LogLevel.Fatal;
@@ -120,14 +126,6 @@ namespace MetroLog.Internal
                 {
                     return EmptyOperations;
                 }
-
-                // format?
-                if (doFormat)
-                {
-                    message = string.Format(message, ps);
-                }
-
-
 
                 // create a context...
                 var context = new LogWriteContext();

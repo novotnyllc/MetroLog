@@ -10,7 +10,6 @@ using MetroLog.Targets;
 
 using TypeConverter;
 using TypeConverter.Converters;
-using TypeConverter.Tests.Testdata;
 
 namespace MetroLog.Config
 {
@@ -132,12 +131,12 @@ namespace MetroLog.Config
                 {
                     
                     var logLevelMinValue = GetAttributeValue(currentElement, VALUE_ATTR);
-                    targetConfig.LogLevelMin = this.converterRegistry.Convert<string, LogLevel>(logLevelMinValue);
+                    targetConfig.LogLevelMin = (LogLevel)this.converterRegistry.Convert<LogLevel>(logLevelMinValue);
                 }
                 else if (currentElement.Name.LocalName == TARGET_LOGLEVELMAX_TAG)
                 {
                     var logLevelMaxValue = GetAttributeValue(currentElement, VALUE_ATTR);
-                    targetConfig.LogLevelMax = this.converterRegistry.Convert<string, LogLevel>(logLevelMaxValue);
+                    targetConfig.LogLevelMax = (LogLevel)this.converterRegistry.Convert<LogLevel>(logLevelMaxValue);
                 }
             }
 
