@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -129,14 +130,13 @@ namespace MetroLog.Config
             {
                 if (currentElement.Name.LocalName == TARGET_LOGLEVELMIN_TAG)
                 {
-                    
                     var logLevelMinValue = GetAttributeValue(currentElement, VALUE_ATTR);
-                    targetConfig.LogLevelMin = (LogLevel)this.converterRegistry.Convert<LogLevel>(logLevelMinValue);
+                    targetConfig.LogLevelMin = this.converterRegistry.Convert<LogLevel>(logLevelMinValue);
                 }
                 else if (currentElement.Name.LocalName == TARGET_LOGLEVELMAX_TAG)
                 {
                     var logLevelMaxValue = GetAttributeValue(currentElement, VALUE_ATTR);
-                    targetConfig.LogLevelMax = (LogLevel)this.converterRegistry.Convert<LogLevel>(logLevelMaxValue);
+                    targetConfig.LogLevelMax = this.converterRegistry.Convert<LogLevel>(logLevelMaxValue);
                 }
             }
 
@@ -317,7 +317,7 @@ namespace MetroLog.Config
                 {
                     loadedAssemblies = assemblyService.GetAssemblies();
                 }
-                catch (System.Security.SecurityException)
+                catch (SecurityException)
                 {
                     // Insufficient permissions to get the list of loaded assemblies
                 }
