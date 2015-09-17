@@ -1,4 +1,5 @@
-﻿using MetroLog.Internal;
+﻿using CrossPlatformAdapter;
+
 
 namespace MetroLog
 {
@@ -12,7 +13,7 @@ namespace MetroLog
 
         static LogWriteContext()
         {
-            environment = PlatformAdapter.Resolve<ILoggingEnvironment>();
+            environment = PlatformAdapter.Current.Resolve<ILoggingEnvironment>();
         }
 
         public ILoggingEnvironment Environment

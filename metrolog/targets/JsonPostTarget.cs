@@ -10,7 +10,7 @@ namespace MetroLog.Targets
 {
     public class JsonPostTarget : BufferedTarget
     {
-        private IWebClientWrapper webClient;
+        private readonly IWebClientWrapper webClient;
 
         public ILoggingEnvironment LoggingEnvironment { get; private set; }
 

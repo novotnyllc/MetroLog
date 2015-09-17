@@ -3,12 +3,13 @@ using System.IO;
 using System.Threading;
 
 using MetroLog.Internal;
+using CrossPlatformAdapter;
 
 namespace MetroLog
 {
     public static class LogManagerFactory
     {
-        private static readonly ILogConfigurator configurator = PlatformAdapter.Resolve<ILogConfigurator>();
+        private static readonly ILogConfigurator configurator = PlatformAdapter.Current.Resolve<ILogConfigurator>();
         private static readonly Lazy<ILogManager> lazyLogManager;
         private static LoggingConfiguration defaultConfig = configurator.CreateDefaultSettings();
 
@@ -31,9 +32,9 @@ namespace MetroLog
         {
             var cfg = config ?? DefaultConfiguration;
             cfg.Freeze();
-
+            
             ILogManager manager;
-            var managerFactory = PlatformAdapter.Resolve<ILogManagerCreator>(false);
+            var managerFactory = PlatformAdapter.Current.Resolve<ILogManagerCreator>(false);
             if (managerFactory != null)
             {
                 manager = managerFactory.Create(cfg);

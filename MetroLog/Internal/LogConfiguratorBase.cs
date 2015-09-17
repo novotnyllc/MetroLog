@@ -1,5 +1,7 @@
 ﻿using System.IO;
 
+using CrossPlatformAdapter;
+
 using MetroLog.Config;
 using MetroLog.Targets;
 
@@ -18,7 +20,7 @@ namespace MetroLog.Internal
 
         public LoggingConfiguration CreateFromXml(Stream configFileStream)
         {
-            var assemblyService = PlatformAdapter.Resolve<IAssemblyService>();
+            var assemblyService = PlatformAdapter.Current.Resolve<IAssemblyService>();
             XmlConfigurator xmlConfigurator = new XmlConfigurator(assemblyService);
             return xmlConfigurator.Configure(configFileStream);
         }
