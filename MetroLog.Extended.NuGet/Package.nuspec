@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>MetroLog.Extended</id>
-    <version>0.8.16</version>
+    <version>0.8.23-alpha</version>
     <title>MetroLog Extended</title>
     <authors>Matt Baxter-Reynolds, Oren Novotny, Thomas Galliker</authors>
     <owners>onovotny</owners>
@@ -20,33 +20,40 @@
     </description>
     <summary />
     <releaseNotes>
-      - Added CrossPlatformAdapter to resolve platform-specific assemblies
-      - Added Guards to protect public API
+      - Added NuGet package CrossPlatformAdapter for resolving platform-specific assemblies
+      - Added NuGet package Guards to protect public API
+      - Minor bug fixes
     </releaseNotes>
     <tags>Logging log WinRT NLog log4net portable pcl WinJS wp wp8 wpa81 ios android xamarin</tags>
     <dependencies>
       <group targetFramework="MonoTouch10">
+        <dependency id="CrossPlatformAdapter"/>
         <dependency id="TypeConverter" />
         <dependency id="Guards"/>
       </group>
       <group targetFramework="xamarin.ios10">
+        <dependency id="CrossPlatformAdapter"/>
         <dependency id="TypeConverter" />
         <dependency id="Guards"/>
       </group>
       <group targetFramework="MonoAndroid10">
+        <dependency id="CrossPlatformAdapter"/>
         <dependency id="TypeConverter" />
         <dependency id="Guards"/>
       </group>
       <group targetFramework="wp8">
+        <dependency id="CrossPlatformAdapter"/>
         <dependency id="TypeConverter" />
         <dependency id="Guards"/>
         <dependency id="Microsoft.Bcl.Compression" version="3.9.85" />
       </group>
       <group targetFramework="wpa81">
+        <dependency id="CrossPlatformAdapter"/>
         <dependency id="TypeConverter" />
         <dependency id="Guards"/>
       </group>
       <group targetFramework="win81">
+        <dependency id="CrossPlatformAdapter"/>
         <dependency id="TypeConverter" />
         <dependency id="Guards"/>
       </group>

@@ -166,6 +166,7 @@
     <None Include="..\MetroLog.snk">
       <Link>MetroLog.snk</Link>
     </None>
+    <None Include="GitVersionConfig.yaml" />
     <None Include="LogConfigurator.dgml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
@@ -179,17 +180,17 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Guards, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Guards.1.0.1\lib\portable-net45+wp8+wpa81+netcore45+monoandroid1+xamarin.ios10\Guards.dll</HintPath>
+    <Reference Include="Guards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ac6aedb73a72f46e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Guards.1.0.2\lib\portable-net45+wp8+wpa81+win81+netcore45+monoandroid10+monotouch10+xamarin.ios10\Guards.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="PlatformAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrossPlatformAdapter.1.0.6\lib\portable-net45+wp8+wpa81+win81+netcore45+monoandroid1+xamarin.ios10\PlatformAdapter.dll</HintPath>
+    <Reference Include="PlatformAdapter, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6631b0d7444ed877, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrossPlatformAdapter.1.0.12\lib\portable-net45+wp8+wpa81+win81+netcore45+monoandroid1+xamarin.ios10\PlatformAdapter.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime" />
-    <Reference Include="TypeConverter, Version=1.0.0.0, Culture=neutral, PublicKeyToken=08c6ba4d2c447b3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\TypeConverter.1.0.12\lib\portable-net45+wp8+wpa81+netcore45+monoandroid1+xamarin.ios10\TypeConverter.dll</HintPath>
+    <Reference Include="TypeConverter, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b1d2d39c48564dfb, processorArchitecture=MSIL">
+      <HintPath>..\packages\TypeConverter.1.0.21\lib\portable-net45+wp8+wpa81+win81+netcore45+monoandroid1+xamarin.ios10\TypeConverter.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>

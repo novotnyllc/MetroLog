@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
+using CrossPlatformAdapter;
+
 using MetroLog.Internal;
 using MetroLog.Layouts;
 
@@ -21,7 +23,7 @@ namespace MetroLog.Targets
         public JsonPostTarget()
             : base(new NullLayout(), 1)
         {
-            this.webClient = PlatformAdapter.Resolve<IWebClientWrapper>();
+            this.webClient = PlatformAdapter.Current.Resolve<IWebClientWrapper>();
             this.webClient.Encoding = System.Text.Encoding.UTF8;
         }
 
@@ -46,10 +48,10 @@ namespace MetroLog.Targets
             }
             else
             {
-                this.LoggingEnvironment = PlatformAdapter.Resolve<ILoggingEnvironment>();
+                this.LoggingEnvironment = PlatformAdapter.Current.Resolve<ILoggingEnvironment>();
             }
 
-            this.webClient = PlatformAdapter.Resolve<IWebClientWrapper>();
+            this.webClient = PlatformAdapter.Current.Resolve<IWebClientWrapper>();
             this.webClient.Encoding = System.Text.Encoding.UTF8;
         }
 

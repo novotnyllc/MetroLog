@@ -114,6 +114,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Guards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ac6aedb73a72f46e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Guards.1.0.2\lib\wp8\Guards.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PlatformAdapter, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6631b0d7444ed877, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrossPlatformAdapter.1.0.12\lib\wp8\PlatformAdapter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.IO.Compression, Version=3.9.85.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Bcl.Compression.3.9.85\lib\wp8\System.IO.Compression.dll</HintPath>

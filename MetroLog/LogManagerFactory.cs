@@ -1,9 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Threading;
-
-using MetroLog.Internal;
 using CrossPlatformAdapter;
+using MetroLog.Internal;
 
 namespace MetroLog
 {
@@ -34,10 +33,10 @@ namespace MetroLog
             cfg.Freeze();
             
             ILogManager manager;
-            var managerFactory = PlatformAdapter.Current.Resolve<ILogManagerCreator>(false);
-            if (managerFactory != null)
+            var logManagerCreator = PlatformAdapter.Current.TryResolve<ILogManagerCreator>();
+            if (logManagerCreator != null)
             {
-                manager = managerFactory.Create(cfg);
+                manager = logManagerCreator.Create(cfg);
             }
             else
             {
