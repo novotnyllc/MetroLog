@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>MetroLog.Extended</id>
-    <version>0.8.25</version>
+    <version>0.8.27</version>
     <title>MetroLog Extended</title>
     <authors>Matt Baxter-Reynolds, Oren Novotny, Thomas Galliker</authors>
     <owners>onovotny</owners>
@@ -27,40 +27,40 @@
     <tags>Logging log WinRT NLog log4net portable pcl WinJS wp wp8 wpa81 ios android xamarin</tags>
     <dependencies>
       <group targetFramework="MonoTouch10">
-        <dependency id="CrossPlatformAdapter"/>
-        <dependency id="TypeConverter" />
-        <dependency id="Guards"/>
+        <dependency id="CrossPlatformAdapter" version="1.0.12"/>
+        <dependency id="TypeConverter" version="1.0.23"/>
+        <dependency id="Guards" version="1.0.3"/>
       </group>
       <group targetFramework="xamarin.ios10">
-        <dependency id="CrossPlatformAdapter"/>
-        <dependency id="TypeConverter" />
-        <dependency id="Guards"/>
+        <dependency id="CrossPlatformAdapter" version="1.0.12"/>
+        <dependency id="TypeConverter" version="1.0.23"/>
+        <dependency id="Guards" version="1.0.3"/>
       </group>
       <group targetFramework="MonoAndroid10">
-        <dependency id="CrossPlatformAdapter"/>
-        <dependency id="TypeConverter" />
-        <dependency id="Guards"/>
+        <dependency id="CrossPlatformAdapter" version="1.0.12"/>
+        <dependency id="TypeConverter" version="1.0.23"/>
+        <dependency id="Guards" version="1.0.3"/>
       </group>
       <group targetFramework="wp8">
-        <dependency id="CrossPlatformAdapter"/>
-        <dependency id="TypeConverter" />
-        <dependency id="Guards"/>
+        <dependency id="CrossPlatformAdapter" version="1.0.12"/>
+        <dependency id="TypeConverter" version="1.0.23"/>
+        <dependency id="Guards" version="1.0.3"/>
         <dependency id="Microsoft.Bcl.Compression" version="3.9.85" />
       </group>
       <group targetFramework="wpa81">
-        <dependency id="CrossPlatformAdapter"/>
-        <dependency id="TypeConverter" />
-        <dependency id="Guards"/>
+        <dependency id="CrossPlatformAdapter" version="1.0.12"/>
+        <dependency id="TypeConverter" version="1.0.23"/>
+        <dependency id="Guards" version="1.0.3"/>
       </group>
       <group targetFramework="win81">
-        <dependency id="CrossPlatformAdapter"/>
-        <dependency id="TypeConverter" />
-        <dependency id="Guards"/>
+        <dependency id="CrossPlatformAdapter" version="1.0.12"/>
+        <dependency id="TypeConverter" version="1.0.23"/>
+        <dependency id="Guards" version="1.0.3"/>
       </group>
       <group targetFramework="portable-net45+wp8+wpa81+win81+netcore45+monoandroid1+MonoTouch+xamarin.ios10">
-        <dependency id="CrossPlatformAdapter"/>
-        <dependency id="TypeConverter" />
-        <dependency id="Guards"/>
+        <dependency id="CrossPlatformAdapter" version="1.0.12"/>
+        <dependency id="TypeConverter" version="1.0.23"/>
+        <dependency id="Guards" version="1.0.3"/>
       </group>
     </dependencies>
   </metadata>
