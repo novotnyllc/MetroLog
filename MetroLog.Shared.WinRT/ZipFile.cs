@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
+using Guards;
+
 namespace MetroLog
 {
     static class ZipFile
@@ -15,7 +17,6 @@ namespace MetroLog
         {
             return DoCreateFromDirectory(source, destinationArchive, new CompressionLevel?(), null);
         }
-
 
         private static async Task DoCreateFromDirectory(IStorageFolder source, Stream destinationArchive, CompressionLevel? compressionLevel,  Encoding entryNameEncoding)
         {
@@ -51,7 +52,7 @@ namespace MetroLog
 
         public static ZipArchive Open(Stream archive, ZipArchiveMode mode, Encoding entryNameEncoding = null)
         {
-            if (archive == null) throw new ArgumentNullException("archive");
+            Guard.ArgumentNotNull(() => archive);
             
             return new ZipArchive(archive, mode, true, entryNameEncoding);
         }
@@ -90,12 +91,10 @@ namespace MetroLog
 
         private static async Task<ZipArchiveEntry> DoCreateEntryFromFile(ZipArchive destination, IStorageFile sourceFile, string entryName, CompressionLevel? compressionLevel)
         {
-            if (destination == null)
-                throw new ArgumentNullException("destination");
-            if (sourceFile == null)
-                throw new ArgumentNullException("sourceFile");
-            if (entryName == null)
-                throw new ArgumentNullException("entryName");
+            Guard.ArgumentNotNull(() => destination);
+            Guard.ArgumentNotNull(() => sourceFile);
+            Guard.ArgumentNotNull(() => entryName);
+
             using (Stream stream = (await sourceFile.OpenReadAsync()).AsStream())
             {
                 ZipArchiveEntry zipArchiveEntry = compressionLevel.HasValue ? destination.CreateEntry(entryName, compressionLevel.Value) : destination.CreateEntry(entryName);

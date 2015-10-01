@@ -59,6 +59,8 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 
+using Guards;
+
 using MetroLog.Internal.Reflection;
 #if !SIMPLE_JSON_NO_LINQ_EXPRESSION
 using System.Linq.Expressions;
@@ -146,10 +148,8 @@ namespace MetroLog.Internal
 
         internal static object GetAtIndex(IDictionary<string, object> obj, int index)
         {
-            if (obj == null)
-            {
-                throw new ArgumentNullException("obj");
-            }
+            Guard.ArgumentNotNull(() => obj);
+
             if (index >= obj.Count)
             {
                 throw new ArgumentOutOfRangeException("index");

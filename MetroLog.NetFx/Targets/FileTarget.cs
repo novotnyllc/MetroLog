@@ -8,6 +8,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
+using Guards;
+
 using MetroLog.Layouts;
 
 namespace MetroLog.Targets
@@ -22,8 +24,7 @@ namespace MetroLog.Targets
             get { return this._appDataPath; }
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentNullException("value");
+                Guard.ArgumentNotNullOrEmpty(() => value);
 
                 this._appDataPath = Path.Combine(GetUserAppDataPath(), value);
             }

@@ -2,6 +2,9 @@
 using System.IO;
 using System.Threading;
 using CrossPlatformAdapter;
+
+using Guards;
+
 using MetroLog.Internal;
 
 namespace MetroLog
@@ -56,10 +59,7 @@ namespace MetroLog
             }
             set
             {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value");
-                }
+                Guard.ArgumentNotNull(() => value);
                 if (lazyLogManager.IsValueCreated)
                 {
                     throw new InvalidOperationException("Must set DefaultConfiguration before any calls to DefaultLogManager");

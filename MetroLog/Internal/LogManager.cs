@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Guards;
+
 using MetroLog.Targets;
 
 namespace MetroLog.Internal
@@ -33,10 +35,7 @@ namespace MetroLog.Internal
 
         public LogManagerBase(LoggingConfiguration configuration)
         {
-            if (configuration == null)
-            {
-                throw new ArgumentNullException("configuration");
-            }
+            Guard.ArgumentNotNull(() => configuration);
 
             this.loggers = new Dictionary<string, Logger>(StringComparer.OrdinalIgnoreCase);
             this.DefaultConfiguration = configuration;
@@ -61,10 +60,7 @@ namespace MetroLog.Internal
         /// <returns>The requested logger.</returns>
         public ILogger GetLogger(Type type, LoggingConfiguration config = null)
         {
-            if (type == null)
-            {
-                throw new ArgumentNullException("type");
-            }
+            Guard.ArgumentNotNull(() => type);
 
             return this.GetLogger(type.Name, config);
         }
@@ -77,10 +73,7 @@ namespace MetroLog.Internal
         /// <returns>The requested logger.</returns>
         public ILogger GetLogger(string name, LoggingConfiguration config = null)
         {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentNullException("name");
-            }
+            Guard.ArgumentNotNullOrEmpty(() => name);
 
             lock (this.loggersLock)
             {
