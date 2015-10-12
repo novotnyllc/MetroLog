@@ -78,18 +78,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroLog.Extended.NuGet", "
 		{429EE5FC-46FE-4249-BB40-8DC6D9023A04} = {429EE5FC-46FE-4249-BB40-8DC6D9023A04}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroLog.Android.Tests", "Tests\MetroLog.Android.Tests\MetroLog.Android.Tests.csproj", "{92B920D4-934B-41CA-9B7B-64CF316D4D14}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		MetroLog.Shared\MetroLog.Shared.projitems*{429ee5fc-46fe-4249-bb40-8dc6d9023a04}*SharedItemsImports = 4
 		MetroLog.Shared.WinRT\MetroLog.Shared.WinRT.projitems*{429ee5fc-46fe-4249-bb40-8dc6d9023a04}*SharedItemsImports = 4
+		MetroLog.Shared\MetroLog.Shared.projitems*{429ee5fc-46fe-4249-bb40-8dc6d9023a04}*SharedItemsImports = 4
 		MetroLog.Shared.WinRT\MetroLog.Shared.WinRT.projitems*{2da83e6c-1f39-4a81-8dc2-a6cd9cac9f8e}*SharedItemsImports = 13
 		MetroLog.Shared\MetroLog.Shared.projitems*{b60e2980-845e-40e0-a623-f8558765f9fa}*SharedItemsImports = 4
 		MetroLog.Shared\MetroLog.Shared.projitems*{a4b357db-6358-4616-bfc9-174087e321f3}*SharedItemsImports = 4
 		MetroLog.Shared\MetroLog.Shared.projitems*{e400992a-f3c6-4828-a996-c3c72ce793bf}*SharedItemsImports = 4
 		MetroLog.Shared\MetroLog.Shared.projitems*{b929ffc8-ca0d-43fd-a95b-8e454ccd7133}*SharedItemsImports = 4
 		MetroLog.Shared\MetroLog.Shared.projitems*{65e2062e-aac2-4054-aae6-d6764040c769}*SharedItemsImports = 4
-		MetroLog.Shared\MetroLog.Shared.projitems*{c2ceb5c6-43d2-45a0-b4c4-b196ece86f62}*SharedItemsImports = 4
 		MetroLog.Shared.WinRT\MetroLog.Shared.WinRT.projitems*{c2ceb5c6-43d2-45a0-b4c4-b196ece86f62}*SharedItemsImports = 4
+		MetroLog.Shared\MetroLog.Shared.projitems*{c2ceb5c6-43d2-45a0-b4c4-b196ece86f62}*SharedItemsImports = 4
 		MetroLog.Shared\MetroLog.Shared.projitems*{87b9adc4-8888-43f7-a711-39edb0cfa9c0}*SharedItemsImports = 13
 		MetroLog.Shared\MetroLog.Shared.projitems*{b3c9b85a-a54e-4abf-a552-5cf6d8ddb57f}*SharedItemsImports = 4
 		MetroLog.Shared\MetroLog.Shared.projitems*{608612d2-940c-425e-8912-ba25919da7bd}*SharedItemsImports = 4
@@ -1243,6 +1245,50 @@ Global
 		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Release|x64.ActiveCfg = Release|Any CPU
 		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE}.Release|x86.ActiveCfg = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Ad-Hoc|Any CPU.Build.0 = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Ad-Hoc|Any CPU.Deploy.0 = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Ad-Hoc|ARM.ActiveCfg = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Ad-Hoc|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Ad-Hoc|Mixed Platforms.Build.0 = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Ad-Hoc|Mixed Platforms.Deploy.0 = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Ad-Hoc|x64.ActiveCfg = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Ad-Hoc|x86.ActiveCfg = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.AppStore|Any CPU.Build.0 = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.AppStore|Any CPU.Deploy.0 = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.AppStore|ARM.ActiveCfg = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.AppStore|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.AppStore|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.AppStore|Mixed Platforms.Build.0 = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.AppStore|Mixed Platforms.Deploy.0 = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.AppStore|x64.ActiveCfg = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.AppStore|x86.ActiveCfg = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Debug|Mixed Platforms.Deploy.0 = Debug|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Release|ARM.ActiveCfg = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Release|Mixed Platforms.Deploy.0 = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Release|x64.ActiveCfg = Release|Any CPU
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1258,5 +1304,6 @@ Global
 		{C8231912-EAC7-4E71-9E5D-4B51869A1BA2} = {3ADE1B40-4C2F-4633-9006-00AF3FB361E8}
 		{A2D57852-C9D4-4357-84FC-C15881711DD1} = {3ADE1B40-4C2F-4633-9006-00AF3FB361E8}
 		{2CF5E868-1098-4C6D-9001-27D8DC0D87BE} = {B59C05D2-3F0D-40CB-8753-7F63D458AF00}
+		{92B920D4-934B-41CA-9B7B-64CF316D4D14} = {330C34B6-970D-43C8-BBF2-FC9BED6DE53D}
 	EndGlobalSection
 EndGlobal

@@ -8,6 +8,15 @@ namespace MetroLog.Internal
 {
     public class WebClientWrapper : IWebClientWrapper
     {
+        public bool HasInternetConnection
+        {
+            get
+            {
+                // TODO: Implement
+                return true;
+            }
+        }
+
         public void UploadString(Uri uri, IDictionary<HttpRequestHeader, string> headers, string message)
         {
             var webClient = new WebClient();

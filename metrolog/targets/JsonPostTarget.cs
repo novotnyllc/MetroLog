@@ -60,11 +60,18 @@ namespace MetroLog.Targets
             var wrapper = new JsonPostWrapper(this.LoggingEnvironment, toFlush);
             var json = wrapper.ToJson();
 
-            this.OnBeforePost(new HttpClientEventArgs(this.webClient));
+            if (this.webClient.HasInternetConnection)
+            {
+                this.OnBeforePost(new HttpClientEventArgs(this.webClient));
 
-            var headers = new Dictionary<HttpRequestHeader, string> { { HttpRequestHeader.ContentType, "text/json" } };
+                var headers = new Dictionary<HttpRequestHeader, string> { { HttpRequestHeader.ContentType, "text/json" } };
 
-            await this.webClient.UploadStringAsync(this.Uri, headers, json);
+                await this.webClient.UploadStringAsync(this.Uri, headers, json);
+            }
+            else
+            {
+                // TODO: Store messages locally if no internet connection is available
+            }
         }
 
         protected override void DoFlush(IEnumerable<LogEventInfo> toFlush)
@@ -72,11 +79,18 @@ namespace MetroLog.Targets
             var wrapper = new JsonPostWrapper(this.LoggingEnvironment, toFlush);
             var json = wrapper.ToJson();
 
-            this.OnBeforePost(new HttpClientEventArgs(this.webClient));
+            if (this.webClient.HasInternetConnection)
+            {
+                this.OnBeforePost(new HttpClientEventArgs(this.webClient));
 
-            var headers = new Dictionary<HttpRequestHeader, string> { { HttpRequestHeader.ContentType, "text/json" } };
+                var headers = new Dictionary<HttpRequestHeader, string> { { HttpRequestHeader.ContentType, "text/json" } };
 
-            this.webClient.UploadString(this.Uri, headers, json);
+                this.webClient.UploadString(this.Uri, headers, json);
+            }
+            else
+            {
+                // TODO: Store messages locally if no internet connection is available
+            }
         }
 
         protected virtual void OnBeforePost(HttpClientEventArgs args)

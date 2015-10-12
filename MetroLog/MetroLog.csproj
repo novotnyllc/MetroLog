@@ -166,8 +166,9 @@
     <None Include="..\MetroLog.snk">
       <Link>MetroLog.snk</Link>
     </None>
-    <None Include="GitVersionConfig.yaml" />
-    <None Include="LogConfigurator.dgml" />
+    <None Include="LogConfigurator.dgml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

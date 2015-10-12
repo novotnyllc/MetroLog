@@ -12,6 +12,15 @@ namespace MetroLog.Internal
         {
         }
 
+        public bool HasInternetConnection
+        {
+            get
+            {
+                // TODO: Implement
+                return true;
+            }
+        }
+
         public void UploadString(Uri uri, IDictionary<HttpRequestHeader, string> headers, string message)
         {
             using (var client = new WebClient())
