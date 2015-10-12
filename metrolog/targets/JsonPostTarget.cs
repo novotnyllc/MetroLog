@@ -27,7 +27,7 @@ namespace MetroLog.Targets
             this.webClient.Encoding = System.Text.Encoding.UTF8;
         }
 
-        public JsonPostTarget(int threshold, Uri uri, ILoggingEnvironment loggingEnvironment)
+        public JsonPostTarget(int threshold, Uri uri, ILoggingEnvironment loggingEnvironment = null)
             : this(threshold, uri, loggingEnvironment, new NullLayout())
         {
         }

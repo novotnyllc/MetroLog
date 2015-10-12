@@ -42,8 +42,8 @@
     <AssemblyOriginatorKeyFile>..\MetroLog.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Guards">
-      <HintPath>..\packages\Guards.1.0.3\lib\MonoAndroid10\Guards.dll</HintPath>
+    <Reference Include="Guards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ac6aedb73a72f46e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Guards.1.0.7\lib\MonoAndroid10\Guards.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MetroLog">

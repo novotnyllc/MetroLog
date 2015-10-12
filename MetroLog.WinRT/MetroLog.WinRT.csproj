@@ -124,7 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Guards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ac6aedb73a72f46e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Guards.1.0.3\lib\win81\Guards.dll</HintPath>
+      <HintPath>..\packages\Guards.1.0.7\lib\win81\Guards.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
