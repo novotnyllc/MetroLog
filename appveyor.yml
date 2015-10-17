@@ -17,9 +17,10 @@ before_build:
   
 build:
   verbosity: normal
+  parallel: true
   project: MetroLog.sln
   
 after_build:
-  - cmd: 'packages\gitlink\lib\net45\GitLink.exe . -f MetroLog.sln -u https://github.com/mbrit/metrolog -s %APPVEYOR_REPO_COMMIT% && exit 0'
+  - ps: 'cmd /c "packages\gitlink\lib\net45\GitLink.exe . -f MetroLog.sln -u https://github.com/mbrit/metrolog -s %APPVEYOR_REPO_COMMIT%"'
   - cmd: nuget pack MetroLog.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%" -NoPackageAnalysis
   - cmd: appveyor PushArtifact "MetroLog.%GitVersion_NuGetVersion%.nupkg"
