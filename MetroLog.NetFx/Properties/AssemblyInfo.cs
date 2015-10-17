@@ -18,3 +18,6 @@ using System.Security;
 [assembly: Guid("062692e3-ba44-4e7c-8795-e41f77518691")]
 
 //[assembly: SecurityTransparent]
+[assembly: AssemblyFileVersion("0.0.0.0")]
+[assembly: AssemblyVersion("0.0.0.0")]
+[assembly: AssemblyInformationalVersion("0.0.0.0")]

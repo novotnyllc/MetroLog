@@ -8,3 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("MetroLog.Wpa81")]
 [assembly: AssemblyProduct("MetroLog.Wpa81")]
 [assembly: ComVisible(false)]
+
+[assembly: AssemblyFileVersion("0.0.0.0")]
+[assembly: AssemblyVersion("0.0.0.0")]
+[assembly: AssemblyInformationalVersion("0.0.0.0")]
