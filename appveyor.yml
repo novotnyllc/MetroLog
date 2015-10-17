@@ -1,0 +1,21 @@
+configuration: Release
+install:
+  - cmd: choco install gitversion.portable -pre -y
+  - cmd: appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+
+assembly_info:
+  patch: false
+      
+before_build:
+  - cmd: nuget install gitlink -Verbosity quiet -ExcludeVersion -pre
+  - cmd: nuget restore
+  - cmd: gitversion /l console /output buildserver /updateAssemblyInfo
+  
+build:
+  verbosity: normal
+  project: MetroLog.sln
+  
+after_build:
+  - cmd: packages\gitlink\lib\net45\GitLink.exe . -f MetroLog.sln -u https://github.com/mbrit/metrolog 
+  - cmd: nuget pack MetroLog.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%" -NoPackageAnalysis
+  - cmd: appveyor PushArtifact "MetroLog.%GitVersion_NuGetVersion%.nupkg"
