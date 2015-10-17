@@ -21,6 +21,6 @@ build:
   project: MetroLog.sln
   
 after_build:
-  - ps: '.\packages\gitlink\lib\net45\GitLink.exe . -f MetroLog.sln -u https://github.com/mbrit/metrolog -s %APPVEYOR_REPO_COMMIT%;if($lastexitcode -ne 0){return 0}'
+  - ps: '.\packages\gitlink\lib\net45\GitLink.exe . -f MetroLog.sln -u https://github.com/mbrit/metrolog -s $env:APPVEYOR_REPO_COMMIT;if($lastexitcode -ne 0){$lastexitcode = 0}'
   - cmd: nuget pack MetroLog.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%" -NoPackageAnalysis
   - cmd: appveyor PushArtifact "MetroLog.%GitVersion_NuGetVersion%.nupkg"
