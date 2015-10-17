@@ -1,1 +1,8 @@
 legacy-semver-padding: 2
+branches:  
+  dev(elop)?(ment)?$:
+    mode: ContinuousDeployment
+    tag: dev
+    increment: Minor
+    prevent-increment-of-merged-branch-version: false
+    track-merge-target: true
