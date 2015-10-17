@@ -112,7 +112,7 @@
       <Name>Microsoft Visual C++ 2013 Runtime Package for Windows</Name>
     </SDKReference>
     <SDKReference Include="SQLite.WinRT81, Version=3.9.1">
-      <Name>SQLite for Windows Runtime %28Windows 8.1%291</Name>
+      <Name>SQLite for Windows Runtime %28Windows 8.1%29</Name>
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
