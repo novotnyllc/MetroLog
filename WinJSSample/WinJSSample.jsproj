@@ -51,7 +51,7 @@
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
     <PackageCertificateKeyFile>WinJSSample_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>97D58D463E497D97D9E1F24234E2CF7698630315</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>EC917A4A92699006420E5BA774D1FE134D5AD183</PackageCertificateThumbprint>
   </PropertyGroup>
   <ItemGroup>
     <AppxManifest Include="package.appxmanifest">
