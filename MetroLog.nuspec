@@ -47,8 +47,8 @@
     <file src="MetroLog.WinRT\bin\Release\MetroLog.WinRT.winmd" target="lib\win81\MetroLog.WinRT.winmd" />
 
     <!-- PCL -->
-    <file src="MetroLog\bin\Release\MetroLog.dll" target="lib\portable-net45+wp8+win81+wpa81\MetroLog.dll" />
-    <file src="MetroLog\bin\Release\MetroLog.pdb" target="lib\portable-net45+wp8+win81+wpa81\MetroLog.pdb" />
+    <file src="MetroLog\bin\Release\MetroLog.dll" target="lib\portable-net45+wp8+win8+wpa81\MetroLog.dll" />
+    <file src="MetroLog\bin\Release\MetroLog.pdb" target="lib\portable-net45+wp8+win8+wpa81\MetroLog.pdb" />
 
     <!-- WP8 -->
     <file src="MetroLog\bin\Release\MetroLog.pdb" target="lib\wp8\MetroLog.pdb" />
