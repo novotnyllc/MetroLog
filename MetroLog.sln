@@ -408,7 +408,6 @@ Global
 		{C0CFE1F9-E2E3-49F1-BCEB-2F46C015B439}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{C0CFE1F9-E2E3-49F1-BCEB-2F46C015B439}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
 		{C0CFE1F9-E2E3-49F1-BCEB-2F46C015B439}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{C0CFE1F9-E2E3-49F1-BCEB-2F46C015B439}.Release|Mixed Platforms.Build.0 = Release|x86
 		{C0CFE1F9-E2E3-49F1-BCEB-2F46C015B439}.Release|Mixed Platforms.Deploy.0 = Release|x86
 		{C0CFE1F9-E2E3-49F1-BCEB-2F46C015B439}.Release|x64.ActiveCfg = Release|x64
 		{C0CFE1F9-E2E3-49F1-BCEB-2F46C015B439}.Release|x64.Build.0 = Release|x64
