@@ -1,4 +1,6 @@
 configuration: Release
+platform: Mixed Platforms
+
 init:
   - cmd: set
   
