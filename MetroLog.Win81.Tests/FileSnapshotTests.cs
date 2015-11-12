@@ -1,6 +1,4 @@
-﻿extern alias pcl;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -42,7 +40,7 @@ namespace MetroLog.NetCore.Tests
         [Fact]
         public async Task TestGetZipFile()
         {
-            var manager = pcl::MetroLog.LogManagerFactory.CreateLogManager() as IWinRTLogManager;
+            var manager = LogManagerFactory.CreateLogManager() as IWinRTLogManager;
 
             var logger = (ILoggerAsync)manager.GetLogger("test");
 
