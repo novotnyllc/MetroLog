@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="831c4224-f960-482d-bad9-3faaaafbbd44" Version="1.1.0.0" Publisher="CN=Oren" />
+  <Identity Name="831c4224-f960-482d-bad9-3faaaafbbd44" Version="1.1.0.0" Publisher="CN=oren" />
   <Properties>
     <DisplayName>WinJSSample</DisplayName>
     <PublisherDisplayName>Oren</PublisherDisplayName>

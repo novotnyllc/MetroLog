@@ -1,11 +1,12 @@
 ﻿using MetroLog.Layouts;
+using MetroLog.NetCore.Targets.SQLite;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using MetroLog.NetCore.Targets.SQLite;
 using Windows.Storage;
 
 namespace MetroLog.Targets
@@ -78,25 +79,26 @@ namespace MetroLog.Targets
         private async Task<SessionHeaderItem> GetSessionAsync(ILoggingEnvironment environment)
         {
             // check...
-            lock (_headersLock)
+            Monitor.Enter(_headersLock);
+            SessionHeaderItem header = null;
+            try
             {
-                if (Headers.ContainsKey(environment.SessionId))
-                    return Headers[environment.SessionId];
-            }
-
-            var conn = GetConnection();
-            var header = await conn.Table<SessionHeaderItem>().Where(v => v.SessionGuid == environment.SessionId).FirstOrDefaultAsync();
-            if(header == null)
-            {
-                header = SessionHeaderItem.CreateForEnvironment(environment);
-                await conn.InsertAsync(header);
-            }
-
-            // set...
-            lock (_headersLock)
-            {
-                if (!(Headers.ContainsKey(environment.SessionId)))
+                if (Headers.TryGetValue(environment.SessionId, out header) == false)
+                {
+                    var conn = GetConnection();
+                    header = await conn.Table<SessionHeaderItem>().Where(v => v.SessionGuid == environment.SessionId).FirstOrDefaultAsync();
+                    if (header == null)
+                    {
+                        header = SessionHeaderItem.CreateForEnvironment(environment);
+                        await conn.InsertAsync(header);
+                    }
+                    // set...
                     Headers[environment.SessionId] = header;
+                }
+            }
+            finally
+            {
+                Monitor.Exit(_headersLock);
             }
 
             // return...

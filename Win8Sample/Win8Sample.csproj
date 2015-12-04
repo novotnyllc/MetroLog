@@ -15,7 +15,7 @@
     <PackageCertificateKeyFile>Win8Sample_TemporaryKey.pfx</PackageCertificateKeyFile>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <PackageCertificateThumbprint>4C20261E0F6106DD089B2B5086161A4A693E1EDF</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>736A4016B403F7D1D0CF0479067F2F922AE19FE4</PackageCertificateThumbprint>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
     <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
     <TargetFrameworkVersion />

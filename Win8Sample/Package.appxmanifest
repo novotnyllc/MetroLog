@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="com.mbrit.MetroLogWindowsStoreSample" Publisher="CN=Oren" Version="0.7.2.0" />
+  <Identity Name="com.mbrit.MetroLogWindowsStoreSample" Publisher="CN=oren" Version="0.7.2.0" />
   <Properties>
     <DisplayName>MetroLog Windows Store App Sample</DisplayName>
     <PublisherDisplayName>Matthew</PublisherDisplayName>

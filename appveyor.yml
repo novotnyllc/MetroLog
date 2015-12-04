@@ -1,0 +1,30 @@
+configuration: Release
+init:
+  - cmd: set
+install:
+  - cmd: choco install gitversion.portable -pre -y
+  - cmd: appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+  - cmd: appveyor DownloadFile https://visualstudiogallery.msdn.microsoft.com/1d04f82f-2fe9-4727-a2f9-a2db127ddc9a/file/111148/26/sqlite-winrt81-3090100.vsix
+  - cmd: '"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\vsixinstaller.exe" /q sqlite-winrt81-3090100.vsix'
+
+assembly_info:
+  patch: false
+      
+before_build:
+  - cmd: nuget install gitlink -SolutionDir %APPVEYOR_BUILD_FOLDER% -Verbosity quiet -ExcludeVersion -pre
+  - cmd: nuget restore
+  - cmd: gitversion /l console /output buildserver /updateAssemblyInfo
+  
+build:
+  verbosity: normal
+  parallel: true
+  project: MetroLog.sln
+  
+after_build:
+  - cmd: '.\packages\gitlink\lib\net45\GitLink.exe . -f MetroLog.sln -u https://github.com/onovotny/metrolog -s %APPVEYOR_REPO_COMMIT% -errorsaswarnings'
+  - cmd: nuget pack MetroLog.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%" -NoPackageAnalysis
+  - cmd: appveyor PushArtifact "MetroLog.%GitVersion_NuGetVersion%.nupkg"
+  
+test:
+  assemblies:
+    - '**\metrolog.tests.dll'
