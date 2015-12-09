@@ -80,10 +80,6 @@
       <HintPath>..\packages\Guards.1.0.8\lib\MonoTouch10\Guards.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MetroLog, Version=0.8.6.0, Culture=neutral, PublicKeyToken=ba4ace74c3b410f3, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\MetroLog\bin\Debug\MetroLog.dll</HintPath>
-    </Reference>
     <Reference Include="PlatformAdapter, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6631b0d7444ed877, processorArchitecture=MSIL">
       <HintPath>..\packages\CrossPlatformAdapter.1.0.12\lib\MonoTouch10\PlatformAdapter.dll</HintPath>
       <Private>True</Private>
@@ -100,6 +96,12 @@
     <None Include="..\MetroLog.snk">
       <Link>MetroLog.snk</Link>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MetroLog\MetroLog.csproj">
+      <Project>{65e2062e-aac2-4054-aae6-d6764040c769}</Project>
+      <Name>MetroLog</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\MetroLog.Shared\MetroLog.Shared.projitems" Label="Shared" Condition="Exists('..\MetroLog.Shared\MetroLog.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
