@@ -11,7 +11,7 @@
     <RootNamespace>MetroLog</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>MetroLog.Platform</AssemblyName>
-    <NuGetPackageImportStamp>b0d54896</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>b103c1be</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -95,6 +95,9 @@
   <ItemGroup>
     <None Include="..\MetroLog.snk">
       <Link>MetroLog.snk</Link>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>

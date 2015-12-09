@@ -11,7 +11,7 @@
     <AssemblyName>MetroLog.Platform</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>c433c28f</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>352fe634</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -88,6 +88,7 @@
     <None Include="..\MetroLog.snk">
       <Link>MetroLog.snk</Link>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="..\MetroLog.Shared\MetroLog.Shared.projitems" Label="Shared" Condition="Exists('..\MetroLog.Shared\MetroLog.Shared.projitems')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
