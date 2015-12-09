@@ -14,9 +14,10 @@
     <FileAlignment>512</FileAlignment>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v4.1</TargetFrameworkVersion>
-    <NuGetPackageImportStamp>dfa65d46</NuGetPackageImportStamp>
+    <AndroidUseLatestPlatformSdk />
+    <TargetFrameworkVersion>v4.0.3</TargetFrameworkVersion>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,9 +46,6 @@
     <Reference Include="Guards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ac6aedb73a72f46e, processorArchitecture=MSIL">
       <HintPath>..\packages\Guards.1.0.10\lib\MonoAndroid10\Guards.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="MetroLog">
-      <HintPath>..\MetroLog\bin\Debug\MetroLog.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
@@ -95,6 +93,12 @@
       <Link>Targets\JsonPostWrapper.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MetroLog\MetroLog.csproj">
+      <Project>{65e2062e-aac2-4054-aae6-d6764040c769}</Project>
+      <Name>MetroLog</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\MetroLog.snk">
