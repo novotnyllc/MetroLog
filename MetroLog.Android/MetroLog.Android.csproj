@@ -43,7 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Guards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ac6aedb73a72f46e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Guards.1.0.8\lib\MonoAndroid10\Guards.dll</HintPath>
+      <HintPath>..\packages\Guards.1.0.10\lib\MonoAndroid10\Guards.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MetroLog">

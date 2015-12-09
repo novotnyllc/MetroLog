@@ -114,8 +114,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Guards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ac6aedb73a72f46e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Guards.1.0.8\lib\wp8\Guards.dll</HintPath>
+    <Reference Include="Guards">
+      <HintPath>..\packages\Guards.1.0.10\lib\wp8\Guards.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PlatformAdapter, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6631b0d7444ed877, processorArchitecture=MSIL">
