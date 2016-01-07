@@ -1,5 +1,4 @@
 configuration: Release
-platform: Mixed Platforms
 
 init:
   - cmd: set
@@ -7,18 +6,14 @@ init:
 install:
   - cmd: appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
   - cmd: nuget install GitVersion.CommandLine -SolutionDir %APPVEYOR_BUILD_FOLDER% -Verbosity quiet -ExcludeVersion -pre
-  - cmd: nuget install gitlink -SolutionDir %APPVEYOR_BUILD_FOLDER% -Verbosity quiet -ExcludeVersion -pre
-  - cmd: appveyor DownloadFile https://visualstudiogallery.msdn.microsoft.com/1d04f82f-2fe9-4727-a2f9-a2db127ddc9a/file/111148/26/sqlite-winrt81-3090100.vsix
-  - cmd: '"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\vsixinstaller.exe" /a /q sqlite-winrt81-3090100.vsix'
-      
+  - cmd: nuget install gitlink -SolutionDir %APPVEYOR_BUILD_FOLDER% -Verbosity quiet -ExcludeVersion -pre 
+  
 before_build:
   - cmd: nuget restore
   - cmd: '.\packages\GitVersion.CommandLine\tools\GitVersion.exe /l console /output buildserver /updateAssemblyInfo'
   
-build:
-  verbosity: normal
-  parallel: true
-  project: MetroLog.sln
+build_script:
+  - cmd: 'msbuild MetroLog.sln /m /p:platform="Mixed Platform" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"'
   
 after_build:
   - cmd: '.\packages\gitlink\lib\net45\GitLink.exe . -f MetroLog.sln -u https://github.com/onovotny/metrolog -s %APPVEYOR_REPO_COMMIT% -errorsaswarnings'
