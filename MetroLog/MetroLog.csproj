@@ -106,6 +106,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="StreamingFileTarget.cs" />
     <Compile Include="LogConfigurator.cs" />
     <Compile Include="LoggingEnvironment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

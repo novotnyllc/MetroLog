@@ -10,8 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)FileNamingMode.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)FileSnapshotTarget.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)FileStreamingTarget.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StreamingFileTarget.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GlobalCrashHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IWinRTLogManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LazyFlushManager.cs" />

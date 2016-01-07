@@ -13,7 +13,7 @@ namespace MetroLog
         public override LoggingConfiguration CreateDefaultSettings()
         {
             var def = base.CreateDefaultSettings();
-            def.AddTarget(LogLevel.Error, LogLevel.Fatal, new FileSnapshotTarget());
+            def.AddTarget(LogLevel.Error, LogLevel.Fatal, new StreamingFileTarget());
 #if !WINDOWS_PHONE_APP
             def.AddTarget(LogLevel.Trace, LogLevel.Fatal, new EtwTarget());
 #endif

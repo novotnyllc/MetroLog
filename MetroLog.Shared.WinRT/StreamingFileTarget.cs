@@ -12,14 +12,14 @@ namespace MetroLog.Targets
     /// <summary>
     /// Defines a target that will append messages to a single file.
     /// </summary>
-    public class FileStreamingTarget : WinRTFileTarget
+    public class StreamingFileTarget : WinRTFileTarget
     {
-        public FileStreamingTarget()
+        public StreamingFileTarget()
             : this(new SingleLineLayout())
         {
         }
 
-        public FileStreamingTarget(Layout layout)
+        public StreamingFileTarget(Layout layout)
             : base(layout)
         {
             this.FileNamingParameters.IncludeLevel = false;
@@ -33,6 +33,18 @@ namespace MetroLog.Targets
         protected override Task WriteTextToFileCore(IStorageFile file, string contents)
         {
             return FileIO.AppendTextAsync(file, contents + Environment.NewLine).AsTask();
+        }
+    }
+
+    [Obsolete("Use StreamingFileTarget")]
+    public class FileStreamingTarget : StreamingFileTarget
+    {
+        public FileStreamingTarget()
+        {
+        }
+
+        public FileStreamingTarget(Layout layout) : base(layout)
+        {
         }
     }
 }
