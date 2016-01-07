@@ -1,6 +1,5 @@
 {
     "dependencies": {
-        "Microsoft.Bcl.Compression": "3.9.85"
     },
     "frameworks": {
         "WindowsPhone,Version=v8.0": { }

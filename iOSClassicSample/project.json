@@ -1,0 +1,11 @@
+{
+    "dependencies": {
+    },
+    "frameworks": {
+        "MonoTouch,Version=v1.0": { }
+    },
+    "supports": { },
+    "runtimes": {
+        "win": { }
+    }
+}

@@ -139,6 +139,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="project.json" />
     <None Include="Win8Sample_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
