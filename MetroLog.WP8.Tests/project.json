@@ -1,0 +1,15 @@
+{
+    "dependencies": {
+        "Microsoft.Bcl.Compression": "3.9.85"
+    },
+    "frameworks": {
+        "WindowsPhone,Version=v8.0": { }
+    },
+    "supports": { },
+    "runtimes": {
+        "win": { },
+        "win-arm": { },
+        "win-x86": { },
+        "win-anycpu": { }
+    }
+}
