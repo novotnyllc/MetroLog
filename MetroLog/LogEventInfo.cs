@@ -1,41 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+
 using MetroLog.Internal;
 
 namespace MetroLog
 {
     public class LogEventInfo
     {
-        public long SequenceID { get; set; }
-        public LogLevel Level { get; set; }
-        public string Logger { get; set; }
-        public string Message { get; set; }
-        public DateTimeOffset TimeStamp { get; set; }
-
-        [JsonIgnore]
-        public Exception Exception { get; set; }
-
-        private ExceptionWrapper _exceptionWrapper;
-
-        private static long _globalSequenceId;
+        private ExceptionWrapper exceptionWrapper;
+        private static long globalSequenceId;
 
         public LogEventInfo(LogLevel level, string logger, string message, Exception ex)
         {
-            Level = level;
-            Logger = logger;
-            Message = message;
-            Exception = ex;
-            TimeStamp = LogManagerBase.GetDateTime();
-            SequenceID = GetNextSequenceId();
+            this.Level = level;
+            this.Logger = logger;
+            this.Message = message;
+            this.Exception = ex;
+            this.TimeStamp = LogManagerBase.GetDateTime();
+            this.SequenceID = GetNextSequenceId();
         }
 
         internal static long GetNextSequenceId()
         {
-            return Interlocked.Increment(ref _globalSequenceId);
+            return Interlocked.Increment(ref globalSequenceId);
         }
 
         public string ToJson()
@@ -43,18 +31,35 @@ namespace MetroLog
             return SimpleJson.SerializeObject(this);
         }
 
+        public long SequenceID { get; set; }
+
+        public LogLevel Level { get; set; }
+
+        public string Logger { get; set; }
+
+        public string Message { get; set; }
+
+        public DateTimeOffset TimeStamp { get; set; }
+
+        [JsonIgnore]
+        public Exception Exception { get; set; }
+
         public ExceptionWrapper ExceptionWrapper
         {
             get
             {
-                if (_exceptionWrapper == null && this.Exception != null)
-                    _exceptionWrapper = new ExceptionWrapper(this.Exception);
-                return _exceptionWrapper;
+                if (this.exceptionWrapper == null && this.Exception != null)
+                {
+                    this.exceptionWrapper = new ExceptionWrapper(this.Exception);
+                }
+                return this.exceptionWrapper;
             }
             set
             {
-                _exceptionWrapper = value;
+                this.exceptionWrapper = value;
             }
         }
+
+		public IEnumerable<LogEventInfo> CrashRecords { get; set; }
     }
 }

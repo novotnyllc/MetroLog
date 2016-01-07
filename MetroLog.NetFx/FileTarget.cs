@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -93,6 +92,21 @@ namespace MetroLog
         }
 
         protected abstract Task WriteTextToFileCore(StreamWriter file, string contents);
+
+        protected sealed override LogWriteOperation DoWrite(string fileName, string contents, LogEventInfo entry)
+        {
+            // Create writer
+            using (var file = new StreamWriter(Path.Combine(_logFolder.FullName, fileName), this.FileNamingParameters.CreationMode == FileCreationMode.AppendIfExisting, Encoding.UTF8))
+            {
+                // Write contents
+                this.WriteTextToFile(file, contents);
+                file.Flush();
+            }
+
+            return new LogWriteOperation(this, entry, true);
+        }
+
+        protected abstract void WriteTextToFile(StreamWriter file, string contents);
 
         sealed protected override Task DoCleanup(Regex pattern, DateTime threshold)
         {

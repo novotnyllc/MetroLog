@@ -1,15 +1,11 @@
-﻿using MetroLog.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CrossPlatformAdapter;
+
 
 namespace MetroLog
 {
     public class LogWriteContext
     {
-        private static ILoggingEnvironment _environment;
+        private static readonly ILoggingEnvironment environment;
 
         public LogWriteContext()
         {
@@ -17,15 +13,17 @@ namespace MetroLog
 
         static LogWriteContext()
         {
-            _environment = PlatformAdapter.Resolve<ILoggingEnvironment>();
+            environment = PlatformAdapter.Current.Resolve<ILoggingEnvironment>();
         }
 
         public ILoggingEnvironment Environment
         {
             get
             {
-                return _environment;
+                return environment;
             }
         }
+
+        public bool IsFatalException { get; set; }
     }
 }

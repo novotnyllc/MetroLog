@@ -44,8 +44,14 @@
     <AssemblyOriginatorKeyFile>..\MetroLog.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\MetroLog.NetFx\FileTarget.cs">
-      <Link>FileTarget.cs</Link>
+    <Compile Include="..\MetroLog.NetFx\AssemblyService.cs">
+      <Link>AssemblyService.cs</Link>
+    </Compile>
+    <Compile Include="..\MetroLog.NetFx\Internal\WebClientWrapper.cs">
+      <Link>Internal\WebClientWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\MetroLog.NetFx\Targets\FileTarget.cs">
+      <Link>Targets\FileTarget.cs</Link>
     </Compile>
     <Compile Include="..\MetroLog.NetFx\LogConfigurator.cs">
       <Link>LogConfigurator.cs</Link>
@@ -53,8 +59,8 @@
     <Compile Include="..\MetroLog.NetFx\LoggingEnvironment.cs">
       <Link>LoggingEnvironment.cs</Link>
     </Compile>
-    <Compile Include="..\MetroLog.NetFx\StreamingFileTarget.cs">
-      <Link>StreamingFileTarget.cs</Link>
+    <Compile Include="..\MetroLog.NetFx\Targets\StreamingFileTarget.cs">
+      <Link>Targets\StreamingFileTarget.cs</Link>
     </Compile>
     <Compile Include="..\MetroLog.NetFx\Targets\TraceTarget.cs">
       <Link>Targets\TraceTarget.cs</Link>
@@ -71,6 +77,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Guards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ac6aedb73a72f46e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Guards.1.0.10\lib\MonoTouch10\Guards.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PlatformAdapter, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6631b0d7444ed877, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrossPlatformAdapter.1.0.12\lib\MonoTouch10\PlatformAdapter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <ProjectReference Include="..\MetroLog\MetroLog.csproj">
       <Project>{65e2062e-aac2-4054-aae6-d6764040c769}</Project>
       <Name>MetroLog</Name>
@@ -88,6 +102,9 @@
   <ItemGroup>
     <None Include="..\MetroLog.snk">
       <Link>MetroLog.snk</Link>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <Import Project="..\MetroLog.Shared\MetroLog.Shared.projitems" Label="Shared" Condition="Exists('..\MetroLog.Shared\MetroLog.Shared.projitems')" />

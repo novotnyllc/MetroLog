@@ -1,55 +1,104 @@
-﻿using MetroLog.Internal;
-using MetroLog.Layouts;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
+using System.Net;
 using System.Threading.Tasks;
+
+using CrossPlatformAdapter;
+
+using MetroLog.Internal;
+using MetroLog.Layouts;
 
 namespace MetroLog.Targets
 {
     public class JsonPostTarget : BufferedTarget
     {
-        public Uri Url { get; private set; }
+        private readonly IWebClientWrapper webClient;
+
+        public ILoggingEnvironment LoggingEnvironment { get; private set; }
+
+        public Uri Uri { get; private set; }
 
         public event EventHandler<HttpClientEventArgs> BeforePost;
 
-        public JsonPostTarget(int threshold, Uri uri)
-            : this(new NullLayout(), threshold, uri)
+        public JsonPostTarget()
+            : base(new NullLayout(), 1)
+        {
+            this.webClient = PlatformAdapter.Current.Resolve<IWebClientWrapper>();
+            this.webClient.Encoding = System.Text.Encoding.UTF8;
+        }
+
+        public JsonPostTarget(int threshold, Uri uri, ILoggingEnvironment loggingEnvironment = null)
+            : this(threshold, uri, loggingEnvironment, new NullLayout())
         {
         }
 
-        public JsonPostTarget(Layout layout, int threshold, Uri url)
+        public JsonPostTarget(int threshold, Uri uri, Layout layout)
+            : this(threshold, uri, null, layout)
+        {
+        }
+
+        public JsonPostTarget(int threshold, Uri uri, ILoggingEnvironment loggingEnvironment, Layout layout)
             : base(layout, threshold)
         {
-            this.Url = url;
+            this.Uri = uri;
+
+            if (loggingEnvironment != null)
+            {
+                this.LoggingEnvironment = loggingEnvironment;
+            }
+            else
+            {
+                this.LoggingEnvironment = PlatformAdapter.Current.Resolve<ILoggingEnvironment>();
+            }
+
+            this.webClient = PlatformAdapter.Current.Resolve<IWebClientWrapper>();
+            this.webClient.Encoding = System.Text.Encoding.UTF8;
         }
 
-        protected override async Task DoFlushAsync(LogWriteContext context, IEnumerable<LogEventInfo> toFlush)
+        protected override async Task DoFlushAsync(IEnumerable<LogEventInfo> toFlush)
         {
-            // create a json object...
-
-            var env = PlatformAdapter.Resolve<ILoggingEnvironment>();
-            var wrapper = new JsonPostWrapper(env, toFlush);
+            var wrapper = new JsonPostWrapper(this.LoggingEnvironment, toFlush);
             var json = wrapper.ToJson();
 
-            // send...
-            var client = new HttpClient();
-            var content = new StringContent(json);
-            content.Headers.ContentType.MediaType = "text/json";
+            if (this.webClient.HasInternetConnection)
+            {
+                this.OnBeforePost(new HttpClientEventArgs(this.webClient));
 
-            // call...
-            this.OnBeforePost(new HttpClientEventArgs(client));
+                var headers = new Dictionary<HttpRequestHeader, string> { { HttpRequestHeader.ContentType, "text/json" } };
 
-            // send...
-            await client.PostAsync(this.Url, content);
+                await this.webClient.UploadStringAsync(this.Uri, headers, json);
+            }
+            else
+            {
+                // TODO: Store messages locally if no internet connection is available
+            }
+        }
+
+        protected override void DoFlush(IEnumerable<LogEventInfo> toFlush)
+        {
+            var wrapper = new JsonPostWrapper(this.LoggingEnvironment, toFlush);
+            var json = wrapper.ToJson();
+
+            if (this.webClient.HasInternetConnection)
+            {
+                this.OnBeforePost(new HttpClientEventArgs(this.webClient));
+
+                var headers = new Dictionary<HttpRequestHeader, string> { { HttpRequestHeader.ContentType, "text/json" } };
+
+                this.webClient.UploadString(this.Uri, headers, json);
+            }
+            else
+            {
+                // TODO: Store messages locally if no internet connection is available
+            }
         }
 
         protected virtual void OnBeforePost(HttpClientEventArgs args)
         {
             if (this.BeforePost != null)
+            {
                 this.BeforePost(this, args);
+            }
         }
     }
 }

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Reflection;
 
 namespace MetroLog.Internal
@@ -14,10 +10,10 @@ namespace MetroLog.Internal
         public string FxProfile { get; private set; }
         public bool IsDebugging { get; private set; }
         public Version MetroLogVersion { get; private set; }
+        public string MachineName { get; protected set; }
 
         protected LoggingEnvironmentBase(string fxProfile)
         {
-            // common...
             this.SessionId = Guid.NewGuid();
             this.FxProfile = fxProfile;
             this.IsDebugging = Debugger.IsAttached;

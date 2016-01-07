@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Drawing;
 using MetroLog;
-using MonoTouch.Foundation;
+using MetroLog.Targets;
+
 using MonoTouch.UIKit;
 
 namespace iOSClassicSample

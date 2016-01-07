@@ -21,6 +21,7 @@
     <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
     <TargetFrameworkVersion />
     <AppxBundle>Never</AppxBundle>
+    <NuGetPackageImportStamp>e4b7db21</NuGetPackageImportStamp>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <PackageCertificateThumbprint>C6F051B75E6F75A4C6B69DDBC8E5CB236E6B4AC8</PackageCertificateThumbprint>

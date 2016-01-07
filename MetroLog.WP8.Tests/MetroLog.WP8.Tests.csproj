@@ -136,10 +136,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MetroLog.WP8\MetroLog.WP8.csproj">
-      <Project>{608612D2-940C-425E-8912-BA25919DA7BD}</Project>
-      <Name>MetroLog.WP8</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MetroLog\MetroLog.csproj">
       <Project>{65E2062E-AAC2-4054-AAE6-D6764040C769}</Project>
       <Name>MetroLog</Name>

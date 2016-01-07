@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Drawing;
-using Foundation;
 using MetroLog;
+using MetroLog.Targets;
+
 using UIKit;
 
 namespace iOSUnifiedSample

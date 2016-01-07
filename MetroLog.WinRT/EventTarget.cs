@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using Guards;
+
 using MetroLog.Layouts;
 using MetroLog.Targets;
 
@@ -14,7 +13,8 @@ namespace MetroLog.WinRT
 
         public EventTarget(Action<string> onMessage) : base(new SingleLineLayout())
         {
-            if (onMessage == null) throw new ArgumentNullException("onMessage");
+            Guard.ArgumentNotNull(() => onMessage);
+
             _onMessage = onMessage;
         }
 

@@ -2,10 +2,9 @@
 // Copyright (c) David Kean. All rights reserved.
 // -----------------------------------------------------------------------
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-using System.Collections.Generic;
-using System.IO;
 
 namespace MetroLog.Internal
 {
@@ -73,7 +72,7 @@ namespace MetroLog.Internal
             }
         }
 
-        private static string MakeAdapterTypeName(Type interfaceType)
+        private static string MakeAdapterTypeName(Type interfaceType) // TODO GATH: Refactor: Find types which implement interfaceType
         {
             Debug.Assert(interfaceType.GetTypeInfo().IsInterface);
             Debug.Assert(interfaceType.DeclaringType == null);
@@ -121,7 +120,6 @@ namespace MetroLog.Internal
                 catch (Exception)
                 {
                 }
-
             }
 
             return assm;

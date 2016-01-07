@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using MetroLog.Internal;
 using Xunit;
@@ -15,7 +12,7 @@ namespace MetroLog.Tests
             var testTarget = new TestTarget();
             var config = new LoggingConfiguration();
             config.AddTarget(LogLevel.Trace, LogLevel.Fatal, testTarget);
-            
+
             return Tuple.Create(new Logger("Foobar", config), testTarget);
         }
 
@@ -208,7 +205,7 @@ namespace MetroLog.Tests
             // run...
             var logger = CreateTarget();
             await logger.Item1.TraceAsync("Hello, {0}.", "**foo**");
-            
+
 
             // check...
             Assert.Equal(1, logger.Item2.NumWritten);

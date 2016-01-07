@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AdapterNotSupported" xml:space="preserve">
-    <value>This API is not supported on this platform.</value>
+    <value>This API {0} is not supported on this platform.</value>
   </data>
   <data name="AssemblyNotSupported" xml:space="preserve">
     <value>To use this API, the platform-specific assembly must be present in the probing path. If running on Windows Store or Desktop, verify that platform-specific projects have a reference to their appropriate platform-specific assembly (MetroLog.NetCore or MetroLog.NetFx, respectively) so that it ends up in the package. Otherwise, if running on .NET Framework verify that MetroLog.NetFx is alongside MetroLog.* on disk.</value>
