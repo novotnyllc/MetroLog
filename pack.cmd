@@ -1,1 +1,0 @@
-.nuget\nuget.exe pack MetroLog.nuspec -Symbols
