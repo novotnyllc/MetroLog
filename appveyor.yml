@@ -13,7 +13,7 @@ before_build:
   - cmd: '.\packages\GitVersion.CommandLine\tools\GitVersion.exe /l console /output buildserver /updateAssemblyInfo'
   
 build_script:
-  - cmd: 'msbuild MetroLog.sln /m /p:platform="Mixed Platform" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"'
+  - cmd: 'msbuild MetroLog.sln /m /p:platform="Mixed Platforms" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"'
   
 after_build:
   - cmd: '.\packages\gitlink\lib\net45\GitLink.exe . -f MetroLog.sln -u https://github.com/onovotny/metrolog -s %APPVEYOR_REPO_COMMIT% -errorsaswarnings'
