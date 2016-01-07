@@ -111,7 +111,7 @@
     <SDKReference Include="Microsoft.VCLibs, version=12.0">
       <Name>Microsoft Visual C++ 2013 Runtime Package for Windows</Name>
     </SDKReference>
-    <SDKReference Include="SQLite.WinRT81, Version=3.9.1">
+    <SDKReference Include="SQLite.WinRT81, Version=3.10.0">
       <Name>SQLite for Windows Runtime %28Windows 8.1%29</Name>
     </SDKReference>
   </ItemGroup>
@@ -126,7 +126,7 @@
     <Compile Include="SQLite\SQLiteAsync.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MetroLog.NetCore\MetroLog.NetCore.csproj">
@@ -137,12 +137,6 @@
       <Project>{65e2062e-aac2-4054-aae6-d6764040c769}</Project>
       <Name>MetroLog</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\portable-net45+wp80+win8+wpa81+dnxcore50\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

@@ -106,6 +106,7 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.IO.Compression, Version=3.9.85.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">

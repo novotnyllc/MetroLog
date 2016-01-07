@@ -1,0 +1,10 @@
+{
+    "dependencies": {
+        "Newtonsoft.Json": "8.0.1",
+        "sqlite-net": "1.0.8"
+    },
+    "frameworks": {
+        ".NETCore,Version=v4.5.1": { }
+    },
+    "supports": { }
+}

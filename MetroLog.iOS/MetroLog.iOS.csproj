@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{B3C9B85A-A54E-4ABF-A552-5CF6D8DDB57F}</ProjectGuid>
@@ -89,6 +89,7 @@
     <None Include="..\MetroLog.snk">
       <Link>MetroLog.snk</Link>
     </None>
+    <None Include="project.json" />
   </ItemGroup>
   <Import Project="..\MetroLog.Shared\MetroLog.Shared.projitems" Label="Shared" Condition="Exists('..\MetroLog.Shared\MetroLog.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />

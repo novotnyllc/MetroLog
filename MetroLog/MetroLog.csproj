@@ -162,6 +162,7 @@
     </None>
     <None Include="Internal\PlatformAdapter.cd" />
     <None Include="LogConfigurator.dgml" />
+    <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Strings.resx">

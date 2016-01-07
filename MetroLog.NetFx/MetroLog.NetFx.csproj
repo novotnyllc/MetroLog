@@ -79,6 +79,7 @@
     <None Include="..\MetroLog.snk">
       <Link>MetroLog.snk</Link>
     </None>
+    <None Include="project.json" />
   </ItemGroup>
   <Import Project="..\MetroLog.Shared\MetroLog.Shared.projitems" Label="Shared" Condition="Exists('..\MetroLog.Shared\MetroLog.Shared.projitems')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
