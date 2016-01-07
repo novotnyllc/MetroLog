@@ -115,10 +115,6 @@
       <Project>{429ee5fc-46fe-4249-bb40-8dc6d9023a04}</Project>
       <Name>MetroLog.NetCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MetroLog\MetroLog.csproj">
-      <Project>{65e2062e-aac2-4054-aae6-d6764040c769}</Project>
-      <Name>MetroLog</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">

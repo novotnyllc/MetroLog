@@ -49,8 +49,7 @@ namespace MetroLog
             this.PackagePublisher = id.Publisher;
             this.PackagePublisherId = id.PublisherId;
             this.PackageResourceId = id.ResourceId;
-            this.PackageVersion = string.Format("{0}.{1}.{2}.{3}", id.Version.Major, id.Version.Minor,
-                id.Version.Build, id.Version.Revision);
+            this.PackageVersion = $"{id.Version.Major}.{id.Version.Minor}.{id.Version.Build}.{id.Version.Revision}";
 
             // installation...
             const string containerName = "MetroLog";

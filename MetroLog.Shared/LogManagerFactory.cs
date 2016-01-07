@@ -10,7 +10,7 @@ namespace MetroLog
 {
     public static class LogManagerFactory
     {
-        private static readonly ILogConfigurator _configurator = PlatformAdapter.Resolve<ILogConfigurator>();
+        private static readonly ILogConfigurator _configurator = new LogConfigurator();
 
         private static LoggingConfiguration _defaultConfig = _configurator.CreateDefaultSettings();
 
@@ -34,11 +34,7 @@ namespace MetroLog
 
 
             ILogManager manager;
-            var managerFactory = PlatformAdapter.Resolve<ILogManagerCreator>(false);
-            if (managerFactory != null)
-                manager = managerFactory.Create(cfg);
-            else
-                manager = new LogManagerBase(cfg);
+            manager = new LogManager(cfg);
 
             _configurator.OnLogManagerCreated(manager);
 

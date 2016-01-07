@@ -3,9 +3,13 @@ using MetroLog.Layouts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
+
 using System.Text;
 using System.Threading.Tasks;
+
+#if !REF_ASSM
+using System.Net.Http;
+#endif
 
 namespace MetroLog.Targets
 {
@@ -28,9 +32,12 @@ namespace MetroLog.Targets
 
         protected override async Task DoFlushAsync(LogWriteContext context, IEnumerable<LogEventInfo> toFlush)
         {
+#if REF_ASSM
+            throw new InvalidOperationException("Cannot use ref assm at runtime");
+#else
             // create a json object...
 
-            var env = PlatformAdapter.Resolve<ILoggingEnvironment>();
+            var env = new LoggingEnvironment();
             var wrapper = new JsonPostWrapper(env, toFlush);
             var json = wrapper.ToJson();
 
@@ -44,6 +51,7 @@ namespace MetroLog.Targets
 
             // send...
             await client.PostAsync(this.Url, content);
+#endif
         }
 
         protected virtual void OnBeforePost(HttpClientEventArgs args)

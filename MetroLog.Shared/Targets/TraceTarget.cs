@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define DEBUG // here to enable the debug.writeline
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -22,8 +24,15 @@ namespace MetroLog.Targets
 
         protected override void Write(LogWriteContext context, LogEventInfo entry)
         {
+#if REF_ASSM
+            throw new InvalidOperationException("Cannot use ref assm at runtime");
+#elif WINDOWS_PHONE_APP || WINDOWS_PHONE || NETFX_CORE
+            var message = Layout.GetFormattedString(context, entry);
+            Debug.WriteLine(message);
+#else
             var message = Layout.GetFormattedString(context, entry);
             Trace.WriteLine(message);
+#endif
         }
     }
 }

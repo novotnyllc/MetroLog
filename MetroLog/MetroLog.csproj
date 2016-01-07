@@ -27,7 +27,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;REF_ASSM</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -35,7 +35,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <DefineConstants>TRACE;NETFX_CORE;REF_ASSM</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -106,69 +106,15 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ExceptionWrapper.cs" />
-    <Compile Include="ILogConfigurator.cs" />
-    <Compile Include="ILogManagerCreator.cs" />
-    <Compile Include="Internal\AsyncLock.cs" />
-    <Compile Include="Internal\SimpleJson.cs" />
     <Compile Include="LogConfigurator.cs" />
-    <Compile Include="LoggerEventArgs.cs" />
-    <Compile Include="ILoggerQuery.cs" />
-    <Compile Include="ILoggingEnvironment.cs" />
-    <Compile Include="InternalLogger.cs" />
-    <Compile Include="Internal\IAdapterResolver.cs" />
-    <Compile Include="Internal\LogConfiguratorBase.cs" />
-    <Compile Include="Internal\LoggingEnvironmentBase.cs" />
-    <Compile Include="ILoggerAsync.cs" />
-    <Compile Include="ILazyFlushable.cs" />
-    <Compile Include="Internal\PlatformAdapter.cs" />
-    <Compile Include="Internal\ProbingAdapterResolver.cs" />
-    <Compile Include="Layouts\FileSnapshotLayout.cs" />
-    <Compile Include="Layouts\Layout.cs" />
-    <Compile Include="Layouts\NullLayout.cs" />
-    <Compile Include="Layouts\SingleLineLayout.cs" />
-    <Compile Include="ILogger.cs" />
-    <Compile Include="ILogManager.cs" />
-    <Compile Include="LogEventInfo.cs" />
-    <Compile Include="Internal\Logger.cs" />
-    <Compile Include="LoggingConfiguration.cs" />
     <Compile Include="LoggingEnvironment.cs" />
-    <Compile Include="LogWriteContext.cs" />
-    <Compile Include="LogLevel.cs" />
-    <Compile Include="Internal\LogManager.cs" />
-    <Compile Include="LogManagerFactory.cs" />
-    <Compile Include="LogWriteOperation.cs" />
-    <Compile Include="Strings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Strings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Targets\AsyncTarget.cs" />
-    <Compile Include="Targets\BufferedTarget.cs" />
-    <Compile Include="Targets\DebugTarget.cs" />
-    <Compile Include="Targets\FileCreationMode.cs" />
-    <Compile Include="Targets\FileNamingParameters.cs" />
-    <Compile Include="Targets\FileTargetBase.cs" />
-    <Compile Include="Targets\FileTimestampMode.cs" />
-    <Compile Include="Targets\LogReadQuery.cs" />
-    <Compile Include="Targets\SyncTarget.cs" />
-    <Compile Include="Targets\TargetBinding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Targets\Target.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\MetroLog.snk">
       <Link>MetroLog.snk</Link>
     </None>
-    <None Include="Internal\PlatformAdapter.cd" />
-    <None Include="LogConfigurator.dgml" />
     <None Include="project.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Strings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

@@ -14,7 +14,7 @@ namespace MetroLog.Layouts
             StringBuilder builder = new StringBuilder();
             builder.Append(info.SequenceID);
             builder.Append("|");
-            builder.Append(info.TimeStamp.ToString(LogManagerBase.DateTimeFormat));
+            builder.Append(info.TimeStamp.ToString(LogManager.DateTimeFormat));
             builder.Append("|");
             builder.Append(info.Level.ToString().ToUpper());
             builder.Append("|");

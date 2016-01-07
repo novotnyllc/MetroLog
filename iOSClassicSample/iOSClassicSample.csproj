@@ -123,10 +123,6 @@
       <Name>MetroLog.iOS</Name>
       <IsAppExtension>false</IsAppExtension>
     </ProjectReference>
-    <ProjectReference Include="..\MetroLog\MetroLog.csproj">
-      <Project>{65e2062e-aac2-4054-aae6-d6764040c769}</Project>
-      <Name>MetroLog</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

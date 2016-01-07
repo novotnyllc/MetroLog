@@ -18,7 +18,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)LogConfigurator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LoggingEnvironment.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LogManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)LogManagerFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WinRTFileTarget.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XamlApplicationState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XamlExtensionMethods.cs" />

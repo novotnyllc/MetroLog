@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MetroLog.Layouts;
 
+
 namespace MetroLog.Targets
 {
     public class EtwTarget : SyncTarget

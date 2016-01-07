@@ -10,15 +10,11 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Storage;
 
-namespace MetroLog
+namespace MetroLog.Internal
 {
-    class LogManager : LogManagerBase, IWinRTLogManager
+    partial class LogManager : IWinRTLogManager
     {
-        public LogManager(LoggingConfiguration configuration) : base(configuration)
-        {
-        }
-
-        public async Task<IStorageFile> GetCompressedLogFile()
+       public async Task<IStorageFile> GetCompressedLogFile()
         {
             var stream = await GetCompressedLogs();
 

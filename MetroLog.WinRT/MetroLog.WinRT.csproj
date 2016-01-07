@@ -109,10 +109,6 @@
       <Project>{429ee5fc-46fe-4249-bb40-8dc6d9023a04}</Project>
       <Name>MetroLog.NetCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MetroLog\MetroLog.csproj">
-      <Project>{65e2062e-aac2-4054-aae6-d6764040c769}</Project>
-      <Name>MetroLog</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ILogger.cs" />
@@ -126,7 +122,6 @@
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
-  <Import Project="..\MetroLog.Shared\MetroLog.Shared.projitems" Label="Shared" Condition="Exists('..\MetroLog.Shared\MetroLog.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,7 +1,8 @@
 {
     "dependencies": {
         "Microsoft.Bcl.Compression": "3.9.85",
-        "Microsoft.Bcl.Build": "1.0.21"
+        "Microsoft.Bcl.Build": "1.0.21",
+        "Microsoft.Net.Http": "2.2.29"
     },
     "frameworks": {
         "wp8": { }

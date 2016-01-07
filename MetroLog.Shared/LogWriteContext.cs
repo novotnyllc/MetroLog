@@ -17,7 +17,7 @@ namespace MetroLog
 
         static LogWriteContext()
         {
-            _environment = PlatformAdapter.Resolve<ILoggingEnvironment>();
+            _environment = new LoggingEnvironment();
         }
 
         public ILoggingEnvironment Environment

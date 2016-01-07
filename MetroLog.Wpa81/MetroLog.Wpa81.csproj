@@ -10,7 +10,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MetroLog</RootNamespace>
-    <AssemblyName>MetroLog.Platform</AssemblyName>
+    <AssemblyName>MetroLog</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
     <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
@@ -81,23 +81,6 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <ProjectReference Include="..\MetroLog\MetroLog.csproj">
-      <Project>{65e2062e-aac2-4054-aae6-d6764040c769}</Project>
-      <Name>MetroLog</Name>
-      <Aliases>global, pcl</Aliases>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\MetroLog\Targets\HttpClientEventHandler.cs">
-      <Link>Targets\HttpClientEventHandler.cs</Link>
-    </Compile>
-    <Compile Include="..\MetroLog\Targets\JsonPostTarget.cs">
-      <Link>Targets\JsonPostTarget.cs</Link>
-    </Compile>
-    <Compile Include="..\MetroLog\Targets\JsonPostWrapper.cs">
-      <Link>Targets\JsonPostWrapper.cs</Link>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -10,7 +10,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>MetroLog</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>MetroLog.Platform</AssemblyName>
+    <AssemblyName>MetroLog</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -35,7 +35,7 @@
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Developer</CodesignKey>
     <DebugSymbols>true</DebugSymbols>
-    <DocumentationFile>bin\iPhone\Release\MetroLog.Platform.XML</DocumentationFile>
+    <DocumentationFile>bin\iPhone\Release\MetroLog.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -56,31 +56,14 @@
     <Compile Include="..\MetroLog.NetFx\StreamingFileTarget.cs">
       <Link>StreamingFileTarget.cs</Link>
     </Compile>
-    <Compile Include="..\metrolog.netfx\targets\TraceTarget.cs">
-      <Link>Targets\TraceTarget.cs</Link>
-    </Compile>
-    <Compile Include="..\metrolog\targets\HttpClientEventHandler.cs">
-      <Link>Targets\HttpClientEventHandler.cs</Link>
-    </Compile>
-    <Compile Include="..\metrolog\targets\JsonPostTarget.cs">
-      <Link>Targets\JsonPostTarget.cs</Link>
-    </Compile>
-    <Compile Include="..\metrolog\targets\JsonPostWrapper.cs">
-      <Link>Targets\JsonPostWrapper.cs</Link>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MetroLog\MetroLog.csproj">
-      <Project>{65e2062e-aac2-4054-aae6-d6764040c769}</Project>
-      <Name>MetroLog</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />

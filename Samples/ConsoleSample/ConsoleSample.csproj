@@ -62,10 +62,6 @@
       <Project>{b929ffc8-ca0d-43fd-a95b-8e454ccd7133}</Project>
       <Name>MetroLog.NetFx</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MetroLog\MetroLog.csproj">
-      <Project>{65e2062e-aac2-4054-aae6-d6764040c769}</Project>
-      <Name>MetroLog</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

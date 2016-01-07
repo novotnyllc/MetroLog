@@ -109,7 +109,7 @@ namespace MetroLog
         {
             string formatted = null;
             long sequence = LogEventInfo.GetNextSequenceId();
-            string dt = LogManagerBase.GetDateTime().ToString(LogManagerBase.DateTimeFormat);
+            string dt = LogManager.GetDateTime().ToString(LogManager.DateTimeFormat);
             string asString = logLevel.ToString().ToUpper();
             int thread = Environment.CurrentManagedThreadId;
             if (ex != null)

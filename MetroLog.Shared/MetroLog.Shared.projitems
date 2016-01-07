@@ -9,6 +9,47 @@
     <Import_RootNamespace>MetroLog</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ExceptionWrapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ILazyFlushable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ILogConfigurator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ILogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ILoggerAsync.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ILoggerQuery.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ILoggingEnvironment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ILogManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InternalLogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internal\AsyncLock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internal\LogConfiguratorBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internal\Logger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internal\LoggingEnvironmentBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internal\LogManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internal\SimpleJson.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Layouts\FileSnapshotLayout.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Layouts\Layout.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Layouts\NullLayout.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Layouts\SingleLineLayout.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LogEventInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoggerEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoggingConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LogLevel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LogManagerFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LogWriteContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LogWriteOperation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedAssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Targets\AsyncTarget.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Targets\BufferedTarget.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Targets\DebugTarget.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Targets\FileCreationMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Targets\FileNamingParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Targets\FileTargetBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Targets\FileTimestampMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Targets\HttpClientEventHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Targets\JsonPostTarget.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Targets\JsonPostWrapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Targets\LogReadQuery.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Targets\SyncTarget.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Targets\Target.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Targets\TargetBinding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Targets\TraceTarget.cs" />
   </ItemGroup>
 </Project>

@@ -113,11 +113,6 @@
       <Name>MetroLog.NetFx</Name>
       <Aliases>global,netfx</Aliases>
     </ProjectReference>
-    <ProjectReference Include="..\MetroLog\MetroLog.csproj">
-      <Project>{65e2062e-aac2-4054-aae6-d6764040c769}</Project>
-      <Name>MetroLog</Name>
-      <Aliases>global, pcl</Aliases>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
