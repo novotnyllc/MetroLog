@@ -13,12 +13,12 @@ using Xunit;
 namespace MetroLog.NetCore.Tests
 {
     
-    public class FileSnapshotTargetTests
+    public class FileStreamingTargetTests
     {
         [Fact]
         public async Task TestFileSnapshot()
         {
-            var target = new FileSnapshotTarget();
+            var target = new FileStreamingTarget();
 
             // send through a log entry...
             var op = await target.WriteAsync(new LogWriteContext(),
@@ -27,7 +27,7 @@ namespace MetroLog.NetCore.Tests
             // TODO: This should be Faked! We shouldn't be writing to the disk
 
             // load the file...
-            var folder = await FileSnapshotTarget.EnsureInitializedAsync();
+            var folder = await FileStreamingTarget.EnsureInitializedAsync();
             var files = await folder.GetFilesAsync();
             var file = files.First(v => v.Name.Contains(op.GetEntries().First().SequenceID.ToString()));
             string contents = await FileIO.ReadTextAsync(file);
