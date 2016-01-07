@@ -2,10 +2,10 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>MetroLog.Extended</id>
-    <version>0.8.29</version>
+    <version>0.8.30-alpha1</version>
     <title>MetroLog Extended</title>
     <authors>Matt Baxter-Reynolds, Oren Novotny, Thomas Galliker</authors>
-    <owners>onovotny</owners>
+    <owners>thomasgalliker</owners>
     <licenseUrl>https://raw.github.com/thomasgalliker/MetroLog/master/LICENSE.txt</licenseUrl>
     <projectUrl>https://github.com/thomasgalliker/MetroLog</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -16,12 +16,11 @@
       - XmlConfigurator to set-up logger using an xml configuration
       - CrashReporter: Works just like the flight data recorder of an airplane: In case of a fatal exception it sends the most recently buffered log entries to the configured targets.
       - Allows to report application unhandled exceptions (also in Xamarin.IOS, Xamarin.Android and Windows Phone.
-      
+
     </description>
     <summary />
     <releaseNotes>
-      - Added NuGet package CrossPlatformAdapter for resolving platform-specific assemblies
-      - Added NuGet package Guards to protect public API
+      - Update to latest MetroLog source
       - Minor bug fixes
     </releaseNotes>
     <tags>Logging log WinRT NLog log4net portable pcl WinJS wp wp8 wpa81 ios android xamarin</tags>
@@ -60,7 +59,7 @@
         <dependency id="TypeConverter" version="1.0.25"/>
         <dependency id="Guards" version="1.0.10"/>
       </group>
-      <group targetFramework="portable-net45+wp8+wpa81+win81+netcore45+monoandroid1+MonoTouch+xamarin.ios10">
+      <group targetFramework="portable-net45+wp8+wpa81+win81+netcore45+monoandroid10+MonoTouch+xamarin.ios10">
         <dependency id="CrossPlatformAdapter" version="1.0.12"/>
         <dependency id="TypeConverter" version="1.0.25"/>
         <dependency id="Guards" version="1.0.10"/>
