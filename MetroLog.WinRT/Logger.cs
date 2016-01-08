@@ -34,7 +34,7 @@ namespace MetroLog.WinRT
                     configuration.AddTarget(max, PclLogLevel.Fatal, new DebugTarget());
                     configuration.AddTarget(max, PclLogLevel.Fatal, new EtwTarget());
                     configuration.AddTarget(max, PclLogLevel.Fatal, new EventTarget(OnLogMessageInternal));
-                    configuration.AddTarget(max, PclLogLevel.Fatal, new FileStreamingTarget());
+                    configuration.AddTarget(max, PclLogLevel.Fatal, new StreamingFileTarget());
 
                     LogManagerFactory.DefaultConfiguration = configuration;
 

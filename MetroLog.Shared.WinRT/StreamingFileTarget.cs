@@ -12,7 +12,7 @@ namespace MetroLog.Targets
     /// <summary>
     /// Defines a target that will append messages to a single file.
     /// </summary>
-    public class StreamingFileTarget : WinRTFileTarget
+    public class StreamingFileTarget : FileTarget
     {
         public StreamingFileTarget()
             : this(new SingleLineLayout())

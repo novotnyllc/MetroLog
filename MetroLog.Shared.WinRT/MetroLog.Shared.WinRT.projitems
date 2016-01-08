@@ -9,7 +9,6 @@
     <Import_RootNamespace>MetroLog</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)FileNamingMode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StreamingFileTarget.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GlobalCrashHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IWinRTLogManager.cs" />
@@ -17,7 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)LogConfigurator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LoggingEnvironment.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LogManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)WinRTFileTarget.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileTarget.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XamlApplicationState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)XamlExtensionMethods.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ZipFile.cs" />

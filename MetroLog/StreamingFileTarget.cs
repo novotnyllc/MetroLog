@@ -14,7 +14,7 @@ namespace MetroLog.Targets
     /// <summary>
     /// Defines a target that will append messages to a single file.
     /// </summary>
-    public class StreamingFileTarget : FileTargetBase
+    public class StreamingFileTarget : FileTarget
     {
         public StreamingFileTarget()
             : this(new SingleLineLayout())
@@ -44,6 +44,13 @@ namespace MetroLog.Targets
         protected override Task<LogWriteOperation> DoWriteAsync(string fileName, string contents, LogEventInfo entry)
         {
             throw new NotImplementedException();
+        }
+    }
+
+    public abstract class FileTarget : FileTargetBase
+    {
+        protected FileTarget(Layout layout) : base(layout)
+        {
         }
     }
 }

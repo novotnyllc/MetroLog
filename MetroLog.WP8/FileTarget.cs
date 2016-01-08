@@ -13,11 +13,11 @@ using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace MetroLog.Targets
 {
-    public abstract class Wp8FileTarget : FileTargetBase
+    public abstract class FileTarget : FileTargetBase
     {
         private static StorageFolder _logFolder = null;
 
-        protected Wp8FileTarget(Layout layout)
+        protected FileTarget(Layout layout)
             : base(layout)
         {
         }

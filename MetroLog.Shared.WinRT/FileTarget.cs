@@ -15,12 +15,12 @@ using Windows.Storage.Search;
 
 namespace MetroLog
 {
-    public abstract class WinRTFileTarget : FileTargetBase
+    public abstract class FileTarget : FileTargetBase
     {
         private static StorageFolder _logFolder = null;
 
 
-        protected WinRTFileTarget(Layout layout) : base(layout)
+        protected FileTarget(Layout layout) : base(layout)
         {
         }
 

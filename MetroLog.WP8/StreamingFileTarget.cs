@@ -8,15 +8,15 @@ using MetroLog.Layouts;
 
 namespace MetroLog.Targets
 {
-    public class Wp8FileStreamingTarget : Wp8FileTarget
+    public class StreamingFileTarget : FileTarget
     {
-        public Wp8FileStreamingTarget() 
+        public StreamingFileTarget() 
             : this(new SingleLineLayout())
         {
             
         }
 
-        public Wp8FileStreamingTarget(Layout layout)
+        public StreamingFileTarget(Layout layout)
             : base(layout)
         {
             this.FileNamingParameters.IncludeLevel = false;
@@ -33,6 +33,18 @@ namespace MetroLog.Targets
             {
                 await sw.WriteLineAsync(contents);
             }
+        }
+    }
+
+    [Obsolete("Use StreamingFileTarget instead")]
+    public class Wp8FileStreamingTarget : StreamingFileTarget
+    {
+        public Wp8FileStreamingTarget()
+        {
+        }
+
+        public Wp8FileStreamingTarget(Layout layout) : base(layout)
+        {
         }
     }
 }

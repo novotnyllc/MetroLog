@@ -15,7 +15,7 @@ namespace MetroLog
         public override LoggingConfiguration CreateDefaultSettings()
         {
             var def = base.CreateDefaultSettings();
-            def.AddTarget(LogLevel.Trace, LogLevel.Fatal, new Wp8FileStreamingTarget());
+            def.AddTarget(LogLevel.Trace, LogLevel.Fatal, new StreamingFileTarget());
 
             return def;
         }
