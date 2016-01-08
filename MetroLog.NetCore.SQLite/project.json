@@ -1,7 +1,11 @@
 {
     "dependencies": {
         "Newtonsoft.Json": "8.0.1",
-        "sqlite-net": "1.0.8"
+        "sqlite-net": "1.0.8",
+        "SQLitePCL.raw": {
+            "version": "0.8.5",
+            "suppressParent": "none"
+        }
     },
     "frameworks": {
         ".NETCore,Version=v4.5.1": { }
