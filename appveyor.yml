@@ -23,3 +23,10 @@ after_build:
 test:
   assemblies:
     - '**\metrolog.tests.dll'
+    
+deploy:
+  provider: NuGet
+  server: https://www.myget.org/F/metrolog/api/v2/package
+  api_key:
+    secure: bmqlJK8a5HYiUXOT99HXT1j7JiM5+fpR4kHhxIC30oaaEXbv94f0fKdiKlU1QC/l
+  artifact: /.*\.nupkg/
