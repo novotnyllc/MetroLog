@@ -1184,6 +1184,12 @@ namespace MetroLog.Internal
                 if (propertyInfo.CanRead)
                 {
                     MethodInfo getMethod = ReflectionUtils.GetGetterMethodInfo(propertyInfo);
+#if NETFX_CORE
+                    // Special check for Exception.TargetSite
+                    if (propertyInfo.DeclaringType == typeof(Exception) && propertyInfo.Name == "TargetSite")
+                        continue;
+#endif
+
                     if (getMethod.IsStatic || !getMethod.IsPublic)
                         continue;
                     result[propertyInfo.Name] = ReflectionUtils.GetGetMethod(propertyInfo);

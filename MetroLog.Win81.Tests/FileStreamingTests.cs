@@ -18,7 +18,7 @@ namespace MetroLog.NetCore.Tests
         [Fact]
         public async Task TestFileSnapshot()
         {
-            var target = new FileStreamingTarget();
+            var target = new StreamingFileTarget();
 
             // send through a log entry...
             var op = await target.WriteAsync(new LogWriteContext(),
@@ -27,7 +27,7 @@ namespace MetroLog.NetCore.Tests
             // TODO: This should be Faked! We shouldn't be writing to the disk
 
             // load the file...
-            var folder = await FileStreamingTarget.EnsureInitializedAsync();
+            var folder = await StreamingFileTarget.EnsureInitializedAsync();
             var files = await folder.GetFilesAsync();
             var file = files.First(v => v.Name.Contains(op.GetEntries().First().SequenceID.ToString()));
             string contents = await FileIO.ReadTextAsync(file);
