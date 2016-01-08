@@ -33,6 +33,7 @@ namespace MetroLog.Targets
         protected override async Task DoFlushAsync(LogWriteContext context, IEnumerable<LogEventInfo> toFlush)
         {
 #if REF_ASSM
+            await Task.Delay(0);
             throw new InvalidOperationException("Cannot use ref assm at runtime");
 #else
             // create a json object...

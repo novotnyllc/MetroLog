@@ -106,17 +106,6 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <ProjectReference Include="..\MetroLog.NetCore.SQLite\MetroLog.NetCore.SQLite.csproj">
-      <Project>{0cf158cd-dd4e-4e9b-b386-e3ba3c4c6f1f}</Project>
-      <Name>MetroLog.NetCore.SQLite</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MetroLog.NetCore\MetroLog.NetCore.csproj">
-      <Project>{429ee5fc-46fe-4249-bb40-8dc6d9023a04}</Project>
-      <Name>MetroLog.NetCore</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -158,6 +147,16 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MetroLog.Targets.SQLite\MetroLog.Targets.SQLite.csproj">
+      <Project>{0cf158cd-dd4e-4e9b-b386-e3ba3c4c6f1f}</Project>
+      <Name>MetroLog.Targets.SQLite</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MetroLog.Win81\MetroLog.Win81.csproj">
+      <Project>{429ee5fc-46fe-4249-bb40-8dc6d9023a04}</Project>
+      <Name>MetroLog.Win81</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

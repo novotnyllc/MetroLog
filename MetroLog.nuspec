@@ -34,9 +34,9 @@
     <file src="MetroLog.NetFx\bin\Release\MetroLog.pdb" target="lib\net45\MetroLog.pdb" />
 
     <!-- Win 8.1 -->
-    <file src="MetroLog.NetCore\bin\Release\MetroLog.dll" target="lib\win81\MetroLog.dll" />
-    <file src="MetroLog.NetCore\bin\Release\MetroLog.pdb" target="lib\win81\MetroLog.pdb" />
-    <file src="MetroLog.NetCore\bin\Release\MetroLog.pri" target="lib\win81\MetroLog.pri" />
+    <file src="MetroLog.Win81\bin\Release\MetroLog.dll" target="lib\win81\MetroLog.dll" />
+    <file src="MetroLog.Win81\bin\Release\MetroLog.pdb" target="lib\win81\MetroLog.pdb" />
+    <file src="MetroLog.Win81\bin\Release\MetroLog.pri" target="lib\win81\MetroLog.pri" />
     
     <!-- WinRT components -->
     <file src="MetroLog.WinRT\bin\Release\MetroLog.WinRT.pdb" target="lib\win81\MetroLog.WinRT.pdb" />

@@ -3,7 +3,7 @@
         "Newtonsoft.Json": "8.0.1",
         "sqlite-net": "1.0.8",
         "SQLitePCL.raw": {
-            "version": "0.8.5",
+            "version": "0.8.6",
             "suppressParent": "none"
         }
     },

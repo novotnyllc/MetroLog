@@ -190,7 +190,7 @@ namespace Win8Sample
             if (this.DoSqlite)
             {
                 this.SQLiteTarget = new SQLiteTarget();
-                settings.AddTarget(LogLevel.Trace, LogLevel.Fatal, this.SQLiteTarget);
+                settings.AddTarget(LogLevel.Trace, LogLevel.Fatal, SQLiteTarget);
             }
 
             // return...
