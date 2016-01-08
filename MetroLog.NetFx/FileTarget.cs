@@ -83,7 +83,7 @@ namespace MetroLog
             var fileMode = FileNamingParameters.CreationMode == FileCreationMode.AppendIfExisting ? FileMode.Append :  FileMode.Create;
 
             // Create writer
-            using (var file = new StreamWriter(new FileStream(Path.Combine(_logFolder.FullName, fileName), fileMode, FileAccess.ReadWrite)))
+            using (var file = new StreamWriter(new FileStream(Path.Combine(_logFolder.FullName, fileName), fileMode, FileAccess.Write)))
             {
                 // Write contents
                 await WriteTextToFileCore(file, contents);
