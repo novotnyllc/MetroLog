@@ -39,6 +39,7 @@ namespace MetroLog
 
         protected override async Task<Stream> GetCompressedLogsInternal()
         {
+            await EnsureInitializedAsync();
             var ms = new MemoryStream();
 
             await ZipFile.CreateFromDirectory(logFolder, ms);
