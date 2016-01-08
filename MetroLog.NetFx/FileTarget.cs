@@ -15,18 +15,18 @@ namespace MetroLog
 {
     public abstract class FileTarget : FileTargetBase
     {
-        static DirectoryInfo _logFolder;
-        string _appDataPath;
+        static DirectoryInfo logFolder;
+        string appDataPath;
 
         public string PathUnderAppData
         {
-            get { return _appDataPath; }
+            get { return appDataPath; }
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
                     throw new ArgumentNullException(nameof(value));
 
-                _appDataPath = Path.Combine(GetUserAppDataPath(), value);
+                appDataPath = Path.Combine(GetUserAppDataPath(), value);
             }
         }
 
@@ -36,7 +36,7 @@ namespace MetroLog
 
             using (var a = new ZipArchive(ms, ZipArchiveMode.Create, true))
             {
-                foreach (var file in _logFolder.GetFiles())
+                foreach (var file in logFolder.GetFiles())
                 {
                     a.CreateEntryFromFile(file.FullName, file.Name);
                 }
@@ -49,7 +49,7 @@ namespace MetroLog
 
         protected FileTarget(Layout layout) : base(layout)
         {
-            _appDataPath = GetUserAppDataPath();
+            appDataPath = GetUserAppDataPath();
         }
 
         protected override Task EnsureInitialized()
@@ -58,14 +58,14 @@ namespace MetroLog
 
             try
             {
-                if (_logFolder == null)
+                if (logFolder == null)
                 {
                     var root = new DirectoryInfo(PathUnderAppData);
 
-                    var logFolder = root.CreateSubdirectory(LogFolderName);
+                    var lf = root.CreateSubdirectory(LogFolderName);
 
 
-                    Interlocked.CompareExchange(ref _logFolder, logFolder, null);
+                    Interlocked.CompareExchange(ref logFolder, lf, null);
                 }
 
                 tcs.SetResult(true);
@@ -93,7 +93,7 @@ namespace MetroLog
         {
             var fileMode = FileNamingParameters.CreationMode == FileCreationMode.AppendIfExisting ? FileMode.Append : FileMode.Create;
 
-            var fs = new FileStream(Path.Combine(_logFolder.FullName, fileName), fileMode, FileAccess.Write);
+            var fs = new FileStream(Path.Combine(logFolder.FullName, fileName), fileMode, FileAccess.Write);
             if (fileMode == FileMode.Append)
             {
                 // Make sure we're at the end for an apend
@@ -108,7 +108,7 @@ namespace MetroLog
             return Task.Run(() =>
                 {
                     var toDelete = new List<FileInfo>();
-                    foreach (var file in _logFolder.EnumerateFiles())
+                    foreach (var file in logFolder.EnumerateFiles())
                     {
                         if (pattern.Match(file.Name).Success && file.CreationTimeUtc <= threshold)
                             toDelete.Add(file);

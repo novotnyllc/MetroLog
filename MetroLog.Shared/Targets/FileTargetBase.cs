@@ -48,9 +48,13 @@ namespace MetroLog.Targets
         protected abstract Task DoCleanup(Regex pattern, DateTime threshold);
         protected abstract Task<Stream> GetCompressedLogsInternal();
 
-        internal Task<Stream> GetCompressedLogs()
+        internal async Task<Stream> GetCompressedLogs()
         {
-            return GetCompressedLogsInternal();
+            using (await _lock.LockAsync().ConfigureAwait(false))
+            {
+                CloseAllOpenStreamsInternal();
+                return await GetCompressedLogsInternal().ConfigureAwait(false);
+            }
         }
 
         internal async Task ForceCleanupAsync()
@@ -125,5 +129,25 @@ namespace MetroLog.Targets
         }
 
         protected abstract Task<Stream> GetWritableStreamForFile(string fileName);
+
+        void CloseAllOpenStreamsInternal()
+        {
+            // this must be called within the _lock
+            foreach (var streamWriter in openStreamWriters.Values)
+            {
+                streamWriter.Flush();
+                streamWriter.Dispose();
+            }
+            openStreamWriters.Clear();
+        }
+
+        public async Task CloseAllOpenFiles()
+        {
+            using (await _lock.LockAsync()
+                              .ConfigureAwait(false))
+            {
+                CloseAllOpenStreamsInternal();
+            }
+        }
     }
 }
