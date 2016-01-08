@@ -59,6 +59,9 @@ namespace Win8Sample
             data.Properties.Title = "Diagnostic Information";
             data.Properties.Description = "Email to <your support email address here>";
             data.SetStorageItems(new List<IStorageItem>() { this.FileToShare });
+
+            var manager = DataTransferManager.GetForCurrentView();
+            manager.DataRequested -= manager_DataRequested;
         }
 
         /// <summary>
@@ -216,7 +219,7 @@ namespace Win8Sample
             // share...
             DataTransferManager.ShowShareUI();
 
-            manager.DataRequested -= manager_DataRequested;
+        //    manager.DataRequested -= manager_DataRequested;
         }
 
         async void ShareLogs(object sender, RoutedEventArgs e)
