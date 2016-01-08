@@ -1,4 +1,5 @@
 legacy-semver-padding: 2
+next-version: 1.0
 branches:  
   dev(elop)?(ment)?$:
     mode: ContinuousDeployment
