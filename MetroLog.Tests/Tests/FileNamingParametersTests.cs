@@ -11,7 +11,7 @@ namespace MetroLog.Tests
 {
     public class FileNamingParametersTests
     {
-        private LogEventInfo GetLogEventInfo()
+        LogEventInfo GetLogEventInfo()
         {
             return new LogEventInfo(LogLevel.Info, "foobar", "barfoo", null);
         }
@@ -93,7 +93,7 @@ namespace MetroLog.Tests
 
             // check...
             var filename = naming.GetFilename(new LogWriteContext(), info);
-            Assert.Equal(string.Format("Log - {0}.log", info.SequenceID), filename);
+            Assert.Equal($"Log - {info.SequenceID}.log", filename);
         }
 
         [Fact]
@@ -113,7 +113,7 @@ namespace MetroLog.Tests
 
             // check...
             var filename = naming.GetFilename(new LogWriteContext(), info);
-            Assert.Equal(string.Format("Log - {0}.log", LogManager.GetDateTime().ToString("yyyyMMdd")), filename);
+            Assert.Equal($"Log - {LogManager.GetDateTime() .ToString("yyyyMMdd")}.log", filename);
         }
 
         [Fact]
@@ -133,7 +133,7 @@ namespace MetroLog.Tests
 
             // check...
             var filename = naming.GetFilename(new LogWriteContext(), info);
-            Assert.Equal(string.Format("Log - {0}.log", LogManager.GetDateTime().ToString("HHmmss")), filename);
+            Assert.Equal($"Log - {LogManager.GetDateTime() .ToString("HHmmss")}.log", filename);
         }
 
         [Fact]
@@ -153,7 +153,7 @@ namespace MetroLog.Tests
 
             // check...
             var filename = naming.GetFilename(new LogWriteContext(), info);
-            Assert.Equal(string.Format("Log - {0}.log", LogManager.GetDateTime().ToString("yyyyMMdd HHmmss")), filename);
+            Assert.Equal($"Log - {LogManager.GetDateTime() .ToString("yyyyMMdd HHmmss")}.log", filename);
         }
 
         [Fact]
@@ -174,8 +174,7 @@ namespace MetroLog.Tests
             // check...
             var context = new LogWriteContext();
             var filename = naming.GetFilename(context, info);
-            Assert.Equal(string.Format("Log - INFO - foobar - {0} - {1} - {2}.log", LogManager.GetDateTime().ToString("yyyyMMdd HHmmss"),
-                context.Environment.SessionId, info.SequenceID), filename);
+            Assert.Equal($"Log - INFO - foobar - {LogManager.GetDateTime() .ToString("yyyyMMdd HHmmss")} - {context.Environment.SessionId} - {info.SequenceID}.log", filename);
         }
 
         [Fact]

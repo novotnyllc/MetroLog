@@ -10,21 +10,21 @@ namespace MetroLog.Targets
 {
     public abstract class BufferedTarget : AsyncTarget, ILazyFlushable
     {
-        private List<LogEventInfo> Buffer { get; set; }
-        private object _lock = new object();
-        private int Threshold { get; set; }
+        List<LogEventInfo> Buffer { get; set; }
+        readonly object _lock = new object();
+        int Threshold { get; set; }
 
         public BufferedTarget(Layout layout, int threshold)
             : base(layout)
         {
             if (threshold < 1)
-                throw new ArgumentOutOfRangeException("threshold");
+                throw new ArgumentOutOfRangeException(nameof(threshold));
 
-            this.Threshold = threshold;
-            this.Buffer = new List<LogEventInfo>();
+            Threshold = threshold;
+            Buffer = new List<LogEventInfo>();
         }
 
-        protected override sealed Task<LogWriteOperation> WriteAsyncCore(LogWriteContext context, LogEventInfo entry)
+        protected sealed override Task<LogWriteOperation> WriteAsyncCore(LogWriteContext context, LogEventInfo entry)
         {
             try
             {
@@ -32,13 +32,13 @@ namespace MetroLog.Targets
                 List<LogEventInfo> toFlush = null;
                 lock (_lock)
                 {
-                    this.Buffer.Add(entry);
+                    Buffer.Add(entry);
 
                     // if...
-                    if (this.Buffer.Count >= this.Threshold)
+                    if (Buffer.Count >= Threshold)
                     {
-                        toFlush = new List<LogEventInfo>(this.Buffer);
-                        this.Buffer = new List<LogEventInfo>();
+                        toFlush = new List<LogEventInfo>(Buffer);
+                        Buffer = new List<LogEventInfo>();
                     }
                 }
 
@@ -50,12 +50,12 @@ namespace MetroLog.Targets
             }
             catch (Exception ex)
             {
-                InternalLogger.Current.Error(string.Format("Failed to write to target '{0}'.", this), ex);
+                InternalLogger.Current.Error($"Failed to write to target '{this}'.", ex);
                 return Task.FromResult(new LogWriteOperation(this, entry, false));
             }
         }
 
-        private async Task<LogWriteOperation> FlushAsync(LogWriteContext context, IEnumerable<LogEventInfo> toFlush)
+        async Task<LogWriteOperation> FlushAsync(LogWriteContext context, IEnumerable<LogEventInfo> toFlush)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace MetroLog.Targets
             }
             catch (Exception ex)
             {
-                InternalLogger.Current.Error(string.Format("Failed to flush for target '{0}'.", this), ex);
+                InternalLogger.Current.Error($"Failed to flush for target '{this}'.", ex);
                 return new LogWriteOperation(this, toFlush, false);
             }
         }
@@ -79,8 +79,8 @@ namespace MetroLog.Targets
             List<LogEventInfo> toFlush = null;
             lock (_lock)
             {
-                toFlush = new List<LogEventInfo>(this.Buffer);
-                this.Buffer = new List<LogEventInfo>();
+                toFlush = new List<LogEventInfo>(Buffer);
+                Buffer = new List<LogEventInfo>();
             }
 
             // flush...

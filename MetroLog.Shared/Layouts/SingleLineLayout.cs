@@ -11,7 +11,7 @@ namespace MetroLog.Layouts
     {
         public override string GetFormattedString(LogWriteContext context, LogEventInfo info)
         {
-            StringBuilder builder = new StringBuilder();
+            var builder = new StringBuilder();
             builder.Append(info.SequenceID);
             builder.Append("|");
             builder.Append(info.TimeStamp.ToString(LogManager.DateTimeFormat));

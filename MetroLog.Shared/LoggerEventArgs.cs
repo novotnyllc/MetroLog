@@ -12,7 +12,7 @@ namespace MetroLog
 
         public LoggerEventArgs(ILogger logger)
         {
-            this.Logger = logger;
+            Logger = logger;
         }
     }
 }

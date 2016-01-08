@@ -19,9 +19,9 @@ namespace MetroLog
 
         internal ExceptionWrapper(Exception ex)
         {
-            this.TypeName = ex.GetType().AssemblyQualifiedName;
-            this.AsString = ex.ToString();
-            this.Hresult = ex.HResult;
+            TypeName = ex.GetType().AssemblyQualifiedName;
+            AsString = ex.ToString();
+            Hresult = ex.HResult;
         }
 
         public string ToJson()

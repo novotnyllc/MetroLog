@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace MetroLog.Internal
 {
-    internal class AsyncLock
+    class AsyncLock
     {
-        private readonly SemaphoreSlim m_semaphore;
-        private readonly Task<Releaser> m_releaser;
+        readonly SemaphoreSlim m_semaphore;
+        readonly Task<Releaser> m_releaser;
         
         public AsyncLock()
         {
@@ -22,14 +22,13 @@ namespace MetroLog.Internal
 
         public struct Releaser : IDisposable
         {
-            private readonly AsyncLock m_toRelease;
+            readonly AsyncLock m_toRelease;
 
             internal Releaser(AsyncLock toRelease) { m_toRelease = toRelease; }
 
             public void Dispose()
             {
-                if (m_toRelease != null)
-                    m_toRelease.m_semaphore.Release();
+                m_toRelease?.m_semaphore.Release();
             }
         }
 

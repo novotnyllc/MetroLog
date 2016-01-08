@@ -7,7 +7,7 @@ using MetroLog.Internal;
 
 namespace MetroLog
 {
-    internal sealed class LogConfigurator : LogConfiguratorBase
+    sealed class LogConfigurator : LogConfiguratorBase
     {
     }
 }

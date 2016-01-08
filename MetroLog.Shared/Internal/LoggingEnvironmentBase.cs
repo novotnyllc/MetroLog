@@ -18,10 +18,10 @@ namespace MetroLog.Internal
         protected LoggingEnvironmentBase(string fxProfile)
         {
             // common...
-            this.SessionId = Guid.NewGuid();
-            this.FxProfile = fxProfile;
-            this.IsDebugging = Debugger.IsAttached;
-            this.MetroLogVersion = typeof(ILogger).GetTypeInfo().Assembly.GetName().Version;
+            SessionId = Guid.NewGuid();
+            FxProfile = fxProfile;
+            IsDebugging = Debugger.IsAttached;
+            MetroLogVersion = typeof(ILogger).GetTypeInfo().Assembly.GetName().Version;
         }
 
         public string ToJson()

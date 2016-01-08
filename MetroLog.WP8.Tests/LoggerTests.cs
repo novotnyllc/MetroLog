@@ -25,7 +25,7 @@ namespace MetroLog.WP8.Tests
             Assert.IsNull(logger.Item2.LastWritten.Exception);
         }
 
-        private static Tuple<ILoggerAsync, TestTarget> CreateTarget()
+        static Tuple<ILoggerAsync, TestTarget> CreateTarget()
         {
             var testTarget = new TestTarget();
             var config = new LoggingConfiguration();

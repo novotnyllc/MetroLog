@@ -16,8 +16,8 @@ namespace MetroLog.Targets
 
         internal JsonPostWrapper(ILoggingEnvironment environment, IEnumerable<LogEventInfo> events)
         {
-            this.Environment = environment;
-            this.Events = events.ToArray();
+            Environment = environment;
+            Events = events.ToArray();
         }
 
         internal string ToJson()

@@ -27,15 +27,15 @@ namespace Win8Sample
     /// </summary>
     public sealed partial class LogSamplePage : Win8Sample.Common.LayoutAwarePage
     {
-        private ILogger Log { get; set; }
+        ILogger Log { get; set; }
 
-        private SQLiteTarget SQLiteTarget { get; set; }
+        SQLiteTarget SQLiteTarget { get; set; }
 
-        private bool DoFileStreaming { get; set; }
-        private bool DoJsonPost { get; set; }
-        private bool DoSqlite { get; set; }
+        bool DoFileStreaming { get; set; }
+        bool DoJsonPost { get; set; }
+        bool DoSqlite { get; set; }
 
-        private IStorageFile FileToShare { get; set; }
+        IStorageFile FileToShare { get; set; }
 
         public LogSamplePage()
         {
@@ -100,27 +100,27 @@ namespace Win8Sample
             this.labelPath.Text = "Error log files are written to: " + ApplicationData.Current.LocalFolder.Path;
         }
 
-        private void HandleTrace(object sender, RoutedEventArgs e)
+        void HandleTrace(object sender, RoutedEventArgs e)
         {
             this.Log.Trace("This is a trace message.");
         }
 
-        private void HandleDebug(object sender, RoutedEventArgs e)
+        void HandleDebug(object sender, RoutedEventArgs e)
         {
             this.Log.Debug("This is a debug message.");
         }
 
-        private void HandleInfo(object sender, RoutedEventArgs e)
+        void HandleInfo(object sender, RoutedEventArgs e)
         {
             this.Log.Info("This is an info message.");
         }
 
-        private void HandleWarn(object sender, RoutedEventArgs e)
+        void HandleWarn(object sender, RoutedEventArgs e)
         {
             this.Log.Warn("This is a warning message.");
         }
 
-        private void HandleError(object sender, RoutedEventArgs e)
+        void HandleError(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -133,18 +133,18 @@ namespace Win8Sample
             }
         }
 
-        private void DoMagic()
+        void DoMagic()
         {
             throw new NotImplementedException();
         }
 
-        private void HandleFatal(object sender, RoutedEventArgs e)
+        void HandleFatal(object sender, RoutedEventArgs e)
         {
             // the idea here is to invoke the global error handler...
             throw new InvalidOperationException("Bang.");
         }
 
-        private void HandleRegisterStreamingTarget(object sender, RoutedEventArgs e)
+        void HandleRegisterStreamingTarget(object sender, RoutedEventArgs e)
         {
             this.DoFileStreaming = true;
             var settings = CreateNewSettings();
@@ -155,7 +155,7 @@ namespace Win8Sample
             this.buttonFileStreaming.IsEnabled = false;
         }
 
-        private void HandleRegisterJsonPostTarget(object sender, RoutedEventArgs e)
+        void HandleRegisterJsonPostTarget(object sender, RoutedEventArgs e)
         {
             this.DoJsonPost = true;
             var settings = CreateNewSettings();
@@ -167,7 +167,7 @@ namespace Win8Sample
             this.buttonJsonPost.IsEnabled = false;
         }
 
-        private void HandleRegisterSQLiteTarget(object sender, RoutedEventArgs e)
+        void HandleRegisterSQLiteTarget(object sender, RoutedEventArgs e)
         {
             this.DoSqlite = true;
             var settings = CreateNewSettings();
@@ -180,7 +180,7 @@ namespace Win8Sample
             this.buttonReadSQLite.IsEnabled = true;
         }
 
-        private LoggingConfiguration CreateNewSettings()
+        LoggingConfiguration CreateNewSettings()
         {
             var settings = LogManagerFactory.CreateLibraryDefaultSettings();
             if (this.DoFileStreaming)
@@ -197,7 +197,7 @@ namespace Win8Sample
             return settings;
         }
 
-        private async void HandleReadSQLiteValues(object sender, RoutedEventArgs e)
+        async void HandleReadSQLiteValues(object sender, RoutedEventArgs e)
         {
             // read some values back...
             var query = new LogReadQuery();
@@ -219,7 +219,7 @@ namespace Win8Sample
             manager.DataRequested -= manager_DataRequested;
         }
 
-        private async void ShareLogs(object sender, RoutedEventArgs e)
+        async void ShareLogs(object sender, RoutedEventArgs e)
         {
             var lm = (IWinRTLogManager)LogManagerFactory.DefaultLogManager;
 

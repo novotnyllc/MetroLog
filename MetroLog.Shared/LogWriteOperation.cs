@@ -9,9 +9,7 @@ namespace MetroLog
 {
     public struct LogWriteOperation
     {
-        private readonly Target _target;
-        private readonly List<LogEventInfo> _entries;
-        private readonly bool _success;
+        readonly List<LogEventInfo> entries;
 
         public LogWriteOperation(Target target, LogEventInfo entry, bool success)
             : this(target, new List<LogEventInfo>() { entry }, success)
@@ -20,30 +18,18 @@ namespace MetroLog
 
         public LogWriteOperation(Target target, IEnumerable<LogEventInfo> entries, bool success)
         {
-            _target = target;
-            _entries = new List<LogEventInfo>(entries);
-            _success = success;
+            Target = target;
+            this.entries = new List<LogEventInfo>(entries);
+            Success = success;
         }
 
-        public Target Target
-        {
-            get
-            {
-                return _target;
-            }
-        }
+        public Target Target { get; }
 
         public IEnumerable<LogEventInfo> GetEntries()
         {
-            return new List<LogEventInfo>(this._entries);
+            return new List<LogEventInfo>(entries);
         }
 
-        public bool Success
-        {
-            get
-            {
-                return _success;
-            }
-        }
+        public bool Success { get; }
     }
 }

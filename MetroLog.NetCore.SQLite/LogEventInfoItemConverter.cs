@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MetroLog.Targets
 {
-    internal class LogEventInfoItemConverter : JsonConverter
+    class LogEventInfoItemConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {

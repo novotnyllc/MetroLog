@@ -8,7 +8,7 @@ using MetroLog.Targets;
 
 namespace MetroLog
 {
-    internal sealed class LogConfigurator : LogConfiguratorBase
+    sealed class LogConfigurator : LogConfiguratorBase
     {
         public override LoggingConfiguration CreateDefaultSettings()
         {

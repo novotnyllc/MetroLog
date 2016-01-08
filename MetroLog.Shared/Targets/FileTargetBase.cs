@@ -33,13 +33,13 @@ namespace MetroLog.Targets
         /// </summary>
         protected DateTime NextCleanupUtc { get; set; }
 
-        private readonly AsyncLock _lock = new AsyncLock();
+        readonly AsyncLock _lock = new AsyncLock();
 
         protected FileTargetBase(Layout layout)
             : base(layout)
         {
-            this.FileNamingParameters = new FileNamingParameters();
-            this.RetainDays = 30;
+            FileNamingParameters = new FileNamingParameters();
+            RetainDays = 30;
         }
 
         protected abstract Task EnsureInitialized();
@@ -62,7 +62,7 @@ namespace MetroLog.Targets
             await DoCleanup(regex, threshold);
         }
 
-        private async Task CheckCleanupAsync()
+        async Task CheckCleanupAsync()
         {
             var now = DateTime.UtcNow;
             if (now < NextCleanupUtc || RetainDays < 1)

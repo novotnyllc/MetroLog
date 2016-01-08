@@ -50,7 +50,7 @@ namespace MetroLog.Targets
     }
 
     [EventSource(Name="MetroLog")]
-    internal sealed class MetroLogEventSource : EventSource
+    sealed class MetroLogEventSource : EventSource
     {
         public static readonly MetroLogEventSource Log = new MetroLogEventSource();
 

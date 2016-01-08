@@ -15,7 +15,7 @@ namespace MetroLog.Targets
         {
         }
 
-        protected override sealed Task<LogWriteOperation> WriteAsyncCore(LogWriteContext context, LogEventInfo entry)
+        protected sealed override Task<LogWriteOperation> WriteAsyncCore(LogWriteContext context, LogEventInfo entry)
         {
             try
             {
@@ -24,7 +24,7 @@ namespace MetroLog.Targets
             }
             catch (Exception ex)
             {
-                InternalLogger.Current.Error(string.Format("Failed to write to target '{0}'.", this), ex);
+                InternalLogger.Current.Error($"Failed to write to target '{this}'.", ex);
                 return Task.FromResult(new LogWriteOperation(this, entry, false));
             }
         }

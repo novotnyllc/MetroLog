@@ -86,7 +86,7 @@ namespace Win8Sample.Common
         /// <param name="d">Instance of <see cref="RichTextColumns"/> where the change
         /// occurred.</param>
         /// <param name="e">Event data describing the specific change.</param>
-        private static void ResetOverflowLayout(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        static void ResetOverflowLayout(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             // When dramatic changes occur, rebuild the column layout from scratch
             var target = d as RichTextColumns;
@@ -103,7 +103,7 @@ namespace Win8Sample.Common
         /// instances in the <see cref="Panel.Children"/> collection following the initial
         /// RichTextBlock child.
         /// </summary>
-        private List<RichTextBlockOverflow> _overflowColumns = null;
+        List<RichTextBlockOverflow> _overflowColumns = null;
 
         /// <summary>
         /// Determines whether additional overflow columns are needed and if existing columns can

@@ -24,7 +24,7 @@ namespace MetroLog.Targets
         /// <summary>
         /// Holds the next cleanup time.
         /// </summary>
-        private DateTime NextCleanupUtc { get; set; }
+        DateTime NextCleanupUtc { get; set; }
 
         /// <summary>
         /// Gets or sets the database path.
@@ -34,13 +34,14 @@ namespace MetroLog.Targets
         /// <summary>
         /// Holds whether the target has been initialized.
         /// </summary>
-        private bool IsInitialized { get; set; }
+        bool IsInitialized { get; set; }
 
         /// <summary>
         /// Holds session headers.
         /// </summary>
-        private static Dictionary<Guid, SessionHeaderItem> Headers { get; set; }
-        private static object _headersLock = new object();
+        static Dictionary<Guid, SessionHeaderItem> Headers { get; set; }
+
+        static object _headersLock = new object();
 
         public SQLiteTarget()
             : this(new NullLayout())
@@ -76,7 +77,7 @@ namespace MetroLog.Targets
             return new LogWriteOperation(this, entry, true);
         }
 
-        private async Task<SessionHeaderItem> GetSessionAsync(ILoggingEnvironment environment)
+        async Task<SessionHeaderItem> GetSessionAsync(ILoggingEnvironment environment)
         {
             // check...
             Monitor.Enter(_headersLock);
@@ -105,7 +106,7 @@ namespace MetroLog.Targets
             return header;
         }
 
-        private async Task CheckCleanup()
+        async Task CheckCleanup()
         {
             if (DateTime.UtcNow > this.NextCleanupUtc && this.RetainDays > 0)
             {
@@ -127,8 +128,9 @@ namespace MetroLog.Targets
             }
         }
 
-        private Task _doEnsureInitializeTask;
-        private async Task DoEnsureInitialize()
+        Task _doEnsureInitializeTask;
+
+        async Task DoEnsureInitialize()
         {
             // check the folder...
             if (this.DatabasePath.Contains("\\") || this.DatabasePath.Contains("/"))
@@ -148,7 +150,8 @@ namespace MetroLog.Targets
             var conn = GetConnection();
             await conn.CreateTablesAsync<LogEventInfoItem, SessionHeaderItem>();
         }
-        private async Task EnsureInitialize()
+
+        async Task EnsureInitialize()
         {
             var task = _doEnsureInitializeTask;
             if (task == null)
@@ -159,7 +162,7 @@ namespace MetroLog.Targets
             await task;
         }
 
-        private SQLiteAsyncConnection GetConnection()
+        SQLiteAsyncConnection GetConnection()
         {
             return new SQLiteAsyncConnection(this.DatabasePath);
         }
@@ -218,7 +221,7 @@ namespace MetroLog.Targets
             return await PackageToTempFileAsync(result, maxPayloadMb);
         }
 
-        private async Task<IStorageFile> PackageToTempFileAsync(ReadLogEntriesResult result, int maxPayloadMb = 5 * (1024 * 1024))
+        async Task<IStorageFile> PackageToTempFileAsync(ReadLogEntriesResult result, int maxPayloadMb = 5 * (1024 * 1024))
         {
             var file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync(Guid.NewGuid().ToString() + ".txt");
 
@@ -232,7 +235,7 @@ namespace MetroLog.Targets
             return file;
         }
 
-        private void AppendLevel(StringBuilder builder, List<object> args, LogLevel level, ref bool first)
+        void AppendLevel(StringBuilder builder, List<object> args, LogLevel level, ref bool first)
         {
             if (first)
                 first = false;

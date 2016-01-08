@@ -15,7 +15,7 @@ namespace MetroLog.Targets
 {
     public abstract class FileTarget : FileTargetBase
     {
-        private static StorageFolder _logFolder = null;
+        static StorageFolder _logFolder = null;
 
         protected FileTarget(Layout layout)
             : base(layout)
@@ -34,7 +34,7 @@ namespace MetroLog.Targets
             return _logFolder;
         }
 
-        private async static Task<byte[]> ReadStorageFileToByteBuffer(IStorageFile storageFile)
+        async static Task<byte[]> ReadStorageFileToByteBuffer(IStorageFile storageFile)
         {
             IRandomAccessStream accessStream = await storageFile.OpenReadAsync();
             byte[] content = null;
@@ -48,7 +48,7 @@ namespace MetroLog.Targets
             return content;
         }
 
-        private async Task ZipFolderContents(StorageFolder sourceFolder, ZipArchive archive, string baseDirPath)
+        async Task ZipFolderContents(StorageFolder sourceFolder, ZipArchive archive, string baseDirPath)
         {
             IReadOnlyList<StorageFile> files = await sourceFolder.GetFilesAsync();
             Regex pattern = FileNamingParameters.GetRegex();

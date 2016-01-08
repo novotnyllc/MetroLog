@@ -129,10 +129,7 @@ namespace MetroLog.Internal
         /// Gets the <see cref="System.Object"/> at the specified index.
         /// </summary>
         /// <value></value>
-        public object this[int index]
-        {
-            get { return GetAtIndex(_members, index); }
-        }
+        public object this[int index] => GetAtIndex(_members, index);
 
         internal static object GetAtIndex(IDictionary<string, object> obj, int index)
         {
@@ -172,10 +169,7 @@ namespace MetroLog.Internal
         /// Gets the keys.
         /// </summary>
         /// <value>The keys.</value>
-        public ICollection<string> Keys
-        {
-            get { return _members.Keys; }
-        }
+        public ICollection<string> Keys => _members.Keys;
 
         /// <summary>
         /// Removes the specified key.
@@ -202,10 +196,7 @@ namespace MetroLog.Internal
         /// Gets the values.
         /// </summary>
         /// <value>The values.</value>
-        public ICollection<object> Values
-        {
-            get { return _members.Values; }
-        }
+        public ICollection<object> Values => _members.Values;
 
         /// <summary>
         /// Gets or sets the <see cref="System.Object"/> with the specified key.
@@ -266,10 +257,7 @@ namespace MetroLog.Internal
         /// Gets the count.
         /// </summary>
         /// <value>The count.</value>
-        public int Count
-        {
-            get { return _members.Count; }
-        }
+        public int Count => _members.Count;
 
         /// <summary>
         /// Gets a value indicating whether this instance is read only.
@@ -277,10 +265,7 @@ namespace MetroLog.Internal
         /// <value>
         /// 	<c>true</c> if this instance is read only; otherwise, <c>false</c>.
         /// </value>
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
+        public bool IsReadOnly => false;
 
         /// <summary>
         /// Removes the specified item.
@@ -1136,25 +1121,13 @@ namespace MetroLog.Internal
 
         private static PocoJsonSerializerStrategy _pocoJsonSerializerStrategy;
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public static PocoJsonSerializerStrategy PocoJsonSerializerStrategy
-        {
-            get
-            {
-                return _pocoJsonSerializerStrategy ?? (_pocoJsonSerializerStrategy = new PocoJsonSerializerStrategy());
-            }
-        }
+        public static PocoJsonSerializerStrategy PocoJsonSerializerStrategy => _pocoJsonSerializerStrategy ?? (_pocoJsonSerializerStrategy = new PocoJsonSerializerStrategy());
 
 #if SIMPLE_JSON_DATACONTRACT
 
         private static DataContractJsonSerializerStrategy _dataContractJsonSerializerStrategy;
-        [System.ComponentModel.EditorBrowsable(EditorBrowsableState.Advanced)]
-        public static DataContractJsonSerializerStrategy DataContractJsonSerializerStrategy
-        {
-            get
-            {
-                return _dataContractJsonSerializerStrategy ?? (_dataContractJsonSerializerStrategy = new DataContractJsonSerializerStrategy());
-            }
-        }
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public static DataContractJsonSerializerStrategy DataContractJsonSerializerStrategy => _dataContractJsonSerializerStrategy ?? (_dataContractJsonSerializerStrategy = new DataContractJsonSerializerStrategy());
 
 #endif
     }
@@ -1584,7 +1557,7 @@ namespace MetroLog.Internal
                 if (!type.GetTypeInfo().IsGenericType)
                     return false;
 #else
-                if (typeof(System.Collections.IDictionary).IsAssignableFrom(type))
+                if (typeof(IDictionary).IsAssignableFrom(type))
                     return true;
 
                 if (!type.IsGenericType)
@@ -1927,10 +1900,7 @@ namespace MetroLog.Internal
                     return _dictionary.ContainsKey(key);
                 }
 
-                public ICollection<TKey> Keys
-                {
-                    get { return _dictionary.Keys; }
-                }
+                public ICollection<TKey> Keys => _dictionary.Keys;
 
                 public bool Remove(TKey key)
                 {
@@ -1943,10 +1913,7 @@ namespace MetroLog.Internal
                     return true;
                 }
 
-                public ICollection<TValue> Values
-                {
-                    get { return _dictionary.Values; }
-                }
+                public ICollection<TValue> Values => _dictionary.Values;
 
                 public TValue this[TKey key]
                 {
@@ -1974,10 +1941,7 @@ namespace MetroLog.Internal
                     throw new NotImplementedException();
                 }
 
-                public int Count
-                {
-                    get { return _dictionary.Count; }
-                }
+                public int Count => _dictionary.Count;
 
                 public bool IsReadOnly
                 {
@@ -1994,7 +1958,7 @@ namespace MetroLog.Internal
                     return _dictionary.GetEnumerator();
                 }
 
-                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                IEnumerator IEnumerable.GetEnumerator()
                 {
                     return _dictionary.GetEnumerator();
                 }

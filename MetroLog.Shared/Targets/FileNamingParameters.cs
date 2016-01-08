@@ -21,11 +21,11 @@ namespace MetroLog.Targets
 
         public FileNamingParameters()
         {
-            this.IncludeLevel = false;
-            this.IncludeTimestamp = FileTimestampMode.Date;
-            this.IncludeLogger = false;
-            this.IncludeSession = true;
-            this.IncludeSequence = false;
+            IncludeLevel = false;
+            IncludeTimestamp = FileTimestampMode.Date;
+            IncludeLogger = false;
+            IncludeSession = true;
+            IncludeSequence = false;
             CreationMode = FileCreationMode.AppendIfExisting;
         }
 
@@ -33,26 +33,26 @@ namespace MetroLog.Targets
         {
             var builder = new StringBuilder();
             builder.Append("Log");
-            if (this.IncludeLevel)
+            if (IncludeLevel)
             {
                 builder.Append(" - ");
                 builder.Append(entry.Level.ToString().ToUpper());
             }
-            if (this.IncludeLogger)
+            if (IncludeLogger)
             {
                 builder.Append(" - ");
                 builder.Append(entry.Logger);
             }
-            if (this.IncludeTimestamp != FileTimestampMode.None)
+            if (IncludeTimestamp != FileTimestampMode.None)
             {
-                bool date = ((int)this.IncludeTimestamp & (int)FileTimestampMode.Date) != 0;
+                bool date = ((int)IncludeTimestamp & (int)FileTimestampMode.Date) != 0;
                 if (date)
                 {
                     builder.Append(" - ");
                     builder.Append(entry.TimeStamp.ToString("yyyyMMdd"));
                 }
 
-                bool time = ((int)this.IncludeTimestamp & (int)FileTimestampMode.Time) != 0;
+                bool time = ((int)IncludeTimestamp & (int)FileTimestampMode.Time) != 0;
                 if(time)
                 {
                     if(date)
@@ -62,12 +62,12 @@ namespace MetroLog.Targets
                     builder.Append(entry.TimeStamp.ToString("HHmmss"));
                 }
             }
-            if (this.IncludeSession)
+            if (IncludeSession)
             {
                 builder.Append(" - ");
                 builder.Append(context.Environment.SessionId);
             }
-            if (this.IncludeSequence)
+            if (IncludeSequence)
             {
                 builder.Append(" - ");
                 builder.Append(entry.SequenceID);
@@ -84,26 +84,26 @@ namespace MetroLog.Targets
             builder.Append("^Log");
 
             // stuff...
-            if (this.IncludeLevel)
+            if (IncludeLevel)
             {
                 builder.Append(@"\s*-\s*");
                 builder.Append(@"\w+");
             }
-            if (this.IncludeLogger)
+            if (IncludeLogger)
             {
                 builder.Append(@"\s*-\s*");
                 builder.Append(@"[\w\s]+");
             }
-            if (this.IncludeTimestamp != FileTimestampMode.None)
+            if (IncludeTimestamp != FileTimestampMode.None)
             {
-                bool date = ((int)this.IncludeTimestamp & (int)FileTimestampMode.Date) != 0;
+                bool date = ((int)IncludeTimestamp & (int)FileTimestampMode.Date) != 0;
                 if (date)
                 {
                     builder.Append(@"\s*-\s*");
                     builder.Append("[0-9]{8}");
                 }
 
-                bool time = ((int)this.IncludeTimestamp & (int)FileTimestampMode.Time) != 0;
+                bool time = ((int)IncludeTimestamp & (int)FileTimestampMode.Time) != 0;
                 if (time)
                 {
                     if (date)
@@ -113,12 +113,12 @@ namespace MetroLog.Targets
                     builder.Append("[0-9]{6}");
                 }
             }
-            if (this.IncludeSession)
+            if (IncludeSession)
             {
                 builder.Append(@"\s*-\s*");
                 builder.Append(@"[a-fA-F0-9\-]+");
             }
-            if (this.IncludeSequence)
+            if (IncludeSequence)
             {
                 builder.Append(@"\s*-\s*");
                 builder.Append("[0-9]+");

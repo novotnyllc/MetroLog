@@ -10,21 +10,21 @@ namespace MetroLog
 {
     public static class LogManagerFactory
     {
-        private static readonly ILogConfigurator _configurator = new LogConfigurator();
+        static readonly ILogConfigurator Configurator = new LogConfigurator();
 
-        private static LoggingConfiguration _defaultConfig = _configurator.CreateDefaultSettings();
+        static LoggingConfiguration defaultConfig = Configurator.CreateDefaultSettings();
 
-        private static readonly Lazy<ILogManager> _lazyLogManager;
+        static readonly Lazy<ILogManager> LazyLogManager;
 
         static LogManagerFactory()
         {
-            _lazyLogManager = new Lazy<ILogManager>(() => CreateLogManager(),
+            LazyLogManager = new Lazy<ILogManager>(() => CreateLogManager(),
                 LazyThreadSafetyMode.ExecutionAndPublication);
         }
       
         public static LoggingConfiguration CreateLibraryDefaultSettings()
         {
-            return _configurator.CreateDefaultSettings();
+            return Configurator.CreateDefaultSettings();
         }
 
         public static ILogManager CreateLogManager(LoggingConfiguration config = null)
@@ -32,11 +32,9 @@ namespace MetroLog
             var cfg = config ?? DefaultConfiguration;
             cfg.Freeze();
 
+            var manager = new LogManager(cfg);
 
-            ILogManager manager;
-            manager = new LogManager(cfg);
-
-            _configurator.OnLogManagerCreated(manager);
+            Configurator.OnLogManagerCreated(manager);
 
             return manager;
         }
@@ -45,23 +43,19 @@ namespace MetroLog
         {
             get
             {
-                return _defaultConfig;
+                return defaultConfig;
             }
             set
             {
                 if (value == null)
-                    throw new ArgumentNullException("value");
-                if (_lazyLogManager.IsValueCreated)
+                    throw new ArgumentNullException(nameof(value));
+                if (LazyLogManager.IsValueCreated)
                     throw new InvalidOperationException("Must set DefaultConfiguration before any calls to DefaultLogManager");
 
-                _defaultConfig = value;
+                defaultConfig = value;
             }
         }
 
-        public static ILogManager DefaultLogManager
-        {
-            get { return _lazyLogManager.Value; }
-        }
-
+        public static ILogManager DefaultLogManager => LazyLogManager.Value; 
     }
 }

@@ -9,7 +9,7 @@ namespace MetroLog
 {
     public class LogWriteContext
     {
-        private static ILoggingEnvironment _environment;
+        static ILoggingEnvironment _environment;
 
         public LogWriteContext()
         {
@@ -20,12 +20,6 @@ namespace MetroLog
             _environment = new LoggingEnvironment();
         }
 
-        public ILoggingEnvironment Environment
-        {
-            get
-            {
-                return _environment;
-            }
-        }
+        public ILoggingEnvironment Environment => _environment;
     }
 }

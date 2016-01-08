@@ -8,7 +8,7 @@ using MetroLog.Targets;
 
 namespace MetroLog.Tests
 {
-    internal class BrokenTarget : SyncTarget
+    class BrokenTarget : SyncTarget
     {
         internal BrokenTarget()
             : base(new SingleLineLayout())

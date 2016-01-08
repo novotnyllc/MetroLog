@@ -43,7 +43,7 @@ namespace Win8Sample.Common
             DependencyProperty.Register("DefaultViewModel", typeof(IObservableMap<String, Object>),
             typeof(LayoutAwarePage), null);
 
-        private List<Control> _layoutAwareControls;
+        List<Control> _layoutAwareControls;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LayoutAwarePage"/> class.
@@ -152,7 +152,7 @@ namespace Win8Sample.Common
         /// </summary>
         /// <param name="sender">Instance that triggered the event.</param>
         /// <param name="args">Event data describing the conditions that led to the event.</param>
-        private void CoreDispatcher_AcceleratorKeyActivated(CoreDispatcher sender,
+        void CoreDispatcher_AcceleratorKeyActivated(CoreDispatcher sender,
             AcceleratorKeyEventArgs args)
         {
             var virtualKey = args.VirtualKey;
@@ -196,7 +196,7 @@ namespace Win8Sample.Common
         /// </summary>
         /// <param name="sender">Instance that triggered the event.</param>
         /// <param name="args">Event data describing the conditions that led to the event.</param>
-        private void CoreWindow_PointerPressed(CoreWindow sender,
+        void CoreWindow_PointerPressed(CoreWindow sender,
             PointerEventArgs args)
         {
             var properties = args.CurrentPoint.Properties;
@@ -253,7 +253,7 @@ namespace Win8Sample.Common
             VisualStateManager.GoToState(control, DetermineVisualState(ApplicationView.Value), false);
         }
 
-        private void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
+        void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
             this.InvalidateVisualState();
         }
@@ -321,7 +321,7 @@ namespace Win8Sample.Common
 
         #region Process lifetime management
 
-        private String _pageKey;
+        String _pageKey;
 
         /// <summary>
         /// Invoked when this page is about to be displayed in a Frame.
@@ -402,9 +402,9 @@ namespace Win8Sample.Common
         /// Implementation of IObservableMap that supports reentrancy for use as a default view
         /// model.
         /// </summary>
-        private class ObservableDictionary<K, V> : IObservableMap<K, V>
+        class ObservableDictionary<K, V> : IObservableMap<K, V>
         {
-            private class ObservableDictionaryChangedEventArgs : IMapChangedEventArgs<K>
+            class ObservableDictionaryChangedEventArgs : IMapChangedEventArgs<K>
             {
                 public ObservableDictionaryChangedEventArgs(CollectionChange change, K key)
                 {
@@ -416,16 +416,13 @@ namespace Win8Sample.Common
                 public K Key { get; private set; }
             }
 
-            private Dictionary<K, V> _dictionary = new Dictionary<K, V>();
+            Dictionary<K, V> _dictionary = new Dictionary<K, V>();
             public event MapChangedEventHandler<K, V> MapChanged;
 
-            private void InvokeMapChanged(CollectionChange change, K key)
+            void InvokeMapChanged(CollectionChange change, K key)
             {
                 var eventHandler = MapChanged;
-                if (eventHandler != null)
-                {
-                    eventHandler(this, new ObservableDictionaryChangedEventArgs(change, key));
-                }
+                eventHandler?.Invoke(this, new ObservableDictionaryChangedEventArgs(change, key));
             }
 
             public void Add(K key, V value)

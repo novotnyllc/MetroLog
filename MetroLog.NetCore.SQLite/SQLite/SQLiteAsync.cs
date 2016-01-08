@@ -404,7 +404,7 @@ namespace MetroLog.NetCore.Targets.SQLite
 
 		static readonly SQLiteConnectionPool _shared = new SQLiteConnectionPool ();
 
-        private SQLiteConnectionPool()
+	    SQLiteConnectionPool()
         {
             // mbr - 2012-09-14 - this needs to find its way into the main sqlite-net branch.
             Application.Current.Suspending += Current_Suspending;
@@ -478,7 +478,7 @@ namespace MetroLog.NetCore.Targets.SQLite
 			return new LockWrapper (_lockPoint);
 		}
 
-		private class LockWrapper : IDisposable
+	    class LockWrapper : IDisposable
 		{
 			object _lockPoint;
 

@@ -17,14 +17,14 @@ namespace MetroLog
     /// </remarks>
     public class LazyFlushManager
     {
-        private ILogManager Owner { get; set; }
-        private List<ILazyFlushable> Clients { get; set; }
-        private ThreadPoolTimer Timer { get; set; }
-        private object _lock = new object();
+        ILogManager Owner { get; set; }
+        List<ILazyFlushable> Clients { get; set; }
+        ThreadPoolTimer Timer { get; set; }
+        object _lock = new object();
 
-        private static Dictionary<ILogManager, LazyFlushManager> Owners { get; set; }
+        static Dictionary<ILogManager, LazyFlushManager> Owners { get; set; }
 
-        private LazyFlushManager(ILogManager owner)
+        LazyFlushManager(ILogManager owner)
         {
             this.Owner = owner;
             this.Owner.LoggerCreated += Owner_LoggerCreated;
@@ -63,7 +63,7 @@ namespace MetroLog
 #pragma warning restore 436
         }
 
-        private static async void Current_Suspending(object sender, Windows.ApplicationModel.SuspendingEventArgs e)
+        static async void Current_Suspending(object sender, Windows.ApplicationModel.SuspendingEventArgs e)
         {
             await FlushAllAsync(new LogWriteContext());
         }
@@ -78,7 +78,7 @@ namespace MetroLog
             await Task.WhenAll(tasks);
         }
 
-        private async Task LazyFlushAsync(LogWriteContext context)
+        async Task LazyFlushAsync(LogWriteContext context)
         {
             List<ILazyFlushable> toNotify = null;
             lock (_lock)

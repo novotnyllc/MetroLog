@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MetroLog
 {
-    internal enum XamlApplicationState
+    enum XamlApplicationState
     {
         Unknown = 0,
         Available = 1,

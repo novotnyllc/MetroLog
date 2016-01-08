@@ -8,7 +8,7 @@ using MetroLog.Targets;
 
 namespace MetroLog.Tests
 {
-    internal class TestTarget : SyncTarget
+    class TestTarget : SyncTarget
     {
         internal int NumWritten { get; private set; }
         internal LogEventInfo LastWritten { get; private set; }

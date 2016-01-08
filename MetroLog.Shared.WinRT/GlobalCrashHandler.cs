@@ -14,7 +14,7 @@ namespace MetroLog
             Application.Current.UnhandledException += App_UnhandledException;
         }
 
-        private static async void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        static async void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             // unbind we're going to re-enter and don't want to loop...
             Application.Current.UnhandledException -= App_UnhandledException;

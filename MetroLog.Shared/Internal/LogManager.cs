@@ -8,12 +8,12 @@ using MetroLog.Targets;
 
 namespace MetroLog.Internal
 {
-    internal partial class LogManager : ILogManager
+    partial class LogManager : ILogManager
     {
         public LoggingConfiguration DefaultConfiguration { get; private set; }
 
-        private readonly Dictionary<string, Logger> _loggers;
-        private readonly object _loggersLock = new object();
+        readonly Dictionary<string, Logger> _loggers;
+        readonly object _loggersLock = new object();
 
         public event EventHandler<LoggerEventArgs> LoggerCreated;
         
@@ -36,7 +36,7 @@ namespace MetroLog.Internal
         public LogManager(LoggingConfiguration configuration)
         {
             if (configuration == null)
-                throw new ArgumentNullException("configuration");
+                throw new ArgumentNullException(nameof(configuration));
 
             _loggers = new Dictionary<string, Logger>(StringComparer.OrdinalIgnoreCase);
 
@@ -63,7 +63,7 @@ namespace MetroLog.Internal
         public ILogger GetLogger(Type type, LoggingConfiguration config = null)
         {
             if (type == null)
-                throw new ArgumentNullException("type");
+                throw new ArgumentNullException(nameof(type));
 
             return GetLogger(type.Name, config);
         }
@@ -77,7 +77,7 @@ namespace MetroLog.Internal
         public ILogger GetLogger(string name, LoggingConfiguration config = null)
         {
             if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
 
             lock (_loggersLock)
             {
@@ -87,7 +87,7 @@ namespace MetroLog.Internal
                     InternalLogger.Current.Info("Created Logger '{0}'", name);
 
                     // call...
-                    this.OnLoggerCreatedSafe(new LoggerEventArgs(logger));
+                    OnLoggerCreatedSafe(new LoggerEventArgs(logger));
 
                     // set...
                     _loggers[name] = logger;
@@ -96,11 +96,11 @@ namespace MetroLog.Internal
             }
         }
 
-        private void OnLoggerCreatedSafe(LoggerEventArgs args)
+        void OnLoggerCreatedSafe(LoggerEventArgs args)
         {
             try
             {
-                this.OnLoggerCreated(args);
+                OnLoggerCreated(args);
             }
             catch (Exception ex)
             {
@@ -108,7 +108,7 @@ namespace MetroLog.Internal
             }
         }
 
-        private void OnLoggerCreated(LoggerEventArgs args)
+        void OnLoggerCreated(LoggerEventArgs args)
         {
             var evt = LoggerCreated;
             if (evt != null)

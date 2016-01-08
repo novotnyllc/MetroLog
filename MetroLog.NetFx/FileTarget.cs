@@ -15,8 +15,8 @@ namespace MetroLog
 {
     public abstract class FileTarget : FileTargetBase
     {
-        private static DirectoryInfo _logFolder;
-        private string _appDataPath;
+        static DirectoryInfo _logFolder;
+        string _appDataPath;
 
         public string PathUnderAppData
         {
@@ -120,7 +120,7 @@ namespace MetroLog
                 });
         }
 
-        private static string GetUserAppDataPath()
+        static string GetUserAppDataPath()
         {
 #if __ANDROID__
                 var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);

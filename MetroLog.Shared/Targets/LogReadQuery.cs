@@ -29,26 +29,26 @@ namespace MetroLog.Targets
 
         public LogReadQuery()
         {
-            this.IsTraceEnabled = false;
-            this.IsDebugEnabled = false;
-            this.IsInfoEnabled = true;
-            this.IsWarnEnabled = true;
-            this.IsErrorEnabled = true;
-            this.IsFatalEnabled = true;
+            IsTraceEnabled = false;
+            IsDebugEnabled = false;
+            IsInfoEnabled = true;
+            IsWarnEnabled = true;
+            IsErrorEnabled = true;
+            IsFatalEnabled = true;
 
-            this.Top = 1000;
+            Top = 1000;
 
-            this.FromDateTimeUtc = DateTime.UtcNow.AddDays(-7);
+            FromDateTimeUtc = DateTime.UtcNow.AddDays(-7);
         }
 
         public void SetLevels(LogLevel from, LogLevel to)
         {
-            this.IsTraceEnabled = LogLevel.Trace >= from && LogLevel.Trace <= to;
-            this.IsDebugEnabled = LogLevel.Debug >= from && LogLevel.Debug <= to;
-            this.IsInfoEnabled = LogLevel.Info >= from && LogLevel.Info <= to;
-            this.IsWarnEnabled = LogLevel.Warn >= from && LogLevel.Warn <= to;
-            this.IsErrorEnabled = LogLevel.Error >= from && LogLevel.Error <= to;
-            this.IsFatalEnabled = LogLevel.Fatal >= from && LogLevel.Fatal <= to;
+            IsTraceEnabled = LogLevel.Trace >= from && LogLevel.Trace <= to;
+            IsDebugEnabled = LogLevel.Debug >= from && LogLevel.Debug <= to;
+            IsInfoEnabled = LogLevel.Info >= from && LogLevel.Info <= to;
+            IsWarnEnabled = LogLevel.Warn >= from && LogLevel.Warn <= to;
+            IsErrorEnabled = LogLevel.Error >= from && LogLevel.Error <= to;
+            IsFatalEnabled = LogLevel.Fatal >= from && LogLevel.Fatal <= to;
         }
     }
 }

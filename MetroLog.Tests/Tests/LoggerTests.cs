@@ -10,7 +10,7 @@ namespace MetroLog.Tests
 {
     public class LoggerTests
     {
-        private static Tuple<Logger, TestTarget> CreateTarget()
+        static Tuple<Logger, TestTarget> CreateTarget()
         {
             var testTarget = new TestTarget();
             var config = new LoggingConfiguration();

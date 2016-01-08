@@ -10,7 +10,7 @@ namespace MetroLog.Tests
 {
     public class LevelTests
     {
-        private Tuple<ILogManager, TestTarget> CreateWithLevel(LogLevel min, LogLevel max)
+        Tuple<ILogManager, TestTarget> CreateWithLevel(LogLevel min, LogLevel max)
         {
             var testTarget = new TestTarget();
 

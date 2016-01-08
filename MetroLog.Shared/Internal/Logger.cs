@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace MetroLog.Internal
 {
-    internal class Logger : ILogger, ILoggerAsync, ILoggerQuery
+    class Logger : ILogger, ILoggerAsync, ILoggerQuery
     {
         public string Name { get; private set; }
-        private readonly LoggingConfiguration _configuration;
+        readonly LoggingConfiguration _configuration;
 
-        private static readonly Task<LogWriteOperation[]> EmptyOperations = Task.FromResult(new LogWriteOperation[] { });
+        static readonly Task<LogWriteOperation[]> EmptyOperations = Task.FromResult(new LogWriteOperation[] { });
 
         public Logger(string name, LoggingConfiguration config)
         {
@@ -93,7 +93,7 @@ namespace MetroLog.Internal
             return LogInternal(logLevel, message, ps, null, true);
         }
 
-        private Task<LogWriteOperation[]> LogInternal(LogLevel level, string message, object[] ps, Exception ex, bool doFormat)
+        Task<LogWriteOperation[]> LogInternal(LogLevel level, string message, object[] ps, Exception ex, bool doFormat)
         {
             try
             {
@@ -128,53 +128,17 @@ namespace MetroLog.Internal
             }
         }
 
-        public bool IsTraceEnabled
-        {
-            get
-            {
-                return IsEnabled(LogLevel.Trace);
-            }
-        }
+        public bool IsTraceEnabled => IsEnabled(LogLevel.Trace);
 
-        public bool IsDebugEnabled
-        {
-            get
-            {
-                return IsEnabled(LogLevel.Debug);
-            }
-        }
+        public bool IsDebugEnabled => IsEnabled(LogLevel.Debug);
 
-        public bool IsInfoEnabled
-        {
-            get
-            {
-                return IsEnabled(LogLevel.Info);
-            }
-        }
+        public bool IsInfoEnabled => IsEnabled(LogLevel.Info);
 
-        public bool IsWarnEnabled
-        {
-            get
-            {
-                return IsEnabled(LogLevel.Warn);
-            }
-        }
+        public bool IsWarnEnabled => IsEnabled(LogLevel.Warn);
 
-        public bool IsErrorEnabled
-        {
-            get
-            {
-                return IsEnabled(LogLevel.Error);
-            }
-        }
+        public bool IsErrorEnabled => IsEnabled(LogLevel.Error);
 
-        public bool IsFatalEnabled
-        {
-            get
-            {
-                return IsEnabled(LogLevel.Fatal);
-            }
-        }
+        public bool IsFatalEnabled => IsEnabled(LogLevel.Fatal);
 
         public void Trace(string message, Exception ex = null)
         {

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 namespace MetroLog.Targets
 {
     [DebuggerDisplay("Name = {Target.GetType().Name}, Min = {MinLevel}, Max = {MaxLevel}")]
-    internal class TargetBinding
+    class TargetBinding
     {
-        private LogLevel MinLevel { get; set; }
-        private LogLevel MaxLevel { get; set; }
-        internal Target Target { get; private set; }
+        LogLevel MinLevel { get; }
+        LogLevel MaxLevel { get; }
+        internal Target Target { get; }
 
         internal TargetBinding(LogLevel min, LogLevel max, Target target)
         {

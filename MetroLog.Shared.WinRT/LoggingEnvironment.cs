@@ -33,7 +33,7 @@ namespace MetroLog
         /// <summary>
         /// Holds whether we are able to access a running XAML application.
         /// </summary>
-        private static XamlApplicationState _xamlApplicationState; 
+        static XamlApplicationState _xamlApplicationState; 
 
         public LoggingEnvironment()
 #if WINDOWS_PHONE_APP

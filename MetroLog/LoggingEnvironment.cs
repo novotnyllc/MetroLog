@@ -7,7 +7,7 @@ using MetroLog.Internal;
 
 namespace MetroLog
 {
-    internal class LoggingEnvironment : LoggingEnvironmentBase
+    class LoggingEnvironment : LoggingEnvironmentBase
     {
         public LoggingEnvironment() : base("Unknown")
         {

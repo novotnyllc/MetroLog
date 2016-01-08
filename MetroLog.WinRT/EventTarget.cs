@@ -10,7 +10,7 @@ namespace MetroLog.WinRT
 {
     class EventTarget : SyncTarget
     {
-        private readonly Action<string> _onMessage;
+        readonly Action<string> _onMessage;
 
         public EventTarget(Action<string> onMessage) : base(new SingleLineLayout())
         {

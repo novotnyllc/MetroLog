@@ -74,15 +74,15 @@ namespace MetroLog.NetCore.Targets.SQLite
 	/// </summary>
 	public class SQLiteConnection : IDisposable
 	{
-		private bool _open;
-		private TimeSpan _busyTimeout;
-		private Dictionary<string, TableMapping> _mappings = null;
-		private Dictionary<string, TableMapping> _tables = null;
-		private System.Diagnostics.Stopwatch _sw;
-		private long _elapsedMilliseconds = 0;
+	    bool _open;
+	    TimeSpan _busyTimeout;
+	    Dictionary<string, TableMapping> _mappings = null;
+	    Dictionary<string, TableMapping> _tables = null;
+	    System.Diagnostics.Stopwatch _sw;
+	    long _elapsedMilliseconds = 0;
 
-		private int _trasactionDepth = 0;
-		private Random _rand = new Random ();
+	    int _trasactionDepth = 0;
+	    Random _rand = new Random ();
 
 		public Sqlite3DatabaseHandle Handle { get; private set; }
 #if USE_CSHARP_SQLITE
@@ -248,13 +248,13 @@ namespace MetroLog.NetCore.Targets.SQLite
 			return GetMapping (typeof (T));
 		}
 
-		private struct IndexedColumn
+	    struct IndexedColumn
 		{
 			public int Order;
 			public string ColumnName;
 		}
 
-		private struct IndexInfo
+	    struct IndexInfo
 		{
 			public string IndexName;
 			public string TableName;
@@ -809,7 +809,7 @@ namespace MetroLog.NetCore.Targets.SQLite
 		/// Rolls back the transaction that was begun by <see cref="BeginTransaction"/>.
 		/// </summary>
 		/// <param name="noThrow">true to avoid throwing exceptions, false otherwise</param>
-		private void RollbackTo (string savepoint, bool noThrow)
+		void RollbackTo (string savepoint, bool noThrow)
 		{
 			// Rolling back without a TO clause rolls backs all transactions 
 			//    and leaves the transaction stack empty.   
@@ -842,7 +842,7 @@ namespace MetroLog.NetCore.Targets.SQLite
 			DoSavePointExecute (savepoint, "release ");
 		}
 
-		private void DoSavePointExecute (string savepoint, string cmd)
+	    void DoSavePointExecute (string savepoint, string cmd)
 		{
 			// Validate the savepoint
 			int firstLen = savepoint.IndexOf ('D');
@@ -1355,8 +1355,8 @@ namespace MetroLog.NetCore.Targets.SQLite
 			}
 			return _insertCommand;
 		}
-		
-		private PreparedSqlLiteInsertCommand CreateInsertCommand(SQLiteConnection conn, string extra)
+
+	    PreparedSqlLiteInsertCommand CreateInsertCommand(SQLiteConnection conn, string extra)
 		{
 			var cols = InsertColumns;
 		    string insertSql;
@@ -1552,7 +1552,7 @@ namespace MetroLog.NetCore.Targets.SQLite
 	public class SQLiteCommand
 	{
 		SQLiteConnection _conn;
-		private List<Binding> _bindings;
+	    List<Binding> _bindings;
 
 		public string CommandText { get; set; }
 
@@ -1900,7 +1900,7 @@ namespace MetroLog.NetCore.Targets.SQLite
 			GC.SuppressFinalize (this);
 		}
 
-		private void Dispose (bool disposing)
+	    void Dispose (bool disposing)
 		{
 			if (Statement != NullStatement) {
 				try {
@@ -2011,7 +2011,7 @@ namespace MetroLog.NetCore.Targets.SQLite
 			return AddOrderBy<U> (orderExpr, false);
 		}
 
-		private TableQuery<T> AddOrderBy<U> (Expression<Func<T, U>> orderExpr, bool asc)
+	    TableQuery<T> AddOrderBy<U> (Expression<Func<T, U>> orderExpr, bool asc)
 		{
 			if (orderExpr.NodeType == ExpressionType.Lambda) {
 				var lambda = (LambdaExpression)orderExpr;
@@ -2034,7 +2034,7 @@ namespace MetroLog.NetCore.Targets.SQLite
 			}
 		}
 
-		private void AddWhere (Expression pred)
+	    void AddWhere (Expression pred)
 		{
 			if (_where == null) {
 				_where = pred;
@@ -2055,7 +2055,7 @@ namespace MetroLog.NetCore.Targets.SQLite
 			throw new NotImplementedException ();
 		}
 
-		private SQLiteCommand GenerateCommand (string selectionList)
+	    SQLiteCommand GenerateCommand (string selectionList)
 		{
 			var cmdText = "select " + selectionList + " from \"" + Table.TableName + "\"";
 			var args = new List<object> ();
@@ -2086,7 +2086,7 @@ namespace MetroLog.NetCore.Targets.SQLite
 			public object Value { get; set; }
 		}
 
-		private CompileResult CompileExpr (Expression expr, List<object> queryArgs)
+	    CompileResult CompileExpr (Expression expr, List<object> queryArgs)
 		{
 			if (expr == null) {
 				throw new NotSupportedException ("Expression is NULL");
@@ -2246,7 +2246,7 @@ namespace MetroLog.NetCore.Targets.SQLite
 		/// Compiles a BinaryExpression where one of the parameters is null.
 		/// </summary>
 		/// <param name="parameter">The non-null parameter</param>
-		private string CompileNullBinaryExpression(BinaryExpression expression, CompileResult parameter)
+		string CompileNullBinaryExpression(BinaryExpression expression, CompileResult parameter)
 		{
 			if (expression.NodeType == ExpressionType.Equal)
 				return "(" + parameter.CommandText + " is ?)";
@@ -2442,7 +2442,7 @@ namespace MetroLog.NetCore.Targets.SQLite
 		public static extern IntPtr ColumnName (IntPtr stmt, int index);
 
 		[DllImport("sqlite3", EntryPoint = "sqlite3_column_name16", CallingConvention=CallingConvention.Cdecl)]
-		private static extern IntPtr ColumnName16Internal (IntPtr stmt, int index);
+		static extern IntPtr ColumnName16Internal (IntPtr stmt, int index);
 		public static string ColumnName16(IntPtr stmt, int index)
 		{
 			return Marshal.PtrToStringUni(ColumnName16Internal(stmt, index));

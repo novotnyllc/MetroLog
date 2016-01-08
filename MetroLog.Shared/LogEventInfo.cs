@@ -19,9 +19,9 @@ namespace MetroLog
         [JsonIgnore]
         public Exception Exception { get; set; }
 
-        private ExceptionWrapper _exceptionWrapper;
+        ExceptionWrapper _exceptionWrapper;
 
-        private static long _globalSequenceId;
+        static long globalSequenceId;
 
         public LogEventInfo(LogLevel level, string logger, string message, Exception ex)
         {
@@ -35,7 +35,7 @@ namespace MetroLog
 
         internal static long GetNextSequenceId()
         {
-            return Interlocked.Increment(ref _globalSequenceId);
+            return Interlocked.Increment(ref globalSequenceId);
         }
 
         public string ToJson()
@@ -47,8 +47,8 @@ namespace MetroLog
         {
             get
             {
-                if (_exceptionWrapper == null && this.Exception != null)
-                    _exceptionWrapper = new ExceptionWrapper(this.Exception);
+                if (_exceptionWrapper == null && Exception != null)
+                    _exceptionWrapper = new ExceptionWrapper(Exception);
                 return _exceptionWrapper;
             }
             set

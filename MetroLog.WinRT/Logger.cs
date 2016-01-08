@@ -15,11 +15,11 @@ namespace MetroLog.WinRT
 {
     public sealed class Logger : ILogger
     {
-        private readonly IPclLogger _logger;
-        private static readonly Lazy<IWinRTLogManager> _logManager;
+        readonly IPclLogger _logger;
+        static readonly Lazy<IWinRTLogManager> _logManager;
         public static event EventHandler<string> OnLogMessage;
 
-        private static readonly SynchronizationContext _context = SynchronizationContext.Current;
+        static readonly SynchronizationContext _context = SynchronizationContext.Current;
 
         static Logger()
         {
@@ -56,7 +56,7 @@ namespace MetroLog.WinRT
             return _logManager.Value.GetCompressedLogFile().AsAsyncOperation();
         }
 
-        private static void OnLogMessageInternal(string message)
+        static void OnLogMessageInternal(string message)
         {
             var evt = OnLogMessage;
             if (evt != null)
@@ -65,7 +65,7 @@ namespace MetroLog.WinRT
             }
         }
 
-        private Logger(IPclLogger logger)
+        Logger(IPclLogger logger)
         {
             _logger = logger;
         }

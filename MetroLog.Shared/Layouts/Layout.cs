@@ -11,10 +11,7 @@ namespace MetroLog.Layouts
     /// </summary>
     public abstract class Layout
     {
-        protected Layout()
-        {
-        }
-
+   
         /// <summary>
         /// Returns the formatted log event.
         /// </summary>

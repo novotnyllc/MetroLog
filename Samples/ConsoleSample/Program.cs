@@ -35,7 +35,7 @@ namespace ConsoleSample
 
     class SomeMagicClass
     {
-        private readonly ILogger _log;
+        readonly ILogger _log;
         public SomeMagicClass(ILogManager logManager)
         {
             _log = logManager.GetLogger<SomeMagicClass>();

@@ -55,7 +55,7 @@ namespace MetroLog.Targets
             return item;
         }
 
-        private void SetException(Exception ex)
+        void SetException(Exception ex)
         {
             this.HasException = true;
             this.Exception = ex.ToString();

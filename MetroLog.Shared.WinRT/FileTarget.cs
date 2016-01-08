@@ -17,7 +17,7 @@ namespace MetroLog
 {
     public abstract class FileTarget : FileTargetBase
     {
-        private static StorageFolder _logFolder = null;
+        static StorageFolder _logFolder = null;
 
 
         protected FileTarget(Layout layout) : base(layout)
@@ -90,7 +90,7 @@ namespace MetroLog
                 }
                 catch (Exception ex)
                 {
-                    InternalLogger.Current.Warn(string.Format("Failed to delete '{0}'.", file.Path), ex);
+                    InternalLogger.Current.Warn($"Failed to delete '{file.Path}'.", ex);
                 }
             }
         }

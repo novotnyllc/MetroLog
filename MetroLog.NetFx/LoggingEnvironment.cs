@@ -17,7 +17,7 @@ namespace MetroLog
         public LoggingEnvironment()
             : base(Environment.Version.ToString())
         {
-            this.MachineName = Environment.MachineName;
+            MachineName = Environment.MachineName;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace MetroLog.Targets
         public JsonPostTarget(Layout layout, int threshold, Uri url)
             : base(layout, threshold)
         {
-            this.Url = url;
+            Url = url;
         }
 
         protected override async Task DoFlushAsync(LogWriteContext context, IEnumerable<LogEventInfo> toFlush)
@@ -47,17 +47,16 @@ namespace MetroLog.Targets
             content.Headers.ContentType.MediaType = "text/json";
 
             // call...
-            this.OnBeforePost(new HttpClientEventArgs(client));
+            OnBeforePost(new HttpClientEventArgs(client));
 
             // send...
-            await client.PostAsync(this.Url, content);
+            await client.PostAsync(Url, content);
 #endif
         }
 
         protected virtual void OnBeforePost(HttpClientEventArgs args)
         {
-            if (this.BeforePost != null)
-                this.BeforePost(this, args);
+            BeforePost?.Invoke(this, args);
         }
     }
 }

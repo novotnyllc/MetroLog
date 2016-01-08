@@ -17,7 +17,7 @@ namespace MetroLog
         }
 
 
-        private static async Task DoCreateFromDirectory(IStorageFolder source, Stream destinationArchive, CompressionLevel? compressionLevel,  Encoding entryNameEncoding)
+        static async Task DoCreateFromDirectory(IStorageFolder source, Stream destinationArchive, CompressionLevel? compressionLevel,  Encoding entryNameEncoding)
         {
            // var notCreated = true;
 
@@ -51,17 +51,17 @@ namespace MetroLog
 
         public static ZipArchive Open(Stream archive, ZipArchiveMode mode, Encoding entryNameEncoding = null)
         {
-            if (archive == null) throw new ArgumentNullException("archive");
+            if (archive == null) throw new ArgumentNullException(nameof(archive));
             
             return new ZipArchive(archive, mode, true, entryNameEncoding);
         }
 
-        private static async Task<bool> IsDirEmpty(IStorageFolder possiblyEmptyDir)
+        static async Task<bool> IsDirEmpty(IStorageFolder possiblyEmptyDir)
         {
             return (await possiblyEmptyDir.GetFilesAsync()).Count == 0;
         }
 
-        private static async Task<IEnumerable<IStorageItem>> GetStorageItemsRecursive(this IStorageFolder parent)
+        static async Task<IEnumerable<IStorageItem>> GetStorageItemsRecursive(this IStorageFolder parent)
         {
             var list = new List<IStorageItem>();
 
@@ -88,14 +88,14 @@ namespace MetroLog
             return list;
         }
 
-        private static async Task<ZipArchiveEntry> DoCreateEntryFromFile(ZipArchive destination, IStorageFile sourceFile, string entryName, CompressionLevel? compressionLevel)
+        static async Task<ZipArchiveEntry> DoCreateEntryFromFile(ZipArchive destination, IStorageFile sourceFile, string entryName, CompressionLevel? compressionLevel)
         {
             if (destination == null)
-                throw new ArgumentNullException("destination");
+                throw new ArgumentNullException(nameof(destination));
             if (sourceFile == null)
-                throw new ArgumentNullException("sourceFile");
+                throw new ArgumentNullException(nameof(sourceFile));
             if (entryName == null)
-                throw new ArgumentNullException("entryName");
+                throw new ArgumentNullException(nameof(entryName));
             using (Stream stream = (await sourceFile.OpenReadAsync()).AsStream())
             {
                 ZipArchiveEntry zipArchiveEntry = compressionLevel.HasValue ? destination.CreateEntry(entryName, compressionLevel.Value) : destination.CreateEntry(entryName);

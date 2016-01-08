@@ -10,15 +10,15 @@ namespace MetroLog
     public class LoggingConfiguration
     {
         public bool IsEnabled { get; set; }
-        private readonly List<TargetBinding> _bindings;
-        private readonly object _bindingsLock = new object();
+        readonly List<TargetBinding> bindings;
+        readonly object bindingsLock = new object();
 
-        private bool _frozen;
+        bool frozen;
 
         public LoggingConfiguration()
         {
             IsEnabled = true; // default to true to enable logging
-            _bindings = new List<TargetBinding>();
+            bindings = new List<TargetBinding>();
         }
 
         public void AddTarget(LogLevel level, Target target)
@@ -28,19 +28,19 @@ namespace MetroLog
 
         public void AddTarget(LogLevel min, LogLevel max, Target target)
         {
-            if (_frozen)
+            if (frozen)
                 throw new InvalidOperationException("Cannot modify config after initialization");
 
-            lock (_bindingsLock)
-                _bindings.Add(new TargetBinding(min, max, target));
+            lock (bindingsLock)
+                bindings.Add(new TargetBinding(min, max, target));
         }
 
         internal IEnumerable<Target> GetTargets()
         {
-            lock (_bindingsLock)
+            lock (bindingsLock)
             {
                 var results = new List<Target>();
-                foreach (var binding in _bindings)
+                foreach (var binding in bindings)
                     results.Add(binding.Target);
 
                 return results;
@@ -49,13 +49,13 @@ namespace MetroLog
 
         internal IEnumerable<Target> GetTargets(LogLevel level)
         {
-            lock(_bindingsLock)
-                return _bindings.Where(v => v.SupportsLevel(level)).Select(binding => binding.Target).ToList();
+            lock(bindingsLock)
+                return bindings.Where(v => v.SupportsLevel(level)).Select(binding => binding.Target).ToList();
         }
 
         internal void Freeze()
         {
-            _frozen = true;
+            frozen = true;
         }
     }
 }
