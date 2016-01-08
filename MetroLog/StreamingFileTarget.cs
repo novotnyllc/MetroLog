@@ -41,7 +41,12 @@ namespace MetroLog.Targets
             throw new NotImplementedException();
         }
 
-        protected override Task<LogWriteOperation> DoWriteAsync(string fileName, string contents, LogEventInfo entry)
+        protected override Task<LogWriteOperation> DoWriteAsync(StreamWriter streamWriter, string contents, LogEventInfo entry)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override Task<Stream> GetWritableStreamForFile(string fileName)
         {
             throw new NotImplementedException();
         }

@@ -78,23 +78,30 @@ namespace MetroLog
             return tcs.Task;
         }
 
-        protected sealed override async Task<LogWriteOperation> DoWriteAsync(string fileName, string contents, LogEventInfo entry)
+        protected sealed override async Task<LogWriteOperation> DoWriteAsync(StreamWriter streamWriter, string contents, LogEventInfo entry)
         {
-            var fileMode = FileNamingParameters.CreationMode == FileCreationMode.AppendIfExisting ? FileMode.Append :  FileMode.Create;
-
-            // Create writer
-            using (var file = new StreamWriter(new FileStream(Path.Combine(_logFolder.FullName, fileName), fileMode, FileAccess.Write)))
-            {
-                // Write contents
-                await WriteTextToFileCore(file, contents);
-                await file.FlushAsync();
-            }
+            // Write contents
+            await WriteTextToFileCore(streamWriter, contents);
            
             // return...
             return new LogWriteOperation(this, entry, true);
         }
 
         protected abstract Task WriteTextToFileCore(StreamWriter file, string contents);
+
+        protected override Task<Stream> GetWritableStreamForFile(string fileName)
+        {
+            var fileMode = FileNamingParameters.CreationMode == FileCreationMode.AppendIfExisting ? FileMode.Append : FileMode.Create;
+
+            var fs = new FileStream(Path.Combine(_logFolder.FullName, fileName), fileMode, FileAccess.Write);
+            if (fileMode == FileMode.Append)
+            {
+                // Make sure we're at the end for an apend
+                fs.Seek(0, SeekOrigin.End);
+            }
+
+            return Task.FromResult<Stream>(fs);
+        }
 
         protected sealed override Task DoCleanup(Regex pattern, DateTime threshold)
         {

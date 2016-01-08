@@ -5,17 +5,14 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using MetroLog.Layouts;
 using Windows.Storage;
-using Windows.Storage.Search;
-
 using Windows.Storage.Streams;
 using System.IO.Compression;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace MetroLog.Targets
 {
     public abstract class FileTarget : FileTargetBase
     {
-        static StorageFolder _logFolder = null;
+        static StorageFolder logFolder = null;
 
         protected FileTarget(Layout layout)
             : base(layout)
@@ -24,22 +21,22 @@ namespace MetroLog.Targets
 
         public static async Task<StorageFolder> EnsureInitializedAsync()
         {
-            if (_logFolder == null)
+            if (logFolder == null)
             {
                 var root = ApplicationData.Current.LocalFolder;
 
-                _logFolder = await root.CreateFolderAsync(LogFolderName, CreationCollisionOption.OpenIfExists);
+                logFolder = await root.CreateFolderAsync(LogFolderName, CreationCollisionOption.OpenIfExists);
 
             }
-            return _logFolder;
+            return logFolder;
         }
 
-        async static Task<byte[]> ReadStorageFileToByteBuffer(IStorageFile storageFile)
+        static async Task<byte[]> ReadStorageFileToByteBuffer(IStorageFile storageFile)
         {
             IRandomAccessStream accessStream = await storageFile.OpenReadAsync();
             byte[] content = null;
 
-            using (Stream stream = accessStream.AsStreamForRead((int)accessStream.Size))
+            using (var stream = accessStream.AsStreamForRead((int)accessStream.Size))
             {
                 content = new byte[stream.Length];
                 await stream.ReadAsync(content, 0, (int)stream.Length);
@@ -50,18 +47,18 @@ namespace MetroLog.Targets
 
         async Task ZipFolderContents(StorageFolder sourceFolder, ZipArchive archive, string baseDirPath)
         {
-            IReadOnlyList<StorageFile> files = await sourceFolder.GetFilesAsync();
-            Regex pattern = FileNamingParameters.GetRegex();
+            var files = await sourceFolder.GetFilesAsync();
+            var pattern = FileNamingParameters.GetRegex();
 
-            foreach (StorageFile file in files)
+            foreach (var file in files)
             {
                 if (pattern.Match(file.Name).Success)
                 {
-                    ZipArchiveEntry readmeEntry = archive.CreateEntry(file.Name);
+                    var readmeEntry = archive.CreateEntry(file.Name);
 
-                    byte[] buffer = await ReadStorageFileToByteBuffer(file);
+                    var buffer = await ReadStorageFileToByteBuffer(file);
 
-                    Stream entryStream = readmeEntry.Open();
+                    var entryStream = readmeEntry.Open();
                     await entryStream.WriteAsync(buffer, 0, buffer.Length);
                     await entryStream.FlushAsync();
                     entryStream.Dispose();
@@ -71,17 +68,17 @@ namespace MetroLog.Targets
 
         }
 
-        protected async override Task<Stream> GetCompressedLogsInternal()
+        protected override async Task<Stream> GetCompressedLogsInternal()
         {
-            String logFileName = "Logs-Dump.zip";
+            var logFileName = "Logs-Dump.zip";
             
             // create log file and output stream
-            StorageFile zippedStorageFile = await _logFolder.CreateFileAsync(logFileName, CreationCollisionOption.ReplaceExisting);
-            Stream logoutputStream = await zippedStorageFile.OpenStreamForWriteAsync();
+            var zippedStorageFile = await logFolder.CreateFileAsync(logFileName, CreationCollisionOption.ReplaceExisting);
+            var logoutputStream = await zippedStorageFile.OpenStreamForWriteAsync();
            
             // archive 
-            ZipArchive zipArchive = new ZipArchive(logoutputStream, ZipArchiveMode.Create, false);
-            await ZipFolderContents(_logFolder, zipArchive, logFileName);
+            var zipArchive = new ZipArchive(logoutputStream, ZipArchiveMode.Create, false);
+            await ZipFolderContents(logFolder, zipArchive, logFileName);
             
             // release outfile stream
             await logoutputStream.FlushAsync();
@@ -89,7 +86,7 @@ namespace MetroLog.Targets
             logoutputStream.Dispose();
 
             // get inputstream for reading
-            Stream loginputStream = await _logFolder.OpenStreamForReadAsync(logFileName);
+            var loginputStream = await logFolder.OpenStreamForReadAsync(logFileName);
             return loginputStream;
 
         }
@@ -99,13 +96,13 @@ namespace MetroLog.Targets
             return EnsureInitializedAsync();
         }
 
-        sealed protected override async Task DoCleanup(Regex pattern, DateTime threshold)
+        protected sealed override async Task DoCleanup(Regex pattern, DateTime threshold)
         {
 
-            Regex zipPattern = new Regex(@"^Log(.*).zip$");
+            var zipPattern = new Regex(@"^Log(.*).zip$");
             var toDelete = new List<StorageFile>();
 
-            foreach (var file in await _logFolder.GetFilesAsync())
+            foreach (var file in await logFolder.GetFilesAsync())
             {
                 if (pattern.Match(file.Name).Success && file.DateCreated <= threshold)
                     toDelete.Add(file);
@@ -137,25 +134,36 @@ namespace MetroLog.Targets
                 }
                 catch (Exception ex)
                 {
-                    InternalLogger.Current.Warn(string.Format("Failed to delete '{0}'.", file.Path), ex);
+                    InternalLogger.Current.Warn($"Failed to delete '{file.Path}'.", ex);
                 }
             }
         }
 
-        protected sealed override async Task<LogWriteOperation> DoWriteAsync(string fileName, string contents, LogEventInfo entry)
+        protected sealed override async Task<LogWriteOperation> DoWriteAsync(StreamWriter streamWriter, string contents, LogEventInfo entry)
         {
-            // write...
-
-            var file = await _logFolder.CreateFileAsync(fileName, FileNamingParameters.CreationMode == FileCreationMode.AppendIfExisting ? CreationCollisionOption.OpenIfExists : CreationCollisionOption.ReplaceExisting);
-
             // Write contents
-            await WriteTextToFileCore(file, contents);
+            await WriteTextToFileCore(streamWriter, contents).ConfigureAwait(false);
 
             // return...
             return new LogWriteOperation(this, entry, true);
         }
 
-        protected abstract Task WriteTextToFileCore(IStorageFile file, string contents);
+        protected abstract Task WriteTextToFileCore(StreamWriter file, string contents);
+
+        protected override async Task<Stream> GetWritableStreamForFile(string fileName)
+        {
+            var file = await logFolder.CreateFileAsync(fileName, FileNamingParameters.CreationMode == FileCreationMode.AppendIfExisting ? CreationCollisionOption.OpenIfExists : CreationCollisionOption.ReplaceExisting);
+
+            var stream = await file.OpenStreamForWriteAsync();
+
+            if (FileNamingParameters.CreationMode == FileCreationMode.AppendIfExisting)
+            {
+                // Make sure we're at the end of the stream for appending
+                stream.Seek(0, SeekOrigin.End);
+            }
+
+            return stream;
+        }
     }
 
 

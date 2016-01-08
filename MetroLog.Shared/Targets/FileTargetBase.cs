@@ -42,6 +42,8 @@ namespace MetroLog.Targets
             RetainDays = 30;
         }
 
+        readonly Dictionary<string, StreamWriter> openStreamWriters = new Dictionary<string, StreamWriter>();
+
         protected abstract Task EnsureInitialized();
         protected abstract Task DoCleanup(Regex pattern, DateTime threshold);
         protected abstract Task<Stream> GetCompressedLogsInternal();
@@ -86,20 +88,42 @@ namespace MetroLog.Targets
         }
 
 
-        sealed protected override async Task<LogWriteOperation> WriteAsyncCore(LogWriteContext context, LogEventInfo entry)
+        protected sealed override async Task<LogWriteOperation> WriteAsyncCore(LogWriteContext context, LogEventInfo entry)
         {
-            using (await _lock.LockAsync())
+            using (await _lock.LockAsync().ConfigureAwait(false))
             {
-                await EnsureInitialized();
-                await CheckCleanupAsync();
+                await EnsureInitialized().ConfigureAwait(false);
+                await CheckCleanupAsync().ConfigureAwait(false);
 
                 var filename = FileNamingParameters.GetFilename(context, entry);
                 var contents = Layout.GetFormattedString(context, entry);
 
-                return await DoWriteAsync(filename, contents, entry);
+                var sw = await GetOrCreateStreamWriterForFile(filename).ConfigureAwait(false);
+
+                return await DoWriteAsync(sw, contents, entry);
             }
         }
 
-        protected abstract Task<LogWriteOperation> DoWriteAsync(string fileName, string contents, LogEventInfo entry);
+        protected abstract Task<LogWriteOperation> DoWriteAsync(StreamWriter fileName, string contents, LogEventInfo entry);
+
+        async Task<StreamWriter> GetOrCreateStreamWriterForFile(string fileName)
+        {
+            StreamWriter sw;
+            if (!openStreamWriters.TryGetValue(fileName, out sw))
+            {
+                var stream = await GetWritableStreamForFile(fileName).ConfigureAwait(false);
+
+                sw = new StreamWriter(stream)
+                {
+                    AutoFlush = true
+                   
+                };
+                openStreamWriters.Add(fileName, sw);
+            }
+
+            return sw;
+        }
+
+        protected abstract Task<Stream> GetWritableStreamForFile(string fileName);
     }
 }

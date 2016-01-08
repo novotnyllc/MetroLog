@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -17,30 +18,30 @@ namespace MetroLog
 {
     public abstract class FileTarget : FileTargetBase
     {
-        static StorageFolder _logFolder = null;
+        static StorageFolder logFolder;
 
 
         protected FileTarget(Layout layout) : base(layout)
         {
         }
-
+      
         public static async Task<StorageFolder> EnsureInitializedAsync()
         {
-            if (_logFolder == null)
+            if (logFolder == null)
             {
                 var root = ApplicationData.Current.LocalFolder;
 
-                _logFolder = await root.CreateFolderAsync(LogFolderName, CreationCollisionOption.OpenIfExists);
+                logFolder = await root.CreateFolderAsync(LogFolderName, CreationCollisionOption.OpenIfExists);
                 
             }
-            return _logFolder;
+            return logFolder;
         }
 
         protected override async Task<Stream> GetCompressedLogsInternal()
         {
             var ms = new MemoryStream();
 
-            await ZipFile.CreateFromDirectory(_logFolder, ms);
+            await ZipFile.CreateFromDirectory(logFolder, ms);
             ms.Position = 0;
 
             return ms;
@@ -54,7 +55,7 @@ namespace MetroLog
         protected sealed override async Task DoCleanup(Regex pattern, DateTime threshold)
         {
 
-            var toDelete = (await _logFolder.GetFilesAsync())
+            var toDelete = (await logFolder.GetFilesAsync())
                             .Where(file => pattern.Match(file.Name).Success && file.DateCreated <= threshold)
                             .ToList();
 
@@ -89,19 +90,30 @@ namespace MetroLog
             }
         }
 
-        protected sealed override async Task<LogWriteOperation> DoWriteAsync(string fileName, string contents, LogEventInfo entry)
+        protected sealed override async Task<LogWriteOperation> DoWriteAsync(StreamWriter streamWriter, string contents, LogEventInfo entry)
         {
-            // write...
-
-            var file = await _logFolder.CreateFileAsync(fileName, FileNamingParameters.CreationMode == FileCreationMode.AppendIfExisting ? CreationCollisionOption.OpenIfExists : CreationCollisionOption.ReplaceExisting);
-
             // Write contents
-            await WriteTextToFileCore(file, contents);
+            await WriteTextToFileCore(streamWriter, contents).ConfigureAwait(false);
 
             // return...
             return new LogWriteOperation(this, entry, true);
         }
 
-        protected abstract Task WriteTextToFileCore(IStorageFile file, string contents);
+        protected abstract Task WriteTextToFileCore(StreamWriter stream, string contents);
+
+        protected override async Task<Stream> GetWritableStreamForFile(string fileName)
+        {
+            var file = await logFolder.CreateFileAsync(fileName, FileNamingParameters.CreationMode == FileCreationMode.AppendIfExisting ? CreationCollisionOption.OpenIfExists : CreationCollisionOption.ReplaceExisting);
+
+            var stream = await file.OpenStreamForWriteAsync();
+
+            if (FileNamingParameters.CreationMode == FileCreationMode.AppendIfExisting)
+            {
+                // Make sure we're at the end of the stream for appending
+                stream.Seek(0, SeekOrigin.End);
+            }
+
+            return stream;
+        }
     }
 }

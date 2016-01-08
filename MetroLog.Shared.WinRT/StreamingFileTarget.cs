@@ -2,6 +2,7 @@
 using MetroLog.Targets;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,9 +31,9 @@ namespace MetroLog.Targets
             FileNamingParameters.CreationMode = FileCreationMode.AppendIfExisting;
         }
 
-        protected override Task WriteTextToFileCore(IStorageFile file, string contents)
+        protected override Task WriteTextToFileCore(StreamWriter file, string contents)
         {
-            return FileIO.AppendTextAsync(file, contents + Environment.NewLine).AsTask();
+            return file.WriteLineAsync(contents);
         }
     }
 
