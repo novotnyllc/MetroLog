@@ -26,27 +26,7 @@ namespace MetroLog.Targets
         {
         }
 
-        protected override Task EnsureInitialized()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override Task DoCleanup(Regex pattern, DateTime threshold)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override Task<Stream> GetCompressedLogsInternal()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override Task<LogWriteOperation> DoWriteAsync(StreamWriter streamWriter, string contents, LogEventInfo entry)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override Task<Stream> GetWritableStreamForFile(string fileName)
+        protected override Task WriteTextToFileCore(StreamWriter streamWriter, string contents)
         {
             throw new NotImplementedException();
         }
@@ -56,6 +36,33 @@ namespace MetroLog.Targets
     {
         protected FileTarget(Layout layout) : base(layout)
         {
+        }
+
+        protected override Task EnsureInitialized()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected sealed override Task DoCleanup(Regex pattern, DateTime threshold)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override Task<Stream> GetCompressedLogsInternal()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected sealed override Task<LogWriteOperation> DoWriteAsync(StreamWriter streamWriter, string contents, LogEventInfo entry)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected abstract Task WriteTextToFileCore(StreamWriter file, string contents);
+
+        protected override Task<Stream> GetWritableStreamForFile(string fileName)
+        {
+            throw new NotImplementedException();
         }
     }
 }
