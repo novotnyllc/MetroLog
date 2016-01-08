@@ -51,24 +51,18 @@ namespace MetroLog
             return EnsureInitializedAsync();
         }
 
-        sealed protected override async Task DoCleanup(Regex pattern, DateTime threshold)
+        protected sealed override async Task DoCleanup(Regex pattern, DateTime threshold)
         {
 
-            var toDelete = new List<StorageFile>();
-            foreach (var file in await _logFolder.GetFilesAsync())
-            {
-                if (pattern.Match(file.Name).Success && file.DateCreated <= threshold)
-                    toDelete.Add(file);
-            }
+            var toDelete = (await _logFolder.GetFilesAsync())
+                            .Where(file => pattern.Match(file.Name).Success && file.DateCreated <= threshold)
+                            .ToList();
 
             //Queries are still not supported in Windows Phone 8.1. Ensure temp cleanup
 #if WINDOWS_PHONE_APP
             var zipPattern = new Regex(@"^Log(.*).zip$");
-            foreach (var file in await ApplicationData.Current.TemporaryFolder.GetFilesAsync())
-            {
-                if (zipPattern.Match(file.Name).Success)
-                    toDelete.Add(file);
-            }
+            toDelete.AddRange((await ApplicationData.Current.TemporaryFolder.GetFilesAsync())
+                              .Where(file => zipPattern.Match(file.Name).Success));
 #else
             var qo = new QueryOptions(CommonFileQuery.DefaultQuery, new [] {".zip"})
                 {
