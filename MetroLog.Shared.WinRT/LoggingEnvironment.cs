@@ -16,7 +16,7 @@ namespace MetroLog
     /// <summary>
     /// Holds the logging environment for Windows Store apps.
     /// </summary>
-    public partial class LoggingEnvironment : LoggingEnvironmentBase
+    public class LoggingEnvironment : LoggingEnvironmentBase
     {
         public string PackageArchitecture { get; private set; }
         public string PackageFullName { get; private set; }

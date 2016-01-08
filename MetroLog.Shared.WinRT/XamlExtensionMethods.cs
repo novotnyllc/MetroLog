@@ -13,12 +13,12 @@ namespace MetroLog
     public static class XamlExtensionMethods
     {
         /// <summary>
-        /// Gets a logger for the given user control instance.
+        /// Gets a logger for the given control instance.
         /// </summary>
         /// <param name="control"></param>
         /// <param name="config">Optional configuration.</param>
         /// <returns></returns>
-        public static ILogger GetLogger(this UserControl control, LoggingConfiguration config = null)
+        public static ILogger GetLogger(this Control control, LoggingConfiguration config = null)
         {
             return LogManagerFactory.DefaultLogManager.GetLogger(control.GetType(), config);
         }
