@@ -24,7 +24,7 @@ namespace MetroLog
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentNullException("value");
+                    throw new ArgumentNullException(nameof(value));
 
                 _appDataPath = Path.Combine(GetUserAppDataPath(), value);
             }
@@ -80,8 +80,10 @@ namespace MetroLog
 
         protected sealed override async Task<LogWriteOperation> DoWriteAsync(string fileName, string contents, LogEventInfo entry)
         {
+            var fileMode = FileNamingParameters.CreationMode == FileCreationMode.AppendIfExisting ? FileMode.Append :  FileMode.Create;
+
             // Create writer
-            using (var file = new StreamWriter(Path.Combine(_logFolder.FullName, fileName), FileNamingParameters.CreationMode == FileCreationMode.AppendIfExisting, Encoding.UTF8))
+            using (var file = new StreamWriter(new FileStream(Path.Combine(_logFolder.FullName, fileName), fileMode, FileAccess.ReadWrite)))
             {
                 // Write contents
                 await WriteTextToFileCore(file, contents);
@@ -94,7 +96,7 @@ namespace MetroLog
 
         protected abstract Task WriteTextToFileCore(StreamWriter file, string contents);
 
-        sealed protected override Task DoCleanup(Regex pattern, DateTime threshold)
+        protected sealed override Task DoCleanup(Regex pattern, DateTime threshold)
         {
             return Task.Run(() =>
                 {
@@ -114,7 +116,7 @@ namespace MetroLog
                         }
                         catch (Exception ex)
                         {
-                            InternalLogger.Current.Warn(string.Format("Failed to delete '{0}'.", file.FullName), ex);
+                            InternalLogger.Current.Warn($"Failed to delete '{file.FullName}'.", ex);
                         }
                     }
                 });
@@ -127,18 +129,36 @@ namespace MetroLog
 #elif __IOS__
                 var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                 var localAppData = Path.Combine(documents, "..", "Library");
+#elif DOTNET
+            var isUnix = true;
+            var localAppData = Environment.GetEnvironmentVariable("HOME");
+            if (string.IsNullOrEmpty(localAppData))
+            {
+                isUnix = false;
+                localAppData = Environment.GetEnvironmentVariable("LOCALAPPDATA");
+            }
+
+            if (string.IsNullOrEmpty(localAppData))
+            {
+                throw new InvalidOperationException("Cannot determine home directory, ensure HOME or LOCALAPPDATA is set");
+            }
 #else
             var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 #endif
 
-            var path = string.Empty;
-
+            
+            var dirName = string.Empty;
+#if DOTNET
+            //dirName = Assembly.GetEntryAssembly(); // will be back in dotnet 
+            dirName = isUnix ? "." : "";
+            dirName += "metrolog";
+#else
             // Get the .EXE assembly
-            var assm = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
+            dirName = (Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly()).GetName().Name;
 
+#endif
             // Build the User App Data Path
-            path = Path.Combine(localAppData, assm.GetName().Name);
-
+            var path = Path.Combine(localAppData, dirName);
             return path;
         }
 

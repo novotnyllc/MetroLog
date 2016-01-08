@@ -26,7 +26,7 @@ namespace MetroLog.Targets
         {
 #if REF_ASSM
             throw new InvalidOperationException("Cannot use ref assm at runtime");
-#elif WINDOWS_PHONE_APP || WINDOWS_PHONE || NETFX_CORE
+#elif WINDOWS_PHONE_APP || WINDOWS_PHONE || NETFX_CORE || DOTNET
             var message = Layout.GetFormattedString(context, entry);
             Debug.WriteLine(message);
 #else

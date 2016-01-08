@@ -45,8 +45,12 @@
 
 // original json parsing code from http://techblog.procurios.nl/k/618/news/view/14605/14863/How-do-I-write-my-own-parser-for-JSON.html
 
-#if NETFX_CORE
+#if NETFX_CORE || DOTNET
 #define SIMPLE_JSON_TYPEINFO
+#endif
+
+#if DOTNET
+#undef SIMPLE_JSON_DATACONTRACT
 #endif
 
 using System;
@@ -62,7 +66,9 @@ using System.Dynamic;
 #endif
 using System.Globalization;
 using System.Reflection;
+#if !DOTNET
 using System.Runtime.Serialization;
+#endif
 using System.Text;
 using MetroLog.Internal.Reflection;
 
@@ -449,7 +455,7 @@ namespace MetroLog.Internal
 {
 
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
-  #if SIMPLE_JSON_INTERNAL
+#if SIMPLE_JSON_INTERNAL
     internal
 #else
     public
@@ -496,7 +502,7 @@ namespace MetroLog.Internal
             object obj;
             if (TryDeserializeObject(json, out obj))
                 return obj;
-            throw new SerializationException("Invalid JSON string");
+            throw new Exception("Invalid JSON string");
         }
 
         /// <summary>
