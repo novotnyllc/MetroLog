@@ -18,8 +18,6 @@ namespace MetroLog.Targets
         public bool IncludeSession { get; set; }
         public bool IncludeSequence { get; set; }
         public FileCreationMode CreationMode { get; set; }
-        public bool KeepLogsFilesOpenForWrite { get; set; }
-
 
         public FileNamingParameters()
         {
@@ -29,7 +27,6 @@ namespace MetroLog.Targets
             IncludeSession = true;
             IncludeSequence = false;
             CreationMode = FileCreationMode.AppendIfExisting;
-            KeepLogsFilesOpenForWrite = true;
         }
 
         public string GetFilename(LogWriteContext context, LogEventInfo entry)

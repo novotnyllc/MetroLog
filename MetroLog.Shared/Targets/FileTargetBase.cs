@@ -26,6 +26,13 @@ namespace MetroLog.Targets
         /// </summary>
         public int RetainDays { get; set; }
 
+
+        /// <summary>
+        /// Determines whether file streams remain open for further writes. This can increase perf
+        /// as the OS doesn't need to load/skip to the end of the file each write. Default is true.
+        /// </summary>
+        public bool KeepLogsFilesOpenForWrite { get; set; }
+
         protected const string LogFolderName = "MetroLogs";
 
         /// <summary>
@@ -40,6 +47,7 @@ namespace MetroLog.Targets
         {
             FileNamingParameters = new FileNamingParameters();
             RetainDays = 30;
+            KeepLogsFilesOpenForWrite = true;
         }
 
         readonly Dictionary<string, StreamWriter> openStreamWriters = new Dictionary<string, StreamWriter>();
@@ -105,7 +113,7 @@ namespace MetroLog.Targets
                 var sw = await GetOrCreateStreamWriterForFile(filename).ConfigureAwait(false);
 
                 var op = await DoWriteAsync(sw, contents, entry);
-                if (!FileNamingParameters.KeepLogsFilesOpenForWrite)
+                if (!KeepLogsFilesOpenForWrite)
                     sw.Dispose();
 
                 return op;
@@ -117,7 +125,7 @@ namespace MetroLog.Targets
         async Task<StreamWriter> GetOrCreateStreamWriterForFile(string fileName)
         {
             StreamWriter sw;
-            if (FileNamingParameters.KeepLogsFilesOpenForWrite && !openStreamWriters.TryGetValue(fileName, out sw))
+            if (KeepLogsFilesOpenForWrite && !openStreamWriters.TryGetValue(fileName, out sw))
             {
                 var stream = await GetWritableStreamForFile(fileName).ConfigureAwait(false);
 
