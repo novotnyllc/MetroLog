@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using MetroLog;
+using MetroLog.Targets;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 

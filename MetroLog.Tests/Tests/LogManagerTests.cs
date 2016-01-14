@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MetroLog.Internal;
+using MetroLog.Targets;
 using Xunit;
 
 namespace MetroLog.Tests

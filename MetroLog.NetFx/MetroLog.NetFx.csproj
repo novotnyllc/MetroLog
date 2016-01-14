@@ -56,7 +56,6 @@
     <Compile Include="LoggingEnvironment.cs" />
     <Compile Include="LogConfigurator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StreamingFileTarget.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\MetroLog.snk">

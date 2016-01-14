@@ -11,26 +11,7 @@ using System.Threading.Tasks;
 
 namespace MetroLog.Targets
 {
-    /// <summary>
-    /// Defines a target that will append messages to a single file.
-    /// </summary>
-    public class StreamingFileTarget : FileTarget
-    {
-        public StreamingFileTarget()
-            : this(new SingleLineLayout())
-        {
-        }
 
-        public StreamingFileTarget(Layout layout)
-            : base(layout)
-        {
-        }
-
-        protected override Task WriteTextToFileCore(StreamWriter streamWriter, string contents)
-        {
-            throw new NotImplementedException();
-        }
-    }
 
     public abstract class FileTarget : FileTargetBase
     {

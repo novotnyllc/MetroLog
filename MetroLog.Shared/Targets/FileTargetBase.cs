@@ -104,7 +104,11 @@ namespace MetroLog.Targets
 
                 var sw = await GetOrCreateStreamWriterForFile(filename).ConfigureAwait(false);
 
-                return await DoWriteAsync(sw, contents, entry);
+                var op = await DoWriteAsync(sw, contents, entry);
+                if (!FileNamingParameters.KeepLogsFilesOpenForWrite)
+                    sw.Dispose();
+
+                return op;
             }
         }
 
@@ -113,7 +117,7 @@ namespace MetroLog.Targets
         async Task<StreamWriter> GetOrCreateStreamWriterForFile(string fileName)
         {
             StreamWriter sw;
-            if (!openStreamWriters.TryGetValue(fileName, out sw))
+            if (FileNamingParameters.KeepLogsFilesOpenForWrite && !openStreamWriters.TryGetValue(fileName, out sw))
             {
                 var stream = await GetWritableStreamForFile(fileName).ConfigureAwait(false);
 
@@ -123,6 +127,17 @@ namespace MetroLog.Targets
                    
                 };
                 openStreamWriters.Add(fileName, sw);
+            }
+            else
+            {
+                var stream = await GetWritableStreamForFile(fileName).ConfigureAwait(false);
+
+                sw = new StreamWriter(stream)
+                {
+                    AutoFlush = true
+
+                };
+                // Do not cache streams
             }
 
             return sw;

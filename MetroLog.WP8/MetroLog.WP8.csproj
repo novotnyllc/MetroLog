@@ -90,8 +90,8 @@
     <Compile Include="LogConfigurator.cs" />
     <Compile Include="LoggingEnvironment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StreamingFileTarget.cs" />
     <Compile Include="FileTarget.cs" />
+    <Compile Include="Wp8FileStreamingTarget.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\MetroLog.snk">

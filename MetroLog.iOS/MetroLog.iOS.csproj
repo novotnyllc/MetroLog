@@ -53,9 +53,6 @@
     <Compile Include="..\MetroLog.NetFx\LoggingEnvironment.cs">
       <Link>LoggingEnvironment.cs</Link>
     </Compile>
-    <Compile Include="..\MetroLog.NetFx\StreamingFileTarget.cs">
-      <Link>StreamingFileTarget.cs</Link>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

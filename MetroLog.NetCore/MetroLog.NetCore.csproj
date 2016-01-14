@@ -49,7 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <NuSpecFile Include="$(SolutionDir)MetroLog.nuspec">
-        <Visible>False</Visible>
+      <Visible>False</Visible>
     </NuSpecFile>
   </ItemGroup>
   <ItemGroup>
@@ -61,9 +61,6 @@
     </Compile>
     <Compile Include="..\MetroLog.NetFx\LoggingEnvironment.cs">
       <Link>LoggingEnvironment.cs</Link>
-    </Compile>
-    <Compile Include="..\MetroLog.NetFx\StreamingFileTarget.cs">
-      <Link>StreamingFileTarget.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

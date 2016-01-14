@@ -36,6 +36,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)LogWriteContext.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LogWriteOperation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedAssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SnapshotFileTarget.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StreamingFileTarget.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Targets\AsyncTarget.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Targets\BufferedTarget.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Targets\DebugTarget.cs" />

@@ -9,7 +9,6 @@
     <Import_RootNamespace>MetroLog</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)StreamingFileTarget.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GlobalCrashHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IWinRTLogManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LazyFlushManager.cs" />
