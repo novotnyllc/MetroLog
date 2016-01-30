@@ -124,7 +124,7 @@ namespace MetroLog.Targets
 
         async Task<StreamWriter> GetOrCreateStreamWriterForFile(string fileName)
         {
-            StreamWriter sw;
+            StreamWriter sw = null;
             if (KeepLogFilesOpenForWrite && !openStreamWriters.TryGetValue(fileName, out sw))
             {
                 var stream = await GetWritableStreamForFile(fileName).ConfigureAwait(false);
@@ -132,18 +132,16 @@ namespace MetroLog.Targets
                 sw = new StreamWriter(stream)
                 {
                     AutoFlush = true
-                   
                 };
                 openStreamWriters.Add(fileName, sw);
             }
-            else
+            else if(sw == null) 
             {
                 var stream = await GetWritableStreamForFile(fileName).ConfigureAwait(false);
 
                 sw = new StreamWriter(stream)
                 {
                     AutoFlush = true
-
                 };
                 // Do not cache streams
             }

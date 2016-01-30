@@ -67,5 +67,23 @@ namespace MetroLog.NetCore.Tests
 
             Assert.True(exceptionThrow);
         }
+
+        [Fact]
+        public async Task FileStreamingThreadSafe()
+        {
+            var loggingConfiguration = new LoggingConfiguration();
+            loggingConfiguration.AddTarget(LogLevel.Trace, LogLevel.Fatal, new StreamingFileTarget());
+            LogManagerFactory.DefaultConfiguration = loggingConfiguration;
+            var log = (ILoggerAsync)LogManagerFactory.DefaultLogManager.GetLogger<FileStreamingTargetTests>();
+
+            var tasks = new List<Task>(100);
+            for (int i = 0; i < 100; i++)
+            {
+                var t = log.TraceAsync("What thread am I?");
+                tasks.Add(t);
+            }
+
+            await Task.WhenAll(tasks);
+        }
     }
 }
