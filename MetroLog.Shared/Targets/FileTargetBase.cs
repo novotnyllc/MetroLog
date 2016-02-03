@@ -102,13 +102,13 @@ namespace MetroLog.Targets
 
         protected sealed override async Task<LogWriteOperation> WriteAsyncCore(LogWriteContext context, LogEventInfo entry)
         {
+            var contents = Layout.GetFormattedString(context, entry);
             using (await _lock.LockAsync().ConfigureAwait(false))
             {
                 await EnsureInitialized().ConfigureAwait(false);
                 await CheckCleanupAsync().ConfigureAwait(false);
 
                 var filename = FileNamingParameters.GetFilename(context, entry);
-                var contents = Layout.GetFormattedString(context, entry);
 
                 var sw = await GetOrCreateStreamWriterForFile(filename).ConfigureAwait(false);
 
