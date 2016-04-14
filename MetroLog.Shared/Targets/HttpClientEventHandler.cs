@@ -15,6 +15,7 @@ namespace MetroLog.Targets
 
         public HttpClientEventArgs(HttpClient client)
         {
+            Client = client;
         }
 #endif
     }
