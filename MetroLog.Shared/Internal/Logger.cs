@@ -12,7 +12,7 @@ namespace MetroLog.Internal
         public string Name { get; private set; }
         readonly LoggingConfiguration _configuration;
 
-        static readonly Task<LogWriteOperation[]> EmptyOperations = Task.FromResult(new LogWriteOperation[] { });
+        static readonly LogWriteOperation[] EmptyOperations = new LogWriteOperation[] { };
 
         public Logger(string name, LoggingConfiguration config)
         {
@@ -93,7 +93,7 @@ namespace MetroLog.Internal
             return LogInternal(logLevel, message, ps, null, true);
         }
 
-        Task<LogWriteOperation[]> LogInternal(LogLevel level, string message, object[] ps, Exception ex, bool doFormat)
+        async Task<LogWriteOperation[]> LogInternal(LogLevel level, string message, object[] ps, Exception ex, bool doFormat)
         {
             try
             {
@@ -118,7 +118,7 @@ namespace MetroLog.Internal
                                  select target.WriteAsync(context, entry);
 
                 // group...
-                var group = Task.WhenAll(writeTasks);
+                var group = await Task.WhenAll(writeTasks).ConfigureAwait(false);
                 return group;
             }
             catch (Exception logEx)
