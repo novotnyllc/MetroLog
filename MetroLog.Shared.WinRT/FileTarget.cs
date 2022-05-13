@@ -56,7 +56,7 @@ namespace MetroLog
         protected sealed override async Task DoCleanup(Regex pattern, DateTime threshold)
         {
 
-            var toDelete = (await logFolder.GetFilesAsync())
+            var toDelete = (await logFolder.GetFilesAsync().AsTask().ConfigureAwait(false))
                             .Where(file => pattern.Match(file.Name).Success && file.DateCreated <= threshold)
                             .ToList();
 
