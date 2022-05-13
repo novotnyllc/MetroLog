@@ -90,7 +90,7 @@ namespace MetroLog.Targets
                 // walk...
                 var regex = FileNamingParameters.GetRegex();
 
-                await DoCleanup(regex, threshold);
+                await DoCleanup(regex, threshold).ConfigureAwait(false);
             }
             finally
             {
