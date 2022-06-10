@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="true"
+             x:Class="MetroLog.Maui.MetroLogPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="BorderColor">WhiteSmoke</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid RowDefinitions="Auto,*"
+          RowSpacing="15"
+          Padding="15">
+        <VerticalStackLayout
+            Spacing="5"
+            VerticalOptions="Start">
+
+            <HorizontalStackLayout Spacing="5"
+                                   HorizontalOptions="Center">
+                <Label x:Name="Name" FontAttributes="Bold" FontSize="18" VerticalOptions="End" />
+                <Label x:Name="Version" VerticalOptions="End" />
+            </HorizontalStackLayout>
+
+            <Label x:Name="Package"
+                   FontSize="16"
+                   HorizontalOptions="Center"/>
+
+            <Button x:Name="ShareLogs"
+                    Margin="0,10,0,0"
+                    Text="Share Logs"
+                    HorizontalOptions="End"
+                    VerticalOptions="End"
+                    Clicked="OnShareLogsClicked"/>
+
+        </VerticalStackLayout>
+        <Grid Grid.Row="1">
+            <Border Stroke="{StaticResource BorderColor}"
+                    StrokeThickness="2">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20" />
+                </Border.StrokeShape>
+                <ScrollView >
+                    <!-- <Editor x:Name="Logs" -->
+                    <!--         FontSize="13" -->
+                    <!--         IsReadOnly="True" -->
+                    <!--         AutoSize="TextChanges" -->
+                    <!--         HorizontalOptions="Fill" -->
+                    <!--         VerticalOptions="Fill"/> -->
+                    <Label x:Name="Logs"
+                           FontSize="13"
+                           Margin="5,0"
+                           LineBreakMode="WordWrap"/>
+                </ScrollView>
+            </Border>
+
+            <Button x:Name="Refresh"
+                    Text="Refresh"
+                    VerticalOptions="End"
+                    Margin="0,0,0,15"
+                    HorizontalOptions="Center"
+                    Clicked="OnRefreshClicked"/>
+        </Grid>
+    </Grid>
+</ContentPage>

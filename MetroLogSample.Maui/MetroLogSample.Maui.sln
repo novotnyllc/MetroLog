@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31611.283
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetroLogSample.Maui", "MetroLogSample.Maui.csproj", "{C321B3D6-B6CA-4118-A957-170D38952846}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroLog.Net6", "..\MetroLog.Net6\MetroLog.Net6.csproj", "{6646F233-C4B5-4A64-9FAE-386BBA7D59A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroLog.Maui", "..\MetroLog.Maui\MetroLog.Maui.csproj", "{F788F1B2-D215-4D5F-A5A6-887B545D2112}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C321B3D6-B6CA-4118-A957-170D38952846}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C321B3D6-B6CA-4118-A957-170D38952846}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C321B3D6-B6CA-4118-A957-170D38952846}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C321B3D6-B6CA-4118-A957-170D38952846}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C321B3D6-B6CA-4118-A957-170D38952846}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C321B3D6-B6CA-4118-A957-170D38952846}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{6646F233-C4B5-4A64-9FAE-386BBA7D59A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6646F233-C4B5-4A64-9FAE-386BBA7D59A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6646F233-C4B5-4A64-9FAE-386BBA7D59A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6646F233-C4B5-4A64-9FAE-386BBA7D59A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F788F1B2-D215-4D5F-A5A6-887B545D2112}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F788F1B2-D215-4D5F-A5A6-887B545D2112}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F788F1B2-D215-4D5F-A5A6-887B545D2112}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F788F1B2-D215-4D5F-A5A6-887B545D2112}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {61F7FB11-1E47-470C-91E2-47F8143E1572}
+	EndGlobalSection
+EndGlobal
