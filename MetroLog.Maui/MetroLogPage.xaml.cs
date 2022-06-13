@@ -10,6 +10,44 @@ public partial class MetroLogPage : ContentPage
 
 		NavigationPage.SetHasNavigationBar(this, false);
 
+		if (Application.Current!.Resources.TryGetValue(LogPageResources.LogPageFontFamily, out object fontFamily)
+		    && fontFamily is string stringFontFamily)
+		{
+			Name.FontFamily = Version.FontFamily = Package.FontFamily =
+				Logs.FontFamily = ShareLogs.FontFamily = Refresh.FontFamily = stringFontFamily;
+		}
+
+		if (Application.Current.Resources.TryGetValue(LogPageResources.LogPageTextColor, out object textColor)
+		    && textColor is Color colorTextColor)
+		{
+			Title.TextColor = Name.TextColor = Version.TextColor = Package.TextColor =
+				Logs.TextColor = ShareLogs.TextColor = Refresh.TextColor = colorTextColor;
+		}
+
+		if (Application.Current.Resources.TryGetValue(LogPageResources.LogPageButtonColor, out object buttonColor)
+		    && buttonColor is Color colorButtonColor)
+		{
+			Close.BackgroundColor = Refresh.BackgroundColor = ShareLogs.BackgroundColor = colorButtonColor;
+		}
+
+		if (Application.Current.Resources.TryGetValue(LogPageResources.LogPageBackgroundColor, out object backgroundColor)
+		    && backgroundColor is Color colorBackgroundColor)
+		{
+			BackgroundColor = colorBackgroundColor;
+		}
+
+		if (Application.Current.Resources.TryGetValue(LogPageResources.LogPageLogsBackgroundColor, out object logsBackgroundColor)
+		    && logsBackgroundColor is Color colorLogsBackgroundColor)
+		{
+			LogsBorder.BackgroundColor = colorLogsBackgroundColor;
+		}
+
+		if (Application.Current.Resources.TryGetValue(LogPageResources.LogPageLogsBorderColor, out object logsBorderColor)
+		    && logsBorderColor is Color colorLogsBorderColor)
+		{
+			LogsBorder.Stroke = colorLogsBorderColor;
+		}
+
 		Name.Text = AppInfo.Name;
 		Version.Text = $"v{AppInfo.VersionString}.{AppInfo.BuildString}";
 		Package.Text = AppInfo.PackageName;
@@ -89,5 +127,10 @@ public partial class MetroLogPage : ContentPage
 	private void OnRefreshClicked(object? sender, EventArgs e)
 	{
 		DisplayLogs();
+	}
+
+	private async void OnCloseClicked(object? sender, EventArgs e)
+	{
+		await Navigation.PopModalAsync();
 	}
 }

@@ -6,6 +6,12 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <Color x:Key="LogPageBackgroundColor">#262626</Color>
+                    <Color x:Key="LogPageLogsBackgroundColor">#1D1D1D</Color>
+                    <Color x:Key="LogPageLogsBorderColor">#1D1D1D</Color>
+                    <Color x:Key="LogPageTextColor">White</Color>
+                </ResourceDictionary>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>

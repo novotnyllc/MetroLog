@@ -5,7 +5,6 @@
              xmlns:maui="clr-namespace:MetroLog.Maui;assembly=MetroLog.Maui"
              x:DataType="maui:LogController"
              x:Class="MetroLogSample.Maui.MainPage">
-
     <ScrollView>
         <VerticalStackLayout Spacing="25"
                              Padding="30,0"
@@ -23,12 +22,12 @@
                         Command="{Binding GoToLogsPageCommand}"/>
             </Grid>
 
-            <Image Source="dotnet_bot.png"
-                      SemanticProperties.Description="Cute dot net bot waving hi to you!"
+            <Image Source="logo.png"
+                      SemanticProperties.Description="Metro log logo: a metro panel and a log"
                       HeightRequest="200"
                       HorizontalOptions="Center" />
 
-            <Label Text="Hello, World!"
+            <Label Text="Hello, Logs!"
                    SemanticProperties.HeadingLevel="Level1"
                    FontSize="32"
                    HorizontalOptions="Center" />

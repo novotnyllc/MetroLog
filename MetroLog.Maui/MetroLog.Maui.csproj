@@ -5,6 +5,46 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <UseMaui>true</UseMaui>
         <Nullable>enable</Nullable>
+
+        <Product>$(AssemblyName) ($(TargetFramework))</Product>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <AssemblyFileVersion>2.0.0.0</AssemblyFileVersion>
+        <Version>2.0.0.0</Version>
+        <PackOnBuild>true</PackOnBuild>
+        <NeutralLanguage>en</NeutralLanguage>
+
+        <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
+
+        <LangVersion>latest</LangVersion>
+
+        <PackageProjectUrl>https://github.com/roubachof/MetroLog</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/roubachof/MetroLog</RepositoryUrl>
+        <PackageTags>maui, netmaui, Logging NLog log4net ios android xamarin dotnet netcore</PackageTags>
+
+        <PackageReleaseNotes>
+            First .Net 6 (MAUI) release \o/
+        </PackageReleaseNotes>
+
+        <Title>MetroLog.Maui Lightweight Logging for .net MAUI</Title>
+        <Summary />
+        <Description>MetroLog.Maui adds some cool MAUI goodness like:
+    * Shake to see logs,
+    * A MetroLogPage that displays your logs and add the possibility to share them as a zip,
+    * A LogController object that you can use to globally navigate to the MetroLogPage and access all your MetroLog's operators (like compress logs and more...).
+        </Description>
+
+        <Owners>Jean-Marie Alfonsi</Owners>
+        <Authors>Matt Baxter-Reynolds,Oren Novotny,Jean-Marie Alfonsi</Authors>
+        <Copyright>Copyright 2022 Sharpnado</Copyright>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <FileVersion>2.0.0.0</FileVersion>
+        
     </PropertyGroup>
 
     <ItemGroup>

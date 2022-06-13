@@ -15,6 +15,8 @@ public class LogController : INotifyPropertyChanged
     private static bool _suspendedShakeEnabledValue;
 
     private static Func<Page, Task>? _globalNavigationFunction;
+    private static Func<Task>? _popPageFunction;
+    private static Func<Page>? _logPageFactory;
 
     public LogController()
     {
@@ -22,6 +24,7 @@ public class LogController : INotifyPropertyChanged
 
         ToggleShakeCommand = new Command(() => IsShakeEnabled = !IsShakeEnabled);
         GoToLogsPageCommand = new Command(GoToLogsPage);
+        ClosePageCommand = new Command(ClosePage);
 
         LogControllers.Add(this);
 
@@ -32,9 +35,15 @@ public class LogController : INotifyPropertyChanged
         LogLister = logStringifier;
     }
 
-    public static void InitializeNavigation(Func<Page, Task> navigationFunction)
+    public static void InitializeNavigation(
+        Func<Page, Task> navigationFunction,
+        Func<Task> popPageFunction,
+        Func<Page>? logPageFactory = null)
     {
         _globalNavigationFunction = navigationFunction;
+        _popPageFunction = popPageFunction;
+
+        _logPageFactory = logPageFactory ?? (() => new MetroLogPage());
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -42,6 +51,8 @@ public class LogController : INotifyPropertyChanged
     public ICommand ToggleShakeCommand { get; }
 
     public ICommand GoToLogsPageCommand { get; }
+
+    public ICommand ClosePageCommand { get; }
 
     public bool CanGetCompressedLogs => LogCompressor != null;
 
@@ -146,10 +157,11 @@ public class LogController : INotifyPropertyChanged
     {
         if (_globalNavigationFunction == null)
         {
-            return;
+            throw new InvalidOperationException(
+                "You first need to initialize global navigation function by calling LogController.InitializeNavigation");
         }
 
-        await _globalNavigationFunction!.Invoke(new MetroLogPage());
+        await _globalNavigationFunction!.Invoke(_logPageFactory());
     }
 
     private async void GoToLogsPage()
@@ -160,6 +172,17 @@ public class LogController : INotifyPropertyChanged
                 "You first need to initialize global navigation function by calling LogController.InitializeNavigation");
         }
 
-        await _globalNavigationFunction(new MetroLogPage());
+        await _globalNavigationFunction(_logPageFactory());
+    }
+
+    private async void ClosePage()
+    {
+        if (_popPageFunction == null)
+        {
+            throw new InvalidOperationException(
+                "You first need to initialize global navigation function by calling LogController.InitializeNavigation");
+        }
+
+        await _popPageFunction.Invoke();
     }
 }
