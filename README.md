@@ -1,7 +1,7 @@
 | Platform        | Logo               | Package                                                                                                                          |
 |-----------------|--------------------|----------------------------------------------------------------------------------------------------------------------------------|
-| `MetroLog.Net6` | <img src="logo.png" width="200" />      | [![Nuget](https://img.shields.io/nuget/v/Sharpnado.CollectionView.svg)](https://www.nuget.org/packages/Sharpnado.CollectionView) |
-| `MetroLog.Maui` | <img src="logo.maui.png" width="200" /> | [![Nuget](https://img.shields.io/nuget/v/Sharpnado.CollectionView.svg)](https://www.nuget.org/packages/Sharpnado.CollectionView) |
+| `MetroLog.Net6` | <img src="logo.png" width="200" />      | [![Nuget](https://img.shields.io/nuget/v/MetroLog.Net6.svg)](https://www.nuget.org/packages/MetroLog.Net6) |
+| `MetroLog.Maui` | <img src="logo.maui.png" width="200" /> | [![Nuget](https://img.shields.io/nuget/v/MetroLog.Maui.svg)](https://www.nuget.org/packages/MetroLog.Maui) |
 
 
 # Overview
