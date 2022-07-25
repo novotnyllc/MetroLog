@@ -1,7 +1,7 @@
 | Platform        | Logo               | Package                                                                                                                          |
 |-----------------|--------------------|----------------------------------------------------------------------------------------------------------------------------------|
-| `MetroLog.Net6` | ![](logo.png)      | [![Nuget](https://img.shields.io/nuget/v/Sharpnado.CollectionView.svg)](https://www.nuget.org/packages/Sharpnado.CollectionView) |
-| `MetroLog.Maui` | ![](logo.maui.png) | [![Nuget](https://img.shields.io/nuget/v/Sharpnado.CollectionView.svg)](https://www.nuget.org/packages/Sharpnado.CollectionView) |
+| `MetroLog.Net6` | <img src="logo.png" width="200" />      | [![Nuget](https://img.shields.io/nuget/v/Sharpnado.CollectionView.svg)](https://www.nuget.org/packages/Sharpnado.CollectionView) |
+| `MetroLog.Maui` | <img src="logo.maui.png" width="200" /> | [![Nuget](https://img.shields.io/nuget/v/Sharpnado.CollectionView.svg)](https://www.nuget.org/packages/Sharpnado.CollectionView) |
 
 
 # Overview
@@ -213,7 +213,7 @@ MetroLog provides a MAUI helper package adding features like:
 * Displaying logs in a page
 * Shake the device to display logs
 
-![Main Page](Docs/mainPage.png)
+<img src="Docs/mainPage.png" width="300" />
 
 You can find all the information needed in the `MetroLogSample.Maui` project.
 
@@ -259,6 +259,7 @@ public static class MauiProgram
 }
 ```
 
+
 ## LogController
 
 The package provides a LogController that acts like a view model providing commands and service to a view.
@@ -303,7 +304,7 @@ public class LogController : INotifyPropertyChanged
 
 By setting `IsShakeEnabled` to true, you can display your log page by simply shaking your device.
 
-
+https://user-images.githubusercontent.com/596903/180782898-98827728-15b0-434d-b5ae-f2bd72b64199.mp4
 
 ### Initialization
 
@@ -339,9 +340,9 @@ The package provides a default log page bound to the `LogController`.
 
 This page displays the logs, and give the possibility to share your logs as a zip and refresh them.
 
-![MetroLogPage](Docs/MetroLogPage.png)
+<img src="Docs/MetroLogPage.png" width="300" />
 
-![Sharing Logs](Docs/share.png)
+<img src="Docs/share.png" width="300" />
 
 **WARNING**
 
