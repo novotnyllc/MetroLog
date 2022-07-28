@@ -33,11 +33,18 @@ The log levels describe the level of criticality. You bind each target to a set 
         LogLevel.Fatal, 
         new StreamingFileTarget(retainDays: 2);
 #else
+    // Will write logs to the Debug output
     config.AddTarget(
-        LogLevel.Debug, 
+        LogLevel.Trace, 
         LogLevel.Fatal, 
-        new DebugTarget());
+        new TraceTarget());
 #endif
+
+    // will write logs to the console output (Logcat for android)
+    config.AddTarget(
+        LogLevel.Info, 
+        LogLevel.Fatal, 
+        new ConsoleTarget();
 
     config.AddTarget(
         LogLevel.Info, 
@@ -49,7 +56,7 @@ The log levels describe the level of criticality. You bind each target to a set 
 
 If we are in release mode, we store our logs in files for 2 days, only if it falls between `Info`and `Fatal` levels (debug level logs will be discarded).
 
-If we are in debug we just send our logs to the debug output.
+If we are in debug we just send our logs to the debug output thanks to the trace target.
 
 In both case, we send our logs to a memory buffer so we can display them at any time (through the `LogOperator`).
 
@@ -82,7 +89,18 @@ public class DownloadService
 
 ```csharp
 builder.Logging
-    .AddDebugLogger(_ => {})
+    .AddTraceLogger(
+        options =>
+        {
+            options.MinLevel = LogLevel.Trace;
+            options.MaxLevel = LogLevel.Critical;
+        }) // Will write to the Debug Output
+    .AddConsoleLogger(
+        options =>
+        {
+            options.MinLevel = LogLevel.Information;
+            options.MaxLevel = LogLevel.Critical;
+        }) // Will write to the Console Output (logcat for android)
     .AddInMemoryLogger(
         options =>
         {
@@ -100,8 +118,9 @@ builder.Logging
         });
 ```
 
-In this cas we add 3 different targets to our configuration:
-* Debug target (`Info -> Critical`)
+In this cas we add 4 different targets to our configuration:
+* Trace target (`Trace -> Critical`)
+* Console target (`Information -> Critical`)
 * In memory target (`Debug -> Critical`)
 * File target (`Info -> Critical`)
 
@@ -137,9 +156,8 @@ Default min level is `Info`, default max level is `Fatal`.
 
 ## List of targets
 
-* `ConsoleTarget`: log to `Console.WriteLine`
-* `TraceTarget`: log to `Trace.WriteLine`
-* `DebugTarget`: log to debug output
+* `ConsoleTarget`: log to the Console output (Logcat for android) through `Console.WriteLine`
+* `TraceTarget`: log to the Debug output through `Trace.WriteLine`
 * `JsonPostTarget`: post your log message to a http endpoint
 * `MemoryTarget`: log to a in-memory buffer
 * `StreamingFileTarget`: log a to file
@@ -234,7 +252,12 @@ public static class MauiProgram
                 });
 
         builder.Logging
-            .AddDebugLogger(_ => {})
+            .AddTraceLogger(
+                options =>
+                {
+                    options.MinLevel = LogLevel.Trace;
+                    options.MaxLevel = LogLevel.Critical;
+                }) // Will write to the Debug Output
             .AddInMemoryLogger(
                 options =>
                 {

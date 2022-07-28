@@ -18,14 +18,25 @@ public static class MauiProgram
                 });
 
         builder.Logging
-            .AddDebugLogger(_ => {})
+            .AddTraceLogger(
+                options =>
+                {
+                    options.MinLevel = LogLevel.Trace;
+                    options.MaxLevel = LogLevel.Critical;
+                }) // Will write to the Debug Output
+            .AddConsoleLogger(
+                options =>
+                {
+                    options.MinLevel = LogLevel.Information;
+                    options.MaxLevel = LogLevel.Critical;
+                }) // Will write to the Console Output (logcat for android)
             .AddInMemoryLogger(
                 options =>
                 {
                     options.MaxLines = 1024;
                     options.MinLevel = LogLevel.Debug;
                     options.MaxLevel = LogLevel.Critical;
-                })
+                }) // Will write in an internal buffer
             .AddStreamingFileLogger(
                 options =>
                 {
@@ -33,7 +44,7 @@ public static class MauiProgram
                     options.FolderPath = Path.Combine(
                         FileSystem.CacheDirectory,
                         "MetroLogs");
-                });
+                }); // Will write to files
 
         builder.Services.AddSingleton(LogOperatorRetriever.Instance);
         builder.Services.AddSingleton<MainPage>();

@@ -1,7 +1,10 @@
 ﻿using System.Diagnostics;
+using MetroLog;
 using MetroLog.Layouts;
+using MetroLog.Targets;
+using Layout = MetroLog.Layouts.Layout;
 
-namespace MetroLog.Targets;
+namespace MetroLogSample.Maui.DebugTarget;
 
 public class DebugTarget : SyncTarget
 {

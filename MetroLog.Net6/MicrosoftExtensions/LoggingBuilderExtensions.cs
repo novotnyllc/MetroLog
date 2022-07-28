@@ -23,11 +23,20 @@ public static class LoggingBuilderExtensions
         return loggerBuilder;
     }
 
-    public static ILoggingBuilder AddDebugLogger(
+    public static ILoggingBuilder AddConsoleLogger(
         this ILoggingBuilder loggerBuilder,
         Action<LoggerOptions> configure)
     {
-        loggerBuilder.Services.AddSingleton<ILoggerProvider, DebugLoggerProvider>();
+        loggerBuilder.Services.AddSingleton<ILoggerProvider, ConsoleLoggerProvider>();
+        loggerBuilder.Services.Configure(configure);
+        return loggerBuilder;
+    }
+
+    public static ILoggingBuilder AddTraceLogger(
+        this ILoggingBuilder loggerBuilder,
+        Action<LoggerOptions> configure)
+    {
+        loggerBuilder.Services.AddSingleton<ILoggerProvider, TraceLoggerProvider>();
         loggerBuilder.Services.Configure(configure);
         return loggerBuilder;
     }

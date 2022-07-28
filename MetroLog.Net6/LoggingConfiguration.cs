@@ -20,7 +20,7 @@ public class LoggingConfiguration
     public static LoggingConfiguration GetDefaultDebugConfiguration()
     {
         var config = new LoggingConfiguration();
-        config.AddTarget(LogLevel.Trace, LogLevel.Fatal, new DebugTarget());
+        config.AddTarget(LogLevel.Trace, LogLevel.Fatal, new ConsoleTarget());
         return config;
     }
 

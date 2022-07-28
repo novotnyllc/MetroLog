@@ -7,9 +7,9 @@
         <Nullable>enable</Nullable>
 
         <Product>$(AssemblyName) ($(TargetFramework))</Product>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-        <AssemblyFileVersion>2.0.0.0</AssemblyFileVersion>
-        <Version>2.0.0.0</Version>
+        <AssemblyVersion>2.0.1.0</AssemblyVersion>
+        <AssemblyFileVersion>2.0.1.0</AssemblyFileVersion>
+        <Version>2.0.1.0</Version>
         <PackOnBuild>true</PackOnBuild>
         <NeutralLanguage>en</NeutralLanguage>
 
@@ -35,7 +35,7 @@
         </Description>
 
         <Owners>Jean-Marie Alfonsi</Owners>
-        <Authors>Matt Baxter-Reynolds,Oren Novotny,Jean-Marie Alfonsi</Authors>
+        <Authors>Matt Baxter-Reynolds, Claire Novotny, Jean-Marie Alfonsi</Authors>
         <Copyright>Copyright 2022 Sharpnado</Copyright>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -44,7 +44,7 @@
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-        <FileVersion>2.0.0.0</FileVersion>
+        <FileVersion>2.0.1.0</FileVersion>
 
     </PropertyGroup>
 
