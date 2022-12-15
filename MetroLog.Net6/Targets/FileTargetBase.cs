@@ -12,9 +12,9 @@ public abstract class FileTargetBase : AsyncTarget, ILogCompressor
 {
     protected const string LogFolderName = "MetroLogs";
 
-    private readonly AsyncLock _lock = new ();
+    private readonly AsyncLock _lock = new();
 
-    private readonly Dictionary<string, StreamWriter> _openStreamWriters = new ();
+    private readonly Dictionary<string, StreamWriter> _openStreamWriters = new();
 
     protected FileTargetBase(
         Layout layout,
@@ -62,6 +62,7 @@ public abstract class FileTargetBase : AsyncTarget, ILogCompressor
         using (await _lock.LockAsync().ConfigureAwait(false))
         {
             CloseAllOpenStreamsInternal();
+            await EnsureInitialized().ConfigureAwait(false);
             return await GetCompressedLogsInternal().ConfigureAwait(false);
         }
     }
@@ -87,7 +88,7 @@ public abstract class FileTargetBase : AsyncTarget, ILogCompressor
 
     protected abstract Task<Stream> GetWritableStreamForFile(string fileName);
 
-    protected sealed override async Task<LogWriteOperation> WriteAsyncCore(LogWriteContext context, LogEventInfo entry)
+    protected override sealed async Task<LogWriteOperation> WriteAsyncCore(LogWriteContext context, LogEventInfo entry)
     {
         var contents = Layout.GetFormattedString(context, entry);
         using (await _lock.LockAsync().ConfigureAwait(false))
