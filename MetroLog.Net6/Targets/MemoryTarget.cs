@@ -9,10 +9,15 @@ public class MemoryTarget : SyncTarget, ILogLister
     private readonly int _maxLines;
     private readonly Queue<string> _queue;
 
-    private readonly AsyncLock _lock = new ();
+    private readonly AsyncLock _lock = new();
 
     public MemoryTarget(int maxLines = 1024)
-        : base(new SingleLineLayout())
+        : this(maxLines, new SingleLineLayout())
+    {
+    }
+
+    public MemoryTarget(int maxLines, Layout layout)
+        : base(layout)
     {
         _maxLines = maxLines;
         _queue = new Queue<string>(maxLines);
