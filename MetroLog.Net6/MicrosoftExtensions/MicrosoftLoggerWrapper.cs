@@ -29,7 +29,7 @@ public class MicrosoftLoggerWrapper : Microsoft.Extensions.Logging.ILogger
     public IDisposable BeginScope<TState>(TState state)
     {
         // BeginScope is not supported on MetroLog
-        return null;#
+        return null;
     }
 }
 
