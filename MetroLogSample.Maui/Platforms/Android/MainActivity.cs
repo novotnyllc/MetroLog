@@ -2,7 +2,7 @@
 using Android.Content.PM;
 using Android.OS;
 
-namespace MetroLog.Maui.Sample;
+namespace MetroLogSample.Maui;
 
 [Activity(
     Theme = "@style/Maui.SplashTheme",

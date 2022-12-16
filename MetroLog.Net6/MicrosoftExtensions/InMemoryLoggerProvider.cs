@@ -1,3 +1,4 @@
+using MetroLog.Layouts;
 using MetroLog.Targets;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -13,7 +14,7 @@ public class InMemoryLoggerOptions : LoggerOptions
 public class InMemoryLoggerProvider : LoggerProviderBase
 {
     public InMemoryLoggerProvider(IOptions<InMemoryLoggerOptions> options)
-        : base(new MemoryTarget(maxLines: options.Value.MaxLines ?? 1024), options.Value)
+        : base(new MemoryTarget(options.Value.MaxLines ?? 1024, options.Value.Layout ?? new SingleLineLayout()), options.Value)
     {
     }
 }

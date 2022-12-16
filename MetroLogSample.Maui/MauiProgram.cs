@@ -1,5 +1,6 @@
 ﻿using MetroLog.MicrosoftExtensions;
 using MetroLog.Operators;
+using MetroLogSample.Maui.Layouts;
 using Microsoft.Extensions.Logging;
 
 namespace MetroLogSample.Maui;
@@ -23,6 +24,7 @@ public static class MauiProgram
                 {
                     options.MinLevel = LogLevel.Trace;
                     options.MaxLevel = LogLevel.Critical;
+                    options.Layout = new SimpleLayout();
                 }) // Will write to the Debug Output
             .AddConsoleLogger(
                 options =>

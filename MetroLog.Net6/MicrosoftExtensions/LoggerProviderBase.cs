@@ -1,3 +1,4 @@
+using MetroLog.Layouts;
 using MetroLog.Targets;
 using Microsoft.Extensions.Logging;
 
@@ -12,7 +13,9 @@ public class LoggerOptions
 
     public virtual Microsoft.Extensions.Logging.LogLevel? MinLevel { get; set; }
 
-    public virtual Microsoft.Extensions.Logging.LogLevel? MaxLevel { get; set;  }
+    public virtual Microsoft.Extensions.Logging.LogLevel? MaxLevel { get; set; }
+
+    public virtual Layout? Layout { get; set; }
 }
 
 public abstract class LoggerProviderBase : ILoggerProvider
