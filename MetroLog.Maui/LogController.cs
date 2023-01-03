@@ -5,10 +5,9 @@ using MetroLog.Operators;
 
 namespace MetroLog.Maui;
 
-
 public class LogController : INotifyPropertyChanged
 {
-    private static readonly List<LogController> LogControllers = new ();
+    private static readonly List<LogController> LogControllers = new();
 
     private static bool _isShakeEnabled;
 
@@ -161,6 +160,7 @@ public class LogController : INotifyPropertyChanged
                 "You first need to initialize global navigation function by calling LogController.InitializeNavigation");
         }
 
+        ToggleAccelerometer(false);
         await _globalNavigationFunction!.Invoke(_logPageFactory());
     }
 
