@@ -24,7 +24,6 @@ public static class MauiProgram
                 {
                     options.MinLevel = LogLevel.Trace;
                     options.MaxLevel = LogLevel.Critical;
-                    options.Layout = new SimpleLayout();
                 }) // Will write to the Debug Output
             .AddConsoleLogger(
                 options =>
@@ -38,6 +37,7 @@ public static class MauiProgram
                     options.MaxLines = 1024;
                     options.MinLevel = LogLevel.Debug;
                     options.MaxLevel = LogLevel.Critical;
+                    options.Layout = new SimpleLayout();
                 }) // Will write in an internal buffer
             .AddStreamingFileLogger(
                 options =>

@@ -7,9 +7,9 @@
         <Nullable>enable</Nullable>
 
         <Product>$(AssemblyName) ($(TargetFramework))</Product>
-        <AssemblyVersion>2.0.1.0</AssemblyVersion>
-        <AssemblyFileVersion>2.0.1.0</AssemblyFileVersion>
-        <Version>2.0.1.0</Version>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
+        <AssemblyFileVersion>2.1.0.0</AssemblyFileVersion>
+        <Version>2.1.0.0</Version>
         <PackOnBuild>true</PackOnBuild>
         <NeutralLanguage>en</NeutralLanguage>
 
@@ -23,7 +23,8 @@
         <PackageTags>maui, netmaui, Logging log extensions NLog log4net ios android xamarin dotnet netcore</PackageTags>
 
         <PackageReleaseNotes>
-            First .Net 6 (MAUI) release \o/
+            You can now use your own custom layout with the Layout property of the LoggerOptions.
+            Fix exception with BeginScope.
         </PackageReleaseNotes>
 
         <Title>MetroLog.Maui Lightweight Logging for .net MAUI</Title>
@@ -44,7 +45,7 @@
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-        <FileVersion>2.0.1.0</FileVersion>
+        <FileVersion>2.1.0.0</FileVersion>
 
     </PropertyGroup>
 
