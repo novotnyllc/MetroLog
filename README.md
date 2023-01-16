@@ -154,6 +154,42 @@ We only specify the levels for the in memory logger, it means the other loggers 
 
 Default min level is `Info`, default max level is `Fatal`.
 
+## Change the message template
+
+PR from @SirJohnK.
+
+Since 2.1, you can specify your own message layout.\
+Inherit from `Layout` and override `GetFormattedString`:
+
+```csharp
+using MetroLog;
+using Layout = MetroLog.Layouts.Layout;
+
+namespace MetroLogSample.Maui.Layouts
+{
+    public class SimpleLayout : Layout
+    {
+        public override string GetFormattedString(LogWriteContext context, LogEventInfo info)
+        {
+            return $"{info.TimeStamp:G} - {info.Level}: {info.Message}";
+        }
+    }
+}
+```
+
+Then set the `Layout` property from the `LoggerOptions`:
+
+```csharp
+builder.Logging
+    .AddTraceLogger(
+        options =>
+        {
+            options.MinLevel = LogLevel.Trace;
+            options.MaxLevel = LogLevel.Critical;
+            options.Layout = new SimpleLayout();
+        }) // Will write to the Debug Output
+```
+
 ## List of targets
 
 * `ConsoleTarget`: log to the Console output (Logcat for android) through `Console.WriteLine`
