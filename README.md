@@ -89,6 +89,7 @@ public class DownloadService
 
 ```csharp
 builder.Logging
+    .SetMinimumLevel(LogLevel.Trace) // IMPORTANT: set your minimum log level, here Trace
     .AddTraceLogger(
         options =>
         {
