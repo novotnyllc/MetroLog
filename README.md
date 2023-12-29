@@ -219,13 +219,12 @@ If your configuration has a file target, you can then retrieve your compressed l
     private void InitializeAppCenter()
     {
 #if RELEASE
-        if (!LogOperatorRetriever.Instance.TryGetOperator<ILogCompressor>(out var logCompressor))
-        {
-            return;
-        }
-        
         Crashes.GetErrorAttachments = report =>
-        {   
+        {
+            if (!LogOperatorRetriever.Instance.TryGetOperator<ILogCompressor>(out var logCompressor))
+            {
+                return;
+            }
             var compressedLogs = logCompressor.GetCompressedLogs();
 
             return new[]
